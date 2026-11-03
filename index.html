@@ -16,8 +16,8 @@
   </script>
   <script src="https://unpkg.com/lucide@latest"></script>
   <script type="module">
-    import { Client, Databases, Account, ID, Query } from 'https://cdn.jsdelivr.net/npm/appwrite@15.0.0/+esm';
-    window.AppwriteSDK = { Client, Databases, Account, ID, Query };
+    import { Client, Databases, Account, ID, Query, Functions } from 'https://cdn.jsdelivr.net/npm/appwrite@15.0.0/+esm';
+    window.AppwriteSDK = { Client, Databases, Account, ID, Query, Functions };
     window.dispatchEvent(new Event('appwrite-ready'));
   </script>
   <style>
@@ -88,6 +88,89 @@
 </head>
 <body class="antialiased min-h-screen flex flex-col bg-slate-900 text-slate-100">
 
+  <!-- 🌟 الصفحة التعريفية -->
+  <div id="landingScreen" class="fixed inset-0 z-50 flex flex-col bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 overflow-y-auto">
+    <header class="w-full px-6 py-4 flex items-center justify-between border-b border-slate-800/50 sticky top-0 bg-slate-950/90 backdrop-blur-md z-10">
+      <div class="flex items-center gap-3">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-orange-600 via-red-600 to-rose-600 flex items-center justify-center shadow-lg shadow-orange-600/30">
+          <i data-lucide="flame" class="w-6 h-6 text-white"></i>
+        </div>
+        <div>
+          <h1 class="text-xl font-black text-white tracking-tight">VodFire</h1>
+          <p class="text-[10px] text-orange-400 font-bold">منصة إدارة الأعمال</p>
+        </div>
+      </div>
+      <button onclick="showLoginScreen()" class="px-5 py-2.5 bg-white/10 hover:bg-white/20 backdrop-blur text-white font-bold rounded-xl text-sm border border-white/10 transition-all cursor-pointer flex items-center gap-2">
+        <i data-lucide="log-in" class="w-4 h-4"></i>
+        <span>دخول</span>
+      </button>
+    </header>
+
+    <main class="flex-1 flex flex-col items-center justify-center px-6 py-12 text-center">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-orange-500/10 border border-orange-500/30 text-orange-400 text-xs font-bold mb-6">
+        <span class="w-2 h-2 rounded-full bg-orange-400 animate-pulse"></span>
+        <span>منصة متعددة الشركات · سحابية 100%</span>
+      </div>
+
+      <h2 class="text-4xl sm:text-6xl font-black text-white leading-tight max-w-3xl mb-4">
+        إدارة شركتك
+        <span class="bg-gradient-to-r from-orange-500 via-red-500 to-rose-500 bg-clip-text text-transparent"> بذكاء وسهولة</span>
+      </h2>
+
+      <p class="text-slate-400 text-base sm:text-lg max-w-2xl mb-10 leading-relaxed">
+        نظام متكامل لإدارة الحضور والانصراف بالـ GPS، التواصل الداخلي، طلبات الإجازات والسلف، وإدارة فريق العمل — كل ذلك في منصة واحدة آمنة وسريعة.
+      </p>
+
+      <div class="flex flex-wrap items-center justify-center gap-3 mb-16">
+        <button onclick="showLoginScreen()" class="px-8 py-4 bg-gradient-to-r from-orange-600 to-rose-600 hover:from-orange-500 hover:to-rose-500 text-white font-black rounded-2xl shadow-2xl shadow-orange-600/30 transition-all cursor-pointer flex items-center gap-2 text-base">
+          <span>ابدأ الآن</span>
+          <i data-lucide="arrow-left" class="w-5 h-5"></i>
+        </button>
+        <button onclick="showLoginScreen('register')" class="px-8 py-4 bg-white/5 hover:bg-white/10 text-white font-bold rounded-2xl border border-white/10 transition-all cursor-pointer flex items-center gap-2 text-base">
+          <i data-lucide="building-2" class="w-5 h-5"></i>
+          <span>سجّل شركتك</span>
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl w-full">
+        <div class="p-6 rounded-2xl bg-slate-800/50 border border-slate-700/50 backdrop-blur text-right hover:border-orange-500/30 transition-all">
+          <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center mb-3"><i data-lucide="map-pin" class="w-6 h-6 text-emerald-400"></i></div>
+          <h3 class="font-bold text-white mb-1">حضور جغرافي دقيق</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">تسجيل حضور وانصراف بالـ GPS مع التحقق من نطاق المقر بدقة الأمتار.</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-slate-800/50 border border-slate-700/50 backdrop-blur text-right hover:border-orange-500/30 transition-all">
+          <div class="w-12 h-12 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center mb-3"><i data-lucide="message-square" class="w-6 h-6 text-orange-400"></i></div>
+          <h3 class="font-bold text-white mb-1">شات داخلي</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">محادثات فورية بين أعضاء الفريق مع تحديث تلقائي ودعم كامل للعربية.</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-slate-800/50 border border-slate-700/50 backdrop-blur text-right hover:border-orange-500/30 transition-all">
+          <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center mb-3"><i data-lucide="file-text" class="w-6 h-6 text-purple-400"></i></div>
+          <h3 class="font-bold text-white mb-1">طلبات ذكية</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">إدارة طلبات الإجازات والسلف مع موافقة فورية من المدير.</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-slate-800/50 border border-slate-700/50 backdrop-blur text-right hover:border-orange-500/30 transition-all">
+          <div class="w-12 h-12 rounded-xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center mb-3"><i data-lucide="users" class="w-6 h-6 text-rose-400"></i></div>
+          <h3 class="font-bold text-white mb-1">إدارة الفريق</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">إضافة موظفين ومديرين بصلاحيات متعددة، مع ملف شخصي كامل لكل عضو.</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-slate-800/50 border border-slate-700/50 backdrop-blur text-right hover:border-orange-500/30 transition-all">
+          <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center mb-3"><i data-lucide="bell" class="w-6 h-6 text-amber-400"></i></div>
+          <h3 class="font-bold text-white mb-1">إشعارات فورية</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">تنبيهات لحظية بكل حدث: دخول، انصراف، طلبات جديدة.</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-slate-800/50 border border-slate-700/50 backdrop-blur text-right hover:border-orange-500/30 transition-all">
+          <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center mb-3"><i data-lucide="shield-check" class="w-6 h-6 text-cyan-400"></i></div>
+          <h3 class="font-bold text-white mb-1">أمان سحابي</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">بياناتك محفوظة على Appwrite Cloud مع تشفير كامل ونظام صلاحيات متقدم.</p>
+        </div>
+      </div>
+
+      <footer class="mt-16 text-center text-xs text-slate-500 pb-6">
+        <p>© 2025 VodFire. جميع الحقوق محفوظة.</p>
+      </footer>
+    </main>
+  </div>
+
   <div id="pwaInstallBanner" class="fixed bottom-20 left-1/2 -translate-x-1/2 z-[60] bg-gradient-to-r from-orange-600 to-rose-600 text-white p-3 rounded-2xl shadow-2xl hidden items-center gap-3 max-w-[90%] border border-white/20">
     <div class="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center shrink-0"><i data-lucide="flame" class="w-5 h-5"></i></div>
     <div class="flex-1 text-right">
@@ -98,7 +181,11 @@
     <button onclick="dismissPWA()" class="text-white/70 hover:text-white p-1 cursor-pointer"><i data-lucide="x" class="w-4 h-4"></i></button>
   </div>
 
-  <div id="loginScreen" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/90 backdrop-blur-md p-4 overflow-y-auto">
+  <div id="loginScreen" class="hidden-view fixed inset-0 z-50 flex items-center justify-center bg-slate-950/90 backdrop-blur-md p-4 overflow-y-auto">
+    <button onclick="showLandingScreen()" class="absolute top-4 right-4 z-10 px-3 py-2 bg-slate-800/90 hover:bg-slate-700 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-pointer border border-slate-700">
+      <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+      <span>الرئيسية</span>
+    </button>
     <div class="w-full max-w-md bg-slate-800 rounded-3xl shadow-2xl border border-slate-700 overflow-hidden my-6">
       <div class="bg-gradient-to-br from-orange-600 via-red-600 to-rose-700 p-7 text-white text-center">
         <div class="w-16 h-16 bg-white/15 rounded-2xl mx-auto flex items-center justify-center mb-3 border border-white/20 shadow-lg"><i data-lucide="flame" class="w-9 h-9 text-white"></i></div>
@@ -317,7 +404,6 @@
       </div>
     </nav>
 
-    <!-- 🌐 شريط حالة السيرفر (تلقائي) -->
     <div id="serverStatusBar" class="fixed bottom-14 md:bottom-0 left-0 right-0 z-40 bg-slate-800/95 backdrop-blur-md border-t border-slate-700 px-3 py-1.5 flex items-center justify-between text-[10px] font-mono shadow-lg">
       <div class="flex items-center gap-3">
         <div class="flex items-center gap-1.5">
@@ -354,7 +440,7 @@
 
   <div id="employeeModal" class="hidden-view fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4">
     <div class="w-full max-w-lg bg-slate-800 border border-slate-700 rounded-3xl p-6 space-y-3 max-h-[85vh] overflow-y-auto shadow-2xl">
-      <div class="flex items-center justify-between border-b border-slate-700 pb-3"><h3 class="font-bold text-sm text-white">إضافة موظف</h3><button onclick="closeModal('employeeModal')" class="cursor-pointer text-slate-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button></div>
+      <div class="flex items-center justify-between border-b border-slate-700 pb-3"><h3 class="font-bold text-sm text-white">إضافة موظف / مدير</h3><button onclick="closeModal('employeeModal')" class="cursor-pointer text-slate-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button></div>
       <form onsubmit="handleCreateEmployee(event)" class="space-y-3 text-xs">
         <div><label class="block mb-1 font-bold text-slate-300">الاسم *</label><input type="text" id="newEmpFullName" required class="w-full p-2 bg-slate-900 border border-slate-700 text-white rounded-xl focus:outline-none focus:border-orange-500"></div>
         <div><label class="block mb-1 font-bold text-slate-300">اسم المستخدم *</label><input type="text" id="newEmpUsername" dir="ltr" required class="w-full p-2 bg-slate-900 border border-slate-700 text-white rounded-xl font-mono focus:outline-none focus:border-orange-500" placeholder="ahmed"></div>
@@ -372,7 +458,7 @@
             <div><label class="block text-[10px] text-slate-400">نطاق (م)</label><input type="number" id="newEmpRadius" value="250" class="w-full p-2 bg-slate-900 border border-slate-700 text-white rounded-lg focus:outline-none focus:border-orange-500"></div>
           </div>
         </div>
-        <button type="submit" class="w-full py-2.5 bg-orange-600 hover:bg-orange-700 text-white font-bold rounded-xl transition-colors">إضافة الموظف</button>
+        <button type="submit" class="w-full py-2.5 bg-orange-600 hover:bg-orange-700 text-white font-bold rounded-xl transition-colors">إضافة</button>
       </form>
     </div>
   </div>
@@ -395,11 +481,12 @@
       endpoint: 'https://nyc.cloud.appwrite.io/v1',
       projectId: '6ad40d52002bcd55432a',
       databaseId: '6ad40da8003a326ffc71',
-      collectionId: '6ad40ea8001585a45794'
+      collectionId: '6ad40ea8001585a45794',
+      createUserFunctionId: 'create-user'
     };
     const SUPER_ADMIN_EMAIL = 'mohsen0tamer@admin.vodfire';
     let SDK = null;
-    let client, databases, account;
+    let client, databases, account, functions;
     let currentUser = null;
     let cloudReady = false;
     let localCache = { attendance: [], chat: [], requests: [], users: [], notifications: [] };
@@ -467,6 +554,7 @@
       client = new SDK.Client().setEndpoint(CFG.endpoint).setProject(CFG.projectId);
       databases = new SDK.Databases(client);
       account = new SDK.Account(client);
+      functions = new SDK.Functions(client);
       cloudReady = true;
       updateCloudBadge('connected');
     }
@@ -481,6 +569,20 @@
 
     function usernameToEmail(username, companyCode) {
       return `${username.trim().toLowerCase()}@${companyCode.trim().toLowerCase()}.vodfire`;
+    }
+
+    function showLoginScreen(tab = 'login') {
+      document.getElementById('landingScreen').classList.add('hidden-view');
+      document.getElementById('loginScreen').classList.remove('hidden-view');
+      switchAuthTab(tab);
+      lucide.createIcons();
+    }
+
+    function showLandingScreen() {
+      document.getElementById('landingScreen').classList.remove('hidden-view');
+      document.getElementById('loginScreen').classList.add('hidden-view');
+      document.getElementById('mainApp').classList.add('hidden-view');
+      lucide.createIcons();
     }
 
     function switchAuthTab(tab) {
@@ -586,10 +688,11 @@
       currentUser = null;
       localCache = { attendance: [], chat: [], requests: [], users: [], notifications: [] };
       document.getElementById('mainApp').classList.add('hidden-view');
-      document.getElementById('loginScreen').classList.remove('hidden-view');
+      document.getElementById('loginScreen').classList.add('hidden-view');
+      document.getElementById('landingScreen').classList.remove('hidden-view');
       document.getElementById('loginUsername').value = '';
       document.getElementById('loginPassword').value = '';
-      switchAuthTab('login');
+      lucide.createIcons();
     }
 
     async function restoreSession() {
@@ -598,16 +701,22 @@
         const acc = await account.get();
         if (acc.email === SUPER_ADMIN_EMAIL) {
           currentUser = { id: acc.$id, email: acc.email, username: 'superadmin', name: acc.name || 'Super Admin', role: 'super_admin', isVerified: true, isSuperAdmin: true, profileImage: null, jobTitle: 'دعم فني', companyId: null, companyCode: null, companyName: 'كل الشركات', workplace: { name: '—', latitude: 0, longitude: 0, radiusMeters: 0 }, _docId: null };
-          await loadAllFromCloud(); showApp(); return;
+          await loadAllFromCloud();
+          document.getElementById('landingScreen').classList.add('hidden-view');
+          showApp(); return;
         }
         const profileDoc = await findUserProfile(acc.$id, acc.email);
         if (!profileDoc) throw new Error('No profile');
         const role = profileDoc.role === 'manager' ? 'manager' : 'employee';
         currentUser = { id: acc.$id, email: acc.email, username: profileDoc.username || acc.email.split('@')[0], name: profileDoc.DisplayName || profileDoc.name || acc.name || 'مستخدم', role, isVerified: true, isSuperAdmin: false, profileImage: profileDoc.ProfileImage || null, jobTitle: profileDoc.jobTitle || 'موظف', companyId: profileDoc.companyId, companyCode: profileDoc.companyCode, companyName: profileDoc.companyName || profileDoc.companyCode, workplace: profileDoc.workplace || { name: 'المقر الرئيسي', latitude: 30.0444, longitude: 31.2357, radiusMeters: 250 }, _docId: profileDoc._docId || null };
-        await loadAllFromCloud(); showApp();
+        await loadAllFromCloud();
+        document.getElementById('landingScreen').classList.add('hidden-view');
+        showApp();
       } catch (e) {
-        document.getElementById('loginScreen').classList.remove('hidden-view');
         document.getElementById('mainApp').classList.add('hidden-view');
+        document.getElementById('loginScreen').classList.add('hidden-view');
+        document.getElementById('landingScreen').classList.remove('hidden-view');
+        lucide.createIcons();
       }
     }
 
@@ -760,6 +869,7 @@
 
     function showApp() {
       document.getElementById('loginScreen').classList.add('hidden-view');
+      document.getElementById('landingScreen').classList.add('hidden-view');
       document.getElementById('mainApp').classList.remove('hidden-view');
       document.getElementById('headerUserName').textContent = currentUser.name;
       document.getElementById('headerAvatarText').textContent = currentUser.name.charAt(0);
@@ -770,7 +880,7 @@
       if (currentUser.profileImage) { img.src = currentUser.profileImage; img.classList.remove('hidden'); txt.classList.add('hidden'); }
       else { img.classList.add('hidden'); txt.classList.remove('hidden'); }
       document.getElementById('headerVerifiedBadge').style.display = currentUser.isVerified ? 'inline-flex' : 'none';
-      const isManager = currentUser.role !== 'employee';
+      const isManager = currentUser.role === 'manager' || currentUser.role === 'super_admin';
       if (isManager) {
         document.getElementById('employeeAttendanceBlock').classList.add('hidden-view');
         document.getElementById('managerAttendanceBlock').classList.remove('hidden-view');
@@ -795,7 +905,7 @@
         try {
           const pn = localCache.notifications.length;
           await loadAllFromCloud();
-          renderChat(); renderRequests(); renderAttendance();
+          renderChat(); renderRequests(); renderAttendance(); renderEmployees();
           if (isManager && localCache.notifications.length > pn) {
             renderNotificationsBadge();
             if (notificationsPanelOpen) renderNotificationsList();
@@ -834,7 +944,7 @@
     function renderAttendance() {
       const tbody = document.getElementById('attendanceTableBody');
       tbody.innerHTML = '';
-      const isManager = currentUser.role !== 'employee';
+      const isManager = currentUser.role === 'manager' || currentUser.role === 'super_admin';
       const list = isManager ? localCache.attendance : localCache.attendance.filter(r => r.userId === currentUser.id);
       if (!list.length) { tbody.innerHTML = `<tr><td colspan="5" class="py-6 text-center text-slate-500">لا توجد سجلات حضور</td></tr>`; return; }
       list.forEach(r => {
@@ -975,7 +1085,7 @@
     function renderRequests() {
       const box = document.getElementById('requestsList');
       box.innerHTML = '';
-      const isManager = currentUser.role !== 'employee';
+      const isManager = currentUser.role === 'manager' || currentUser.role === 'super_admin';
       const list = isManager ? localCache.requests : localCache.requests.filter(r => r.userId === currentUser.id);
       if (!list.length) { box.innerHTML = `<div class="text-center text-slate-500 py-6 text-xs">لا توجد طلبات</div>`; return; }
       list.forEach(r => {
@@ -1035,23 +1145,97 @@
 
     async function handleCreateEmployee(e) {
       e.preventDefault();
+
       const name = document.getElementById('newEmpFullName').value.trim();
       const username = document.getElementById('newEmpUsername').value.trim().toLowerCase();
       const pass = document.getElementById('newEmpPass').value;
       const role = document.getElementById('newEmpRole').value;
-      const jobTitle = document.getElementById('newEmpTitle').value.trim() || 'موظف';
+      const jobTitle = document.getElementById('newEmpTitle').value.trim() || (role === 'manager' ? 'مدير' : 'موظف');
       const locName = document.getElementById('newEmpLocName').value.trim() || 'المقر الرئيسي';
       const lat = Number(document.getElementById('newEmpLat').value);
       const lng = Number(document.getElementById('newEmpLng').value);
       const radius = Number(document.getElementById('newEmpRadius').value);
-      const email = usernameToEmail(username, currentUser.companyCode);
+
+      if (!name || !username || !pass) return alert('املأ كل الحقول المطلوبة');
+      if (pass.length < 8) return alert('كلمة المرور يجب أن تكون 8 أحرف على الأقل');
+      if (!/^[a-z0-9]{3,30}$/.test(username)) return alert('اسم المستخدم: 3-30 حرف إنجليزي/أرقام فقط');
+
+      const existingUser = localCache.users.find(u => u.username === username);
+      if (existingUser) return alert('❌ اسم المستخدم مستخدم بالفعل في هذه الشركة');
+
+      const submitBtn = e.target.querySelector('button[type="submit"]');
+      const originalText = submitBtn.innerHTML;
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i data-lucide="loader" class="w-4 h-4 animate-spin inline"></i> جاري الإنشاء...';
+      lucide.createIcons();
+
       try {
-        const payload = { name, username, email, role, jobTitle, companyId: currentUser.companyId, companyCode: currentUser.companyCode, companyName: currentUser.companyName, workplace: { name: locName, latitude: lat, longitude: lng, radiusMeters: radius }, appwriteUserId: null, createdAt: new Date().toISOString() };
-        const doc = await createCloudDoc('USER', payload);
-        localCache.users.push({ ...payload, _docId: doc.$id });
-        closeModal('employeeModal'); e.target.reset(); renderEmployees();
-        alert(`✅ تم حفظ ملف الموظف.\n\nللسماح له بالدخول، أنشئ حسابه في Appwrite Console:\nAuth → Users → Create User\n\n📧 Email: ${email}\n🔑 Password: ${pass}\n👤 Name: ${name}\n\nثم شارك معه:\nكود الشركة: ${currentUser.companyCode}\nاسم المستخدم: ${username}`);
-      } catch (err) { alert('فشل: ' + err.message); }
+        const execution = await functions.createExecution(
+          CFG.createUserFunctionId,
+          JSON.stringify({
+            requesterId: currentUser.id,
+            companyId: currentUser.companyId,
+            companyCode: currentUser.companyCode,
+            companyName: currentUser.companyName,
+            name,
+            username,
+            password: pass,
+            role,
+            jobTitle,
+            workplace: { name: locName, latitude: lat, longitude: lng, radiusMeters: radius }
+          }),
+          false
+        );
+
+        let result;
+        try { result = JSON.parse(execution.responseBody || '{}'); }
+        catch (e) { result = { success: false, error: 'رد غير متوقع من السيرفر' }; }
+
+        if (!result.success) throw new Error(result.error || 'فشل إنشاء المستخدم');
+
+        const newProfile = {
+          name, username,
+          email: result.email || usernameToEmail(username, currentUser.companyCode),
+          role, jobTitle,
+          companyId: currentUser.companyId,
+          companyCode: currentUser.companyCode,
+          companyName: currentUser.companyName,
+          workplace: { name: locName, latitude: lat, longitude: lng, radiusMeters: radius },
+          appwriteUserId: result.userId,
+          createdAt: new Date().toISOString(),
+          _docId: result.profileDocId
+        };
+        localCache.users.push(newProfile);
+
+        closeModal('employeeModal');
+        e.target.reset();
+        renderEmployees();
+
+        const roleLabel = role === 'manager' ? '👔 مدير' : '👤 موظف';
+        toast(`✅ تم إنشاء حساب ${roleLabel}: ${name}`);
+
+        setTimeout(() => {
+          alert(
+            `✅ تم إنشاء حساب ${roleLabel} "${name}" بنجاح!\n\n` +
+            `📋 بيانات تسجيل الدخول:\n` +
+            `─────────────────────\n` +
+            `🏢 كود الشركة:    ${currentUser.companyCode}\n` +
+            `👤 اسم المستخدم:  ${username}\n` +
+            `🔑 كلمة المرور:    ${pass}\n` +
+            `─────────────────────\n\n` +
+            `✅ الحساب جاهز للدخول فورًا — لا حاجة لأي خطوة إضافية.\n` +
+            (role === 'manager' ? `\n👔 ${name} الآن مدير كامل الصلاحيات (بنفس صلاحياتك).` : '')
+          );
+        }, 400);
+
+      } catch (err) {
+        console.error('Create user error:', err);
+        alert('❌ فشل إنشاء الحساب:\n' + (err.message || 'خطأ غير معروف'));
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
+        lucide.createIcons();
+      }
     }
 
     async function deleteEmployee(docId) {
@@ -1151,9 +1335,6 @@
       setTimeout(() => el.remove(), 3500);
     }
 
-    // ═══════════════════════════════════════════
-    // 🌐 Server Status Monitor (Auto)
-    // ═══════════════════════════════════════════
     async function pingServer() {
       const dot = document.getElementById('serverStatusDot');
       const text = document.getElementById('serverStatusText');
@@ -1202,12 +1383,18 @@
     window.addEventListener('DOMContentLoaded', async () => {
       initTheme();
       lucide.createIcons();
+      document.getElementById('landingScreen').classList.remove('hidden-view');
+      document.getElementById('loginScreen').classList.add('hidden-view');
       try {
         await bootSDK();
-        await restoreSession();
+        try {
+          await account.get();
+          await restoreSession();
+        } catch (e) {
+          // لا جلسة — ابق على الصفحة التعريفية
+        }
       } catch (e) {
         updateCloudBadge('offline');
-        document.getElementById('loginScreen').classList.remove('hidden-view');
       }
     });
   </script>
