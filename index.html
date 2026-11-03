@@ -326,21 +326,19 @@
       try {
         if (!cloudReady) await bootSDK();
         
-        // التحقق من كود الشركة
-        const ex = await databases.listDocuments(CFG.databaseId, CFG.collectionId, [SDK.Query.equal('EntityType','COMPANY'), SDK.Query.limit(100)]);
+        // استخدام entitytype بحروف صغيرة
+        const ex = await databases.listDocuments(CFG.databaseId, CFG.collectionId, [SDK.Query.equal('entitytype','COMPANY'), SDK.Query.limit(100)]);
         if (ex.documents.some(d => safeParse(d.Payload).code === c)) throw new Error('الكود مستخدم');
         
-        // إنشاء حساب المدير
         const email = usernameToEmail(u, c);
         try { await account.deleteSession('current'); } catch(err){}
         await account.create(SDK.ID.unique(), email, p, m);
         await account.createEmailPasswordSession(email, p);
         const acc = await account.get();
         
-        // حفظ وثيقة الشركة
         const cp = { name: n, code: c, ownerId: acc.$id, status: 'active', createdAt: new Date().toISOString() };
         const cd = await databases.createDocument(CFG.databaseId, CFG.collectionId, SDK.ID.unique(), { 
-            EntityType: 'COMPANY', 
+            entitytype: 'COMPANY', 
             Payload: JSON.stringify(cp), 
             Username: m, 
             userEmail: email, 
@@ -350,10 +348,9 @@
             createdAt: new Date().toISOString() 
         });
         
-        // حفظ وثيقة المستخدم
         const up = { name: m, username: u, email, role: 'manager', jobTitle: 'مدير', companyId: cd.$id, companyCode: c, companyName: n, appwriteUserId: acc.$id, workplace: { name:'المقر الرئيسي', latitude: 30.0444, longitude: 31.2357, radiusMeters: 250 }, createdAt: new Date().toISOString() };
         const ud = await databases.createDocument(CFG.databaseId, CFG.collectionId, SDK.ID.unique(), { 
-            EntityType: 'USER', 
+            entitytype: 'USER', 
             Payload: JSON.stringify(up), 
             Username: m, 
             userEmail: email, 
@@ -450,7 +447,7 @@
 
     async function findUserProfile(uid, email) {
       try {
-        const r = await databases.listDocuments(CFG.databaseId, CFG.collectionId, [SDK.Query.equal('EntityType','USER'), SDK.Query.limit(200)]);
+        const r = await databases.listDocuments(CFG.databaseId, CFG.collectionId, [SDK.Query.equal('entitytype','USER'), SDK.Query.limit(200)]);
         const ps = r.documents.map(d => ({ ...safeParse(d.Payload), _docId: d.$id, _companyId: d.companyId }));
         if (email) {
           const be = ps.find(p => p.email === email);
@@ -528,7 +525,7 @@
     async function enterCompany(docId, name, code) {
       if (!confirm(`🔍 الدخول كمدير لشركة "${name}"؟\n\nستعود تلقائياً بعد الخروج.`)) return;
       try {
-        const usersRes = await databases.listDocuments(CFG.databaseId, CFG.collectionId, [SDK.Query.equal('EntityType','USER'), SDK.Query.equal('companyId', docId), SDK.Query.limit(100)]);
+        const usersRes = await databases.listDocuments(CFG.databaseId, CFG.collectionId, [SDK.Query.equal('entitytype','USER'), SDK.Query.equal('companyId', docId), SDK.Query.limit(100)]);
         if (!usersRes.documents.length) return alert('لا يوجد مستخدمون في هذه الشركة');
         const profiles = usersRes.documents.map(d => ({ ...safeParse(d.Payload), _docId: d.$id, _companyId: d.companyId }));
         const manager = profiles.find(p => p.role === 'manager') || profiles[0];
@@ -596,7 +593,7 @@
           if (currentUser && !currentUser.isSuperAdmin && d.companyId !== currentUser.companyId) return;
           const p = safeParse(d.Payload);
           const item = { ...p, _docId: d.$id, _companyId: d.companyId };
-          const type = d.EntityType || p.entitytype;
+          const type = d.entitytype || p.entitytype; // تم التوحيد
           switch(type) {
             case 'ATTENDANCE': nc.attendance.push(item); break;
             case 'CHAT': nc.chat.push(item); break;
@@ -616,8 +613,7 @@
     function safeParse(s) { try { return JSON.parse(s); } catch { return {}; } }
 
     async function createCloudDoc(et, pl) {
-      // حماية الحقول لضمان نجاح الإنشاء
-      const docData = { EntityType: et, Payload: JSON.stringify(pl), Username: currentUser?.name || 'System', userEmail: currentUser?.email || '', companyId: currentUser?.companyId || 'none', CompanyCode: currentUser?.companyCode || 'none', createdAt: new Date().toISOString() };
+      const docData = { entitytype: et, Payload: JSON.stringify(pl), Username: currentUser?.name || 'System', userEmail: currentUser?.email || '', companyId: currentUser?.companyId || 'none', CompanyCode: currentUser?.companyCode || 'none', createdAt: new Date().toISOString() };
       return databases.createDocument(CFG.databaseId, CFG.collectionId, SDK.ID.unique(), docData);
     }
     async function updateCloudDoc(id, et, pl) {
