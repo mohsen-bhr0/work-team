@@ -326,7 +326,6 @@
       try {
         if (!cloudReady) await bootSDK();
         
-        // استخدام entitytype بحروف صغيرة
         const ex = await databases.listDocuments(CFG.databaseId, CFG.collectionId, [SDK.Query.equal('entitytype','COMPANY'), SDK.Query.limit(100)]);
         if (ex.documents.some(d => safeParse(d.Payload).code === c)) throw new Error('الكود مستخدم');
         
@@ -472,8 +471,8 @@
         superAdminCache.companies = []; superAdminCache.users = [];
         r.documents.forEach(d => {
           const p = safeParse(d.Payload);
-          if (d.EntityType === 'COMPANY' || p.entitytype === 'COMPANY') superAdminCache.companies.push({ ...p, _docId: d.$id });
-          if (d.EntityType === 'USER' || p.entitytype === 'USER') superAdminCache.users.push({ ...p, _docId: d.$id, _companyId: d.companyId });
+          if (d.entitytype === 'COMPANY' || p.entitytype === 'COMPANY') superAdminCache.companies.push({ ...p, _docId: d.$id });
+          if (d.entitytype === 'USER' || p.entitytype === 'USER') superAdminCache.users.push({ ...p, _docId: d.$id, _companyId: d.companyId });
         });
       } catch(e) { console.warn(e); }
     }
@@ -593,7 +592,7 @@
           if (currentUser && !currentUser.isSuperAdmin && d.companyId !== currentUser.companyId) return;
           const p = safeParse(d.Payload);
           const item = { ...p, _docId: d.$id, _companyId: d.companyId };
-          const type = d.entitytype || p.entitytype; // تم التوحيد
+          const type = d.entitytype || p.entitytype;
           switch(type) {
             case 'ATTENDANCE': nc.attendance.push(item); break;
             case 'CHAT': nc.chat.push(item); break;
@@ -903,9 +902,9 @@
       const btn = e.target.querySelector('button[type="submit"]');
       const orig = btn.innerHTML;
       btn.disabled = true; btn.innerHTML = '<i data-lucide="loader" class="w-4 h-4 animate-spin inline"></i>...'; lucide.createIcons();
+      
       try {
-        const jwt = await account.createJWT();
-        
+        // تم إزالة الـ Headers المخصصة لحل مشكلة الخطأ
         const exec = await functions.createExecution(
           CFG.createUserFunctionId,
           JSON.stringify({
@@ -917,10 +916,7 @@
             workplace: { name: loc, latitude: lat, longitude: lng, radiusMeters: rad },
             isSuperAdmin: currentUser.isSuperAdmin === true
           }),
-          false, // async = false
-          undefined, // path
-          'POST', // method
-          { 'x-appwrite-user-jwt': jwt.jwt } // التوقيع
+          false // async = false
         );
         
         let result; 
