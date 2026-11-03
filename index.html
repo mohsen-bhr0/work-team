@@ -44,7 +44,7 @@
       font-size: 10px; font-weight: 900; display: flex; align-items: center; justify-content: center;
       box-shadow: 0 0 0 2px #1e293b;
     }
-    .notif-unread { border-right: 3px solid #3b82f6; background: rgba(59, 130, 246, 0.08); }
+    .notif-unread { border-right: 3px solid #ea580c; background: rgba(234, 88, 12, 0.08); }
     @keyframes pulse-bell {
       0%, 100% { transform: rotate(0); }
       25% { transform: rotate(15deg); }
@@ -58,14 +58,11 @@
     }
     .msg-pending { animation: pulse-msg 1.2s ease-in-out infinite; }
 
-    /* ══════════════════════════════════════════
-       ☀️ LIGHT MODE OVERRIDES
-       ══════════════════════════════════════════ */
+    /* ☀️ LIGHT MODE OVERRIDES */
     html:not(.dark) body { background-color: #f8fafc; color: #0f172a; }
     html:not(.dark) ::-webkit-scrollbar-track { background: #e2e8f0; }
     html:not(.dark) ::-webkit-scrollbar-thumb { background: #94a3b8; }
 
-    /* Backgrounds */
     html:not(.dark) .bg-slate-800 { background-color: #ffffff !important; }
     html:not(.dark) .bg-slate-900 { background-color: #f1f5f9 !important; }
     html:not(.dark) .bg-slate-700 { background-color: #e2e8f0 !important; }
@@ -73,7 +70,6 @@
     html:not(.dark) .bg-slate-900\/30 { background-color: #f8fafc !important; }
     html:not(.dark) .bg-slate-700\/30 { background-color: #f1f5f9 !important; }
 
-    /* Text */
     html:not(.dark) .text-white { color: #0f172a !important; }
     html:not(.dark) .text-slate-100 { color: #0f172a !important; }
     html:not(.dark) .text-slate-200 { color: #1e293b !important; }
@@ -82,24 +78,20 @@
     html:not(.dark) .text-slate-500 { color: #64748b !important; }
     html:not(.dark) .text-slate-600 { color: #475569 !important; }
 
-    /* Borders */
     html:not(.dark) .border-slate-700 { border-color: #e2e8f0 !important; }
     html:not(.dark) .border-slate-600 { border-color: #cbd5e1 !important; }
     html:not(.dark) .divide-slate-700\/50 > * + * { border-color: #e2e8f0 !important; }
 
-    /* Hover states */
     html:not(.dark) .hover\:bg-slate-700:hover { background-color: #e2e8f0 !important; }
     html:not(.dark) .hover\:bg-slate-600:hover { background-color: #cbd5e1 !important; }
     html:not(.dark) .hover\:bg-slate-700\/30:hover { background-color: #f1f5f9 !important; }
 
-    /* Inputs */
     html:not(.dark) input, html:not(.dark) select, html:not(.dark) textarea {
       background-color: #f8fafc !important;
       color: #0f172a !important;
       border-color: #cbd5e1 !important;
     }
 
-    /* Colored badges in light mode */
     html:not(.dark) .bg-emerald-900\/50 { background-color: #d1fae5 !important; }
     html:not(.dark) .text-emerald-400 { color: #047857 !important; }
     html:not(.dark) .text-emerald-300 { color: #047857 !important; }
@@ -109,12 +101,11 @@
     html:not(.dark) .bg-amber-900\/50 { background-color: #fef3c7 !important; }
     html:not(.dark) .text-amber-400 { color: #b45309 !important; }
     html:not(.dark) .text-amber-300 { color: #b45309 !important; }
-    html:not(.dark) .bg-blue-900\/50 { background-color: #dbeafe !important; }
-    html:not(.dark) .text-blue-400 { color: #1d4ed8 !important; }
+    html:not(.dark) .bg-orange-900\/50 { background-color: #ffedd5 !important; }
+    html:not(.dark) .text-orange-400 { color: #c2410c !important; }
     html:not(.dark) .bg-purple-900\/50 { background-color: #f3e8ff !important; }
     html:not(.dark) .text-purple-400 { color: #7e22ce !important; }
 
-    /* Keep login screen dark-ish in both modes */
     html:not(.dark) #loginScreen { background-color: rgba(15, 23, 42, 0.85); }
     html:not(.dark) #loginScreen .bg-slate-800 { background-color: #1e293b !important; }
     html:not(.dark) #loginScreen .text-white { color: #ffffff !important; }
@@ -123,14 +114,11 @@
     html:not(.dark) #loginScreen .border-slate-700 { border-color: #334155 !important; }
     html:not(.dark) #loginScreen .text-slate-400 { color: #94a3b8 !important; }
 
-    /* Theme toggle button */
-    .theme-toggle { position: relative; overflow: hidden; }
     .theme-toggle i { transition: transform 0.3s ease; }
   </style>
 </head>
 <body class="antialiased min-h-screen flex flex-col bg-slate-900 text-slate-100">
 
-  <!-- PWA Install Banner -->
   <div id="pwaInstallBanner" class="fixed bottom-20 left-1/2 -translate-x-1/2 z-[60] bg-gradient-to-r from-orange-600 to-rose-600 text-white p-3 rounded-2xl shadow-2xl hidden items-center gap-3 max-w-[90%] border border-white/20">
     <div class="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center shrink-0">
       <i data-lucide="flame" class="w-5 h-5"></i>
@@ -143,10 +131,8 @@
     <button onclick="dismissPWA()" class="text-white/70 hover:text-white p-1 cursor-pointer"><i data-lucide="x" class="w-4 h-4"></i></button>
   </div>
 
-  <!-- شاشة تسجيل الدخول / تسجيل شركة -->
   <div id="loginScreen" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/90 backdrop-blur-md p-4 overflow-y-auto">
     <div class="w-full max-w-md bg-slate-800 rounded-3xl shadow-2xl border border-slate-700 overflow-hidden my-6">
-      <!-- Brand header -->
       <div class="bg-gradient-to-br from-orange-600 via-red-600 to-rose-700 p-7 text-white text-center">
         <div class="w-16 h-16 bg-white/15 rounded-2xl mx-auto flex items-center justify-center mb-3 border border-white/20 shadow-lg">
           <i data-lucide="flame" class="w-9 h-9 text-white"></i>
@@ -159,7 +145,6 @@
         </div>
       </div>
 
-      <!-- Tabs -->
       <div class="flex border-b border-slate-700 bg-slate-900">
         <button id="tabLoginBtn" onclick="switchAuthTab('login')" class="flex-1 py-3.5 text-sm font-bold bg-slate-800 text-white border-b-2 border-orange-500 cursor-pointer transition-all">
           <i data-lucide="log-in" class="w-4 h-4 inline -mt-0.5 ml-1"></i>
@@ -171,13 +156,11 @@
         </button>
       </div>
 
-      <!-- Error box -->
       <div id="authError" class="hidden-view mx-6 mt-4 p-3 rounded-xl bg-rose-900/30 border border-rose-800 text-rose-300 text-xs font-bold flex items-center gap-2">
         <i data-lucide="alert-circle" class="w-4 h-4 shrink-0"></i>
         <span id="authErrorText"></span>
       </div>
 
-      <!-- LOGIN FORM -->
       <div id="loginForm" class="p-6 sm:p-7 space-y-4">
         <div>
           <label class="block text-xs font-bold text-slate-300 mb-1.5">كود الشركة</label>
@@ -202,7 +185,6 @@
         </button>
       </div>
 
-      <!-- REGISTER FORM -->
       <div id="registerForm" class="hidden-view p-6 sm:p-7 space-y-4">
         <div>
           <label class="block text-xs font-bold text-slate-300 mb-1.5">اسم الشركة *</label>
@@ -248,7 +230,6 @@
     </div>
   </div>
 
-  <!-- التطبيق الرئيسي -->
   <div id="mainApp" class="hidden-view flex flex-col min-h-screen pb-16 md:pb-0">
     
     <header class="bg-slate-800 border-b border-slate-700 sticky top-0 z-30 shadow-md">
@@ -264,7 +245,6 @@
         </div>
 
         <div class="flex items-center gap-1.5 sm:gap-3">
-          <!-- Theme toggle -->
           <button onclick="toggleTheme()" id="themeToggleBtn" title="تبديل الوضع"
                   class="theme-toggle p-2 text-slate-300 hover:text-white hover:bg-slate-700 rounded-xl transition-colors cursor-pointer">
             <i data-lucide="sun" id="themeIcon" class="w-5 h-5"></i>
@@ -283,7 +263,7 @@
             <div class="text-right hidden sm:block">
               <div class="flex items-center gap-1">
                 <span id="headerUserName" class="text-xs font-bold text-white max-w-[100px] truncate">—</span>
-                <span id="headerVerifiedBadge" class="hidden inline-flex items-center justify-center w-4 h-4 rounded-full bg-blue-500 text-white">
+                <span id="headerVerifiedBadge" class="hidden inline-flex items-center justify-center w-4 h-4 rounded-full bg-orange-500 text-white">
                   <i data-lucide="check" class="w-2.5 h-2.5"></i>
                 </span>
               </div>
@@ -335,7 +315,6 @@
         </button>
       </div>
 
-      <!-- الأقسام -->
       <section id="view-categories" class="space-y-6">
         <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 flex items-center justify-between">
           <div>
@@ -349,7 +328,6 @@
         <div id="categoriesList" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3"></div>
       </section>
 
-      <!-- الحضور -->
       <section id="view-attendance" class="hidden-view space-y-6">
         <div id="employeeAttendanceBlock" class="bg-slate-800 p-6 rounded-3xl border border-slate-700 shadow-sm space-y-6">
           <div class="flex items-center justify-between pb-5 border-b border-slate-700">
@@ -424,7 +402,6 @@
         </div>
       </section>
 
-      <!-- الشات -->
       <section id="view-chat" class="hidden-view">
         <div class="bg-slate-800 rounded-3xl border border-slate-700 shadow-sm overflow-hidden flex flex-col h-[650px] max-h-[80vh]">
           <div class="px-5 py-4 bg-slate-900/50 border-b border-slate-700 flex items-center justify-between">
@@ -444,7 +421,6 @@
         </div>
       </section>
 
-      <!-- الطلبات -->
       <section id="view-requests" class="hidden-view space-y-6">
         <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 flex items-center justify-between">
           <h3 class="text-lg font-black text-white">طلبات الإجازات والسلف</h3>
@@ -455,7 +431,6 @@
         <div id="requestsList" class="space-y-3"></div>
       </section>
 
-      <!-- الموظفون -->
       <section id="view-employees" class="hidden-view space-y-6">
         <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 flex items-center justify-between">
           <div>
@@ -485,7 +460,6 @@
         </div>
       </section>
 
-      <!-- الإعدادات -->
       <section id="view-settings" class="hidden-view space-y-6 max-w-4xl mx-auto">
         <div class="bg-slate-800 p-6 rounded-3xl border border-slate-700 space-y-4">
           <h4 class="font-bold text-sm text-white flex items-center gap-2"><i data-lucide="building-2" class="w-4 h-4 text-orange-400"></i>بيانات الشركة</h4>
@@ -550,7 +524,6 @@
     </nav>
   </div>
 
-  <!-- نافذة الملف الشخصي -->
   <div id="profileModal" class="hidden-view fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4">
     <div class="w-full max-w-md bg-slate-800 border border-slate-700 rounded-3xl p-6 space-y-5 shadow-2xl">
       <div class="flex items-center justify-between border-b border-slate-700 pb-3">
@@ -578,7 +551,6 @@
     </div>
   </div>
 
-  <!-- نافذة إضافة قسم -->
   <div id="categoryModal" class="hidden-view fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4">
     <div class="w-full max-w-md bg-slate-800 border border-slate-700 rounded-3xl p-6 space-y-3 shadow-2xl">
       <div class="flex items-center justify-between border-b border-slate-700 pb-3">
@@ -592,7 +564,6 @@
     </div>
   </div>
 
-  <!-- نافذة إضافة موظف -->
   <div id="employeeModal" class="hidden-view fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4">
     <div class="w-full max-w-lg bg-slate-800 border border-slate-700 rounded-3xl p-6 space-y-3 max-h-[85vh] overflow-y-auto shadow-2xl">
       <div class="flex items-center justify-between border-b border-slate-700 pb-3">
@@ -627,7 +598,6 @@
     </div>
   </div>
 
-  <!-- نافذة طلب جديد -->
   <div id="newRequestModal" class="hidden-view fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4">
     <div class="w-full max-w-md bg-slate-800 border border-slate-700 rounded-3xl p-6 space-y-3 shadow-2xl">
       <div class="flex items-center justify-between border-b border-slate-700 pb-3">
@@ -656,7 +626,6 @@
     </div>
   </div>
 
-  <!-- نافذة مبيعات نهاية اليوم -->
   <div id="checkoutSalesModal" class="hidden-view fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4">
     <div class="w-full max-w-sm bg-slate-800 border border-slate-700 rounded-3xl p-6 space-y-4 shadow-2xl">
       <div class="flex items-center justify-between border-b border-slate-700 pb-3">
@@ -688,7 +657,8 @@
       collectionId: '6ad40ea8001585a45794'
     };
 
-    const SUPER_ADMIN_EMAIL = 'mohsen0tamer@vodfire.admin';
+    // ✅ Super Admin email — متوافق مع صيغة username@companycode.vodfire
+    const SUPER_ADMIN_EMAIL = 'mohsen0tamer@admin.vodfire';
 
     let SDK = null;
     let client, databases, account;
@@ -700,9 +670,6 @@
     let isLoadingCloud = false;
     let currentTheme = 'dark';
 
-    // ═══════════════════════════════════════════
-    // Theme Management
-    // ═══════════════════════════════════════════
     function initTheme() {
       const saved = localStorage.getItem('vodfire_theme');
       currentTheme = saved || 'dark';
@@ -729,11 +696,7 @@
       applyTheme(currentTheme);
     }
 
-    // ═══════════════════════════════════════════
-    // PWA
-    // ═══════════════════════════════════════════
     let deferredPrompt = null;
-    
     const manifestData = {
       "name": "VodFire - إدارة الأعمال",
       "short_name": "VodFire",
@@ -785,9 +748,6 @@
       localStorage.setItem('pwa_dismissed', 'true');
     }
 
-    // ═══════════════════════════════════════════
-    // SDK Boot
-    // ═══════════════════════════════════════════
     async function bootSDK() {
       if (!window.AppwriteSDK) await new Promise(r => window.addEventListener('appwrite-ready', r, { once: true }));
       SDK = window.AppwriteSDK;
@@ -813,9 +773,6 @@
       return `${username.trim().toLowerCase()}@${companyCode.trim().toLowerCase()}.vodfire`;
     }
 
-    // ═══════════════════════════════════════════
-    // Auth Tab Switching
-    // ═══════════════════════════════════════════
     function switchAuthTab(tab) {
       const loginForm = document.getElementById('loginForm');
       const registerForm = document.getElementById('registerForm');
@@ -847,9 +804,6 @@
       document.getElementById('authError').classList.add('hidden-view');
     }
 
-    // ═══════════════════════════════════════════
-    // Register Company
-    // ═══════════════════════════════════════════
     async function handleRegisterCompany(e) {
       e.preventDefault();
       hideAuthError();
@@ -862,7 +816,6 @@
       const btn = document.getElementById('registerBtn');
       const btnText = document.getElementById('registerBtnText');
 
-      // Validate
       if (!/^[a-z0-9]{3,20}$/.test(companyCode)) {
         return showAuthError('كود الشركة يجب أن يكون 3-20 حرف إنجليزي/أرقام فقط');
       }
@@ -879,7 +832,6 @@
       try {
         if (!cloudReady) await bootSDK();
 
-        // Check code uniqueness
         const existing = await databases.listDocuments(CFG.databaseId, CFG.collectionId, [
           SDK.Query.equal('entitytype', 'COMPANY'),
           SDK.Query.limit(100)
@@ -887,14 +839,12 @@
         const codeTaken = existing.documents.some(d => safeParse(d.Payload).code === companyCode);
         if (codeTaken) throw new Error('كود الشركة مستخدم بالفعل، اختر كوداً آخر');
 
-        // Create Appwrite account (auto-login)
         const email = usernameToEmail(username, companyCode);
         try { await account.deleteSession('current'); } catch (e) {}
         await account.create(SDK.ID.unique(), email, password, managerName);
         await account.createEmailPasswordSession(email, password);
         const acc = await account.get();
 
-        // Create COMPANY document
         const companyPayload = {
           name: companyName,
           code: companyCode,
@@ -910,7 +860,6 @@
           createdAt: new Date().toISOString()
         });
 
-        // Create USER document
         const userPayload = {
           name: managerName,
           username,
@@ -965,9 +914,6 @@
       }
     }
 
-    // ═══════════════════════════════════════════
-    // Login
-    // ═══════════════════════════════════════════
     async function handleLogin(e) {
       e.preventDefault();
       hideAuthError();
@@ -991,29 +937,29 @@
         await account.createEmailPasswordSession(email, password);
         const acc = await account.get();
 
-        // Load data first (so findUserProfile can work)
+        // ✅ Super Admin check FIRST (before profile lookup)
+        if (acc.email === SUPER_ADMIN_EMAIL) {
+          currentUser = {
+            id: acc.$id, email: acc.email, username: 'superadmin',
+            name: acc.name || 'Super Admin', role: 'super_admin', isVerified: true,
+            isSuperAdmin: true, profileImage: null, jobTitle: 'دعم فني',
+            companyId: null, companyCode: null, companyName: 'كل الشركات',
+            workplace: { name: '—', latitude: 0, longitude: 0, radiusMeters: 0 },
+            _docId: null
+          };
+          await loadAllFromCloud();
+          showApp();
+          setTimeout(() => toast('👑 مرحباً بك كـ Super Admin'), 500);
+          return;
+        }
+
         const profileDoc = await findUserProfile(acc.$id, acc.email);
         
         if (!profileDoc) {
-          // Possibly super admin without profile
-          if (acc.email === SUPER_ADMIN_EMAIL) {
-            currentUser = {
-              id: acc.$id, email: acc.email, username: 'superadmin',
-              name: 'Super Admin', role: 'super_admin', isVerified: true,
-              isSuperAdmin: true, profileImage: null, jobTitle: 'دعم فني',
-              companyId: null, companyCode: null, companyName: 'كل الشركات',
-              workplace: { name: '—', latitude: 0, longitude: 0, radiusMeters: 0 },
-              _docId: null
-            };
-            await loadAllFromCloud();
-            showApp();
-            return;
-          }
           throw new Error('لا يوجد ملف شخصي لهذا الحساب. تواصل مع مدير الشركة.');
         }
 
-        const isSuper = acc.email === SUPER_ADMIN_EMAIL;
-        const role = isSuper ? 'super_admin' : (profileDoc.role === 'manager' ? 'manager' : 'employee');
+        const role = profileDoc.role === 'manager' ? 'manager' : 'employee';
 
         currentUser = {
           id: acc.$id,
@@ -1022,7 +968,7 @@
           name: profileDoc.DisplayName || profileDoc.name || acc.name || username,
           role,
           isVerified: true,
-          isSuperAdmin: isSuper,
+          isSuperAdmin: false,
           profileImage: profileDoc.ProfileImage || null,
           jobTitle: profileDoc.jobTitle || (role === 'employee' ? 'موظف' : 'مدير'),
           companyId: profileDoc.companyId,
@@ -1066,36 +1012,38 @@
       try {
         if (!cloudReady) await bootSDK();
         const acc = await account.get();
-        const profileDoc = await findUserProfile(acc.$id, acc.email);
-        const isSuper = acc.email === SUPER_ADMIN_EMAIL;
 
-        if (!profileDoc && !isSuper) throw new Error('No profile');
-
-        if (isSuper && !profileDoc) {
+        if (acc.email === SUPER_ADMIN_EMAIL) {
           currentUser = {
             id: acc.$id, email: acc.email, username: 'superadmin',
-            name: 'Super Admin', role: 'super_admin', isVerified: true,
+            name: acc.name || 'Super Admin', role: 'super_admin', isVerified: true,
             isSuperAdmin: true, profileImage: null, jobTitle: 'دعم فني',
             companyId: null, companyCode: null, companyName: 'كل الشركات',
             workplace: { name: '—', latitude: 0, longitude: 0, radiusMeters: 0 },
             _docId: null
           };
-        } else {
-          const role = isSuper ? 'super_admin' : (profileDoc.role === 'manager' ? 'manager' : 'employee');
-          currentUser = {
-            id: acc.$id, email: acc.email,
-            username: profileDoc.username || acc.email.split('@')[0],
-            name: profileDoc.DisplayName || profileDoc.name || acc.name || 'مستخدم',
-            role, isVerified: true, isSuperAdmin: isSuper,
-            profileImage: profileDoc.ProfileImage || null,
-            jobTitle: profileDoc.jobTitle || 'موظف',
-            companyId: profileDoc.companyId,
-            companyCode: profileDoc.companyCode,
-            companyName: profileDoc.companyName || profileDoc.companyCode,
-            workplace: profileDoc.workplace || { name: 'المقر الرئيسي', latitude: 30.0444, longitude: 31.2357, radiusMeters: 250 },
-            _docId: profileDoc._docId || null
-          };
+          await loadAllFromCloud();
+          showApp();
+          return;
         }
+
+        const profileDoc = await findUserProfile(acc.$id, acc.email);
+        if (!profileDoc) throw new Error('No profile');
+
+        const role = profileDoc.role === 'manager' ? 'manager' : 'employee';
+        currentUser = {
+          id: acc.$id, email: acc.email,
+          username: profileDoc.username || acc.email.split('@')[0],
+          name: profileDoc.DisplayName || profileDoc.name || acc.name || 'مستخدم',
+          role, isVerified: true, isSuperAdmin: false,
+          profileImage: profileDoc.ProfileImage || null,
+          jobTitle: profileDoc.jobTitle || 'موظف',
+          companyId: profileDoc.companyId,
+          companyCode: profileDoc.companyCode,
+          companyName: profileDoc.companyName || profileDoc.companyCode,
+          workplace: profileDoc.workplace || { name: 'المقر الرئيسي', latitude: 30.0444, longitude: 31.2357, radiusMeters: 250 },
+          _docId: profileDoc._docId || null
+        };
 
         await loadAllFromCloud();
         showApp();
@@ -1105,14 +1053,10 @@
       }
     }
 
-    // ═══════════════════════════════════════════
-    // Notifications
-    // ═══════════════════════════════════════════
     async function sendNotification(title, message, type) {
       try {
         const payload = {
-          id: 'notif_' + Date.now(),
-          title, message, type,
+          id: 'notif_' + Date.now(), title, message, type,
           fromUserId: currentUser?.id,
           fromUserName: currentUser?.name,
           companyId: currentUser?.companyId,
@@ -1174,7 +1118,7 @@
         const div = document.createElement('div');
         div.className = `p-3 rounded-xl border border-slate-700 cursor-pointer transition-all hover:bg-slate-700/30 ${!n.read ? 'notif-unread' : 'bg-slate-900/30'}`;
         const icon = n.type === 'login' ? 'log-in' : n.type === 'checkout' ? 'log-out' : n.type === 'request' ? 'file-text' : 'bell';
-        const iconColor = n.type === 'login' ? 'text-emerald-400' : n.type === 'checkout' ? 'text-amber-400' : n.type === 'request' ? 'text-blue-400' : 'text-slate-400';
+        const iconColor = n.type === 'login' ? 'text-emerald-400' : n.type === 'checkout' ? 'text-amber-400' : n.type === 'request' ? 'text-orange-400' : 'text-slate-400';
         div.innerHTML = `
           <div class="flex items-start gap-2.5">
             <div class="w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center shrink-0"><i data-lucide="${icon}" class="w-4 h-4 ${iconColor}"></i></div>
@@ -1209,9 +1153,6 @@
       renderNotificationsBadge(); renderNotificationsList();
     }
 
-    // ═══════════════════════════════════════════
-    // Cloud helpers
-    // ═══════════════════════════════════════════
     async function createCloudDoc(entityType, payload) {
       return databases.createDocument(CFG.databaseId, CFG.collectionId, SDK.ID.unique(), {
         entitytype: entityType,
@@ -1232,9 +1173,6 @@
       return databases.deleteDocument(CFG.databaseId, CFG.collectionId, docId);
     }
 
-    // ═══════════════════════════════════════════
-    // Load with company isolation
-    // ═══════════════════════════════════════════
     async function loadAllFromCloud() {
       if (isLoadingCloud) return;
       isLoadingCloud = true;
@@ -1242,7 +1180,6 @@
       try {
         const queries = [SDK.Query.orderDesc('$createdAt'), SDK.Query.limit(100)];
         
-        // Filter by company unless super admin
         if (currentUser && !currentUser.isSuperAdmin && currentUser.companyId) {
           queries.push(SDK.Query.equal('companyId', currentUser.companyId));
         }
@@ -1317,9 +1254,6 @@
       } catch (err) { return null; }
     }
 
-    // ═══════════════════════════════════════════
-    // Show App
-    // ═══════════════════════════════════════════
     function showApp() {
       document.getElementById('loginScreen').classList.add('hidden-view');
       document.getElementById('mainApp').classList.remove('hidden-view');
@@ -1327,7 +1261,7 @@
       document.getElementById('headerUserName').textContent = currentUser.name;
       document.getElementById('headerAvatarText').textContent = currentUser.name.charAt(0);
       document.getElementById('headerUserRole').textContent =
-        currentUser.role === 'super_admin' ? 'دعم فني' :
+        currentUser.role === 'super_admin' ? 'Super Admin' :
         currentUser.role === 'manager' ? 'مدير' : 'موظف';
       document.getElementById('headerCompanyName').textContent = currentUser.companyName || '—';
 
@@ -1359,7 +1293,6 @@
       document.getElementById('navBtn-employees').style.display = isManager ? 'flex' : 'none';
       document.getElementById('notifBellBtn').classList.toggle('hidden', !isManager);
 
-      // Company hints
       document.getElementById('categoriesCompanyHint').textContent = `أقسام ${currentUser.companyName || ''}`;
       document.getElementById('employeesCompanyHint').textContent = `موظفو ${currentUser.companyName || ''}`;
       document.getElementById('settingsCompanyName').textContent = currentUser.companyName || '—';
@@ -1370,7 +1303,6 @@
       switchTab('categories');
       lucide.createIcons();
 
-      // Auto-sync
       if (syncInterval) clearInterval(syncInterval);
       syncInterval = setInterval(async () => {
         try {
@@ -1413,9 +1345,6 @@
       navigator.clipboard.writeText(code).then(() => toast('✅ تم نسخ الكود: ' + code));
     }
 
-    // ═══════════════════════════════════════════
-    // Categories
-    // ═══════════════════════════════════════════
     function renderCategories() {
       const container = document.getElementById('categoriesList');
       container.innerHTML = '';
@@ -1464,9 +1393,6 @@
       } catch (err) { alert('فشل: ' + err.message); }
     }
 
-    // ═══════════════════════════════════════════
-    // Attendance
-    // ═══════════════════════════════════════════
     function renderAttendance() {
       const tbody = document.getElementById('attendanceTableBody');
       tbody.innerHTML = '';
@@ -1593,9 +1519,6 @@
       } catch (err) { alert('فشل: ' + err.message); }
     }
 
-    // ═══════════════════════════════════════════
-    // Chat
-    // ═══════════════════════════════════════════
     function renderChat() {
       const box = document.getElementById('chatMessagesBox');
       box.innerHTML = '';
@@ -1650,9 +1573,6 @@
       }
     }
 
-    // ═══════════════════════════════════════════
-    // Requests
-    // ═══════════════════════════════════════════
     function renderRequests() {
       const box = document.getElementById('requestsList');
       box.innerHTML = '';
@@ -1712,9 +1632,6 @@
       try { await updateCloudDoc(docId, 'REQUEST', r); renderRequests(); } catch (err) {}
     }
 
-    // ═══════════════════════════════════════════
-    // Employees
-    // ═══════════════════════════════════════════
     function renderEmployees() {
       const tbody = document.getElementById('employeesTableBody');
       tbody.innerHTML = '';
@@ -1781,9 +1698,6 @@
       } catch (err) {}
     }
 
-    // ═══════════════════════════════════════════
-    // Profile
-    // ═══════════════════════════════════════════
     function openProfileModal() {
       document.getElementById('newDisplayName').value = currentUser.name;
       const pImg = document.getElementById('profileAvatarImg');
@@ -1856,9 +1770,6 @@
       } catch (err) { return null; }
     }
 
-    // ═══════════════════════════════════════════
-    // Settings / Utilities
-    // ═══════════════════════════════════════════
     async function testCloudConnection() {
       const box = document.getElementById('connectionStatusBox');
       box.textContent = 'جاري الاختبار...';
@@ -1896,9 +1807,6 @@
       setTimeout(() => el.remove(), 3500);
     }
 
-    // ═══════════════════════════════════════════
-    // Boot
-    // ═══════════════════════════════════════════
     window.addEventListener('DOMContentLoaded', async () => {
       initTheme();
       lucide.createIcons();
