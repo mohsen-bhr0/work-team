@@ -322,19 +322,46 @@
       if (!/^[a-z0-9]{3,30}$/.test(u)) return showAuthError('المستخدم 3-30 حرف');
       if (p.length < 8) return showAuthError('كلمة المرور 8+ أحرف');
       btn.disabled = true; bt.textContent = 'جاري...';
+      
       try {
         if (!cloudReady) await bootSDK();
+        
+        // التحقق من كود الشركة
         const ex = await databases.listDocuments(CFG.databaseId, CFG.collectionId, [SDK.Query.equal('EntityType','COMPANY'), SDK.Query.limit(100)]);
         if (ex.documents.some(d => safeParse(d.Payload).code === c)) throw new Error('الكود مستخدم');
+        
+        // إنشاء حساب المدير
         const email = usernameToEmail(u, c);
         try { await account.deleteSession('current'); } catch(err){}
         await account.create(SDK.ID.unique(), email, p, m);
         await account.createEmailPasswordSession(email, p);
         const acc = await account.get();
+        
+        // حفظ وثيقة الشركة
         const cp = { name: n, code: c, ownerId: acc.$id, status: 'active', createdAt: new Date().toISOString() };
-        const cd = await databases.createDocument(CFG.databaseId, CFG.collectionId, SDK.ID.unique(), { entitytype:'COMPANY', EntityType:'COMPANY', Payload: JSON.stringify(cp), Username: m, userEmail: email, companyId: 'COMPANY_'+c, Status: 'active', createdAt: new Date().toISOString() });
+        const cd = await databases.createDocument(CFG.databaseId, CFG.collectionId, SDK.ID.unique(), { 
+            EntityType: 'COMPANY', 
+            Payload: JSON.stringify(cp), 
+            Username: m, 
+            userEmail: email, 
+            companyId: 'COMPANY_'+c, 
+            CompanyCode: c, 
+            Status: 'active', 
+            createdAt: new Date().toISOString() 
+        });
+        
+        // حفظ وثيقة المستخدم
         const up = { name: m, username: u, email, role: 'manager', jobTitle: 'مدير', companyId: cd.$id, companyCode: c, companyName: n, appwriteUserId: acc.$id, workplace: { name:'المقر الرئيسي', latitude: 30.0444, longitude: 31.2357, radiusMeters: 250 }, createdAt: new Date().toISOString() };
-        const ud = await databases.createDocument(CFG.databaseId, CFG.collectionId, SDK.ID.unique(), { entitytype:'USER', EntityType:'USER', Payload: JSON.stringify(up), Username: m, userEmail: email, companyId: cd.$id, createdAt: new Date().toISOString() });
+        const ud = await databases.createDocument(CFG.databaseId, CFG.collectionId, SDK.ID.unique(), { 
+            EntityType: 'USER', 
+            Payload: JSON.stringify(up), 
+            Username: m, 
+            userEmail: email, 
+            companyId: cd.$id, 
+            CompanyCode: c, 
+            createdAt: new Date().toISOString() 
+        });
+        
         currentUser = { id: acc.$id, email, username: u, name: m, role: 'manager', isVerified: true, isSuperAdmin: false, profileImage: null, jobTitle: 'مدير', companyId: cd.$id, companyCode: c, companyName: n, workplace: up.workplace, _docId: ud.$id };
         await loadAllFromCloud(); showApp();
         toast(`🎉 مرحباً! الكود: ${c}`);
@@ -589,7 +616,9 @@
     function safeParse(s) { try { return JSON.parse(s); } catch { return {}; } }
 
     async function createCloudDoc(et, pl) {
-      return databases.createDocument(CFG.databaseId, CFG.collectionId, SDK.ID.unique(), { entitytype: et, EntityType: et, Payload: JSON.stringify(pl), Username: currentUser?.name || 'System', userEmail: currentUser?.email || '', companyId: currentUser?.companyId || 'none', createdAt: new Date().toISOString() });
+      // حماية الحقول لضمان نجاح الإنشاء
+      const docData = { EntityType: et, Payload: JSON.stringify(pl), Username: currentUser?.name || 'System', userEmail: currentUser?.email || '', companyId: currentUser?.companyId || 'none', CompanyCode: currentUser?.companyCode || 'none', createdAt: new Date().toISOString() };
+      return databases.createDocument(CFG.databaseId, CFG.collectionId, SDK.ID.unique(), docData);
     }
     async function updateCloudDoc(id, et, pl) {
       return databases.updateDocument(CFG.databaseId, CFG.collectionId, id, { Payload: JSON.stringify(pl), createdAt: new Date().toISOString() });
@@ -879,7 +908,6 @@
       const orig = btn.innerHTML;
       btn.disabled = true; btn.innerHTML = '<i data-lucide="loader" class="w-4 h-4 animate-spin inline"></i>...'; lucide.createIcons();
       try {
-        // ✅ إنشاء JWT للمستخدم الحالي وتمريره في الـ Headers
         const jwt = await account.createJWT();
         
         const exec = await functions.createExecution(
@@ -896,7 +924,7 @@
           false, // async = false
           undefined, // path
           'POST', // method
-          { 'x-appwrite-user-jwt': jwt.jwt } // ✅ التوقيع الأمني
+          { 'x-appwrite-user-jwt': jwt.jwt } // التوقيع
         );
         
         let result; 
