@@ -30,6 +30,8 @@
     @media (min-width: 769px) { .desktop-tabs { display: flex !important; } .mobile-nav { display: none !important; } }
     .bottom-nav { padding-bottom: env(safe-area-inset-bottom); }
     @media (max-width: 640px) { input, select, textarea { font-size: 16px !important; } }
+    .feature-card { transition: all 0.3s ease; }
+    .feature-card:hover { transform: translateY(-4px); border-color: #06b6d4; box-shadow: 0 10px 30px -10px rgba(6,182,212,0.3); }
   </style>
 </head>
 <body class="antialiased min-h-screen flex flex-col bg-slate-900 text-slate-100">
@@ -43,7 +45,9 @@
       </div>
       <button onclick="showLoginScreen()" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-xl text-sm border border-slate-700 cursor-pointer flex items-center gap-2"><i data-lucide="log-in" class="w-4 h-4"></i><span>دخول</span></button>
     </header>
-    <main class="flex-1 flex flex-col items-center justify-center px-6 py-12 text-center">
+    <main class="flex-1 flex flex-col items-center px-6 py-12 text-center">
+      
+      <!-- Hero Section -->
       <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold mb-6"><span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span><span>منصة متعددة الشركات</span></div>
       <h2 class="text-4xl sm:text-6xl font-black text-white leading-tight max-w-3xl mb-4">إدارة شركتك <span class="brand-text-gradient"> بذكاء</span></h2>
       <p class="text-slate-400 text-lg max-w-2xl mb-10">نظام متكامل للحضور والانصراف بالـ GPS، الشات، والطلبات.</p>
@@ -51,7 +55,135 @@
         <button onclick="showLoginScreen()" class="px-8 py-4 brand-gradient text-white font-black rounded-2xl cursor-pointer flex items-center gap-2"><span>ابدأ الآن</span><i data-lucide="arrow-left" class="w-5 h-5"></i></button>
         <button onclick="showLoginScreen('register')" class="px-8 py-4 bg-slate-800 text-white font-bold rounded-2xl border border-slate-700 cursor-pointer flex items-center gap-2"><i data-lucide="building-2" class="w-5 h-5"></i><span>شركة جديدة</span></button>
       </div>
-      <p class="text-xs text-slate-500">© 2025 VodFire. جميع الحقوق محفوظة.</p>
+
+      <!-- About Section -->
+      <section class="w-full max-w-6xl mb-20">
+        <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 border border-slate-700 rounded-3xl p-8 sm:p-12 relative overflow-hidden">
+          <div class="absolute top-0 left-0 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl"></div>
+          <div class="absolute bottom-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl"></div>
+          <div class="relative z-10">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-[10px] font-bold mb-4"><i data-lucide="info" class="w-3 h-3"></i><span>عن المنصة</span></div>
+            <h3 class="text-2xl sm:text-3xl font-black text-white mb-4">ما هي <span class="brand-text-gradient">VodFire</span>؟</h3>
+            <p class="text-slate-300 text-sm sm:text-base leading-relaxed max-w-4xl mb-6">
+              VodFire هي منصة سحابية متكاملة لإدارة الموارد البشرية والعمليات اليومية للشركات من مختلف الأحجام. 
+              صُممت لتكون الحل الشامل الذي يربط بين الإدارة والموظفين في مكان واحد، مع توفير أدوات ذكية 
+              لتتبع الحضور، وإدارة الطلبات، والتواصل الفوري، وكل ذلك بأمان تام وحماية للبيانات.
+            </p>
+            <p class="text-slate-400 text-sm leading-relaxed max-w-4xl">
+              تعتمد المنصة على تقنية تحديد المواقع GPS لضمان دقة تسجيل الحضور والانصراف، 
+              وتوفر نظام صلاحيات متعدد المستويات (مالك المنصة، مدير الشركة، موظف) لضمان تحكم كامل وسلس 
+              في كل تفاصيل العمل.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Features Section -->
+      <section class="w-full max-w-6xl mb-20">
+        <div class="text-center mb-10">
+          <h3 class="text-2xl sm:text-3xl font-black text-white mb-2">مميزات <span class="brand-text-gradient">المنصة</span></h3>
+          <p class="text-slate-400 text-sm">كل ما تحتاجه لإدارة فريقك بكفاءة عالية</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          
+          <div class="feature-card bg-slate-800/60 border border-slate-700 rounded-2xl p-6 text-right">
+            <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center mb-4"><i data-lucide="map-pin" class="w-6 h-6 text-cyan-400"></i></div>
+            <h4 class="font-bold text-white mb-2">حضور بالـ GPS</h4>
+            <p class="text-slate-400 text-xs leading-relaxed">تسجيل الحضور والانصراف بدقة عبر تحديد الموقع الجغرافي، مع تحديد نطاق مسموح لكل موظف لضمان الالتزام.</p>
+          </div>
+
+          <div class="feature-card bg-slate-800/60 border border-slate-700 rounded-2xl p-6 text-right">
+            <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center mb-4"><i data-lucide="message-square" class="w-6 h-6 text-emerald-400"></i></div>
+            <h4 class="font-bold text-white mb-2">شات داخلي فوري</h4>
+            <p class="text-slate-400 text-xs leading-relaxed">قناة تواصل مباشرة بين جميع أعضاء الشركة، مع تحديث تلقائي للرسائل لضمان سرعة التواصل.</p>
+          </div>
+
+          <div class="feature-card bg-slate-800/60 border border-slate-700 rounded-2xl p-6 text-right">
+            <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center mb-4"><i data-lucide="file-text" class="w-6 h-6 text-amber-400"></i></div>
+            <h4 class="font-bold text-white mb-2">إدارة الطلبات</h4>
+            <p class="text-slate-400 text-xs leading-relaxed">نظام متكامل لتقديم طلبات الإجازات والسلف، مع إمكانية الموافقة أو الرفض من قِبل الإدارة بضغطة زر.</p>
+          </div>
+
+          <div class="feature-card bg-slate-800/60 border border-slate-700 rounded-2xl p-6 text-right">
+            <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center mb-4"><i data-lucide="users" class="w-6 h-6 text-blue-400"></i></div>
+            <h4 class="font-bold text-white mb-2">إدارة الموظفين</h4>
+            <p class="text-slate-400 text-xs leading-relaxed">إضافة وحذف الموظفين، تعيين الأدوار والمسميات الوظيفية، وتحديد مواقع العمل بسهولة تامة.</p>
+          </div>
+
+          <div class="feature-card bg-slate-800/60 border border-slate-700 rounded-2xl p-6 text-right">
+            <div class="w-12 h-12 rounded-xl bg-rose-500/10 border border-rose-500/30 flex items-center justify-center mb-4"><i data-lucide="bell" class="w-6 h-6 text-rose-400"></i></div>
+            <h4 class="font-bold text-white mb-2">إشعارات لحظية</h4>
+            <p class="text-slate-400 text-xs leading-relaxed">تنبيهات فورية عند وصول طلبات جديدة أو رسائل مهمة، لتبقى دائماً على اطلاع بكل ما يحدث.</p>
+          </div>
+
+          <div class="feature-card bg-slate-800/60 border border-slate-700 rounded-2xl p-6 text-right">
+            <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center mb-4"><i data-lucide="crown" class="w-6 h-6 text-cyan-400"></i></div>
+            <h4 class="font-bold text-white mb-2">لوحة تحكم المالك</h4>
+            <p class="text-slate-400 text-xs leading-relaxed">تحكم كامل في جميع الشركات المسجلة، إيقاف/تشغيل الحسابات، والدخول لأي شركة بصلاحيات المدير.</p>
+          </div>
+
+          <div class="feature-card bg-slate-800/60 border border-slate-700 rounded-2xl p-6 text-right">
+            <div class="w-12 h-12 rounded-xl bg-violet-500/10 border border-violet-500/30 flex items-center justify-center mb-4"><i data-lucide="shield-check" class="w-6 h-6 text-violet-400"></i></div>
+            <h4 class="font-bold text-white mb-2">أمان وحماية</h4>
+            <p class="text-slate-400 text-xs leading-relaxed">تشفير كامل للبيانات، ونظام تسجيل دخول آمن، مع فصل تام لبيانات كل شركة عن الأخرى.</p>
+          </div>
+
+          <div class="feature-card bg-slate-800/60 border border-slate-700 rounded-2xl p-6 text-right">
+            <div class="w-12 h-12 rounded-xl bg-orange-500/10 border border-orange-500/30 flex items-center justify-center mb-4"><i data-lucide="smartphone" class="w-6 h-6 text-orange-400"></i></div>
+            <h4 class="font-bold text-white mb-2">متوافق مع الجوال</h4>
+            <p class="text-slate-400 text-xs leading-relaxed">واجهة متجاوبة تعمل بسلاسة على الجوال والتابلت والكمبيوتر، لتتمكن من الإدارة من أي مكان.</p>
+          </div>
+
+          <div class="feature-card bg-slate-800/60 border border-slate-700 rounded-2xl p-6 text-right">
+            <div class="w-12 h-12 rounded-xl bg-teal-500/10 border border-teal-500/30 flex items-center justify-center mb-4"><i data-lucide="zap" class="w-6 h-6 text-teal-400"></i></div>
+            <h4 class="font-bold text-white mb-2">سهولة الاستخدام</h4>
+            <p class="text-slate-400 text-xs leading-relaxed">تصميم بسيط وواضح، إعداد سريع في دقائق، ولا يحتاج إلى خبرة تقنية للبدء في الاستخدام.</p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- How it works Section -->
+      <section class="w-full max-w-6xl mb-20">
+        <div class="text-center mb-10">
+          <h3 class="text-2xl sm:text-3xl font-black text-white mb-2">كيف تبدأ <span class="brand-text-gradient">معنا</span>؟</h3>
+          <p class="text-slate-400 text-sm">ثلاث خطوات بسيطة تفصلك عن إدارة احترافية</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div class="bg-slate-800/60 border border-slate-700 rounded-2xl p-6 text-center relative">
+            <div class="w-14 h-14 rounded-full brand-gradient flex items-center justify-center mx-auto mb-4 text-2xl font-black text-white">1</div>
+            <h4 class="font-bold text-white mb-2">سجّل شركتك</h4>
+            <p class="text-slate-400 text-xs leading-relaxed">أنشئ حساب شركة جديدة بكود فريد واسم مناسب، وستصبح مديراً لها تلقائياً.</p>
+          </div>
+          <div class="bg-slate-800/60 border border-slate-700 rounded-2xl p-6 text-center relative">
+            <div class="w-14 h-14 rounded-full brand-gradient flex items-center justify-center mx-auto mb-4 text-2xl font-black text-white">2</div>
+            <h4 class="font-bold text-white mb-2">أضف موظفيك</h4>
+            <p class="text-slate-400 text-xs leading-relaxed">أضف أعضاء فريقك، حدّد مواقع العمل، ووزّع الأدوار والمسميات الوظيفية.</p>
+          </div>
+          <div class="bg-slate-800/60 border border-slate-700 rounded-2xl p-6 text-center relative">
+            <div class="w-14 h-14 rounded-full brand-gradient flex items-center justify-center mx-auto mb-4 text-2xl font-black text-white">3</div>
+            <h4 class="font-bold text-white mb-2">ابدأ الإدارة</h4>
+            <p class="text-slate-400 text-xs leading-relaxed">تابع الحضور، راجع الطلبات، تواصل عبر الشات، وتحكم بكل شيء من لوحة واحدة.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA Section -->
+      <section class="w-full max-w-4xl mb-10">
+        <div class="brand-gradient rounded-3xl p-8 sm:p-12 text-center relative overflow-hidden">
+          <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 20% 50%, white 1px, transparent 1px), radial-gradient(circle at 80% 50%, white 1px, transparent 1px); background-size: 40px 40px;"></div>
+          <div class="relative z-10">
+            <h3 class="text-2xl sm:text-3xl font-black text-white mb-3">جاهز لتحويل إدارة شركتك؟</h3>
+            <p class="text-cyan-100 text-sm mb-6 max-w-xl mx-auto">انضم إلى VodFire اليوم وابدأ تجربة إدارة حديثة وفعّالة لفريقك.</p>
+            <div class="flex flex-wrap gap-3 justify-center">
+              <button onclick="showLoginScreen()" class="px-6 py-3 bg-white text-slate-900 font-black rounded-xl cursor-pointer flex items-center gap-2"><i data-lucide="rocket" class="w-4 h-4"></i><span>ابدأ الآن مجاناً</span></button>
+              <button onclick="showLoginScreen('register')" class="px-6 py-3 bg-black/20 text-white border border-white/30 font-bold rounded-xl cursor-pointer flex items-center gap-2"><i data-lucide="building-2" class="w-4 h-4"></i><span>تسجيل شركة</span></button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <p class="text-xs text-slate-500 mt-4">© 2025 VodFire. جميع الحقوق محفوظة.</p>
     </main>
   </div>
 
@@ -265,7 +397,6 @@
   <script>
     const CFG = { endpoint: 'https://nyc.cloud.appwrite.io/v1', projectId: '6ad40d52002bcd55432a', databaseId: '6ad40da8003a326ffc71', collectionId: '6ad40ea8001585a45794', createUserFunctionId: 'create-uesr' };
     const SUPER_ADMIN_EMAIL = 'mohsen0tamer@admin.vodfire';
-    // تم إضافة المفتاح هنا مباشرة
     const MASTER_API_KEY = 'standard_66b2a0b93b461a230b0111f44a9cab51fe54a77c2c298d81b83ce38bdf61433a49c196f45ccff0af09d0bca038eec991570fdf32133a905428efb23526f6afb273b039de2c4d62b78d78eb047b48820d0b73900a29c0d8acb093cbdc325449ccce0c9ba71ee7ab31a82a3e46e11bd895452338df27fe84d5411e30c3583c8451';
     
     let SDK, client, databases, account, functions;
@@ -918,7 +1049,6 @@
       try {
         const email = `${user}@${currentUser.companyCode}.vodfire`;
 
-        // 1. إنشاء الحساب مباشرة باستخدام الـ API
         const res = await fetch(`${CFG.endpoint}/users`, {
           method: 'POST',
           headers: {
@@ -937,7 +1067,6 @@
         const newUser = await res.json();
         if (newUser.code >= 400) throw new Error(newUser.message || 'فشل إنشاء الحساب');
 
-        // 2. حفظ بيانات الموظف في قاعدة البيانات
         const profilePayload = { name, username: user, email, role, jobTitle: jt, companyId: currentUser.companyId, companyCode: currentUser.companyCode, companyName: currentUser.companyName, appwriteUserId: newUser.$id, workplace: { name: loc, latitude: lat, longitude: lng, radiusMeters: rad }, createdAt: new Date().toISOString() };
 
         const doc = await databases.createDocument(
