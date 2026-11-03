@@ -928,7 +928,8 @@
         
         let result; 
         try { result = JSON.parse(exec.responseBody || '{}'); } catch(e) { result = { success: false, error: 'رد غير متوقع' }; }
-        if (!result.success) throw new Error(result.error || 'فشل الاتصال بالدالة');
+        
+        if (!result.success) throw new Error(result.error || JSON.stringify(result));
         
         localCache.users.push({ name, username: user, email: result.email || usernameToEmail(user, currentUser.companyCode), role, jobTitle: jt, companyId: currentUser.companyId, companyCode: currentUser.companyCode, companyName: currentUser.companyName, workplace: { name: loc, latitude: lat, longitude: lng, radiusMeters: rad }, appwriteUserId: result.userId, createdAt: new Date().toISOString(), _docId: result.profileDocId });
         
