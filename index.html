@@ -324,7 +324,7 @@
       btn.disabled = true; bt.textContent = 'جاري...';
       try {
         if (!cloudReady) await bootSDK();
-        const ex = await databases.listDocuments(CFG.databaseId, CFG.collectionId, [SDK.Query.equal('entitytype','COMPANY'), SDK.Query.limit(100)]);
+        const ex = await databases.listDocuments(CFG.databaseId, CFG.collectionId, [SDK.Query.equal('EntityType','COMPANY'), SDK.Query.limit(100)]);
         if (ex.documents.some(d => safeParse(d.Payload).code === c)) throw new Error('الكود مستخدم');
         const email = usernameToEmail(u, c);
         try { await account.deleteSession('current'); } catch(err){}
@@ -332,9 +332,9 @@
         await account.createEmailPasswordSession(email, p);
         const acc = await account.get();
         const cp = { name: n, code: c, ownerId: acc.$id, status: 'active', createdAt: new Date().toISOString() };
-        const cd = await databases.createDocument(CFG.databaseId, CFG.collectionId, SDK.ID.unique(), { entitytype:'COMPANY', Payload: JSON.stringify(cp), Username: m, userEmail: email, companyId: 'COMPANY_'+c, Status: 'active', createdAt: new Date().toISOString() });
+        const cd = await databases.createDocument(CFG.databaseId, CFG.collectionId, SDK.ID.unique(), { entitytype:'COMPANY', EntityType:'COMPANY', Payload: JSON.stringify(cp), Username: m, userEmail: email, companyId: 'COMPANY_'+c, Status: 'active', createdAt: new Date().toISOString() });
         const up = { name: m, username: u, email, role: 'manager', jobTitle: 'مدير', companyId: cd.$id, companyCode: c, companyName: n, appwriteUserId: acc.$id, workplace: { name:'المقر الرئيسي', latitude: 30.0444, longitude: 31.2357, radiusMeters: 250 }, createdAt: new Date().toISOString() };
-        const ud = await databases.createDocument(CFG.databaseId, CFG.collectionId, SDK.ID.unique(), { entitytype:'USER', Payload: JSON.stringify(up), Username: m, userEmail: email, companyId: cd.$id, createdAt: new Date().toISOString() });
+        const ud = await databases.createDocument(CFG.databaseId, CFG.collectionId, SDK.ID.unique(), { entitytype:'USER', EntityType:'USER', Payload: JSON.stringify(up), Username: m, userEmail: email, companyId: cd.$id, createdAt: new Date().toISOString() });
         currentUser = { id: acc.$id, email, username: u, name: m, role: 'manager', isVerified: true, isSuperAdmin: false, profileImage: null, jobTitle: 'مدير', companyId: cd.$id, companyCode: c, companyName: n, workplace: up.workplace, _docId: ud.$id };
         await loadAllFromCloud(); showApp();
         toast(`🎉 مرحباً! الكود: ${c}`);
@@ -423,7 +423,7 @@
 
     async function findUserProfile(uid, email) {
       try {
-        const r = await databases.listDocuments(CFG.databaseId, CFG.collectionId, [SDK.Query.equal('entitytype','USER'), SDK.Query.limit(200)]);
+        const r = await databases.listDocuments(CFG.databaseId, CFG.collectionId, [SDK.Query.equal('EntityType','USER'), SDK.Query.limit(200)]);
         const ps = r.documents.map(d => ({ ...safeParse(d.Payload), _docId: d.$id, _companyId: d.companyId }));
         if (email) {
           const be = ps.find(p => p.email === email);
@@ -448,8 +448,8 @@
         superAdminCache.companies = []; superAdminCache.users = [];
         r.documents.forEach(d => {
           const p = safeParse(d.Payload);
-          if (d.entitytype === 'COMPANY') superAdminCache.companies.push({ ...p, _docId: d.$id });
-          if (d.entitytype === 'USER') superAdminCache.users.push({ ...p, _docId: d.$id, _companyId: d.companyId });
+          if (d.EntityType === 'COMPANY' || p.entitytype === 'COMPANY') superAdminCache.companies.push({ ...p, _docId: d.$id });
+          if (d.EntityType === 'USER' || p.entitytype === 'USER') superAdminCache.users.push({ ...p, _docId: d.$id, _companyId: d.companyId });
         });
       } catch(e) { console.warn(e); }
     }
@@ -501,7 +501,7 @@
     async function enterCompany(docId, name, code) {
       if (!confirm(`🔍 الدخول كمدير لشركة "${name}"؟\n\nستعود تلقائياً بعد الخروج.`)) return;
       try {
-        const usersRes = await databases.listDocuments(CFG.databaseId, CFG.collectionId, [SDK.Query.equal('entitytype','USER'), SDK.Query.equal('companyId', docId), SDK.Query.limit(100)]);
+        const usersRes = await databases.listDocuments(CFG.databaseId, CFG.collectionId, [SDK.Query.equal('EntityType','USER'), SDK.Query.equal('companyId', docId), SDK.Query.limit(100)]);
         if (!usersRes.documents.length) return alert('لا يوجد مستخدمون في هذه الشركة');
         const profiles = usersRes.documents.map(d => ({ ...safeParse(d.Payload), _docId: d.$id, _companyId: d.companyId }));
         const manager = profiles.find(p => p.role === 'manager') || profiles[0];
@@ -569,7 +569,8 @@
           if (currentUser && !currentUser.isSuperAdmin && d.companyId !== currentUser.companyId) return;
           const p = safeParse(d.Payload);
           const item = { ...p, _docId: d.$id, _companyId: d.companyId };
-          switch(d.entitytype) {
+          const type = d.EntityType || p.entitytype;
+          switch(type) {
             case 'ATTENDANCE': nc.attendance.push(item); break;
             case 'CHAT': nc.chat.push(item); break;
             case 'REQUEST': nc.requests.push(item); break;
@@ -588,7 +589,7 @@
     function safeParse(s) { try { return JSON.parse(s); } catch { return {}; } }
 
     async function createCloudDoc(et, pl) {
-      return databases.createDocument(CFG.databaseId, CFG.collectionId, SDK.ID.unique(), { entitytype: et, Payload: JSON.stringify(pl), Username: currentUser?.name || 'System', userEmail: currentUser?.email || '', companyId: currentUser?.companyId || 'none', createdAt: new Date().toISOString() });
+      return databases.createDocument(CFG.databaseId, CFG.collectionId, SDK.ID.unique(), { entitytype: et, EntityType: et, Payload: JSON.stringify(pl), Username: currentUser?.name || 'System', userEmail: currentUser?.email || '', companyId: currentUser?.companyId || 'none', createdAt: new Date().toISOString() });
     }
     async function updateCloudDoc(id, et, pl) {
       return databases.updateDocument(CFG.databaseId, CFG.collectionId, id, { Payload: JSON.stringify(pl), createdAt: new Date().toISOString() });
@@ -669,8 +670,10 @@
         document.getElementById('employeeAttendanceBlock').classList.remove('hidden-view');
         document.getElementById('managerAttendanceBlock').classList.add('hidden-view');
         const w = currentUser.workplace;
-        document.getElementById('empWorkplaceName').textContent = w.name;
-        document.getElementById('empWorkplaceCoords').textContent = `${w.latitude.toFixed(4)}, ${w.longitude.toFixed(4)} | ${w.radiusMeters}م`;
+        if (w) {
+          document.getElementById('empWorkplaceName').textContent = w.name;
+          document.getElementById('empWorkplaceCoords').textContent = `${w.latitude.toFixed(4)}, ${w.longitude.toFixed(4)} | ${w.radiusMeters}م`;
+        }
       }
       document.getElementById('tabBtn-employees').style.display = isMgr ? 'flex' : 'none';
       document.getElementById('tabBtn-settings').style.display = isMgr ? 'flex' : 'none';
@@ -779,9 +782,11 @@
 
     function renderChat() {
       const b = document.getElementById('chatMessagesBox'); b.innerHTML = '';
-      const isSA = currentUser?.isSuperAdmin === true;
-      const myId = currentUser?.companyId;
-      const safe = localCache.chat.filter(m => isSA ? true : (m._companyId === myId || m.companyId === myId));
+      const targetCompanyId = currentUser.companyId;
+      const safe = localCache.chat.filter(m => {
+        if (!targetCompanyId) return true;
+        return m._companyId === targetCompanyId || m.companyId === targetCompanyId;
+      });
       if (!safe.length) { b.innerHTML = `<div class="text-center text-slate-500 py-8 text-xs">لا رسائل</div>`; return; }
       safe.forEach(m => {
         const me = m.userId === currentUser.id;
@@ -795,7 +800,7 @@
 
     async function handleSendChat(e) {
       e.preventDefault();
-      if (!currentUser?.companyId) return alert('غير مرتبط بشركة');
+      if (!currentUser?.companyId) return alert('أنت في لوحة المالك. ادخل إلى شركة معينة لإرسال رسائل.');
       const inp = document.getElementById('chatInput'); const txt = inp.value.trim(); if (!txt) return;
       inp.value = '';
       const pl = { id: 'msg_' + Date.now(), userId: currentUser.id, userName: currentUser.name, userRole: currentUser.role, companyId: currentUser.companyId, text: txt, time: new Date().toLocaleTimeString('ar-EG', { hour:'2-digit', minute:'2-digit' }), createdAt: new Date().toISOString() };
@@ -874,19 +879,44 @@
       const orig = btn.innerHTML;
       btn.disabled = true; btn.innerHTML = '<i data-lucide="loader" class="w-4 h-4 animate-spin inline"></i>...'; lucide.createIcons();
       try {
-        const exec = await functions.createExecution(CFG.createUserFunctionId, JSON.stringify({
-          requesterId: currentUser.id, companyId: currentUser.companyId, companyCode: currentUser.companyCode, companyName: currentUser.companyName,
-          name, username: user, password: pass, role, jobTitle: jt, workplace: { name: loc, latitude: lat, longitude: lng, radiusMeters: rad },
-          isSuperAdmin: currentUser.isSuperAdmin === true
-        }), false);
-        let result; try { result = JSON.parse(exec.responseBody || '{}'); } catch(e) { result = { success: false, error: 'رد غير متوقع' }; }
+        // ✅ إنشاء JWT للمستخدم الحالي وتمريره في الـ Headers
+        const jwt = await account.createJWT();
+        
+        const exec = await functions.createExecution(
+          CFG.createUserFunctionId,
+          JSON.stringify({
+            requesterId: currentUser.id,
+            companyId: currentUser.companyId,
+            companyCode: currentUser.companyCode,
+            companyName: currentUser.companyName,
+            name, username: user, password: pass, role, jobTitle: jt,
+            workplace: { name: loc, latitude: lat, longitude: lng, radiusMeters: rad },
+            isSuperAdmin: currentUser.isSuperAdmin === true
+          }),
+          false, // async = false
+          undefined, // path
+          'POST', // method
+          { 'x-appwrite-user-jwt': jwt.jwt } // ✅ التوقيع الأمني
+        );
+        
+        let result; 
+        try { result = JSON.parse(exec.responseBody || '{}'); } catch(e) { result = { success: false, error: 'رد غير متوقع' }; }
         if (!result.success) throw new Error(result.error || 'فشل');
+        
         localCache.users.push({ name, username: user, email: result.email || usernameToEmail(user, currentUser.companyCode), role, jobTitle: jt, companyId: currentUser.companyId, companyCode: currentUser.companyCode, companyName: currentUser.companyName, workplace: { name: loc, latitude: lat, longitude: lng, radiusMeters: rad }, appwriteUserId: result.userId, createdAt: new Date().toISOString(), _docId: result.profileDocId });
-        closeModal('employeeModal'); e.target.reset(); renderEmployees();
+        
+        closeModal('employeeModal'); 
+        e.target.reset(); 
+        renderEmployees();
         toast(`✅ تم إنشاء ${role === 'manager' ? 'مدير' : 'موظف'}: ${name}`);
         setTimeout(() => alert(`✅ الحساب جاهز!\n\n🏢 الشركة: ${currentUser.companyCode}\n👤 المستخدم: ${user}\n🔑 المرور: ${pass}`), 400);
-      } catch(err) { alert('❌ ' + err.message); }
-      finally { btn.disabled = false; btn.innerHTML = orig; lucide.createIcons(); }
+      } catch(err) { 
+        alert('❌ ' + err.message); 
+      } finally { 
+        btn.disabled = false; 
+        btn.innerHTML = orig; 
+        lucide.createIcons(); 
+      }
     }
 
     async function deleteEmployee(id) {
@@ -901,13 +931,16 @@
       r.onload = async (ev) => {
         if (!currentUser._docId) return;
         try {
-          await databases.updateDocument(CFG.databaseId, CFG.collectionId, currentUser._docId, { ProfileImage: ev.target.result });
+          const d = await databases.getDocument(CFG.databaseId, CFG.collectionId, currentUser._docId);
+          const p = safeParse(d.Payload);
+          p.ProfileImage = ev.target.result;
+          await databases.updateDocument(CFG.databaseId, CFG.collectionId, currentUser._docId, { Payload: JSON.stringify(p) });
           currentUser.profileImage = ev.target.result;
           document.getElementById('headerAvatarImg').src = ev.target.result;
           document.getElementById('headerAvatarImg').classList.remove('hidden');
           document.getElementById('headerAvatarText').classList.add('hidden');
           toast('تم تحديث الصورة');
-        } catch(e){}
+        } catch(e){ alert('الصورة كبيرة جداً أو حدث خطأ.'); }
       };
       r.readAsDataURL(f);
     }
@@ -915,12 +948,15 @@
       const nn = document.getElementById('newDisplayName').value.trim();
       if (!nn || !currentUser._docId) return;
       try {
-        await databases.updateDocument(CFG.databaseId, CFG.collectionId, currentUser._docId, { DisplayName: nn });
+        const d = await databases.getDocument(CFG.databaseId, CFG.collectionId, currentUser._docId);
+        const p = safeParse(d.Payload);
+        p.DisplayName = nn;
+        await databases.updateDocument(CFG.databaseId, CFG.collectionId, currentUser._docId, { Payload: JSON.stringify(p), Username: nn });
         currentUser.name = nn;
         document.getElementById('headerUserName').textContent = nn;
         document.getElementById('headerAvatarText').textContent = nn.charAt(0);
         toast('تم'); closeModal('profileModal');
-      } catch(e){}
+      } catch(e){ alert('فشل'); }
     }
 
     function closeModal(id) { document.getElementById(id).classList.add('hidden-view'); }
