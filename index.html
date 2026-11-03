@@ -34,7 +34,7 @@
 </head>
 <body class="antialiased min-h-screen flex flex-col bg-slate-900 text-slate-100">
 
-  <!-- 🌟 الصفحة التعريفية -->
+  <!-- الصفحة التعريفية -->
   <div id="landingScreen" class="fixed inset-0 flex flex-col bg-slate-950 overflow-y-auto">
     <header class="w-full px-6 py-4 flex items-center justify-between border-b border-slate-800/50 sticky top-0 bg-slate-950/90 backdrop-blur-md z-10">
       <div class="flex items-center gap-3">
@@ -263,7 +263,6 @@
   </div>
 
   <script>
-    // تم تحديث الـ ID ليتطابق مع الدالة الخاصة بك
     const CFG = { endpoint: 'https://nyc.cloud.appwrite.io/v1', projectId: '6ad40d52002bcd55432a', databaseId: '6ad40da8003a326ffc71', collectionId: '6ad40ea8001585a45794', createUserFunctionId: 'create-uesr' };
     const SUPER_ADMIN_EMAIL = 'mohsen0tamer@admin.vodfire';
     let SDK, client, databases, account, functions;
@@ -939,7 +938,8 @@
         toast(`تم إنشاء ${role === 'manager' ? 'مدير' : 'موظف'}: ${name}`);
         setTimeout(() => alert(`تم إنشاء الحساب بنجاح!\n\nالشركة: ${currentUser.companyCode}\nالمستخدم: ${user}\nالمرور: ${pass}`), 400);
       } catch(err) { 
-        alert('خطأ: ' + err.message); 
+        // هنا سيعرض لك رسالة الخطأ الحقيقية من Appwrite
+        alert('تفاصيل: ' + (err.message || JSON.stringify(err))); 
       } finally { 
         btn.disabled = false; 
         btn.innerHTML = orig; 
