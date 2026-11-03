@@ -265,6 +265,9 @@
   <script>
     const CFG = { endpoint: 'https://nyc.cloud.appwrite.io/v1', projectId: '6ad40d52002bcd55432a', databaseId: '6ad40da8003a326ffc71', collectionId: '6ad40ea8001585a45794', createUserFunctionId: 'create-uesr' };
     const SUPER_ADMIN_EMAIL = 'mohsen0tamer@admin.vodfire';
+    // تم إضافة المفتاح هنا مباشرة
+    const MASTER_API_KEY = 'standard_66b2a0b93b461a230b0111f44a9cab51fe54a77c2c298d81b83ce38bdf61433a49c196f45ccff0af09d0bca038eec991570fdf32133a905428efb23526f6afb273b039de2c4d62b78d78eb047b48820d0b73900a29c0d8acb093cbdc325449ccce0c9ba71ee7ab31a82a3e46e11bd895452338df27fe84d5411e30c3583c8451';
+    
     let SDK, client, databases, account, functions;
     let currentUser = null, cloudReady = false;
     let localCache = { attendance: [], chat: [], requests: [], users: [], notifications: [] };
@@ -907,44 +910,63 @@
       if (!name || !user || !pass) return alert('يرجى ملء الحقول المطلوبة');
       if (pass.length < 8) return alert('كلمة المرور يجب أن تكون 8 أحرف على الأقل');
       if (localCache.users.find(u => u.username === user)) return alert('اسم المستخدم موجود بالفعل');
+
       const btn = e.target.querySelector('button[type="submit"]');
       const orig = btn.innerHTML;
       btn.disabled = true; btn.innerHTML = '<i data-lucide="loader" class="w-4 h-4 animate-spin inline"></i> جاري...'; lucide.createIcons();
-      
+
       try {
-        const exec = await functions.createExecution(
-          CFG.createUserFunctionId,
-          JSON.stringify({
-            requesterId: currentUser.id,
-            companyId: currentUser.companyId,
-            companyCode: currentUser.companyCode,
-            companyName: currentUser.companyName,
-            name, username: user, password: pass, role, jobTitle: jt,
-            workplace: { name: loc, latitude: lat, longitude: lng, radiusMeters: rad },
-            isSuperAdmin: currentUser.isSuperAdmin === true
-          }),
-          false
+        const email = `${user}@${currentUser.companyCode}.vodfire`;
+
+        // 1. إنشاء الحساب مباشرة باستخدام الـ API
+        const res = await fetch(`${CFG.endpoint}/users`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Appwrite-Project': CFG.projectId,
+            'X-Appwrite-Key': MASTER_API_KEY
+          },
+          body: JSON.stringify({
+            userId: 'unique()',
+            email: email,
+            password: pass,
+            name: name
+          })
+        });
+
+        const newUser = await res.json();
+        if (newUser.code >= 400) throw new Error(newUser.message || 'فشل إنشاء الحساب');
+
+        // 2. حفظ بيانات الموظف في قاعدة البيانات
+        const profilePayload = { name, username: user, email, role, jobTitle: jt, companyId: currentUser.companyId, companyCode: currentUser.companyCode, companyName: currentUser.companyName, appwriteUserId: newUser.$id, workplace: { name: loc, latitude: lat, longitude: lng, radiusMeters: rad }, createdAt: new Date().toISOString() };
+
+        const doc = await databases.createDocument(
+          CFG.databaseId, 
+          CFG.collectionId, 
+          SDK.ID.unique(), 
+          { 
+            entitytype: 'USER', 
+            Payload: JSON.stringify(profilePayload), 
+            Username: name, 
+            userEmail: email, 
+            companyId: currentUser.companyId, 
+            CompanyCode: currentUser.companyCode, 
+            createdAt: new Date().toISOString() 
+          }
         );
-        
-        let result; 
-        try { result = JSON.parse(exec.responseBody || '{}'); } catch(e) { result = { success: false, error: 'رد غير متوقع' }; }
-        
-        if (!result.success) throw new Error(result.error || JSON.stringify(result));
-        
-        localCache.users.push({ name, username: user, email: result.email || usernameToEmail(user, currentUser.companyCode), role, jobTitle: jt, companyId: currentUser.companyId, companyCode: currentUser.companyCode, companyName: currentUser.companyName, workplace: { name: loc, latitude: lat, longitude: lng, radiusMeters: rad }, appwriteUserId: result.userId, createdAt: new Date().toISOString(), _docId: result.profileDocId });
-        
+
+        localCache.users.push({ ...profilePayload, _docId: doc.$id });
         closeModal('employeeModal'); 
         e.target.reset(); 
         renderEmployees();
-        toast(`تم إنشاء ${role === 'manager' ? 'مدير' : 'موظف'}: ${name}`);
-        setTimeout(() => alert(`تم إنشاء الحساب بنجاح!\n\nالشركة: ${currentUser.companyCode}\nالمستخدم: ${user}\nالمرور: ${pass}`), 400);
+        alert(`✅ تم إنشاء الحساب!\n\nالمستخدم: ${user}\nالمرور: ${pass}`);
+
       } catch(err) { 
-        // هنا سيعرض لك رسالة الخطأ الحقيقية من Appwrite
-        alert('تفاصيل: ' + (err.message || JSON.stringify(err))); 
+        alert('❌ تفاصيل: ' + (err.message || JSON.stringify(err))); 
       } finally { 
         btn.disabled = false; 
         btn.innerHTML = orig; 
-        lucide.createIcons(); 
+        lucide.createIcons();
       }
     }
 
