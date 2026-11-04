@@ -49,13 +49,12 @@
         <div><h1 class="text-xl font-black text-white" style="font-family:Arial;">Vod<span class="text-cyan-400">fire</span></h1><p class="text-[8px] text-slate-400 font-bold tracking-widest">BUILDING YOUR DIGITAL FUTURE</p></div>
       </div>
       <div class="flex items-center gap-2">
-        <!-- Language Switcher -->
         <div class="relative">
           <button onclick="toggleLangMenu(event)" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-xl text-sm border border-slate-700 cursor-pointer flex items-center gap-1.5">
             <i data-lucide="globe" class="w-4 h-4"></i><span id="currentLangLabel">العربية</span>
           </button>
           <div id="langMenu" class="lang-menu hidden-view absolute top-full mt-1 right-0 bg-slate-800 border border-slate-700 rounded-xl shadow-2xl overflow-hidden min-w-[140px] z-50">
-            <button onclick="setLanguage('ar')" class="w-full text-right px-4 py-2.5 text-sm hover:bg-slate-700 flex items-center gap-2 cursor-pointer"><span>🇪🇬</span><span>العربية</span></button>
+            <button onclick="setLanguage('ar')" class="w-full text-right px-4 py-2.5 text-sm hover:bg-slate-700 flex items-center gap-2 cursor-pointer"><span>🇸🇦</span><span>العربية</span></button>
             <button onclick="setLanguage('en')" class="w-full text-right px-4 py-2.5 text-sm hover:bg-slate-700 flex items-center gap-2 cursor-pointer"><span>🇬🇧</span><span>English</span></button>
             <button onclick="setLanguage('it')" class="w-full text-right px-4 py-2.5 text-sm hover:bg-slate-700 flex items-center gap-2 cursor-pointer"><span>🇮🇹</span><span>Italiano</span></button>
           </div>
@@ -72,7 +71,6 @@
         <button onclick="showLoginScreen('register')" class="px-8 py-4 bg-slate-800 text-white font-bold rounded-2xl border border-slate-700 cursor-pointer flex items-center gap-2"><i data-lucide="building-2" class="w-5 h-5"></i><span data-i18n="new_company">شركة جديدة</span></button>
       </div>
 
-      <!-- About Section -->
       <section class="w-full max-w-6xl mb-20">
         <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 border border-slate-700 rounded-3xl p-8 sm:p-12 relative overflow-hidden">
           <div class="absolute top-0 left-0 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl"></div>
@@ -90,7 +88,6 @@
         </div>
       </section>
 
-      <!-- Features Section -->
       <section class="w-full max-w-6xl mb-20">
         <div class="text-center mb-10">
           <h3 class="text-2xl sm:text-3xl font-black text-white mb-2" data-i18n-html="features_title">مميزات <span class="brand-text-gradient">المنصة</span></h3>
@@ -145,7 +142,6 @@
         </div>
       </section>
 
-      <!-- How it works -->
       <section class="w-full max-w-6xl mb-20">
         <div class="text-center mb-10">
           <h3 class="text-2xl sm:text-3xl font-black text-white mb-2" data-i18n-html="how_title">كيف تبدأ <span class="brand-text-gradient">معنا</span>؟</h3>
@@ -170,7 +166,6 @@
         </div>
       </section>
 
-      <!-- CTA -->
       <section class="w-full max-w-4xl mb-10">
         <div class="brand-gradient rounded-3xl p-8 sm:p-12 text-center relative overflow-hidden">
           <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 20% 50%, white 1px, transparent 1px), radial-gradient(circle at 80% 50%, white 1px, transparent 1px); background-size: 40px 40px;"></div>
@@ -219,7 +214,6 @@
         <div><label class="block text-xs font-bold text-slate-300 mb-1.5" data-i18n="username">اسم المستخدم</label><input type="text" id="loginUsername" dir="ltr" placeholder="ahmed" class="w-full px-3.5 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-sm text-white text-left font-mono focus:outline-none focus:ring-2 focus:ring-cyan-500"></div>
         <div><label class="block text-xs font-bold text-slate-300 mb-1.5" data-i18n="password">كلمة المرور</label><input type="password" id="loginPassword" dir="ltr" placeholder="••••••••" class="w-full px-3.5 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-sm text-white text-left font-mono focus:outline-none focus:ring-2 focus:ring-cyan-500"></div>
         <button onclick="handleLogin(event)" id="loginBtn" class="w-full py-3 brand-gradient text-white font-bold rounded-xl cursor-pointer"><span id="loginBtnText" data-i18n="login">دخول</span></button>
-        <p class="text-center text-[10px] text-slate-500 flex items-center justify-center gap-1"><i data-lucide="crown" class="w-3 h-3 text-amber-400"></i> <span data-i18n="owner_hint">المالك: كود الشركة</span> <b class="text-cyan-400">admin</b> · <span data-i18n="user_hint">المستخدم:</span> <b class="text-cyan-400">mohsen0tamer</b></p>
       </div>
       <div id="registerForm" class="hidden-view p-6 space-y-4">
         <div><label class="block text-xs font-bold text-slate-300 mb-1.5" data-i18n="company_name">اسم الشركة *</label><input type="text" id="regCompanyName" data-i18n-ph="company_name_placeholder" placeholder="شركة النور" class="w-full px-3.5 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-sm text-white"></div>
@@ -444,7 +438,6 @@
         password: "كلمة المرور", password_required: "كلمة المرور *",
         company_name: "اسم الشركة", company_name_required: "اسم الشركة *", company_name_placeholder: "شركة النور",
         your_name: "اسمك", manager_data: "بياناتك كمدير", create_company: "إنشاء الشركة",
-        owner_hint: "المالك: كود الشركة", user_hint: "المستخدم:",
         attendance: "الحضور", chat: "الشات", requests: "الطلبات", employees: "الموظفون", settings: "الإعدادات", owner_panel: "لوحة المالك", owner: "المالك",
         exit_company: "خروج من الشركة", platform_owner: "مالك المنصة",
         notifications: "الإشعارات", mark_all: "تحديد الكل",
@@ -543,7 +536,6 @@
         password: "Password", password_required: "Password *",
         company_name: "Company Name", company_name_required: "Company Name *", company_name_placeholder: "Al-Noor Company",
         your_name: "Your Name", manager_data: "Your Data as Manager", create_company: "Create Company",
-        owner_hint: "Owner: Company Code", user_hint: "User:",
         attendance: "Attendance", chat: "Chat", requests: "Requests", employees: "Employees", settings: "Settings", owner_panel: "Owner Panel", owner: "Owner",
         exit_company: "Exit Company", platform_owner: "Platform Owner",
         notifications: "Notifications", mark_all: "Mark All",
@@ -642,7 +634,6 @@
         password: "Password", password_required: "Password *",
         company_name: "Nome Azienda", company_name_required: "Nome Azienda *", company_name_placeholder: "Azienda Al-Noor",
         your_name: "Il Tuo Nome", manager_data: "I Tuoi Dati come Manager", create_company: "Crea Azienda",
-        owner_hint: "Proprietario: Codice Azienda", user_hint: "Utente:",
         attendance: "Presenze", chat: "Chat", requests: "Richieste", employees: "Dipendenti", settings: "Impostazioni", owner_panel: "Pannello Proprietario", owner: "Proprietario",
         exit_company: "Esci dall'Azienda", platform_owner: "Proprietario Piattaforma",
         notifications: "Notifiche", mark_all: "Segna Tutte",
@@ -721,15 +712,12 @@
       document.documentElement.lang = lang;
       document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
       applyTranslations();
-      // تحديث اسم اللغة في الأزرار
       const langNames = { ar: 'العربية', en: 'English', it: 'Italiano' };
       document.getElementById('currentLangLabel').textContent = langNames[lang];
       const l2 = document.querySelector('.currentLangLabel2');
       if (l2) l2.textContent = langNames[lang];
-      // إغلاق القوائم
       document.getElementById('langMenu').classList.add('hidden-view');
       document.getElementById('langMenu2').classList.add('hidden-view');
-      // إعادة رسم العناصر الديناميكية
       if (currentUser) {
         try {
           if (currentUser.isSuperAdmin && !currentUser._impersonating) renderSuperAdminCompanies();
@@ -760,8 +748,6 @@
       if (e) e.stopPropagation();
       const m1 = document.getElementById('langMenu');
       const m2 = document.getElementById('langMenu2');
-      const target = m1.contains(e?.target) || e?.target?.closest('#langMenu') ? m2 : m1;
-      // toggle both, close other
       const willOpen = m1.classList.contains('hidden-view') || m2.classList.contains('hidden-view');
       m1.classList.toggle('hidden-view');
       if (m2) m2.classList.toggle('hidden-view');
@@ -1408,9 +1394,7 @@
       setTimeout(() => el.remove(), 3500);
     }
 
-    // Bootstrap
     window.addEventListener('DOMContentLoaded', async () => {
-      // تحميل اللغة المحفوظة
       const savedLang = localStorage.getItem('vodfire_lang') || 'ar';
       setLanguage(savedLang);
 
