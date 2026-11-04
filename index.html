@@ -180,7 +180,7 @@
         </div>
       </section>
 
-      <p class="text-xs text-slate-500 mt-4" data-i18n="copyright">© 2025 VodFire. جميع الحقوق محفوظة.</p>
+      <p class="text-xs text-slate-500 mt-4" data-i18n="copyright">© 2026 VodFire. جميع الحقوق محفوظة.</p>
     </main>
   </div>
 
@@ -263,6 +263,7 @@
         <button id="tabBtn-chat" onclick="switchTab('chat')" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs whitespace-nowrap text-slate-400 hover:bg-slate-700 cursor-pointer"><i data-lucide="message-square" class="w-4 h-4"></i><span data-i18n="chat">الشات</span></button>
         <button id="tabBtn-requests" onclick="switchTab('requests')" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs whitespace-nowrap text-slate-400 hover:bg-slate-700 cursor-pointer"><i data-lucide="file-text" class="w-4 h-4"></i><span data-i18n="requests">الطلبات</span></button>
         <button id="tabBtn-employees" onclick="switchTab('employees')" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs whitespace-nowrap text-slate-400 hover:bg-slate-700 cursor-pointer"><i data-lucide="users" class="w-4 h-4"></i><span data-i18n="employees">الموظفون</span></button>
+        <button id="tabBtn-reports" onclick="switchTab('reports')" class="hidden tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs whitespace-nowrap text-slate-400 hover:bg-slate-700 cursor-pointer"><i data-lucide="bar-chart-3" class="w-4 h-4"></i><span data-i18n="reports">التقارير</span></button>
         <button id="tabBtn-settings" onclick="switchTab('settings')" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs whitespace-nowrap text-slate-400 hover:bg-slate-700 cursor-pointer"><i data-lucide="settings" class="w-4 h-4"></i><span data-i18n="settings">الإعدادات</span></button>
         <button id="tabBtn-superadmin" onclick="switchTab('superadmin')" class="tab-btn hidden flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs whitespace-nowrap text-amber-400 hover:bg-amber-900/30 cursor-pointer mr-auto"><i data-lucide="crown" class="w-4 h-4"></i><span data-i18n="owner_panel">لوحة المالك</span></button>
       </div>
@@ -300,7 +301,54 @@
 
       <section id="view-employees" class="hidden-view space-y-6">
         <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 flex items-center justify-between"><div><h3 class="text-lg font-black text-white flex items-center gap-2"><i data-lucide="users" class="w-5 h-5 text-cyan-400"></i> <span data-i18n="manage_employees">إدارة الموظفين</span></h3><p id="employeesCompanyHint" class="text-[10px] text-slate-500 mt-0.5">—</p></div><button onclick="openNewEmployeeModal()" class="px-4 py-2.5 brand-gradient text-white font-bold rounded-xl text-xs cursor-pointer flex items-center gap-1"><i data-lucide="user-plus" class="w-3 h-3"></i> <span data-i18n="add">إضافة</span></button></div>
-        <div class="bg-slate-800 rounded-2xl border border-slate-700 overflow-hidden"><div class="overflow-x-auto"><table class="w-full text-right text-xs"><thead class="bg-slate-900/50 text-slate-400 font-bold border-b border-slate-700"><tr><th class="py-3 px-4" data-i18n="name">الاسم</th><th class="py-3 px-4" data-i18n="username">المستخدم</th><th class="py-3 px-4" data-i18n="role">الدور</th><th class="py-3 px-4" data-i18n="job_title">المسمى</th><th class="py-3 px-4" data-i18n="workplace">المقر</th><th class="py-3 px-4 text-center" data-i18n="actions">إجراءات</th></tr></thead><tbody id="employeesTableBody" class="divide-y divide-slate-700/50"></tbody></table></div></div>
+        <div class="bg-slate-800 rounded-2xl border border-slate-700 overflow-hidden"><div class="overflow-x-auto"><table class="w-full text-right text-xs"><thead class="bg-slate-900/50 text-slate-400 font-bold border-b border-slate-700"><tr><th class="py-3 px-4" data-i18n="name">الاسم</th><th class="py-3 px-4" data-i18n="username">المستخدم</th><th class="py-3 px-4" data-i18n="role">الدور</th><th class="py-3 px-4" data-i18n="job_title">المسمى</th><th class="py-3 px-4" data-i18n="work_start_time">وقت الحضور</th><th class="py-3 px-4" data-i18n="workplace">المقر</th><th class="py-3 px-4 text-center" data-i18n="actions">إجراءات</th></tr></thead><tbody id="employeesTableBody" class="divide-y divide-slate-700/50"></tbody></table></div></div>
+      </section>
+
+      <section id="view-reports" class="hidden-view space-y-6">
+        <div class="bg-slate-800 p-6 rounded-3xl border border-slate-700">
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+            <div>
+              <h3 class="text-xl font-black text-white flex items-center gap-2"><i data-lucide="bar-chart-3" class="w-6 h-6 text-cyan-400"></i> <span data-i18n="monthly_reports">تقارير الموظفين الشهرية</span></h3>
+              <p class="text-xs text-slate-400 mt-1" data-i18n="reports_desc">تتبع أداء الموظفين وتحميل التقارير.</p>
+            </div>
+            <div class="flex items-center gap-2 w-full sm:w-auto">
+              <select id="reportMonth" class="flex-1 sm:flex-none px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-sm text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+                <option value="1" data-i18n="jan">يناير</option><option value="2" data-i18n="feb">فبراير</option><option value="3" data-i18n="mar">مارس</option>
+                <option value="4" data-i18n="apr">أبريل</option><option value="5" data-i18n="may">مايو</option><option value="6" data-i18n="jun">يونيو</option>
+                <option value="7" data-i18n="jul">يوليو</option><option value="8" data-i18n="aug">أغسطس</option><option value="9" data-i18n="sep">سبتمبر</option>
+                <option value="10" data-i18n="oct">أكتوبر</option><option value="11" data-i18n="nov">نوفمبر</option><option value="12" data-i18n="dec">ديسمبر</option>
+              </select>
+              <select id="reportYear" class="px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-sm text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+                <option value="2026">2026</option>
+                <option value="2025">2025</option>
+              </select>
+              <button onclick="renderMonthlyReports()" class="px-3 py-2 brand-gradient text-white font-bold rounded-xl text-xs cursor-pointer flex items-center gap-1"><i data-lucide="search" class="w-3 h-3"></i> <span data-i18n="view">عرض</span></button>
+            </div>
+          </div>
+          
+          <div class="overflow-x-auto bg-slate-900/50 rounded-2xl border border-slate-700 mb-4">
+            <table class="w-full text-right text-xs">
+              <thead class="bg-slate-900 text-slate-400 font-bold border-b border-slate-700">
+                <tr>
+                  <th class="py-3 px-4" data-i18n="employee">الموظف</th>
+                  <th class="py-3 px-4 text-center" data-i18n="days_present">أيام الحضور</th>
+                  <th class="py-3 px-4 text-center" data-i18n="total_hours">إجمالي الساعات</th>
+                  <th class="py-3 px-4 text-center" data-i18n="late_days">أيام التأخير</th>
+                  <th class="py-3 px-4 text-center" data-i18n="absences">الغياب</th>
+                </tr>
+              </thead>
+              <tbody id="reportsTableBody" class="divide-y divide-slate-700/50">
+                <tr><td colspan="5" class="py-8 text-center text-slate-500">اختر الشهر واضغط عرض</td></tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <div class="flex justify-end">
+            <button onclick="exportMonthlyReportToCSV()" class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs cursor-pointer flex items-center gap-2 shadow-lg shadow-emerald-900/50">
+              <i data-lucide="download" class="w-4 h-4"></i> <span data-i18n="download_csv">تحميل التقرير (CSV)</span>
+            </button>
+          </div>
+        </div>
       </section>
 
       <section id="view-settings" class="hidden-view space-y-6 max-w-4xl mx-auto">
@@ -346,6 +394,7 @@
         <button id="navBtn-attendance" onclick="switchTab('attendance')" class="flex flex-col items-center justify-center w-full h-full gap-0.5 text-cyan-400 cursor-pointer"><i data-lucide="clock" class="w-5 h-5"></i><span class="text-[9px] font-bold" data-i18n="attendance">الحضور</span></button>
         <button id="navBtn-chat" onclick="switchTab('chat')" class="flex flex-col items-center justify-center w-full h-full gap-0.5 text-slate-500 cursor-pointer"><i data-lucide="message-square" class="w-5 h-5"></i><span class="text-[9px] font-bold" data-i18n="chat">الشات</span></button>
         <button id="navBtn-requests" onclick="switchTab('requests')" class="flex flex-col items-center justify-center w-full h-full gap-0.5 text-slate-500 cursor-pointer"><i data-lucide="file-text" class="w-5 h-5"></i><span class="text-[9px] font-bold" data-i18n="requests">الطلبات</span></button>
+        <button id="navBtn-reports" onclick="switchTab('reports')" class="hidden flex flex-col items-center justify-center w-full h-full gap-0.5 text-slate-500 cursor-pointer"><i data-lucide="bar-chart-3" class="w-5 h-5"></i><span class="text-[9px] font-bold" data-i18n="reports">التقارير</span></button>
         <button id="navBtn-employees" onclick="switchTab('employees')" class="flex flex-col items-center justify-center w-full h-full gap-0.5 text-slate-500 cursor-pointer"><i data-lucide="users" class="w-5 h-5"></i><span class="text-[9px] font-bold" data-i18n="employees">الموظفون</span></button>
         <button id="navBtn-superadmin" onclick="switchTab('superadmin')" class="hidden flex flex-col items-center justify-center w-full h-full gap-0.5 text-amber-500 cursor-pointer"><i data-lucide="crown" class="w-5 h-5"></i><span class="text-[9px] font-bold" data-i18n="owner">المالك</span></button>
       </div>
@@ -373,6 +422,13 @@
         <div><label class="block mb-1 font-bold text-slate-300" data-i18n="username_required">المستخدم *</label><input type="text" id="newEmpUsername" dir="ltr" required class="w-full p-2 bg-slate-900 border border-slate-700 text-white rounded-xl font-mono"></div>
         <div><label class="block mb-1 font-bold text-slate-300" data-i18n="password_required">كلمة المرور *</label><input type="text" id="newEmpPass" dir="ltr" required minlength="8" class="w-full p-2 bg-slate-900 border border-slate-700 text-white rounded-xl font-mono"></div>
         <div class="grid grid-cols-2 gap-2"><div><label class="block mb-1 font-bold text-slate-300" data-i18n="role">الدور</label><select id="newEmpRole" class="w-full p-2 bg-slate-900 border border-slate-700 text-white rounded-xl"><option value="employee" data-i18n="employee_role">موظف</option><option value="manager" data-i18n="manager_role">مدير</option></select></div><div><label class="block mb-1 font-bold text-slate-300" data-i18n="job_title">المسمى</label><input type="text" id="newEmpTitle" class="w-full p-2 bg-slate-900 border border-slate-700 text-white rounded-xl"></div></div>
+        
+        <!-- وقت الحضور -->
+        <div>
+          <label class="block mb-1 font-bold text-slate-300" data-i18n="work_start_time">وقت بدء العمل الرسمي</label>
+          <input type="time" id="newEmpWorkStart" value="09:00" required class="w-full p-2 bg-slate-900 border border-slate-700 text-white rounded-xl font-mono">
+        </div>
+
         <div class="pt-3 border-t border-slate-700">
           <span class="block font-bold mb-2 text-cyan-400 flex items-center gap-1"><i data-lucide="map-pin" class="w-3 h-3"></i> <span data-i18n="work_location">موقع العمل</span></span>
           <div><label class="block mb-1 font-bold text-slate-300" data-i18n="location_name">اسم المقر</label><input type="text" id="newEmpLocName" value="المقر الرئيسي" class="w-full p-2 bg-slate-900 border border-slate-700 text-white rounded-xl"></div>
@@ -431,7 +487,7 @@
         how_3_title: "ابدأ الإدارة", how_3_desc: "تابع الحضور، راجع الطلبات، تواصل عبر الشات، وتحكم بكل شيء من لوحة واحدة.",
         cta_title: "جاهز لتحويل إدارة شركتك؟", cta_subtitle: "انضم إلى VodFire اليوم وابدأ تجربة إدارة حديثة وفعّالة لفريقك.",
         cta_btn_start: "ابدأ الآن مجاناً", cta_btn_register: "تسجيل شركة",
-        copyright: "© 2025 VodFire. جميع الحقوق محفوظة.",
+        copyright: "© 2026 VodFire. جميع الحقوق محفوظة.",
         connecting: "جاري الاتصال...", connected: "متصل", offline: "غير متصل",
         company_code: "كود الشركة", company_code_required: "كود الشركة *",
         username: "اسم المستخدم", username_required: "المستخدم *",
@@ -499,7 +555,13 @@
         msg_impersonate_role: "دخول إداري",
         msg_company_employees_hint: "موظفو",
         request_new_notif: "طلب جديد",
-        lang_name: "العربية"
+        lang_name: "العربية",
+        reports: "التقارير", monthly_reports: "تقارير الموظفين الشهرية", reports_desc: "تتبع أداء الموظفين وتحميل التقارير.",
+        jan: "يناير", feb: "فبراير", mar: "مارس", apr: "أبريل", may: "مايو", jun: "يونيو",
+        jul: "يوليو", aug: "أغسطس", sep: "سبتمبر", oct: "أكتوبر", nov: "نوفمبر", dec: "ديسمبر",
+        view: "عرض", days_present: "أيام الحضور", total_hours: "إجمالي الساعات", late_days: "أيام التأخير", absences: "الغياب",
+        download_csv: "تحميل التقرير (CSV)", msg_no_data_period: "لا توجد بيانات في هذه الفترة", hours: "ساعة",
+        work_start_time: "وقت بدء العمل الرسمي"
       },
       en: {
         app_title: "VodFire - Business Management Platform",
@@ -529,7 +591,7 @@
         how_3_title: "Start Managing", how_3_desc: "Track attendance, review requests, communicate via chat, and control everything from one dashboard.",
         cta_title: "Ready to Transform Your Company Management?", cta_subtitle: "Join VodFire today and start a modern and efficient management experience for your team.",
         cta_btn_start: "Start Now Free", cta_btn_register: "Register Company",
-        copyright: "© 2025 VodFire. All rights reserved.",
+        copyright: "© 2026 VodFire. All rights reserved.",
         connecting: "Connecting...", connected: "Connected", offline: "Offline",
         company_code: "Company Code", company_code_required: "Company Code *",
         username: "Username", username_required: "Username *",
@@ -597,7 +659,13 @@
         msg_impersonate_role: "Admin Access",
         msg_company_employees_hint: "Employees of",
         request_new_notif: "New Request",
-        lang_name: "English"
+        lang_name: "English",
+        reports: "Reports", monthly_reports: "Monthly Employee Reports", reports_desc: "Track employee performance and download reports.",
+        jan: "January", feb: "February", mar: "March", apr: "April", may: "May", jun: "June",
+        jul: "July", aug: "August", sep: "September", oct: "October", nov: "November", dec: "December",
+        view: "View", days_present: "Days Present", total_hours: "Total Hours", late_days: "Late Days", absences: "Absences",
+        download_csv: "Download Report (CSV)", msg_no_data_period: "No data for this period", hours: "hrs",
+        work_start_time: "Official Work Start Time"
       },
       it: {
         app_title: "VodFire - Piattaforma di Gestione Aziendale",
@@ -627,7 +695,7 @@
         how_3_title: "Inizia a Gestire", how_3_desc: "Monitora le presenze, rivedi le richieste, comunica tramite chat e controlla tutto da un'unica dashboard.",
         cta_title: "Pronto a Trasformare la Gestione della Tua Azienda?", cta_subtitle: "Unisciti a VodFire oggi e inizia un'esperienza di gestione moderna ed efficiente per il tuo team.",
         cta_btn_start: "Inizia Ora Gratis", cta_btn_register: "Registra Azienda",
-        copyright: "© 2025 VodFire. Tutti i diritti riservati.",
+        copyright: "© 2026 VodFire. Tutti i diritti riservati.",
         connecting: "Connessione...", connected: "Connesso", offline: "Offline",
         company_code: "Codice Azienda", company_code_required: "Codice Azienda *",
         username: "Nome Utente", username_required: "Nome Utente *",
@@ -695,7 +763,13 @@
         msg_impersonate_role: "Accesso Admin",
         msg_company_employees_hint: "Dipendenti di",
         request_new_notif: "Nuova Richiesta",
-        lang_name: "Italiano"
+        lang_name: "Italiano",
+        reports: "Rapporti", monthly_reports: "Rapporti Mensili dei Dipendenti", reports_desc: "Traccia le prestazioni dei dipendenti e scarica i rapporti.",
+        jan: "Gennaio", feb: "Febbraio", mar: "Marzo", apr: "Aprile", may: "Maggio", jun: "Giugno",
+        jul: "Luglio", aug: "Agosto", sep: "Settembre", oct: "Ottobre", nov: "Novembre", dec: "Dicembre",
+        view: "Visualizza", days_present: "Giorni Presenti", total_hours: "Ore Totali", late_days: "Giorni di Ritardo", absences: "Assenze",
+        download_csv: "Scarica Rapporto (CSV)", msg_no_data_period: "Nessun dato per questo periodo", hours: "ore",
+        work_start_time: "Orario Ufficiale di Inizio Lavoro"
       }
     };
 
@@ -721,7 +795,7 @@
       if (currentUser) {
         try {
           if (currentUser.isSuperAdmin && !currentUser._impersonating) renderSuperAdminCompanies();
-          else { renderAttendance(); renderChat(); renderRequests(); renderEmployees(); }
+          else { renderAttendance(); renderChat(); renderRequests(); renderEmployees(); renderMonthlyReports(true); }
           renderNotificationsBadge();
         } catch(e){}
       }
@@ -831,9 +905,9 @@
         const acc = await account.get();
         const cp = { name: n, code: c, ownerId: acc.$id, status: 'active', createdAt: new Date().toISOString() };
         const cd = await databases.createDocument(CFG.databaseId, CFG.collectionId, SDK.ID.unique(), { entitytype: 'COMPANY', Payload: JSON.stringify(cp), Username: m, userEmail: email, companyId: 'COMPANY_'+c, CompanyCode: c, Status: 'active', createdAt: new Date().toISOString() });
-        const up = { name: m, username: u, email, role: 'manager', jobTitle: 'Manager', companyId: cd.$id, companyCode: c, companyName: n, appwriteUserId: acc.$id, workplace: { name:'Main Office', latitude: 30.0444, longitude: 31.2357, radiusMeters: 250 }, createdAt: new Date().toISOString() };
+        const up = { name: m, username: u, email, role: 'manager', jobTitle: 'Manager', workStartTime: '09:00', companyId: cd.$id, companyCode: c, companyName: n, appwriteUserId: acc.$id, workplace: { name:'Main Office', latitude: 30.0444, longitude: 31.2357, radiusMeters: 250 }, createdAt: new Date().toISOString() };
         const ud = await databases.createDocument(CFG.databaseId, CFG.collectionId, SDK.ID.unique(), { entitytype: 'USER', Payload: JSON.stringify(up), Username: m, userEmail: email, companyId: cd.$id, CompanyCode: c, createdAt: new Date().toISOString() });
-        currentUser = { id: acc.$id, email, username: u, name: m, role: 'manager', isVerified: true, isSuperAdmin: false, profileImage: null, jobTitle: 'Manager', companyId: cd.$id, companyCode: c, companyName: n, workplace: up.workplace, _docId: ud.$id };
+        currentUser = { id: acc.$id, email, username: u, name: m, role: 'manager', isVerified: true, isSuperAdmin: false, profileImage: null, jobTitle: 'Manager', workStartTime: '09:00', companyId: cd.$id, companyCode: c, companyName: n, workplace: up.workplace, _docId: ud.$id };
         await loadAllFromCloud(); showApp();
         toast(t('msg_welcome_with_code') + c);
       } catch(err) {
@@ -881,7 +955,7 @@
             }
           } catch(err){}
         }
-        currentUser = { id: acc.$id, email: acc.email, username: profile.username || user, name: profile.DisplayName || profile.name || acc.name || user, role: finalRole === 'manager' ? 'manager' : 'employee', isVerified: true, isSuperAdmin: false, profileImage: profile.ProfileImage || null, jobTitle: profile.jobTitle || 'Employee', companyId: profile.companyId, companyCode: profile.companyCode || code, companyName: profile.companyName || code, workplace: profile.workplace || { name:'Main Office', latitude: 30.0444, longitude: 31.2357, radiusMeters: 250 }, _docId: profile._docId || null };
+        currentUser = { id: acc.$id, email: acc.email, username: profile.username || user, name: profile.DisplayName || profile.name || acc.name || user, role: finalRole === 'manager' ? 'manager' : 'employee', isVerified: true, isSuperAdmin: false, profileImage: profile.ProfileImage || null, jobTitle: profile.jobTitle || 'Employee', workStartTime: profile.workStartTime || '09:00', companyId: profile.companyId, companyCode: profile.companyCode || code, companyName: profile.companyName || code, workplace: profile.workplace || { name:'Main Office', latitude: 30.0444, longitude: 31.2357, radiusMeters: 250 }, _docId: profile._docId || null };
         await loadAllFromCloud(); showApp();
       } catch(err) {
         let msg = err.message || t('msg_failed');
@@ -988,7 +1062,7 @@
         const profiles = usersRes.documents.map(d => ({ ...safeParse(d.Payload), _docId: d.$id, _companyId: d.companyId }));
         const manager = profiles.find(p => p.role === 'manager') || profiles[0];
         impersonatedCompany = { originalUser: currentUser, companyDocId: docId };
-        currentUser = { id: manager.appwriteUserId || currentUser.id, email: manager.email, username: manager.username, name: manager.name, role: 'manager', isVerified: true, isSuperAdmin: true, profileImage: manager.ProfileImage || null, jobTitle: t('msg_impersonate_role'), companyId: docId, companyCode: code, companyName: name, workplace: manager.workplace || { name:'—', latitude: 0, longitude: 0, radiusMeters: 0 }, _docId: manager._docId, _impersonating: true };
+        currentUser = { id: manager.appwriteUserId || currentUser.id, email: manager.email, username: manager.username, name: manager.name, role: 'manager', isVerified: true, isSuperAdmin: true, profileImage: manager.ProfileImage || null, jobTitle: t('msg_impersonate_role'), workStartTime: manager.workStartTime || '09:00', companyId: docId, companyCode: code, companyName: name, workplace: manager.workplace || { name:'—', latitude: 0, longitude: 0, radiusMeters: 0 }, _docId: manager._docId, _impersonating: true };
         await loadAllFromCloud(); showApp(); toast(t('msg_enter_company') + ` "${name}"`);
       } catch(e) { alert(t('msg_failed') + ': ' + e.message); }
     }
@@ -1126,6 +1200,7 @@
       document.getElementById('tabBtn-superadmin').classList.toggle('hidden', !isSA || currentUser._impersonating);
       document.getElementById('navBtn-superadmin').classList.toggle('hidden', !isSA || currentUser._impersonating);
       document.getElementById('exitImpersonateBtn').classList.toggle('hidden', !currentUser._impersonating);
+      
       if (isMgr) {
         document.getElementById('employeeAttendanceBlock').classList.add('hidden-view');
         document.getElementById('managerAttendanceBlock').classList.remove('hidden-view');
@@ -1138,6 +1213,10 @@
           document.getElementById('empWorkplaceCoords').textContent = `${w.latitude.toFixed(4)}, ${w.longitude.toFixed(4)} | ${w.radiusMeters}m`;
         }
       }
+      
+      document.getElementById('tabBtn-reports').style.display = isMgr ? 'flex' : 'none';
+      document.getElementById('navBtn-reports').style.display = isMgr ? 'flex' : 'none';
+      
       document.getElementById('tabBtn-employees').style.display = isMgr ? 'flex' : 'none';
       document.getElementById('tabBtn-settings').style.display = isMgr ? 'flex' : 'none';
       document.getElementById('navBtn-employees').style.display = isMgr ? 'flex' : 'none';
@@ -1145,9 +1224,15 @@
       document.getElementById('employeesCompanyHint').textContent = `${t('msg_company_employees_hint')} ${currentUser.companyName || ''}`;
       document.getElementById('settingsCompanyName').textContent = currentUser.companyName || '—';
       document.getElementById('settingsCompanyCode').textContent = currentUser.companyCode || '—';
+      
+      const now = new Date();
+      document.getElementById('reportMonth').value = now.getMonth() + 1;
+      document.getElementById('reportYear').value = now.getFullYear();
+
       renderAll(); renderNotificationsBadge();
       if (isSA && !currentUser._impersonating) { switchTab('superadmin'); renderSuperAdminCompanies(); } else { switchTab('attendance'); }
       lucide.createIcons();
+      
       if (syncInterval) clearInterval(syncInterval);
       syncInterval = setInterval(async () => {
         try {
@@ -1160,7 +1245,7 @@
     function renderAll() { renderAttendance(); renderChat(); renderRequests(); renderEmployees(); }
 
     function switchTab(id) {
-      ['attendance','chat','requests','employees','settings','superadmin'].forEach(t2 => {
+      ['attendance','chat','requests','employees','reports','settings','superadmin'].forEach(t2 => {
         const el = document.getElementById('view-' + t2); if (el) el.classList.add('hidden-view');
         const b = document.getElementById('tabBtn-' + t2); if(b) { b.classList.remove('brand-gradient','text-white'); b.classList.add('text-slate-400'); }
         const nb = document.getElementById('navBtn-' + t2); if(nb) { nb.classList.remove('text-cyan-400'); nb.classList.add('text-slate-500'); }
@@ -1302,10 +1387,10 @@
 
     function renderEmployees() {
       const tb = document.getElementById('employeesTableBody'); tb.innerHTML = '';
-      if (!localCache.users.length) { tb.innerHTML = `<tr><td colspan="6" class="py-6 text-center text-slate-500">${t('msg_no_employees')}</td></tr>`; return; }
+      if (!localCache.users.length) { tb.innerHTML = `<tr><td colspan="7" class="py-6 text-center text-slate-500">${t('msg_no_employees')}</td></tr>`; return; }
       localCache.users.forEach(u => {
         const tr = document.createElement('tr'); tr.className = 'hover:bg-slate-700/30';
-        tr.innerHTML = `<td class="py-3 px-4 font-bold text-white">${escapeHtml(u.DisplayName || u.name)}</td><td class="py-3 px-4 font-mono text-xs text-slate-400">@${escapeHtml(u.username||'—')}</td><td class="py-3 px-4"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${u.role==='manager'?'bg-cyan-900/50 text-cyan-400':'bg-slate-700 text-slate-300'}">${u.role==='manager'?t('manager_role'):t('employee_role')}</span></td><td class="py-3 px-4 text-slate-300">${escapeHtml(u.jobTitle||'—')}</td><td class="py-3 px-4 font-mono text-[11px] text-slate-400">${escapeHtml(u.workplace?.name||'—')}</td><td class="py-3 px-4 text-center">${u.appwriteUserId !== currentUser.id ? `<button data-id="${u._docId}" class="px-2 py-1 bg-rose-900/50 text-rose-400 rounded-lg text-xs font-bold flex items-center justify-center gap-1 mx-auto"><i data-lucide="trash-2" class="w-3 h-3"></i> ${t('delete')}</button>` : '—'}</td>`;
+        tr.innerHTML = `<td class="py-3 px-4 font-bold text-white">${escapeHtml(u.DisplayName || u.name)}</td><td class="py-3 px-4 font-mono text-xs text-slate-400">@${escapeHtml(u.username||'—')}</td><td class="py-3 px-4"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${u.role==='manager'?'bg-cyan-900/50 text-cyan-400':'bg-slate-700 text-slate-300'}">${u.role==='manager'?t('manager_role'):t('employee_role')}</span></td><td class="py-3 px-4 text-slate-300">${escapeHtml(u.jobTitle||'—')}</td><td class="py-3 px-4 font-mono text-xs text-cyan-300">${escapeHtml(u.workStartTime||'09:00')}</td><td class="py-3 px-4 font-mono text-[11px] text-slate-400">${escapeHtml(u.workplace?.name||'—')}</td><td class="py-3 px-4 text-center">${u.appwriteUserId !== currentUser.id ? `<button data-id="${u._docId}" class="px-2 py-1 bg-rose-900/50 text-rose-400 rounded-lg text-xs font-bold flex items-center justify-center gap-1 mx-auto"><i data-lucide="trash-2" class="w-3 h-3"></i> ${t('delete')}</button>` : '—'}</td>`;
         tb.appendChild(tr);
       });
       tb.querySelectorAll('button[data-id]').forEach(b => { b.onclick = () => deleteEmployee(b.dataset.id); });
@@ -1321,6 +1406,7 @@
       const pass = document.getElementById('newEmpPass').value;
       const role = document.getElementById('newEmpRole').value;
       const jt = document.getElementById('newEmpTitle').value.trim() || (role === 'manager' ? t('manager_role') : t('employee_role'));
+      const workStartTime = document.getElementById('newEmpWorkStart').value;
       const loc = document.getElementById('newEmpLocName').value.trim() || 'Main Office';
       const lat = Number(document.getElementById('newEmpLat').value);
       const lng = Number(document.getElementById('newEmpLng').value);
@@ -1336,7 +1422,7 @@
         const res = await fetch(`${CFG.endpoint}/users`, { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Appwrite-Project': CFG.projectId, 'X-Appwrite-Key': MASTER_API_KEY }, body: JSON.stringify({ userId: 'unique()', email: email, password: pass, name: name }) });
         const newUser = await res.json();
         if (newUser.code >= 400) throw new Error(newUser.message || t('msg_failed'));
-        const profilePayload = { name, username: user, email, role, jobTitle: jt, companyId: currentUser.companyId, companyCode: currentUser.companyCode, companyName: currentUser.companyName, appwriteUserId: newUser.$id, workplace: { name: loc, latitude: lat, longitude: lng, radiusMeters: rad }, createdAt: new Date().toISOString() };
+        const profilePayload = { name, username: user, email, role, jobTitle: jt, workStartTime, companyId: currentUser.companyId, companyCode: currentUser.companyCode, companyName: currentUser.companyName, appwriteUserId: newUser.$id, workplace: { name: loc, latitude: lat, longitude: lng, radiusMeters: rad }, createdAt: new Date().toISOString() };
         const doc = await databases.createDocument(CFG.databaseId, CFG.collectionId, SDK.ID.unique(), { entitytype: 'USER', Payload: JSON.stringify(profilePayload), Username: name, userEmail: email, companyId: currentUser.companyId, CompanyCode: currentUser.companyCode, createdAt: new Date().toISOString() });
         localCache.users.push({ ...profilePayload, _docId: doc.$id });
         closeModal('employeeModal'); e.target.reset(); renderEmployees();
@@ -1394,6 +1480,119 @@
       setTimeout(() => el.remove(), 3500);
     }
 
+    // ================= REPORTS LOGIC =================
+    let currentReportData = [];
+
+    function renderMonthlyReports(silent = false) {
+      const month = parseInt(document.getElementById('reportMonth').value);
+      const year = parseInt(document.getElementById('reportYear').value);
+      const tb = document.getElementById('reportsTableBody');
+      
+      if (!silent) tb.innerHTML = '<tr><td colspan="5" class="py-8 text-center text-slate-500"><i data-lucide="loader" class="w-5 h-5 animate-spin inline"></i></td></tr>';
+      lucide.createIcons();
+
+      const prefix = `${year}-${String(month).padStart(2, '0')}`;
+      const daysInMonth = new Date(year, month, 0).getDate();
+      const monthAttendance = localCache.attendance.filter(a => a.date && a.date.startsWith(prefix));
+      
+      const stats = localCache.users.map(user => {
+        const userAtt = monthAttendance.filter(a => a.userId === user.appwriteUserId || a.userId === user._docId);
+        const requiredStartTime = user.workStartTime || '09:00';
+        
+        let presentDays = userAtt.length;
+        let totalHours = 0;
+        let lateDays = 0;
+
+        userAtt.forEach(a => {
+          if (a.checkIn && a.checkOut) {
+            const timeToMins = (str) => {
+              try { 
+                const parts = str.replace(/[^\d:]/g, '').split(':');
+                if (parts.length >= 2) return parseInt(parts[0]) * 60 + parseInt(parts[1]);
+              } catch(e) {}
+              return 0;
+            };
+            const mins = timeToMins(a.checkOut) - timeToMins(a.checkIn);
+            if (mins > 0) totalHours += (mins / 60);
+          }
+          
+          if (a.checkIn) {
+            const timeToMins = (str) => {
+              try { 
+                const parts = str.replace(/[^\d:]/g, '').split(':');
+                if (parts.length >= 2) return parseInt(parts[0]) * 60 + parseInt(parts[1]);
+              } catch(e) {}
+              return 0;
+            };
+            const checkInMins = timeToMins(a.checkIn);
+            const requiredStartMins = timeToMins(requiredStartTime);
+            // إضافة 15 دقيقة سماح
+            if (checkInMins > (requiredStartMins + 15)) lateDays++;
+          }
+        });
+
+        let absences = Math.max(0, presentDays === 0 ? 0 : 22 - presentDays);
+
+        return {
+          name: user.DisplayName || user.name,
+          username: user.username,
+          presentDays,
+          totalHours: totalHours.toFixed(1),
+          lateDays,
+          absences
+        };
+      });
+
+      currentReportData = stats;
+
+      if (!silent) {
+        if (!stats.length) {
+          tb.innerHTML = `<tr><td colspan="5" class="py-8 text-center text-slate-500">${t('msg_no_data_period')}</td></tr>`;
+          return;
+        }
+        
+        tb.innerHTML = '';
+        stats.forEach(s => {
+          const tr = document.createElement('tr');
+          tr.className = 'hover:bg-slate-700/30';
+          tr.innerHTML = `
+            <td class="py-3 px-4 font-bold text-white">${escapeHtml(s.name)}</td>
+            <td class="py-3 px-4 text-center font-bold text-emerald-400">${s.presentDays}</td>
+            <td class="py-3 px-4 text-center font-mono text-cyan-300">${s.totalHours}</td>
+            <td class="py-3 px-4 text-center font-bold ${s.lateDays > 0 ? 'text-amber-400' : 'text-slate-400'}">${s.lateDays}</td>
+            <td class="py-3 px-4 text-center font-bold ${s.absences > 0 ? 'text-rose-400' : 'text-slate-400'}">${s.absences}</td>
+          `;
+          tb.appendChild(tr);
+        });
+      }
+    }
+
+    function exportMonthlyReportToCSV() {
+      if (!currentReportData.length) return alert(t('msg_no_data_period'));
+      
+      const month = document.getElementById('reportMonth').options[document.getElementById('reportMonth').selectedIndex].text;
+      const year = document.getElementById('reportYear').value;
+
+      let csvContent = "\uFEFF"; // BOM لضمان قراءة العربية في Excel
+      csvContent += `Company,${currentUser.companyName || ''}\n`;
+      csvContent += `Month,${month} ${year}\n\n`;
+      
+      csvContent += `${t('employee')},${t('days_present')},${t('total_hours')},${t('late_days')},${t('absences')}\n`;
+      
+      currentReportData.forEach(s => {
+        csvContent += `"${s.name}",${s.presentDays},${s.totalHours},${s.lateDays},${s.absences}\n`;
+      });
+      
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.setAttribute("href", url);
+      link.setAttribute("download", `VodFire_Report_${month}_${year}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
     window.addEventListener('DOMContentLoaded', async () => {
       const savedLang = localStorage.getItem('vodfire_lang') || 'ar';
       setLanguage(savedLang);
@@ -1416,7 +1615,7 @@
               if (profile.companyId) {
                 try { const cd = await databases.getDocument(CFG.databaseId, CFG.collectionId, profile.companyId); const c = safeParse(cd.Payload); if (c.ownerId === acc.$id) finalRole = 'manager'; } catch(e){}
               }
-              currentUser = { id: acc.$id, email: acc.email, username: profile.username || acc.email.split('@')[0], name: profile.DisplayName || profile.name || acc.name || 'User', role: finalRole === 'manager' ? 'manager' : 'employee', isVerified: true, isSuperAdmin: false, profileImage: profile.ProfileImage || null, jobTitle: profile.jobTitle || 'Employee', companyId: profile.companyId, companyCode: profile.companyCode, companyName: profile.companyName || profile.companyCode, workplace: profile.workplace || { name:'—', latitude: 0, longitude: 0, radiusMeters: 0 }, _docId: profile._docId || null };
+              currentUser = { id: acc.$id, email: acc.email, username: profile.username || acc.email.split('@')[0], name: profile.DisplayName || profile.name || acc.name || 'User', role: finalRole === 'manager' ? 'manager' : 'employee', isVerified: true, isSuperAdmin: false, profileImage: profile.ProfileImage || null, jobTitle: profile.jobTitle || 'Employee', workStartTime: profile.workStartTime || '09:00', companyId: profile.companyId, companyCode: profile.companyCode, companyName: profile.companyName || profile.companyCode, workplace: profile.workplace || { name:'—', latitude: 0, longitude: 0, radiusMeters: 0 }, _docId: profile._docId || null };
               await loadAllFromCloud(); showApp();
             }
           }
