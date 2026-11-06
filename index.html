@@ -19,7 +19,7 @@
     window.dispatchEvent(new Event('appwrite-ready'));
   </script>
   <style>
-    body { font-family: 'Cairo', sans-serif; margin: 0; transition: font-family 0.2s, background-color 0.3s, color 0.3s; }
+    body { font-family: 'Cairo', sans-serif; margin: 0; transition: font-family 0.2s, background-color 0.3s, color 0.3s; overflow-x: hidden; }
     html.dark body { background: #0f172a; color: #f8fafc; }
     html:not(.dark) body { background: #f8fafc; color: #0f172a; }
     html[dir="ltr"] body { font-family: 'Segoe UI', Tahoma, sans-serif; }
@@ -31,20 +31,24 @@
     .notif-unread { border-right: 3px solid #06b6d4; background: rgba(6,182,212,0.08); }
     html[dir="ltr"] .notif-unread { border-right: none; border-left: 3px solid #06b6d4; }
     #landingScreen { z-index: 40; } #loginScreen { z-index: 50; } #mainApp { z-index: 10; }
-    .desktop-tabs { display: none !important; } .mobile-nav { display: block !important; }
-    @media (min-width: 769px) { .desktop-tabs { display: flex !important; } .mobile-nav { display: none !important; } }
-    .bottom-nav { padding-bottom: env(safe-area-inset-bottom); }
     @media (max-width: 640px) { input, select, textarea { font-size: 16px !important; } }
     .feature-card { transition: all 0.3s ease; }
     .feature-card:hover { transform: translateY(-4px); border-color: #06b6d4; box-shadow: 0 10px 30px -10px rgba(6,182,212,0.3); }
     .lang-menu { animation: fadeIn 0.2s ease; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
-    /* ستايل السليدر الخاص بشريط الأقسام العلوي */
-    .tabs-slider::-webkit-scrollbar { height: 4px; }
-    .tabs-slider::-webkit-scrollbar-thumb { background: rgba(6, 182, 212, 0.3); border-radius: 4px; }
+    
+    /* سليدر الأقسام التفاعلي في الأعلى لكافة الأجهزة */
+    .tabs-slider {
+      display: flex !important;
+      overflow-x: auto !important;
+      white-space: nowrap !important;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none; /* Firefox */
+    }
+    .tabs-slider::-webkit-scrollbar { display: none; } /* Chrome, Safari, Opera */
   </style>
 </head>
-<body class="antialiased min-h-screen flex flex-col">
+<body class="antialiased min-h-screen flex flex-col overflow-x-hidden">
 
   <!-- شاشة تعريفية -->
   <div id="landingScreen" class="fixed inset-0 flex flex-col bg-slate-950 text-slate-100 overflow-y-auto">
@@ -147,44 +151,6 @@
         </div>
       </section>
 
-      <section class="w-full max-w-6xl mb-20">
-        <div class="text-center mb-10">
-          <h3 class="text-2xl sm:text-3xl font-black text-white mb-2" data-i18n-html="how_title">كيف تبدأ <span class="brand-text-gradient">معنا</span>؟</h3>
-          <p class="text-slate-400 text-sm" data-i18n="how_subtitle">ثلاث خطوات بسيطة تفصلك عن إدارة احترافية</p>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-          <div class="bg-slate-800/60 border border-slate-700 rounded-2xl p-6 text-center relative">
-            <div class="w-14 h-14 rounded-full brand-gradient flex items-center justify-center mx-auto mb-4 text-2xl font-black text-white">1</div>
-            <h4 class="font-bold text-white mb-2" data-i18n="how_1_title">سجّل شركتك</h4>
-            <p class="text-slate-400 text-xs leading-relaxed" data-i18n="how_1_desc">أنشئ حساب شركة جديدة بكود فريد واسم مناسب، وستصبح مديراً لها تلقائياً.</p>
-          </div>
-          <div class="bg-slate-800/60 border border-slate-700 rounded-2xl p-6 text-center relative">
-            <div class="w-14 h-14 rounded-full brand-gradient flex items-center justify-center mx-auto mb-4 text-2xl font-black text-white">2</div>
-            <h4 class="font-bold text-white mb-2" data-i18n="how_2_title">أضف موظفيك</h4>
-            <p class="text-slate-400 text-xs leading-relaxed" data-i18n="how_2_desc">أضف أعضاء فريقك، حدّد مواقع العمل، ووزّع الأدوار والمسميات الوظيفية.</p>
-          </div>
-          <div class="bg-slate-800/60 border border-slate-700 rounded-2xl p-6 text-center relative">
-            <div class="w-14 h-14 rounded-full brand-gradient flex items-center justify-center mx-auto mb-4 text-2xl font-black text-white">3</div>
-            <h4 class="font-bold text-white mb-2" data-i18n="how_3_title">ابدأ الإدارة</h4>
-            <p class="text-slate-400 text-xs leading-relaxed" data-i18n="how_3_desc">تابع الحضور، راجع الطلبات، تواصل عبر الشات، وتحكم بكل شيء من لوحة واحدة.</p>
-          </div>
-        </div>
-      </section>
-
-      <section class="w-full max-w-4xl mb-10">
-        <div class="brand-gradient rounded-3xl p-8 sm:p-12 text-center relative overflow-hidden">
-          <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 20% 50%, white 1px, transparent 1px), radial-gradient(circle at 80% 50%, white 1px, transparent 1px); background-size: 40px 40px;"></div>
-          <div class="relative z-10">
-            <h3 class="text-2xl sm:text-3xl font-black text-white mb-3" data-i18n="cta_title">جاهز لتحويل إدارة شركتك؟</h3>
-            <p class="text-cyan-100 text-sm mb-6 max-w-xl mx-auto" data-i18n="cta_subtitle">انضم إلى VodFire اليوم وابدأ تجربة إدارة حديثة وفعّالة لفريقك.</p>
-            <div class="flex flex-wrap gap-3 justify-center">
-              <button onclick="showLoginScreen()" class="px-6 py-3 bg-white text-slate-900 font-black rounded-xl cursor-pointer flex items-center gap-2"><i data-lucide="rocket" class="w-4 h-4"></i><span data-i18n="cta_btn_start">ابدأ الآن مجاناً</span></button>
-              <button onclick="showLoginScreen('register')" class="px-6 py-3 bg-black/20 text-white border border-white/30 font-bold rounded-xl cursor-pointer flex items-center gap-2"><i data-lucide="building-2" class="w-4 h-4"></i><span data-i18n="cta_btn_register">تسجيل شركة</span></button>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <p class="text-xs text-slate-500 mt-4" data-i18n="copyright">© 2026 VodFire. جميع الحقوق محفوظة.</p>
     </main>
   </div>
@@ -236,15 +202,15 @@
     </div>
   </div>
 
-  <!-- التطبيق -->
-  <div id="mainApp" class="hidden-view flex flex-col min-h-screen pb-24 md:pb-10">
+  <!-- التطبيق الرئيسي -->
+  <div id="mainApp" class="hidden-view flex flex-col min-h-screen">
     <header class="dark:bg-slate-800 bg-white border-b dark:border-slate-700 border-slate-200 sticky top-0 z-30 shadow-md">
       <div class="max-w-7xl mx-auto px-3 sm:px-6 h-16 flex items-center justify-between gap-2">
         <div class="flex items-center gap-2.5">
-          <div class="w-10 h-10 rounded-xl brand-gradient flex items-center justify-center"><span class="text-white font-black text-2xl" style="font-family:Arial; transform:skewX(-10deg);">V</span></div>
-          <div><h1 class="text-sm sm:text-lg font-black dark:text-white text-slate-900" style="font-family:Arial;">Vod<span class="text-cyan-400">fire</span></h1><p id="headerCompanyName" class="text-[10px] text-cyan-500 font-bold">—</p></div>
+          <div class="w-10 h-10 rounded-xl brand-gradient flex items-center justify-center shrink-0"><span class="text-white font-black text-2xl" style="font-family:Arial; transform:skewX(-10deg);">V</span></div>
+          <div class="truncate"><h1 class="text-sm sm:text-lg font-black dark:text-white text-slate-900" style="font-family:Arial;">Vod<span class="text-cyan-400">fire</span></h1><p id="headerCompanyName" class="text-[10px] text-cyan-500 font-bold truncate">—</p></div>
         </div>
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-2 shrink-0">
           <!-- زر تبديل الوضع (فاتح/داكن) -->
           <button onclick="toggleDarkMode()" class="p-2 dark:text-amber-300 text-slate-600 dark:bg-slate-700 bg-slate-100 hover:opacity-80 rounded-xl cursor-pointer" title="تغيير المظهر">
             <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
@@ -254,7 +220,7 @@
           <button id="saBadge" onclick="switchTab('superadmin')" class="hidden px-3 py-1.5 bg-amber-900/30 hover:bg-amber-800/40 border border-amber-700 text-amber-300 rounded-xl text-[10px] font-bold flex items-center gap-1.5 cursor-pointer"><i data-lucide="crown" class="w-3.5 h-3.5"></i><span data-i18n="platform_owner">مالك المنصة</span></button>
           <button id="notifBellBtn" onclick="toggleNotificationsPanel()" class="hidden relative p-2 dark:text-slate-300 text-slate-700 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl cursor-pointer"><i data-lucide="bell" class="w-5 h-5" id="notifBellIcon"></i><span id="notifBadge" class="notif-badge hidden">0</span></button>
           <button onclick="openProfileModal()" class="flex items-center gap-2 pl-3 pr-1 py-1 dark:bg-slate-900 bg-slate-100 rounded-full border dark:border-slate-700 border-slate-200 cursor-pointer">
-            <div class="w-8 h-8 rounded-full bg-cyan-600 text-white flex items-center justify-center font-bold text-xs overflow-hidden"><img id="headerAvatarImg" class="w-full h-full object-cover hidden" /><span id="headerAvatarText">م</span></div>
+            <div class="w-8 h-8 rounded-full bg-cyan-600 text-white flex items-center justify-center font-bold text-xs overflow-hidden shrink-0"><img id="headerAvatarImg" class="w-full h-full object-cover hidden" /><span id="headerAvatarText">م</span></div>
             <div class="text-right hidden sm:block"><span id="headerUserName" class="text-xs font-bold dark:text-white text-slate-800 block">—</span><span id="headerUserRole" class="text-[10px] text-slate-400 block">—</span></div>
           </button>
           <button onclick="handleLogout()" class="p-2 text-rose-500 hover:bg-rose-500 hover:text-white rounded-xl cursor-pointer"><i data-lucide="log-out" class="w-5 h-5"></i></button>
@@ -268,19 +234,22 @@
     </div>
 
     <main class="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 py-5 space-y-6">
-      <!-- شريط الأقسام العلوي كسليدر متحرّك أفقياً -->
-      <div class="desktop-tabs dark:bg-slate-800/90 bg-white/90 backdrop-blur-md p-2 rounded-2xl border dark:border-slate-700/80 border-slate-200 shadow-sm flex items-center gap-2 overflow-x-auto tabs-slider">
-        <button id="tabBtn-dashboard" onclick="switchTab('dashboard')" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs whitespace-nowrap brand-gradient text-white cursor-pointer shadow-md"><i data-lucide="layout-dashboard" class="w-4 h-4"></i><span data-i18n="dashboard">الرئيسية</span></button>
-        <button id="tabBtn-attendance" onclick="switchTab('attendance')" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs whitespace-nowrap dark:text-slate-400 text-slate-600 dark:hover:bg-slate-700/60 hover:bg-slate-100 cursor-pointer"><i data-lucide="clock" class="w-4 h-4"></i><span data-i18n="attendance">الحضور</span></button>
-        <button id="tabBtn-chat" onclick="switchTab('chat')" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs whitespace-nowrap dark:text-slate-400 text-slate-600 dark:hover:bg-slate-700/60 hover:bg-slate-100 cursor-pointer"><i data-lucide="message-square" class="w-4 h-4"></i><span data-i18n="chat">الشات</span></button>
-        <button id="tabBtn-requests" onclick="switchTab('requests')" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs whitespace-nowrap dark:text-slate-400 text-slate-600 dark:hover:bg-slate-700/60 hover:bg-slate-100 cursor-pointer"><i data-lucide="file-text" class="w-4 h-4"></i><span data-i18n="requests">الطلبات</span></button>
-        <button id="tabBtn-employees" onclick="switchTab('employees')" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs whitespace-nowrap dark:text-slate-400 text-slate-600 dark:hover:bg-slate-700/60 hover:bg-slate-100 cursor-pointer"><i data-lucide="users" class="w-4 h-4"></i><span data-i18n="employees">الموظفون</span></button>
-        <button id="tabBtn-reports" onclick="switchTab('reports')" class="hidden tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs whitespace-nowrap dark:text-slate-400 text-slate-600 dark:hover:bg-slate-700/60 hover:bg-slate-100 cursor-pointer"><i data-lucide="bar-chart-3" class="w-4 h-4"></i><span data-i18n="reports">التقارير</span></button>
-        <button id="tabBtn-settings" onclick="switchTab('settings')" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs whitespace-nowrap dark:text-slate-400 text-slate-600 dark:hover:bg-slate-700/60 hover:bg-slate-100 cursor-pointer"><i data-lucide="settings" class="w-4 h-4"></i><span data-i18n="settings">الإعدادات</span></button>
-        <button id="tabBtn-superadmin" onclick="switchTab('superadmin')" class="tab-btn hidden flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs whitespace-nowrap text-amber-500 bg-amber-500/10 hover:bg-amber-500/20 cursor-pointer mr-auto"><i data-lucide="crown" class="w-4 h-4"></i><span data-i18n="owner_panel">لوحة المالك</span></button>
+      
+      <!-- شريط الأقسام العلوي التفاعلي (سليدر متحرّك أفقياً لجميع الشاشات والجوال) -->
+      <div class="w-full dark:bg-slate-800/90 bg-white/90 backdrop-blur-md p-1.5 rounded-2xl border dark:border-slate-700/80 border-slate-200 shadow-sm sticky top-16 z-20 overflow-hidden">
+        <div class="tabs-slider items-center gap-2 py-0.5 px-1">
+          <button id="tabBtn-dashboard" onclick="switchTab('dashboard')" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs whitespace-nowrap brand-gradient text-white cursor-pointer shadow-md"><i data-lucide="layout-dashboard" class="w-4 h-4"></i><span data-i18n="dashboard">الرئيسية</span></button>
+          <button id="tabBtn-attendance" onclick="switchTab('attendance')" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs whitespace-nowrap dark:text-slate-400 text-slate-600 dark:hover:bg-slate-700/60 hover:bg-slate-100 cursor-pointer"><i data-lucide="clock" class="w-4 h-4"></i><span data-i18n="attendance">الحضور</span></button>
+          <button id="tabBtn-chat" onclick="switchTab('chat')" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs whitespace-nowrap dark:text-slate-400 text-slate-600 dark:hover:bg-slate-700/60 hover:bg-slate-100 cursor-pointer"><i data-lucide="message-square" class="w-4 h-4"></i><span data-i18n="chat">الشات</span></button>
+          <button id="tabBtn-requests" onclick="switchTab('requests')" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs whitespace-nowrap dark:text-slate-400 text-slate-600 dark:hover:bg-slate-700/60 hover:bg-slate-100 cursor-pointer"><i data-lucide="file-text" class="w-4 h-4"></i><span data-i18n="requests">الطلبات</span></button>
+          <button id="tabBtn-employees" onclick="switchTab('employees')" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs whitespace-nowrap dark:text-slate-400 text-slate-600 dark:hover:bg-slate-700/60 hover:bg-slate-100 cursor-pointer"><i data-lucide="users" class="w-4 h-4"></i><span data-i18n="employees">الموظفون</span></button>
+          <button id="tabBtn-reports" onclick="switchTab('reports')" class="hidden tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs whitespace-nowrap dark:text-slate-400 text-slate-600 dark:hover:bg-slate-700/60 hover:bg-slate-100 cursor-pointer"><i data-lucide="bar-chart-3" class="w-4 h-4"></i><span data-i18n="reports">التقارير</span></button>
+          <button id="tabBtn-settings" onclick="switchTab('settings')" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs whitespace-nowrap dark:text-slate-400 text-slate-600 dark:hover:bg-slate-700/60 hover:bg-slate-100 cursor-pointer"><i data-lucide="settings" class="w-4 h-4"></i><span data-i18n="settings">الإعدادات</span></button>
+          <button id="tabBtn-superadmin" onclick="switchTab('superadmin')" class="tab-btn hidden flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs whitespace-nowrap text-amber-500 bg-amber-500/10 hover:bg-amber-500/20 cursor-pointer"><i data-lucide="crown" class="w-4 h-4"></i><span data-i18n="owner_panel">لوحة المالك</span></button>
+        </div>
       </div>
 
-      <!-- قسم لوحة الإحصائيات والأشكال العصرية الجديدة -->
+      <!-- 1. قسم الرئيسية -->
       <section id="view-dashboard" class="space-y-6">
         <div class="relative overflow-hidden bg-gradient-to-r from-cyan-900/40 via-slate-800 to-blue-900/40 p-6 sm:p-8 rounded-3xl border border-cyan-500/30 shadow-xl">
           <div class="absolute -left-10 -top-10 w-40 h-40 bg-cyan-500/10 rounded-full blur-2xl"></div>
@@ -388,7 +357,7 @@
         </div>
       </section>
 
-      <!-- قسم الحضور والانصراف بتصميم عصري ومتوافق مع الوضعين -->
+      <!-- 2. قسم الحضور والانصراف بتصميم حديث متجاوب -->
       <section id="view-attendance" class="hidden-view space-y-6">
         <div id="employeeAttendanceBlock" class="dark:bg-slate-800 bg-white p-6 rounded-3xl border dark:border-slate-700 border-slate-200 space-y-6 shadow-sm">
           <div class="flex items-center justify-between pb-5 border-b dark:border-slate-700 border-slate-200">
@@ -407,31 +376,31 @@
         <div id="managerAttendanceBlock" class="hidden-view dark:bg-slate-800 bg-white p-6 rounded-3xl border dark:border-slate-700 border-slate-200 shadow-sm">
           <div class="flex items-center gap-4"><div class="w-12 h-12 rounded-2xl bg-cyan-900/50 flex items-center justify-center border border-cyan-800"><i data-lucide="shield-check" class="w-6 h-6 text-cyan-400"></i></div><div><h3 class="font-black dark:text-white text-slate-900" data-i18n="exempt_from_attendance">أنت معفي من الحضور</h3><p class="text-xs text-slate-400 mt-1" data-i18n="manager_no_checkin">حسابك كمدير لا يتطلب تسجيل.</p></div></div>
         </div>
-        <div class="dark:bg-slate-800 bg-white rounded-2xl border dark:border-slate-700 border-slate-200 overflow-hidden shadow-sm"><div class="overflow-x-auto"><table class="w-full text-right text-xs"><thead class="dark:bg-slate-900/50 bg-slate-100 text-slate-400 font-bold border-b dark:border-slate-700 border-slate-200"><tr><th class="py-3 px-4" data-i18n="employee">الموظف</th><th class="py-3 px-4" data-i18n="date">التاريخ</th><th class="py-3 px-4" data-i18n="checkin">حضور</th><th class="py-3 px-4" data-i18n="checkout">انصراف</th><th class="py-3 px-4 text-center" data-i18n="distance">المسافة</th></tr></thead><tbody id="attendanceTableBody" class="divide-y dark:divide-slate-700/50 divide-slate-100"></tbody></table></div></div>
+        <div class="dark:bg-slate-800 bg-white rounded-3xl border dark:border-slate-700 border-slate-200 overflow-hidden shadow-sm"><div class="overflow-x-auto"><table class="w-full text-right text-xs"><thead class="dark:bg-slate-900/50 bg-slate-100 text-slate-400 font-bold border-b dark:border-slate-700 border-slate-200"><tr><th class="py-3.5 px-4" data-i18n="employee">الموظف</th><th class="py-3.5 px-4" data-i18n="date">التاريخ</th><th class="py-3.5 px-4" data-i18n="checkin">حضور</th><th class="py-3.5 px-4" data-i18n="checkout">انصراف</th><th class="py-3.5 px-4 text-center" data-i18n="distance">المسافة</th></tr></thead><tbody id="attendanceTableBody" class="divide-y dark:divide-slate-700/50 divide-slate-100"></tbody></table></div></div>
       </section>
 
-      <!-- قسم الشات -->
+      <!-- 3. قسم الشات بتصميم عصري وكروت أنيقة -->
       <section id="view-chat" class="hidden-view">
-        <div class="dark:bg-slate-800 bg-white rounded-3xl border dark:border-slate-700 border-slate-200 overflow-hidden flex flex-col h-[650px] max-h-[80vh] shadow-sm">
+        <div class="dark:bg-slate-800 bg-white rounded-3xl border dark:border-slate-700 border-slate-200 overflow-hidden flex flex-col h-[650px] max-h-[75vh] shadow-sm">
           <div class="px-5 py-4 dark:bg-slate-900/50 bg-slate-50 border-b dark:border-slate-700 border-slate-200 flex items-center justify-between"><h3 class="font-black text-base dark:text-white text-slate-900 flex items-center gap-2"><i data-lucide="message-square" class="w-5 h-5 text-cyan-400"></i> <span data-i18n="company_chat">شات الشركة</span></h3><span class="text-[10px] text-cyan-500 flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span><span data-i18n="auto_refresh">تحديث تلقائي</span></span></div>
           <div id="chatMessagesBox" class="flex-1 p-5 overflow-y-auto space-y-4 dark:bg-slate-900/30 bg-slate-50/50"></div>
           <form onsubmit="handleSendChat(event)" class="p-3 dark:bg-slate-800 bg-white border-t dark:border-slate-700 border-slate-200 flex items-center gap-2"><input type="text" id="chatInput" data-i18n-ph="type_message" placeholder="اكتب رسالتك..." required class="flex-1 py-2.5 px-4 dark:bg-slate-900 bg-slate-100 border dark:border-slate-700 border-slate-300 rounded-xl text-sm dark:text-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-cyan-500"><button type="submit" class="py-2.5 px-5 brand-gradient text-white font-bold rounded-xl text-sm cursor-pointer flex items-center gap-1"><i data-lucide="send" class="w-4 h-4"></i> <span data-i18n="send">إرسال</span></button></form>
         </div>
       </section>
 
-      <!-- قسم الطلبات -->
+      <!-- 4. قسم الطلبات -->
       <section id="view-requests" class="hidden-view space-y-6">
-        <div class="dark:bg-slate-800 bg-white p-5 rounded-2xl border dark:border-slate-700 border-slate-200 flex items-center justify-between shadow-sm"><h3 class="text-lg font-black dark:text-white text-slate-900 flex items-center gap-2"><i data-lucide="file-text" class="w-5 h-5 text-cyan-400"></i> <span data-i18n="requests">الطلبات</span></h3><button onclick="openNewRequestModal()" class="px-4 py-2.5 brand-gradient text-white font-bold rounded-xl text-xs cursor-pointer flex items-center gap-1"><i data-lucide="plus" class="w-3 h-3"></i> <span data-i18n="new_request">طلب جديد</span></button></div>
+        <div class="dark:bg-slate-800 bg-white p-5 rounded-3xl border dark:border-slate-700 border-slate-200 flex items-center justify-between shadow-sm"><h3 class="text-lg font-black dark:text-white text-slate-900 flex items-center gap-2"><i data-lucide="file-text" class="w-5 h-5 text-cyan-400"></i> <span data-i18n="requests">الطلبات</span></h3><button onclick="openNewRequestModal()" class="px-4 py-2.5 brand-gradient text-white font-bold rounded-xl text-xs cursor-pointer flex items-center gap-1"><i data-lucide="plus" class="w-3 h-3"></i> <span data-i18n="new_request">طلب جديد</span></button></div>
         <div id="requestsList" class="space-y-3"></div>
       </section>
 
-      <!-- قسم الموظفين -->
+      <!-- 5. قسم الموظفين -->
       <section id="view-employees" class="hidden-view space-y-6">
-        <div class="dark:bg-slate-800 bg-white p-5 rounded-2xl border dark:border-slate-700 border-slate-200 flex items-center justify-between shadow-sm"><div><h3 class="text-lg font-black dark:text-white text-slate-900 flex items-center gap-2"><i data-lucide="users" class="w-5 h-5 text-cyan-400"></i> <span data-i18n="manage_employees">إدارة الموظفين</span></h3><p id="employeesCompanyHint" class="text-[10px] text-slate-500 mt-0.5">—</p></div><button onclick="openNewEmployeeModal()" class="px-4 py-2.5 brand-gradient text-white font-bold rounded-xl text-xs cursor-pointer flex items-center gap-1"><i data-lucide="user-plus" class="w-3 h-3"></i> <span data-i18n="add">إضافة</span></button></div>
-        <div class="dark:bg-slate-800 bg-white rounded-2xl border dark:border-slate-700 border-slate-200 overflow-hidden shadow-sm"><div class="overflow-x-auto"><table class="w-full text-right text-xs"><thead class="dark:bg-slate-900/50 bg-slate-100 text-slate-400 font-bold border-b dark:border-slate-700 border-slate-200"><tr><th class="py-3 px-4" data-i18n="name">الاسم</th><th class="py-3 px-4" data-i18n="username">المستخدم</th><th class="py-3 px-4" data-i18n="role">الدور</th><th class="py-3 px-4" data-i18n="job_title">المسمى</th><th class="py-3 px-4" data-i18n="work_start_time">وقت الحضور</th><th class="py-3 px-4" data-i18n="workplace">المقر</th><th class="py-3 px-4 text-center" data-i18n="actions">إجراءات</th></tr></thead><tbody id="employeesTableBody" class="divide-y dark:divide-slate-700/50 divide-slate-100"></tbody></table></div></div>
+        <div class="dark:bg-slate-800 bg-white p-5 rounded-3xl border dark:border-slate-700 border-slate-200 flex items-center justify-between shadow-sm"><div><h3 class="text-lg font-black dark:text-white text-slate-900 flex items-center gap-2"><i data-lucide="users" class="w-5 h-5 text-cyan-400"></i> <span data-i18n="manage_employees">إدارة الموظفين</span></h3><p id="employeesCompanyHint" class="text-[10px] text-slate-500 mt-0.5">—</p></div><button onclick="openNewEmployeeModal()" class="px-4 py-2.5 brand-gradient text-white font-bold rounded-xl text-xs cursor-pointer flex items-center gap-1"><i data-lucide="user-plus" class="w-3 h-3"></i> <span data-i18n="add">إضافة</span></button></div>
+        <div class="dark:bg-slate-800 bg-white rounded-3xl border dark:border-slate-700 border-slate-200 overflow-hidden shadow-sm"><div class="overflow-x-auto"><table class="w-full text-right text-xs"><thead class="dark:bg-slate-900/50 bg-slate-100 text-slate-400 font-bold border-b dark:border-slate-700 border-slate-200"><tr><th class="py-3.5 px-4" data-i18n="name">الاسم</th><th class="py-3.5 px-4" data-i18n="username">المستخدم</th><th class="py-3.5 px-4" data-i18n="role">الدور</th><th class="py-3.5 px-4" data-i18n="job_title">المسمى</th><th class="py-3.5 px-4" data-i18n="work_start_time">وقت الحضور</th><th class="py-3.5 px-4" data-i18n="workplace">المقر</th><th class="py-3.5 px-4 text-center" data-i18n="actions">إجراءات</th></tr></thead><tbody id="employeesTableBody" class="divide-y dark:divide-slate-700/50 divide-slate-100"></tbody></table></div></div>
       </section>
 
-      <!-- قسم التقارير -->
+      <!-- 6. قسم التقارير -->
       <section id="view-reports" class="hidden-view space-y-6">
         <div class="dark:bg-slate-800 bg-white p-6 rounded-3xl border dark:border-slate-700 border-slate-200 shadow-sm">
           <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
@@ -479,20 +448,20 @@
         </div>
       </section>
 
-      <!-- قسم الإعدادات -->
+      <!-- 7. قسم الإعدادات -->
       <section id="view-settings" class="hidden-view space-y-6 max-w-4xl mx-auto">
         <div class="dark:bg-slate-800 bg-white p-6 rounded-3xl border dark:border-slate-700 border-slate-200 space-y-4 shadow-sm">
           <h4 class="font-bold text-sm dark:text-white text-slate-900 flex items-center gap-2"><i data-lucide="building" class="w-4 h-4 text-cyan-400"></i> <span data-i18n="company_data">بيانات الشركة</span></h4>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div class="p-4 rounded-xl dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-200"><span class="text-[10px] text-slate-400 block" data-i18n="name">الاسم</span><span id="settingsCompanyName" class="font-bold text-sm dark:text-white text-slate-900">—</span></div>
-            <div class="p-4 rounded-xl dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-200"><span class="text-[10px] text-slate-400 block" data-i18n="code">الكود</span><span id="settingsCompanyCode" class="font-bold text-sm dark:text-white text-slate-900 font-mono">—</span></div>
+            <div class="p-4 rounded-2xl dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-200"><span class="text-[10px] text-slate-400 block" data-i18n="name">الاسم</span><span id="settingsCompanyName" class="font-bold text-sm dark:text-white text-slate-900">—</span></div>
+            <div class="p-4 rounded-2xl dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-200"><span class="text-[10px] text-slate-400 block" data-i18n="code">الكود</span><span id="settingsCompanyCode" class="font-bold text-sm dark:text-white text-slate-900 font-mono">—</span></div>
           </div>
           <button onclick="copyCompanyCode()" class="px-4 py-2 brand-gradient text-white font-bold rounded-xl text-xs cursor-pointer flex items-center gap-1"><i data-lucide="copy" class="w-3 h-3"></i> <span data-i18n="copy_code">نسخ الكود</span></button>
         </div>
         <div class="dark:bg-slate-800 bg-white p-6 rounded-3xl border dark:border-slate-700 border-slate-200 shadow-sm"><button onclick="handleLogout()" class="w-full py-3 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-xl text-sm cursor-pointer flex items-center justify-center gap-2"><i data-lucide="log-out" class="w-4 h-4"></i> <span data-i18n="logout">تسجيل الخروج</span></button></div>
       </section>
 
-      <!-- قسم لوحة المالك -->
+      <!-- 8. قسم لوحة المالك -->
       <section id="view-superadmin" class="hidden-view space-y-6">
         <div class="bg-gradient-to-br from-amber-900/30 via-slate-800 to-slate-800 p-6 rounded-3xl border-2 border-amber-700/50 shadow-sm">
           <div class="flex items-center justify-between flex-wrap gap-3">
@@ -504,12 +473,12 @@
           </div>
         </div>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-          <div class="dark:bg-slate-800 bg-white p-5 rounded-2xl border dark:border-slate-700 border-slate-200 shadow-sm"><div class="flex items-center gap-2 mb-2"><i data-lucide="building-2" class="w-4 h-4 text-cyan-400"></i><span class="text-[10px] text-slate-400" data-i18n="all_companies">كل الشركات</span></div><div id="saTotalCompanies" class="text-2xl font-black dark:text-white text-slate-900">0</div></div>
-          <div class="dark:bg-slate-800 bg-white p-5 rounded-2xl border dark:border-slate-700 border-slate-200 shadow-sm"><div class="flex items-center gap-2 mb-2"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i><span class="text-[10px] text-slate-400" data-i18n="active">نشطة</span></div><div id="saActiveCompanies" class="text-2xl font-black text-emerald-500">0</div></div>
-          <div class="dark:bg-slate-800 bg-white p-5 rounded-2xl border dark:border-slate-700 border-slate-200 shadow-sm"><div class="flex items-center gap-2 mb-2"><i data-lucide="pause-circle" class="w-4 h-4 text-rose-400"></i><span class="text-[10px] text-slate-400" data-i18n="suspended">موقوفة</span></div><div id="saSuspendedCompanies" class="text-2xl font-black text-rose-500">0</div></div>
-          <div class="dark:bg-slate-800 bg-white p-5 rounded-2xl border dark:border-slate-700 border-slate-200 shadow-sm"><div class="flex items-center gap-2 mb-2"><i data-lucide="users" class="w-4 h-4 text-amber-400"></i><span class="text-[10px] text-slate-400" data-i18n="all_users">كل المستخدمين</span></div><div id="saTotalUsers" class="text-2xl font-black text-amber-500">0</div></div>
+          <div class="dark:bg-slate-800 bg-white p-5 rounded-3xl border dark:border-slate-700 border-slate-200 shadow-sm"><div class="flex items-center gap-2 mb-2"><i data-lucide="building-2" class="w-4 h-4 text-cyan-400"></i><span class="text-[10px] text-slate-400" data-i18n="all_companies">كل الشركات</span></div><div id="saTotalCompanies" class="text-2xl font-black dark:text-white text-slate-900">0</div></div>
+          <div class="dark:bg-slate-800 bg-white p-5 rounded-3xl border dark:border-slate-700 border-slate-200 shadow-sm"><div class="flex items-center gap-2 mb-2"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i><span class="text-[10px] text-slate-400" data-i18n="active">نشطة</span></div><div id="saActiveCompanies" class="text-2xl font-black text-emerald-500">0</div></div>
+          <div class="dark:bg-slate-800 bg-white p-5 rounded-3xl border dark:border-slate-700 border-slate-200 shadow-sm"><div class="flex items-center gap-2 mb-2"><i data-lucide="pause-circle" class="w-4 h-4 text-rose-400"></i><span class="text-[10px] text-slate-400" data-i18n="suspended">موقوفة</span></div><div id="saSuspendedCompanies" class="text-2xl font-black text-rose-500">0</div></div>
+          <div class="dark:bg-slate-800 bg-white p-5 rounded-3xl border dark:border-slate-700 border-slate-200 shadow-sm"><div class="flex items-center gap-2 mb-2"><i data-lucide="users" class="w-4 h-4 text-amber-400"></i><span class="text-[10px] text-slate-400" data-i18n="all_users">كل المستخدمين</span></div><div id="saTotalUsers" class="text-2xl font-black text-amber-500">0</div></div>
         </div>
-        <div class="dark:bg-slate-800 bg-white rounded-2xl border dark:border-slate-700 border-slate-200 overflow-hidden shadow-sm">
+        <div class="dark:bg-slate-800 bg-white rounded-3xl border dark:border-slate-700 border-slate-200 overflow-hidden shadow-sm">
           <div class="p-4 border-b dark:border-slate-700 border-slate-200 flex items-center justify-between flex-wrap gap-2">
             <h4 class="font-bold text-sm dark:text-white text-slate-900" data-i18n="all_companies">كل الشركات</h4>
             <input type="text" id="saSearchInput" oninput="renderSuperAdminCompanies()" data-i18n-ph="search" placeholder="ابحث..." class="px-3 py-1.5 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 rounded-lg text-xs dark:text-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-cyan-500 w-full sm:w-64">
@@ -519,18 +488,6 @@
       </section>
     </main>
 
-    <!-- الشريط السفلي للجوال -->
-    <nav id="bottomNav" class="mobile-nav fixed bottom-0 left-0 right-0 dark:bg-slate-800 bg-white border-t dark:border-slate-700 border-slate-200 z-40 bottom-nav shadow-lg">
-      <div class="flex items-center justify-between h-14 px-1">
-        <button id="navBtn-dashboard" onclick="switchTab('dashboard')" class="flex flex-col items-center justify-center w-full h-full gap-0.5 text-cyan-400 cursor-pointer"><i data-lucide="layout-dashboard" class="w-5 h-5"></i><span class="text-[9px] font-bold" data-i18n="dashboard">الرئيسية</span></button>
-        <button id="navBtn-attendance" onclick="switchTab('attendance')" class="flex flex-col items-center justify-center w-full h-full gap-0.5 text-slate-400 cursor-pointer"><i data-lucide="clock" class="w-5 h-5"></i><span class="text-[9px] font-bold" data-i18n="attendance">الحضور</span></button>
-        <button id="navBtn-chat" onclick="switchTab('chat')" class="flex flex-col items-center justify-center w-full h-full gap-0.5 text-slate-400 cursor-pointer"><i data-lucide="message-square" class="w-5 h-5"></i><span class="text-[9px] font-bold" data-i18n="chat">الشات</span></button>
-        <button id="navBtn-requests" onclick="switchTab('requests')" class="flex flex-col items-center justify-center w-full h-full gap-0.5 text-slate-400 cursor-pointer"><i data-lucide="file-text" class="w-5 h-5"></i><span class="text-[9px] font-bold" data-i18n="requests">الطلبات</span></button>
-        <button id="navBtn-reports" onclick="switchTab('reports')" class="hidden flex flex-col items-center justify-center w-full h-full gap-0.5 text-slate-400 cursor-pointer"><i data-lucide="bar-chart-3" class="w-5 h-5"></i><span class="text-[9px] font-bold" data-i18n="reports">التقارير</span></button>
-        <button id="navBtn-employees" onclick="switchTab('employees')" class="flex flex-col items-center justify-center w-full h-full gap-0.5 text-slate-400 cursor-pointer"><i data-lucide="users" class="w-5 h-5"></i><span class="text-[9px] font-bold" data-i18n="employees">الموظفون</span></button>
-        <button id="navBtn-superadmin" onclick="switchTab('superadmin')" class="hidden flex flex-col items-center justify-center w-full h-full gap-0.5 text-amber-500 cursor-pointer"><i data-lucide="crown" class="w-5 h-5"></i><span class="text-[9px] font-bold" data-i18n="owner">المالك</span></button>
-      </div>
-    </nav>
   </div>
 
   <!-- المودالات -->
@@ -611,13 +568,6 @@
         feature_security_title: "أمان وحماية", feature_security_desc: "تشفير كامل للبيانات، ونظام تسجيل دخول آمن، مع فصل تام لبيانات كل شركة.",
         feature_mobile_title: "متوافق مع الجوال", feature_mobile_desc: "واجهة متجاوبة تعمل بسلاسة على الجوال والتابلت والكمبيوتر.",
         feature_easy_title: "سهولة الاستخدام", feature_easy_desc: "تصميم بسيط وواضح، إعداد سريع في دقائق، ولا يحتاج إلى خبرة تقنية.",
-        how_title: 'كيف تبدأ <span class="brand-text-gradient">معنا</span>؟',
-        how_subtitle: "ثلاث خطوات بسيطة تفصلك عن إدارة احترافية",
-        how_1_title: "سجّل شركتك", how_1_desc: "أنشئ حساب شركة جديدة بكود فريد واسم مناسب، وستصبح مديراً لها تلقائياً.",
-        how_2_title: "أضف موظفيك", how_2_desc: "أضف أعضاء فريقك، حدّد مواقع العمل، ووزّع الأدوار والمسميات الوظيفية.",
-        how_3_title: "ابدأ الإدارة", how_3_desc: "تابع الحضور، راجع الطلبات، تواصل عبر الشات، وتحكم بكل شيء من لوحة واحدة.",
-        cta_title: "جاهز لتحويل إدارة شركتك؟", cta_subtitle: "انضم إلى VodFire اليوم وابدأ تجربة إدارة حديثة وفعّالة لفريقك.",
-        cta_btn_start: "ابدأ الآن مجاناً", cta_btn_register: "تسجيل شركة",
         copyright: "© 2026 VodFire. جميع الحقوق محفوظة.",
         connecting: "جاري الاتصال...", connected: "متصل", offline: "غير متصل",
         company_code: "كود الشركة", company_code_required: "كود الشركة *",
@@ -717,26 +667,19 @@
         hero_subtitle: "Complete system for GPS attendance, chat, and requests.",
         about_platform_badge: "About Platform",
         about_title: 'What is <span class="brand-text-gradient">VodFire</span>?',
-        about_desc1: "VodFire is an integrated cloud platform for managing human resources and daily operations for companies of all sizes. It's designed to be the comprehensive solution connecting management and employees in one place, providing smart tools to track attendance, manage requests, and communicate instantly — all with complete security and data protection.",
-        about_desc2: "The platform uses GPS technology to ensure accurate check-in and check-out, and provides a multi-level permission system (platform owner, company manager, employee) for full and smooth control over all work details.",
+        about_desc1: "VodFire is an integrated cloud platform for managing human resources and daily operations for companies of all sizes. It's designed to be the comprehensive solution connecting management and employees in one place.",
+        about_desc2: "The platform uses GPS technology to ensure accurate check-in and check-out, and provides a multi-level permission system.",
         features_title: 'Platform <span class="brand-text-gradient">Features</span>',
         features_subtitle: "Everything you need to manage your team efficiently",
         feature_gps_title: "GPS Attendance", feature_gps_desc: "Accurate check-in/out via geolocation with an allowed radius per employee.",
-        feature_chat_title: "Instant Internal Chat", feature_chat_desc: "Direct communication channel between all company members, with auto-refresh.",
-        feature_requests_title: "Requests Management", feature_requests_desc: "Integrated system for leave and loan requests, with approve/reject by management.",
-        feature_employees_title: "Employee Management", feature_employees_desc: "Add and remove employees, assign roles and job titles, and set workplace locations.",
+        feature_chat_title: "Instant Internal Chat", feature_chat_desc: "Direct communication channel between all company members.",
+        feature_requests_title: "Requests Management", feature_requests_desc: "Integrated system for leave and loan requests.",
+        feature_employees_title: "Employee Management", feature_employees_desc: "Add and remove employees, assign roles and job titles.",
         feature_notif_title: "Instant Notifications", feature_notif_desc: "Instant alerts when new requests or important messages arrive.",
-        feature_owner_title: "Owner Dashboard", feature_owner_desc: "Full control over all registered companies, suspend/activate accounts, and enter any company.",
-        feature_security_title: "Security & Protection", feature_security_desc: "Full data encryption, secure login system, and complete isolation between companies.",
-        feature_mobile_title: "Mobile Compatible", feature_mobile_desc: "Responsive interface that works smoothly on mobile, tablet, and computer.",
-        feature_easy_title: "Easy to Use", feature_easy_desc: "Simple, clear design, quick setup in minutes, and no technical experience needed.",
-        how_title: 'How to <span class="brand-text-gradient">Start</span>?',
-        how_subtitle: "Three simple steps to professional management",
-        how_1_title: "Register Your Company", how_1_desc: "Create a new company account with a unique code and suitable name, and become its manager automatically.",
-        how_2_title: "Add Your Employees", how_2_desc: "Add your team members, set workplace locations, and assign roles and job titles.",
-        how_3_title: "Start Managing", how_3_desc: "Track attendance, review requests, communicate via chat, and control everything from one dashboard.",
-        cta_title: "Ready to Transform Your Company Management?", cta_subtitle: "Join VodFire today and start a modern and efficient management experience for your team.",
-        cta_btn_start: "Start Now Free", cta_btn_register: "Register Company",
+        feature_owner_title: "Owner Dashboard", feature_owner_desc: "Full control over all registered companies.",
+        feature_security_title: "Security & Protection", feature_security_desc: "Full data encryption and secure login system.",
+        feature_mobile_title: "Mobile Compatible", feature_mobile_desc: "Responsive interface that works smoothly on all devices.",
+        feature_easy_title: "Easy to Use", feature_easy_desc: "Simple, clear design, quick setup in minutes.",
         copyright: "© 2026 VodFire. All rights reserved.",
         connecting: "Connecting...", connected: "Connected", offline: "Offline",
         company_code: "Company Code", company_code_required: "Company Code *",
@@ -770,7 +713,7 @@
         msg_fill_fields: "Fill all fields", msg_code_format: "Code must be 3-20 chars", msg_user_format: "Username must be 3-30 chars",
         msg_pass_length: "Password must be 8+ chars", msg_code_used: "Code already used", msg_user_used: "Username already used",
         msg_login_failed: "Invalid company code, username, or password",
-        msg_company_suspended: "This company is suspended by admin. Contact support.",
+        msg_company_suspended: "This company is suspended by admin.",
         msg_no_profile: "No profile found",
         msg_welcome_sa: "Welcome, Platform Owner", msg_welcome_reg: "Welcome! Code: ",
         msg_attendance_recorded: "Attendance recorded", msg_checkout_recorded: "Check-out recorded",
@@ -781,7 +724,7 @@
         msg_platform_owner_welcome: "Welcome, Platform Owner",
         msg_enter_company: "You are now inside", msg_back_to_owner: "Back to Owner Panel",
         msg_enter_company_confirm: "Enter as manager for company", msg_no_users_company: "No users in this company",
-        msg_suspend_confirm: "Confirm suspending this company?\nAll its employees will be blocked.",
+        msg_suspend_confirm: "Confirm suspending this company?",
         msg_activate_confirm: "Confirm activating this company?",
         msg_delete_company_confirm: "Delete permanently with all its data?",
         msg_delete_company_final: "Final confirmation: cannot be undone!",
@@ -789,7 +732,7 @@
         msg_company_deleted: "Deleted", msg_company_suspended_toast: "Company suspended", msg_company_activated_toast: "Company activated",
         msg_pass_short: "Password must be at least 8 characters",
         msg_required_fields: "Please fill required fields",
-        msg_send_in_company: "You are in owner panel. Enter a specific company to send messages.",
+        msg_send_in_company: "You are in owner panel.",
         msg_you_exempt: "You are exempt from attendance",
         msg_updating: "Updating...", msg_updated: "Updated",
         msg_failed: "Failed", msg_loading: "Loading...",
@@ -814,19 +757,11 @@
         work_start_time: "Official Work Start Time",
         dashboard_welcome_badge: "Smart Dashboard",
         dashboard_welcome_desc: "Here is a direct overview and statistics of your company today.",
-        total: "Total",
-        today: "Today",
-        pending: "Pending",
-        stat_employees_label: "Total Registered Employees",
-        stat_attendance_label: "Present Employees Today",
-        stat_requests_label: "Requests Pending Approval",
-        stat_chat_label: "Total Chat Messages",
-        recent_attendance: "Recent Today's Attendance",
-        view_all: "View All",
-        recent_requests: "Recent Requests",
-        quick_actions: "Quick Actions",
-        system_status: "System Status",
-        operational: "Operational"
+        total: "Total", today: "Today", pending: "Pending",
+        stat_employees_label: "Total Registered Employees", stat_attendance_label: "Present Employees Today",
+        stat_requests_label: "Requests Pending Approval", stat_chat_label: "Total Chat Messages",
+        recent_attendance: "Recent Today's Attendance", view_all: "View All", recent_requests: "Recent Requests",
+        quick_actions: "Quick Actions", system_status: "System Status", operational: "Operational"
       },
       it: {
         app_title: "VodFire - Piattaforma di Gestione Aziendale",
@@ -836,26 +771,19 @@
         hero_subtitle: "Sistema completo per presenze GPS, chat e richieste.",
         about_platform_badge: "Informazioni",
         about_title: 'Cos\'è <span class="brand-text-gradient">VodFire</span>?',
-        about_desc1: "VodFire è una piattaforma cloud integrata per la gestione delle risorse umane e delle operazioni quotidiane per aziende di tutte le dimensioni. È progettata per essere la soluzione completa che collega direzione e dipendenti in un unico posto, fornendo strumenti intelligenti per monitorare le presenze, gestire le richieste e comunicare istantaneamente — tutto con sicurezza totale e protezione dei dati.",
-        about_desc2: "La piattaforma utilizza la tecnologia GPS per garantire un check-in e check-out accurati e fornisce un sistema di autorizzazioni multi-livello (proprietario della piattaforma, manager aziendale, dipendente) per un controllo completo e fluido su tutti i dettagli del lavoro.",
+        about_desc1: "VodFire è una piattaforma cloud integrata per la gestione delle risorse umane.",
+        about_desc2: "La piattaforma utilizza la tecnologia GPS per garantire un check-in e check-out accurati.",
         features_title: '<span class="brand-text-gradient">Funzionalità</span> della Piattaforma',
-        features_subtitle: "Tutto ciò di cui hai bisogno per gestire il tuo team con efficienza",
-        feature_gps_title: "Presenze GPS", feature_gps_desc: "Check-in/out accurato tramite geolocalizzazione con raggio consentito per dipendente.",
-        feature_chat_title: "Chat Interna Istantanea", feature_chat_desc: "Canale di comunicazione diretta tra tutti i membri dell'azienda, con aggiornamento automatico.",
-        feature_requests_title: "Gestione Richieste", feature_requests_desc: "Sistema integrato per richieste di ferie e prestiti, con approvazione/rifiuto dalla direzione.",
-        feature_employees_title: "Gestione Dipendenti", feature_employees_desc: "Aggiungi e rimuovi dipendenti, assegna ruoli e qualifiche, e imposta le sedi di lavoro.",
-        feature_notif_title: "Notifiche Istantanee", feature_notif_desc: "Avvisi istantanei quando arrivano nuove richieste o messaggi importanti.",
-        feature_owner_title: "Pannello Proprietario", feature_owner_desc: "Controllo completo su tutte le aziende registrate, sospendi/attiva account e accedi a qualsiasi azienda.",
-        feature_security_title: "Sicurezza e Protezione", feature_security_desc: "Crittografia completa dei dati, sistema di accesso sicuro e isolamento totale tra aziende.",
-        feature_mobile_title: "Compatibile Mobile", feature_mobile_desc: "Interfaccia responsive che funziona senza problemi su mobile, tablet e computer.",
-        feature_easy_title: "Facile da Usare", feature_easy_desc: "Design semplice e chiaro, configurazione rapida in pochi minuti, senza necessità di esperienza tecnica.",
-        how_title: 'Come <span class="brand-text-gradient">Iniziare</span>?',
-        how_subtitle: "Tre semplici passaggi per una gestione professionale",
-        how_1_title: "Registra la Tua Azienda", how_1_desc: "Crea un nuovo account aziendale con codice univoco e nome adeguato, e diventa automaticamente il suo manager.",
-        how_2_title: "Aggiungi i Tuoi Dipendenti", how_2_desc: "Aggiungi i membri del tuo team, imposta le sedi di lavoro e assegna ruoli e qualifiche.",
-        how_3_title: "Inizia a Gestire", how_3_desc: "Monitora le presenze, rivedi le richieste, comunica tramite chat e controlla tutto da un'unica dashboard.",
-        cta_title: "Pronto a Trasformare la Gestione della Tua Azienda?", cta_subtitle: "Unisciti a VodFire oggi e inizia un'esperienza di gestione moderna ed efficiente per il tuo team.",
-        cta_btn_start: "Inizia Ora Gratis", cta_btn_register: "Registra Azienda",
+        features_subtitle: "Tutto ciò di cui hai bisogno per gestire il tuo team",
+        feature_gps_title: "Presenze GPS", feature_gps_desc: "Check-in/out accurato tramite geolocalizzazione.",
+        feature_chat_title: "Chat Interna", feature_chat_desc: "Canale di comunicazione diretta tra tutti i membri.",
+        feature_requests_title: "Gestione Richieste", feature_requests_desc: "Sistema integrato per richieste di ferie e prestiti.",
+        feature_employees_title: "Gestione Dipendenti", feature_employees_desc: "Aggiungi e rimuovi dipendenti, assegna ruoli.",
+        feature_notif_title: "Notifiche Istantanee", feature_notif_desc: "Avvisi istantanei quando arrivano nuove richieste.",
+        feature_owner_title: "Pannello Proprietario", feature_owner_desc: "Controllo completo su tutte le aziende registrate.",
+        feature_security_title: "Sicurezza e Protezione", feature_security_desc: "Crittografia completa dei dati.",
+        feature_mobile_title: "Compatibile Mobile", feature_mobile_desc: "Interfaccia responsive.",
+        feature_easy_title: "Facile da Usare", feature_easy_desc: "Design semplice e chiaro.",
         copyright: "© 2026 VodFire. Tutti i diritti riservati.",
         connecting: "Connessione...", connected: "Connesso", offline: "Offline",
         company_code: "Codice Azienda", company_code_required: "Codice Azienda *",
@@ -875,7 +803,7 @@
         new_request: "Nuova Richiesta", manage_employees: "Gestisci Dipendenti", add: "Aggiungi",
         name: "Nome", role: "Ruolo", job_title: "Qualifica", workplace: "Sede", actions: "Azioni",
         company_data: "Dati Azienda", code: "Codice", copy_code: "Copia Codice", logout: "Esci",
-        owner_dashboard: "Pannello Proprietario", full_control: "Controllo completo su tutte le aziende", refresh: "Aggiorna",
+        owner_dashboard: "Pannello Proprietario", full_control: "Controllo completo", refresh: "Aggiorna",
         all_companies: "Tutte le Aziende", active: "Attive", suspended: "Sospese", all_users: "Tutti gli Utenti", search: "Cerca...",
         company: "Azienda", status: "Stato",
         profile: "Profilo", change_photo: "Cambia Foto", display_name: "Nome Visualizzato", save: "Salva",
@@ -889,7 +817,7 @@
         msg_fill_fields: "Compila tutti i campi", msg_code_format: "Codice 3-20 caratteri", msg_user_format: "Nome utente 3-30 caratteri",
         msg_pass_length: "Password 8+ caratteri", msg_code_used: "Codice già in uso", msg_user_used: "Nome utente già in uso",
         msg_login_failed: "Codice azienda, nome utente o password non validi",
-        msg_company_suspended: "Questa azienda è sospesa dall'amministratore. Contatta il supporto.",
+        msg_company_suspended: "Questa azienda è sospesa dall'amministratore.",
         msg_no_profile: "Nessun profilo trovato",
         msg_welcome_sa: "Benvenuto, Proprietario della Piattaforma", msg_welcome_reg: "Benvenuto! Codice: ",
         msg_attendance_recorded: "Presenza registrata", msg_checkout_recorded: "Uscita registrata",
@@ -900,7 +828,7 @@
         msg_platform_owner_welcome: "Benvenuto, Proprietario della Piattaforma",
         msg_enter_company: "Ora sei dentro", msg_back_to_owner: "Tornato al Pannello Proprietario",
         msg_enter_company_confirm: "Accedi come manager per l'azienda", msg_no_users_company: "Nessun utente in questa azienda",
-        msg_suspend_confirm: "Confermi la sospensione di questa azienda?\nTutti i suoi dipendenti saranno bloccati.",
+        msg_suspend_confirm: "Confermi la sospensione di questa azienda?",
         msg_activate_confirm: "Confermi l'attivazione di questa azienda?",
         msg_delete_company_confirm: "Eliminare definitivamente con tutti i suoi dati?",
         msg_delete_company_final: "Conferma finale: non può essere annullato!",
@@ -908,7 +836,7 @@
         msg_company_deleted: "Eliminata", msg_company_suspended_toast: "Azienda sospesa", msg_company_activated_toast: "Azienda attivata",
         msg_pass_short: "La password deve essere di almeno 8 caratteri",
         msg_required_fields: "Compila i campi obbligatori",
-        msg_send_in_company: "Sei nel pannello proprietario. Accedi a un'azienda specifica per inviare messaggi.",
+        msg_send_in_company: "Sei nel pannello proprietario.",
         msg_you_exempt: "Sei esente dalle presenze",
         msg_updating: "Aggiornamento...", msg_updated: "Aggiornato",
         msg_failed: "Fallito", msg_loading: "Caricamento...",
@@ -933,19 +861,11 @@
         work_start_time: "Orario Ufficiale di Inizio Lavoro",
         dashboard_welcome_badge: "Dashboard Intelligente",
         dashboard_welcome_desc: "Ecco una panoramica diretta e le statistiche della tua azienda oggi.",
-        total: "Totale",
-        today: "Oggi",
-        pending: "In Attesa",
-        stat_employees_label: "Totale Dipendenti Registrati",
-        stat_attendance_label: "Dipendenti Presenti Oggi",
-        stat_requests_label: "Richieste in Attesa di Approvazione",
-        stat_chat_label: "Messaggi Chat Totali",
-        recent_attendance: "Presenze recenti di oggi",
-        view_all: "Vedi Tutti",
-        recent_requests: "Richieste Recenti",
-        quick_actions: "Azioni Rapide",
-        system_status: "Stato del Sistema",
-        operational: "Operativo"
+        total: "Totale", today: "Oggi", pending: "In Attesa",
+        stat_employees_label: "Totale Dipendenti Registrati", stat_attendance_label: "Dipendenti Presenti Oggi",
+        stat_requests_label: "Richieste in Attesa di Approvazione", stat_chat_label: "Messaggi Chat Totali",
+        recent_attendance: "Presenze recenti di oggi", view_all: "Vedi Tutti", recent_requests: "Richieste Recenti",
+        quick_actions: "Azioni Rapide", system_status: "Stato del Sistema", operational: "Operativo"
       }
     };
 
@@ -1205,7 +1125,7 @@
         const isSusp = c.status === 'suspended';
         const userCount = superAdminCache.users.filter(u => u.companyId === c._docId).length;
         const tr = document.createElement('tr');
-        tr.className = 'hover:bg-slate-700/30';
+        tr.className = 'dark:hover:bg-slate-700/30 hover:bg-slate-50';
         tr.innerHTML = `
           <td class="py-3 px-4"><div class="font-bold dark:text-white text-slate-900">${escapeHtml(c.name || '—')}</div><div class="text-[9px] text-slate-500">${c._docId.slice(-8)}</div></td>
           <td class="py-3 px-4 font-mono text-xs text-cyan-400">${escapeHtml(c.code || '—')}</td>
@@ -1385,7 +1305,6 @@
       const isMgr = currentUser.role === 'manager' || currentUser.role === 'super_admin';
       document.getElementById('saBadge').classList.toggle('hidden', !isSA || currentUser._impersonating);
       document.getElementById('tabBtn-superadmin').classList.toggle('hidden', !isSA || currentUser._impersonating);
-      document.getElementById('navBtn-superadmin').classList.toggle('hidden', !isSA || currentUser._impersonating);
       document.getElementById('exitImpersonateBtn').classList.toggle('hidden', !currentUser._impersonating);
       
       if (isMgr) {
@@ -1402,11 +1321,8 @@
       }
       
       document.getElementById('tabBtn-reports').style.display = isMgr ? 'flex' : 'none';
-      document.getElementById('navBtn-reports').style.display = isMgr ? 'flex' : 'none';
-      
       document.getElementById('tabBtn-employees').style.display = isMgr ? 'flex' : 'none';
       document.getElementById('tabBtn-settings').style.display = isMgr ? 'flex' : 'none';
-      document.getElementById('navBtn-employees').style.display = isMgr ? 'flex' : 'none';
       document.getElementById('notifBellBtn').classList.toggle('hidden', !isMgr);
       document.getElementById('employeesCompanyHint').textContent = `${t('msg_company_employees_hint')} ${currentUser.companyName || ''}`;
       document.getElementById('settingsCompanyName').textContent = currentUser.companyName || '—';
@@ -1435,11 +1351,9 @@
       ['dashboard','attendance','chat','requests','employees','reports','settings','superadmin'].forEach(t2 => {
         const el = document.getElementById('view-' + t2); if (el) el.classList.add('hidden-view');
         const b = document.getElementById('tabBtn-' + t2); if(b) { b.classList.remove('brand-gradient','text-white','shadow-md'); b.classList.add('dark:text-slate-400','text-slate-600'); }
-        const nb = document.getElementById('navBtn-' + t2); if(nb) { nb.classList.remove('text-cyan-400'); nb.classList.add('text-slate-400'); }
       });
       document.getElementById('view-' + id).classList.remove('hidden-view');
       const b = document.getElementById('tabBtn-' + id); if(b) { b.classList.remove('dark:text-slate-400','text-slate-600'); b.classList.add('brand-gradient','text-white','shadow-md'); }
-      const nb = document.getElementById('navBtn-' + id); if(nb) { nb.classList.remove('text-slate-400'); nb.classList.add('text-cyan-400'); }
       lucide.createIcons();
     }
 
@@ -1502,7 +1416,7 @@
       if (!list.length) { tb.innerHTML = `<tr><td colspan="5" class="py-6 text-center text-slate-500">${t('msg_no_records')}</td></tr>`; return; }
       list.forEach(r => {
         const tr = document.createElement('tr'); tr.className = 'dark:hover:bg-slate-700/30 hover:bg-slate-50';
-        tr.innerHTML = `<td class="py-3 px-4 font-bold dark:text-white text-slate-900">${escapeHtml(r.userName)}</td><td class="py-3 px-4 font-mono text-slate-400">${r.date}</td><td class="py-3 px-4 font-bold text-emerald-500">${r.checkIn}</td><td class="py-3 px-4 dark:text-slate-300 text-slate-700">${r.checkOut || '<span class="text-amber-500 font-bold">'+t('on_duty')+'</span>'}</td><td class="py-3 px-4 text-center font-mono">${r.distance}m</td>`;
+        tr.innerHTML = `<td class="py-3.5 px-4 font-bold dark:text-white text-slate-900">${escapeHtml(r.userName)}</td><td class="py-3.5 px-4 font-mono text-slate-400">${r.date}</td><td class="py-3.5 px-4 font-bold text-emerald-500">${r.checkIn}</td><td class="py-3.5 px-4 dark:text-slate-300 text-slate-700">${r.checkOut || '<span class="text-amber-500 font-bold">'+t('on_duty')+'</span>'}</td><td class="py-3.5 px-4 text-center font-mono">${r.distance}m</td>`;
         tb.appendChild(tr);
       });
     }
@@ -1592,8 +1506,8 @@
       if (!list.length) { b.innerHTML = `<div class="text-center text-slate-500 py-6 text-xs">${t('msg_no_requests')}</div>`; return; }
       list.forEach(r => {
         const d = document.createElement('div');
-        d.className = 'dark:bg-slate-800 bg-white p-4 rounded-xl border dark:border-slate-700 border-slate-200 space-y-2 shadow-sm';
-        d.innerHTML = `<div class="flex items-center justify-between"><span class="font-bold text-xs dark:text-white text-slate-900">${escapeHtml(r.title)}</span><span class="px-2 py-0.5 rounded-full text-[9px] font-bold ${r.status==='approved'?'bg-emerald-900/50 text-emerald-400':r.status==='rejected'?'bg-rose-900/50 text-rose-400':'bg-amber-900/50 text-amber-400'}">${t('status_'+r.status)}</span></div><div class="text-[10px] text-slate-400">${t('employee')}: <b class="dark:text-slate-200 text-slate-800">${escapeHtml(r.userName)}</b></div><div class="text-[10px] dark:text-slate-300 text-slate-700 dark:bg-slate-900 bg-slate-50 p-2 rounded-lg border dark:border-slate-700 border-slate-200">${escapeHtml(r.reason)}</div>${isMgr && r.status==='pending' ? `<div class="flex gap-2 pt-1"><button data-act="approve" data-id="${r._docId}" class="flex-1 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-[10px] font-bold cursor-pointer">${t('approve')}</button><button data-act="reject" data-id="${r._docId}" class="flex-1 py-1.5 bg-rose-600 hover:bg-rose-700 text-white rounded-lg text-[10px] font-bold cursor-pointer">${t('reject')}</button></div>` : ''}`;
+        d.className = 'dark:bg-slate-800 bg-white p-5 rounded-3xl border dark:border-slate-700 border-slate-200 space-y-2 shadow-sm';
+        d.innerHTML = `<div class="flex items-center justify-between"><span class="font-bold text-xs dark:text-white text-slate-900">${escapeHtml(r.title)}</span><span class="px-2 py-0.5 rounded-full text-[9px] font-bold ${r.status==='approved'?'bg-emerald-900/50 text-emerald-400':r.status==='rejected'?'bg-rose-900/50 text-rose-400':'bg-amber-900/50 text-amber-400'}">${t('status_'+r.status)}</span></div><div class="text-[10px] text-slate-400">${t('employee')}: <b class="dark:text-slate-200 text-slate-800">${escapeHtml(r.userName)}</b></div><div class="text-[10px] dark:text-slate-300 text-slate-700 dark:bg-slate-900 bg-slate-50 p-3 rounded-xl border dark:border-slate-700 border-slate-200">${escapeHtml(r.reason)}</div>${isMgr && r.status==='pending' ? `<div class="flex gap-2 pt-1"><button data-act="approve" data-id="${r._docId}" class="flex-1 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-[10px] font-bold cursor-pointer">${t('approve')}</button><button data-act="reject" data-id="${r._docId}" class="flex-1 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-[10px] font-bold cursor-pointer">${t('reject')}</button></div>` : ''}`;
         b.appendChild(d);
       });
       b.querySelectorAll('button[data-act]').forEach(bt => { bt.onclick = () => requestAction(bt.dataset.id, bt.dataset.act === 'approve' ? 'approved' : 'rejected'); });
@@ -1624,7 +1538,7 @@
       if (!localCache.users.length) { tb.innerHTML = `<tr><td colspan="7" class="py-6 text-center text-slate-500">${t('msg_no_employees')}</td></tr>`; return; }
       localCache.users.forEach(u => {
         const tr = document.createElement('tr'); tr.className = 'dark:hover:bg-slate-700/30 hover:bg-slate-50';
-        tr.innerHTML = `<td class="py-3 px-4 font-bold dark:text-white text-slate-900">${escapeHtml(u.DisplayName || u.name)}</td><td class="py-3 px-4 font-mono text-xs text-slate-400">@${escapeHtml(u.username||'—')}</td><td class="py-3 px-4"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${u.role==='manager'?'bg-cyan-900/50 text-cyan-400':'dark:bg-slate-700 bg-slate-200 dark:text-slate-300 text-slate-700'}">${u.role==='manager'?t('manager_role'):t('employee_role')}</span></td><td class="py-3 px-4 dark:text-slate-300 text-slate-700">${escapeHtml(u.jobTitle||'—')}</td><td class="py-3 px-4 font-mono text-xs text-cyan-500">${escapeHtml(u.workStartTime||'09:00')}</td><td class="py-3 px-4 font-mono text-[11px] text-slate-400">${escapeHtml(u.workplace?.name||'—')}</td><td class="py-3 px-4 text-center">${u.appwriteUserId !== currentUser.id ? `<button data-id="${u._docId}" class="px-2 py-1 bg-rose-600 hover:bg-rose-700 text-white rounded-lg text-xs font-bold flex items-center justify-center gap-1 mx-auto cursor-pointer"><i data-lucide="trash-2" class="w-3 h-3"></i> ${t('delete')}</button>` : '—'}</td>`;
+        tr.innerHTML = `<td class="py-3.5 px-4 font-bold dark:text-white text-slate-900">${escapeHtml(u.DisplayName || u.name)}</td><td class="py-3.5 px-4 font-mono text-xs text-slate-400">@${escapeHtml(u.username||'—')}</td><td class="py-3.5 px-4"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${u.role==='manager'?'bg-cyan-900/50 text-cyan-400':'dark:bg-slate-700 bg-slate-200 dark:text-slate-300 text-slate-700'}">${u.role==='manager'?t('manager_role'):t('employee_role')}</span></td><td class="py-3.5 px-4 dark:text-slate-300 text-slate-700">${escapeHtml(u.jobTitle||'—')}</td><td class="py-3.5 px-4 font-mono text-xs text-cyan-500">${escapeHtml(u.workStartTime||'09:00')}</td><td class="py-3.5 px-4 font-mono text-[11px] text-slate-400">${escapeHtml(u.workplace?.name||'—')}</td><td class="py-3.5 px-4 text-center">${u.appwriteUserId !== currentUser.id ? `<button data-id="${u._docId}" class="px-2 py-1 bg-rose-600 hover:bg-rose-700 text-white rounded-lg text-xs font-bold flex items-center justify-center gap-1 mx-auto cursor-pointer"><i data-lucide="trash-2" class="w-3 h-3"></i> ${t('delete')}</button>` : '—'}</td>`;
         tb.appendChild(tr);
       });
       tb.querySelectorAll('button[data-id]').forEach(b => { b.onclick = () => deleteEmployee(b.dataset.id); });
@@ -1709,7 +1623,7 @@
     function escapeHtml(s) { return String(s??'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
     function toast(msg) {
       const el = document.createElement('div');
-      el.className = 'fixed bottom-20 left-1/2 -translate-x-1/2 bg-emerald-600 text-white px-5 py-3 rounded-xl text-sm font-bold shadow-2xl z-[999] border border-emerald-500 flex items-center gap-2 max-w-[90vw]';
+      el.className = 'fixed bottom-6 left-1/2 -translate-x-1/2 bg-emerald-600 text-white px-5 py-3 rounded-xl text-sm font-bold shadow-2xl z-[999] border border-emerald-500 flex items-center gap-2 max-w-[90vw]';
       el.innerHTML = `<i data-lucide="check-circle" class="w-4 h-4 shrink-0"></i><span>${msg}</span>`;
       document.body.appendChild(el); lucide.createIcons();
       setTimeout(() => el.remove(), 3500);
@@ -1727,7 +1641,6 @@
       lucide.createIcons();
 
       const prefix = `${year}-${String(month).padStart(2, '0')}`;
-      const daysInMonth = new Date(year, month, 0).getDate();
       const monthAttendance = localCache.attendance.filter(a => a.date && a.date.startsWith(prefix));
       
       const stats = localCache.users.map(user => {
@@ -1831,7 +1744,6 @@
       const savedLang = localStorage.getItem('vodfire_lang') || 'ar';
       setLanguage(savedLang);
 
-      // استرجاع المظهر المحفوظ (افتراضياً داكن)
       const savedTheme = localStorage.getItem('vodfire_theme') || 'dark';
       if (savedTheme === 'light') {
         document.documentElement.classList.remove('dark');
