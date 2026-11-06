@@ -32,8 +32,6 @@
     html[dir="ltr"] .notif-unread { border-right: none; border-left: 3px solid #06b6d4; }
     #landingScreen { z-index: 40; } #loginScreen { z-index: 50; } #mainApp { z-index: 10; }
     @media (max-width: 640px) { input, select, textarea { font-size: 16px !important; } }
-    .feature-card { transition: all 0.3s ease; }
-    .feature-card:hover { transform: translateY(-4px); border-color: #06b6d4; box-shadow: 0 10px 30px -10px rgba(6,182,212,0.3); }
     .lang-menu { animation: fadeIn 0.2s ease; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
     
@@ -73,7 +71,7 @@
     <main class="flex-1 flex flex-col items-center px-6 py-12 text-center">
       <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold mb-6"><span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span><span data-i18n="multi_company_platform">منصة متعددة الشركات</span></div>
       <h2 class="text-4xl sm:text-6xl font-black text-white leading-tight max-w-3xl mb-4" data-i18n-html="hero_title">إدارة شركتك <span class="brand-text-gradient"> بذكاء</span></h2>
-      <p class="text-slate-400 text-lg max-w-2xl mb-10" data-i18n="hero_subtitle">نظام متكامل للحضور والانصراف بالـ GPS، الشات، والطلبات.</p>
+      <p class="text-slate-400 text-lg max-w-2xl mb-10" data-i18n="hero_subtitle">نظام متكامل للحضور والانصراف بالـ GPS والطلبات.</p>
       <div class="flex gap-3 mb-16">
         <button onclick="showLoginScreen()" class="px-8 py-4 brand-gradient text-white font-black rounded-2xl cursor-pointer flex items-center gap-2"><span data-i18n="start_now">ابدأ الآن</span><i data-lucide="arrow-left" class="w-5 h-5 rtl-icon"></i></button>
         <button onclick="showLoginScreen('register')" class="px-8 py-4 bg-slate-800 text-white font-bold rounded-2xl border border-slate-700 cursor-pointer flex items-center gap-2"><i data-lucide="building-2" class="w-5 h-5"></i><span data-i18n="new_company">شركة جديدة</span></button>
@@ -145,11 +143,6 @@
           <button id="exitImpersonateBtn" onclick="exitImpersonation()" class="hidden px-3 py-1.5 bg-rose-900/50 hover:bg-rose-800 border border-rose-700 text-rose-300 rounded-xl text-[10px] font-bold flex items-center gap-1.5 cursor-pointer"><i data-lucide="log-out" class="w-3.5 h-3.5"></i><span data-i18n="exit_company">خروج من الشركة</span></button>
           <button id="saBadge" onclick="switchTab('superadmin')" class="hidden px-3 py-1.5 bg-amber-900/30 hover:bg-amber-800/40 border border-amber-700 text-amber-300 rounded-xl text-[10px] font-bold flex items-center gap-1.5 cursor-pointer"><i data-lucide="crown" class="w-3.5 h-3.5"></i><span data-i18n="platform_owner">مالك المنصة</span></button>
           <button id="notifBellBtn" onclick="toggleNotificationsPanel()" class="hidden relative p-2 dark:text-slate-300 text-slate-700 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl cursor-pointer"><i data-lucide="bell" class="w-5 h-5" id="notifBellIcon"></i><span id="notifBadge" class="notif-badge hidden">0</span></button>
-          
-          <div class="flex items-center gap-2 pl-2 pr-1 py-1 dark:bg-slate-900 bg-slate-100 rounded-full border dark:border-slate-700 border-slate-200">
-            <div class="w-8 h-8 rounded-full bg-cyan-600 text-white flex items-center justify-center font-bold text-xs overflow-hidden shrink-0"><img id="headerAvatarImg" class="w-full h-full object-cover hidden" /><span id="headerAvatarText">م</span></div>
-            <div class="text-right hidden sm:block"><span id="headerUserName" class="text-xs font-bold dark:text-white text-slate-800 block">—</span><span id="headerUserRole" class="text-[10px] text-slate-400 block">—</span></div>
-          </div>
         </div>
       </div>
     </header>
@@ -199,12 +192,11 @@
 
     <main class="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 py-5 space-y-6">
       
-      <!-- شريط الأقسام العلوي التفاعلي (بدون إعدادات) -->
+      <!-- شريط الأقسام العلوي التفاعلي (بدون شات) -->
       <div class="w-full dark:bg-slate-800/90 bg-white/90 backdrop-blur-md p-1.5 rounded-2xl border dark:border-slate-700/80 border-slate-200 shadow-sm sticky top-16 z-20 overflow-hidden">
         <div class="tabs-slider items-center gap-2 py-0.5 px-1">
           <button id="tabBtn-dashboard" onclick="switchTab('dashboard')" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs whitespace-nowrap brand-gradient text-white cursor-pointer shadow-md"><i data-lucide="layout-dashboard" class="w-4 h-4"></i><span data-i18n="dashboard">الرئيسية</span></button>
           <button id="tabBtn-attendance" onclick="switchTab('attendance')" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs whitespace-nowrap dark:text-slate-400 text-slate-600 dark:hover:bg-slate-700/60 hover:bg-slate-100 cursor-pointer"><i data-lucide="clock" class="w-4 h-4"></i><span data-i18n="attendance">الحضور</span></button>
-          <button id="tabBtn-chat" onclick="switchTab('chat')" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs whitespace-nowrap dark:text-slate-400 text-slate-600 dark:hover:bg-slate-700/60 hover:bg-slate-100 cursor-pointer"><i data-lucide="message-square" class="w-4 h-4"></i><span data-i18n="chat">الشات</span></button>
           <button id="tabBtn-requests" onclick="switchTab('requests')" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs whitespace-nowrap dark:text-slate-400 text-slate-600 dark:hover:bg-slate-700/60 hover:bg-slate-100 cursor-pointer"><i data-lucide="file-text" class="w-4 h-4"></i><span data-i18n="requests">الطلبات</span></button>
           <button id="tabBtn-employees" onclick="switchTab('employees')" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs whitespace-nowrap dark:text-slate-400 text-slate-600 dark:hover:bg-slate-700/60 hover:bg-slate-100 cursor-pointer"><i data-lucide="users" class="w-4 h-4"></i><span data-i18n="employees">الموظفون</span></button>
           <button id="tabBtn-reports" onclick="switchTab('reports')" class="hidden tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs whitespace-nowrap dark:text-slate-400 text-slate-600 dark:hover:bg-slate-700/60 hover:bg-slate-100 cursor-pointer"><i data-lucide="bar-chart-3" class="w-4 h-4"></i><span data-i18n="reports">التقارير</span></button>
@@ -231,7 +223,7 @@
           </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div class="dark:bg-slate-800/90 bg-white transition border dark:border-slate-700/80 border-slate-200 p-5 rounded-3xl shadow-lg relative overflow-hidden group">
             <div class="flex items-center justify-between mb-3">
               <div class="w-10 h-10 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400"><i data-lucide="users" class="w-5 h-5"></i></div>
@@ -257,15 +249,6 @@
             </div>
             <div class="text-2xl sm:text-3xl font-black text-amber-500 mb-1" id="statPendingRequests">0</div>
             <div class="text-xs text-slate-400 font-bold" data-i18n="stat_requests_label">طلبات بانتظار الموافقة</div>
-          </div>
-
-          <div class="dark:bg-slate-800/90 bg-white transition border dark:border-slate-700/80 border-slate-200 p-5 rounded-3xl shadow-lg relative overflow-hidden group">
-            <div class="flex items-center justify-between mb-3">
-              <div class="w-10 h-10 rounded-2xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400"><i data-lucide="message-square" class="w-5 h-5"></i></div>
-              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400" data-i18n="active">نشط</span>
-            </div>
-            <div class="text-2xl sm:text-3xl font-black text-blue-500 mb-1" id="statChatMessages">0</div>
-            <div class="text-xs text-slate-400 font-bold" data-i18n="stat_chat_label">إجمالي رسائل الشات</div>
           </div>
         </div>
 
@@ -298,15 +281,11 @@
                   <div class="w-8 h-8 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center"><i data-lucide="clock" class="w-4 h-4"></i></div>
                   <span class="text-xs font-bold dark:text-white text-slate-800" data-i18n="attendance">الحضور</span>
                 </button>
-                <button onclick="switchTab('chat')" class="p-3 dark:bg-slate-900 bg-slate-50 dark:hover:bg-slate-700/60 hover:bg-slate-100 border dark:border-slate-700 border-slate-200 rounded-2xl text-right transition cursor-pointer flex flex-col gap-2">
-                  <div class="w-8 h-8 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center"><i data-lucide="message-square" class="w-4 h-4"></i></div>
-                  <span class="text-xs font-bold dark:text-white text-slate-800" data-i18n="chat">الشات</span>
-                </button>
                 <button onclick="switchTab('requests'); openNewRequestModal();" class="p-3 dark:bg-slate-900 bg-slate-50 dark:hover:bg-slate-700/60 hover:bg-slate-100 border dark:border-slate-700 border-slate-200 rounded-2xl text-right transition cursor-pointer flex flex-col gap-2">
                   <div class="w-8 h-8 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center"><i data-lucide="plus" class="w-4 h-4"></i></div>
                   <span class="text-xs font-bold dark:text-white text-slate-800" data-i18n="new_request">طلب جديد</span>
                 </button>
-                <button onclick="switchTab('employees')" class="p-3 dark:bg-slate-900 bg-slate-50 dark:hover:bg-slate-700/60 hover:bg-slate-100 border dark:border-slate-700 border-slate-200 rounded-2xl text-right transition cursor-pointer flex flex-col gap-2">
+                <button onclick="switchTab('employees')" class="p-3 dark:bg-slate-900 bg-slate-50 dark:hover:bg-slate-700/60 hover:bg-slate-100 border dark:border-slate-700 border-slate-200 rounded-2xl text-right transition cursor-pointer flex flex-col gap-2 col-span-2">
                   <div class="w-8 h-8 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center"><i data-lucide="users" class="w-4 h-4"></i></div>
                   <span class="text-xs font-bold dark:text-white text-slate-800" data-i18n="employees">الموظفون</span>
                 </button>
@@ -338,28 +317,19 @@
         <div class="dark:bg-slate-800 bg-white rounded-3xl border dark:border-slate-700 border-slate-200 overflow-hidden shadow-sm"><div class="overflow-x-auto"><table class="w-full text-right text-xs"><thead class="dark:bg-slate-900/50 bg-slate-100 text-slate-400 font-bold border-b dark:border-slate-700 border-slate-200"><tr><th class="py-3.5 px-4" data-i18n="employee">الموظف</th><th class="py-3.5 px-4" data-i18n="date">التاريخ</th><th class="py-3.5 px-4" data-i18n="checkin">حضور</th><th class="py-3.5 px-4" data-i18n="checkout">انصراف</th><th class="py-3.5 px-4 text-center" data-i18n="distance">المسافة</th></tr></thead><tbody id="attendanceTableBody" class="divide-y dark:divide-slate-700/50 divide-slate-100"></tbody></table></div></div>
       </section>
 
-      <!-- 3. قسم الشات -->
-      <section id="view-chat" class="hidden-view">
-        <div class="dark:bg-slate-800 bg-white rounded-3xl border dark:border-slate-700 border-slate-200 overflow-hidden flex flex-col h-[650px] max-h-[75vh] shadow-sm">
-          <div class="px-5 py-4 dark:bg-slate-900/50 bg-slate-50 border-b dark:border-slate-700 border-slate-200 flex items-center justify-between"><h3 class="font-black text-base dark:text-white text-slate-900 flex items-center gap-2"><i data-lucide="message-square" class="w-5 h-5 text-cyan-400"></i> <span data-i18n="company_chat">شات الشركة</span></h3><span class="text-[10px] text-cyan-500 flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span><span data-i18n="auto_refresh">تحديث تلقائي</span></span></div>
-          <div id="chatMessagesBox" class="flex-1 p-5 overflow-y-auto space-y-4 dark:bg-slate-900/30 bg-slate-50/50"></div>
-          <form onsubmit="handleSendChat(event)" class="p-3 dark:bg-slate-800 bg-white border-t dark:border-slate-700 border-slate-200 flex items-center gap-2"><input type="text" id="chatInput" data-i18n-ph="type_message" placeholder="اكتب رسالتك..." required class="flex-1 py-2.5 px-4 dark:bg-slate-900 bg-slate-100 border dark:border-slate-700 border-slate-300 rounded-xl text-sm dark:text-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-cyan-500"><button type="submit" class="py-2.5 px-5 brand-gradient text-white font-bold rounded-xl text-sm cursor-pointer flex items-center gap-1"><i data-lucide="send" class="w-4 h-4"></i> <span data-i18n="send">إرسال</span></button></form>
-        </div>
-      </section>
-
-      <!-- 4. قسم الطلبات -->
+      <!-- 3. قسم الطلبات -->
       <section id="view-requests" class="hidden-view space-y-6">
         <div class="dark:bg-slate-800 bg-white p-5 rounded-3xl border dark:border-slate-700 border-slate-200 flex items-center justify-between shadow-sm"><h3 class="text-lg font-black dark:text-white text-slate-900 flex items-center gap-2"><i data-lucide="file-text" class="w-5 h-5 text-cyan-400"></i> <span data-i18n="requests">الطلبات</span></h3><button onclick="openNewRequestModal()" class="px-4 py-2.5 brand-gradient text-white font-bold rounded-xl text-xs cursor-pointer flex items-center gap-1"><i data-lucide="plus" class="w-3 h-3"></i> <span data-i18n="new_request">طلب جديد</span></button></div>
         <div id="requestsList" class="space-y-3"></div>
       </section>
 
-      <!-- 5. قسم الموظفين -->
+      <!-- 4. قسم الموظفين -->
       <section id="view-employees" class="hidden-view space-y-6">
         <div class="dark:bg-slate-800 bg-white p-5 rounded-3xl border dark:border-slate-700 border-slate-200 flex items-center justify-between shadow-sm"><div><h3 class="text-lg font-black dark:text-white text-slate-900 flex items-center gap-2"><i data-lucide="users" class="w-5 h-5 text-cyan-400"></i> <span data-i18n="manage_employees">إدارة الموظفين</span></h3><p id="employeesCompanyHint" class="text-[10px] text-slate-500 mt-0.5">—</p></div><button onclick="openNewEmployeeModal()" class="px-4 py-2.5 brand-gradient text-white font-bold rounded-xl text-xs cursor-pointer flex items-center gap-1"><i data-lucide="user-plus" class="w-3 h-3"></i> <span data-i18n="add">إضافة</span></button></div>
         <div class="dark:bg-slate-800 bg-white rounded-3xl border dark:border-slate-700 border-slate-200 overflow-hidden shadow-sm"><div class="overflow-x-auto"><table class="w-full text-right text-xs"><thead class="dark:bg-slate-900/50 bg-slate-100 text-slate-400 font-bold border-b dark:border-slate-700 border-slate-200"><tr><th class="py-3.5 px-4" data-i18n="name">الاسم</th><th class="py-3.5 px-4" data-i18n="username">المستخدم</th><th class="py-3.5 px-4" data-i18n="role">الدور</th><th class="py-3.5 px-4" data-i18n="job_title">المسمى</th><th class="py-3.5 px-4" data-i18n="work_start_time">وقت الحضور</th><th class="py-3.5 px-4" data-i18n="workplace">المقر</th><th class="py-3.5 px-4 text-center" data-i18n="actions">إجراءات</th></tr></thead><tbody id="employeesTableBody" class="divide-y dark:divide-slate-700/50 divide-slate-100"></tbody></table></div></div>
       </section>
 
-      <!-- 6. قسم التقارير -->
+      <!-- 5. قسم التقارير -->
       <section id="view-reports" class="hidden-view space-y-6">
         <div class="dark:bg-slate-800 bg-white p-6 rounded-3xl border dark:border-slate-700 border-slate-200 shadow-sm">
           <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
@@ -407,7 +377,7 @@
         </div>
       </section>
 
-      <!-- 7. لوحة المالك -->
+      <!-- 6. لوحة المالك -->
       <section id="view-superadmin" class="hidden-view space-y-6">
         <div class="bg-gradient-to-br from-amber-900/30 via-slate-800 to-slate-800 p-6 rounded-3xl border-2 border-amber-700/50 shadow-sm">
           <div class="flex items-center justify-between flex-wrap gap-3">
@@ -498,13 +468,13 @@
         login: "دخول", home: "الرئيسية", new_company: "شركة جديدة", start_now: "ابدأ الآن",
         multi_company_platform: "منصة متعددة الشركات",
         hero_title: 'إدارة شركتك <span class="brand-text-gradient">بذكاء</span>',
-        hero_subtitle: "نظام متكامل للحضور والانصراف بالـ GPS، الشات، والطلبات.",
+        hero_subtitle: "نظام متكامل للحضور والانصراف بالـ GPS والطلبات.",
         copyright: "© 2026 VodFire. جميع الحقوق محفوظة.",
         connecting: "جاري الاتصال...", connected: "متصل", offline: "غير متصل",
         company_code: "كود الشركة", username: "اسم المستخدم", password: "كلمة المرور",
         company_name: "اسم الشركة", company_name_placeholder: "شركة النور",
         your_name: "اسمك", manager_data: "بياناتك كمدير", create_company: "إنشاء الشركة",
-        dashboard: "الرئيسية", attendance: "الحضور", chat: "الشات", requests: "الطلبات", employees: "الموظفون", owner_panel: "لوحة المالك", owner: "المالك",
+        dashboard: "الرئيسية", attendance: "الحضور", requests: "الطلبات", employees: "الموظفون", owner_panel: "لوحة المالك", owner: "المالك",
         exit_company: "خروج من الشركة", platform_owner: "مالك المنصة",
         notifications: "الإشعارات", mark_all: "تحديد الكل",
         check_attendance: "تسجيل الحضور", not_started: "لم تبدأ", started: "بدأت",
@@ -512,7 +482,6 @@
         start_work: "بدء العمل", end_work: "نهاية العمل",
         exempt_from_attendance: "أنت معفي من الحضور", manager_no_checkin: "حسابك كمدير لا يتطلب تسجيل.",
         employee: "الموظف", date: "التاريخ", checkin: "حضور", checkout: "انصراف", distance: "المسافة",
-        company_chat: "شات الشركة", auto_refresh: "تحديث تلقائي", type_message: "اكتب رسالتك...", send: "إرسال",
         new_request: "طلب جديد", manage_employees: "إدارة الموظفين", add: "إضافة",
         name: "الاسم", role: "الدور", job_title: "المسمى", workplace: "المقر", actions: "إجراءات",
         logout: "تسجيل الخروج",
@@ -549,7 +518,6 @@
         msg_company_deleted: "تم حذف", msg_company_suspended_toast: "تم إيقاف الشركة", msg_company_activated_toast: "تم تشغيل الشركة",
         msg_pass_short: "كلمة المرور يجب أن تكون 8 أحرف على الأقل",
         msg_required_fields: "يرجى ملء الحقول المطلوبة",
-        msg_send_in_company: "أنت في لوحة المالك. ادخل إلى شركة معينة لإرسال رسائل.",
         msg_you_exempt: "أنت معفي من الحضور",
         msg_updating: "جاري التحديث...", msg_updated: "تم التحديث",
         msg_failed: "فشل", msg_loading: "جاري...",
@@ -558,7 +526,7 @@
         msg_account_credentials: "✅ تم إنشاء الحساب!",
         msg_user_label: "المستخدم", msg_pass_label: "المرور",
         msg_no_requests: "لا توجد طلبات", msg_no_records: "لا توجد سجلات",
-        msg_no_messages: "لا توجد رسائل", msg_no_employees: "لا يوجد موظفون",
+        msg_no_employees: "لا يوجد موظفون",
         msg_no_notifications: "لا توجد إشعارات", msg_no_companies: "لا توجد شركات",
         msg_loading_data: "جاري تحميل البيانات...",
         msg_super_admin_role: "مالك المنصة", msg_manager_role: "مدير", msg_employee_role: "موظف",
@@ -576,7 +544,7 @@
         dashboard_welcome_desc: "إليك نظرة عامة ومباشرة على إحصائيات شركتك اليوم.",
         total: "إجمالي", today: "اليوم", pending: "قيد الانتظار",
         stat_employees_label: "إجمالي الموظفين المسجلين", stat_attendance_label: "الموظفون الحاضرون اليوم",
-        stat_requests_label: "طلبات بانتظار الموافقة", stat_chat_label: "إجمالي رسائل الشات",
+        stat_requests_label: "طلبات بانتظار الموافقة",
         recent_attendance: "حضور اليوم السريع", view_all: "عرض الكل", recent_requests: "أحدث الطلبات",
         quick_actions: "اختصارات سريعة", system_status: "حالة النظام", operational: "يعمل بكفاءة",
         theme_mode: "الوضع (داكن / فاتح)", language: "اللغة", account_settings: "إعدادات الحساب"
@@ -586,13 +554,13 @@
         login: "Login", home: "Home", new_company: "New Company", start_now: "Start Now",
         multi_company_platform: "Multi-Company Platform",
         hero_title: 'Manage Your Company <span class="brand-text-gradient">Smartly</span>',
-        hero_subtitle: "Complete system for GPS attendance, chat, and requests.",
+        hero_subtitle: "Complete system for GPS attendance and requests.",
         copyright: "© 2026 VodFire. All rights reserved.",
         connecting: "Connecting...", connected: "Connected", offline: "Offline",
         company_code: "Company Code", username: "Username", password: "Password",
         company_name: "Company Name", company_name_placeholder: "Al-Noor Company",
         your_name: "Your Name", manager_data: "Your Data as Manager", create_company: "Create Company",
-        dashboard: "Dashboard", attendance: "Attendance", chat: "Chat", requests: "Requests", employees: "Employees", owner_panel: "Owner Panel", owner: "Owner",
+        dashboard: "Dashboard", attendance: "Attendance", requests: "Requests", employees: "Employees", owner_panel: "Owner Panel", owner: "Owner",
         exit_company: "Exit Company", platform_owner: "Platform Owner",
         notifications: "Notifications", mark_all: "Mark All",
         check_attendance: "Check Attendance", not_started: "Not Started", started: "Started",
@@ -600,7 +568,6 @@
         start_work: "Start Work", end_work: "End Work",
         exempt_from_attendance: "You are exempt from attendance", manager_no_checkin: "Your manager account doesn't require check-in.",
         employee: "Employee", date: "Date", checkin: "Check-in", checkout: "Check-out", distance: "Distance",
-        company_chat: "Company Chat", auto_refresh: "Auto Refresh", type_message: "Type your message...", send: "Send",
         new_request: "New Request", manage_employees: "Manage Employees", add: "Add",
         name: "Name", role: "Role", job_title: "Job Title", workplace: "Workplace", actions: "Actions",
         logout: "Logout",
@@ -637,7 +604,6 @@
         msg_company_deleted: "Deleted", msg_company_suspended_toast: "Company suspended", msg_company_activated_toast: "Company activated",
         msg_pass_short: "Password must be at least 8 characters",
         msg_required_fields: "Please fill required fields",
-        msg_send_in_company: "You are in owner panel.",
         msg_you_exempt: "You are exempt from attendance",
         msg_updating: "Updating...", msg_updated: "Updated",
         msg_failed: "Failed", msg_loading: "Loading...",
@@ -646,13 +612,13 @@
         msg_account_credentials: "✅ Account created!",
         msg_user_label: "User", msg_pass_label: "Pass",
         msg_no_requests: "No requests", msg_no_records: "No records",
-        msg_no_messages: "No messages", msg_no_employees: "No employees",
-        msg_no_notifications: "No notifications", msg_no_companies: "No companies",
+        msg_no_employees: "No employees",
+        msg_no_notifications: "Nessuna notifica", msg_no_companies: "No companies",
         msg_loading_data: "Loading data...",
         msg_super_admin_role: "Platform Owner", msg_manager_role: "Manager", msg_employee_role: "Employee",
         msg_impersonate_role: "Admin Access",
         msg_company_employees_hint: "Employees of",
-        request_new_notif: "New Request",
+        request_new_notif: "Nuova Richiesta",
         lang_name: "English",
         reports: "Reports", monthly_reports: "Monthly Employee Reports", reports_desc: "Track employee performance and download reports.",
         jan: "January", feb: "February", mar: "March", apr: "April", may: "May", jun: "June",
@@ -664,7 +630,7 @@
         dashboard_welcome_desc: "Here is a direct overview and statistics of your company today.",
         total: "Total", today: "Today", pending: "Pending",
         stat_employees_label: "Total Registered Employees", stat_attendance_label: "Present Employees Today",
-        stat_requests_label: "Requests Pending Approval", stat_chat_label: "Total Chat Messages",
+        stat_requests_label: "Requests Pending Approval",
         recent_attendance: "Recent Today's Attendance", view_all: "View All", recent_requests: "Recent Requests",
         quick_actions: "Quick Actions", system_status: "System Status", operational: "Operational",
         theme_mode: "Theme (Dark / Light)", language: "Language", account_settings: "Account Settings"
@@ -674,13 +640,13 @@
         login: "Accedi", home: "Home", new_company: "Nuova Azienda", start_now: "Inizia Ora",
         multi_company_platform: "Piattaforma Multi-Azienda",
         hero_title: 'Gestisci la Tua Azienda <span class="brand-text-gradient">Con Intelligenza</span>',
-        hero_subtitle: "Sistema completo per presenze GPS, chat e richieste.",
+        hero_subtitle: "Sistema completo per presenze GPS e richieste.",
         copyright: "© 2026 VodFire. Tutti i diritti riservati.",
         connecting: "Connessione...", connected: "Connesso", offline: "Offline",
         company_code: "Codice Azienda", username: "Nome Utente", password: "Password",
         company_name: "Nome Azienda", company_name_placeholder: "Azienda Al-Noor",
         your_name: "Il Tuo Nome", manager_data: "I Tuoi Dati come Manager", create_company: "Crea Azienda",
-        dashboard: "Dashboard", attendance: "Presenze", chat: "Chat", requests: "Richieste", employees: "Dipendenti", owner_panel: "Pannello Proprietario", owner: "Proprietario",
+        dashboard: "Dashboard", attendance: "Presenze", requests: "Richieste", employees: "Dipendenti", owner_panel: "Pannello Proprietario", owner: "Proprietario",
         exit_company: "Esci dall'Azienda", platform_owner: "Proprietario Piattaforma",
         notifications: "Notifiche", mark_all: "Segna Tutte",
         check_attendance: "Registra Presenza", not_started: "Non Iniziata", started: "Iniziata",
@@ -688,7 +654,6 @@
         start_work: "Inizia Lavoro", end_work: "Fine Lavoro",
         exempt_from_attendance: "Sei esente dalle presenze", manager_no_checkin: "Il tuo account manager non richiede check-in.",
         employee: "Dipendente", date: "Data", checkin: "Entrata", checkout: "Uscita", distance: "Distanza",
-        company_chat: "Chat Aziendale", auto_refresh: "Aggiornamento Automatico", type_message: "Scrivi il tuo messaggio...", send: "Invia",
         new_request: "Nuova Richiesta", manage_employees: "Gestisci Dipendenti", add: "Aggiungi",
         name: "Nome", role: "Ruolo", job_title: "Qualifica", workplace: "Sede", actions: "Azioni",
         logout: "Esci",
@@ -725,7 +690,6 @@
         msg_company_deleted: "Eliminata", msg_company_suspended_toast: "Azienda sospesa", msg_company_activated_toast: "Azienda attivata",
         msg_pass_short: "La password deve essere di almeno 8 caratteri",
         msg_required_fields: "Compila i campi obbligatori",
-        msg_send_in_company: "Sei nel pannello proprietario.",
         msg_you_exempt: "Sei esente dalle presenze",
         msg_updating: "Aggiornamento...", msg_updated: "Aggiornato",
         msg_failed: "Fallito", msg_loading: "Caricamento...",
@@ -734,7 +698,7 @@
         msg_account_credentials: "✅ Account creato!",
         msg_user_label: "Utente", msg_pass_label: "Password",
         msg_no_requests: "Nessuna richiesta", msg_no_records: "Nessun record",
-        msg_no_messages: "Nessun messaggio", msg_no_employees: "Nessun dipendente",
+        msg_no_employees: "Nessun dipendente",
         msg_no_notifications: "Nessuna notifica", msg_no_companies: "Nessuna azienda",
         msg_loading_data: "Caricamento dati...",
         msg_super_admin_role: "Proprietario Piattaforma", msg_manager_role: "Manager", msg_employee_role: "Dipendente",
@@ -752,7 +716,7 @@
         dashboard_welcome_desc: "Ecco una panoramica diretta e le statistiche della tua azienda oggi.",
         total: "Totale", today: "Oggi", pending: "In Attesa",
         stat_employees_label: "Totale Dipendenti Registrati", stat_attendance_label: "Dipendenti Presenti Oggi",
-        stat_requests_label: "Richieste in Attesa di Approvazione", stat_chat_label: "Messaggi Chat Totali",
+        stat_requests_label: "Richieste in Attesa di Approvazione",
         recent_attendance: "Presenze recenti di oggi", view_all: "Vedi Tutti", recent_requests: "Richieste Recenti",
         quick_actions: "Azioni Rapide", system_status: "Stato del Sistema", operational: "Operativo",
         theme_mode: "Tema (Scuro / Chiaro)", language: "Lingua", account_settings: "Impostazioni Account"
@@ -781,7 +745,7 @@
       if (currentUser) {
         try {
           if (currentUser.isSuperAdmin && !currentUser._impersonating) renderSuperAdminCompanies();
-          else { renderDashboardStats(); renderAttendance(); renderChat(); renderRequests(); renderEmployees(); renderMonthlyReports(true); }
+          else { renderDashboardStats(); renderAttendance(); renderRequests(); renderEmployees(); renderMonthlyReports(true); }
           renderNotificationsBadge();
         } catch(e){}
       }
@@ -850,7 +814,7 @@
     const MASTER_API_KEY = 'standard_66b2a0b93b461a230b0111f44a9cab51fe54a77c2c298d81b83ce38bdf61433a49c196f45ccff0af09d0bca038eec991570fdf32133a905428efb23526f6afb273b039de2c4d62b78d78eb047b48820d0b73900a29c0d8acb093cbdc325449ccce0c9ba71ee7ab31a82a3e46e11bd895452338df27fe84d5411e30c3583c8451';
     let SDK, client, databases, account;
     let currentUser = null, cloudReady = false;
-    let localCache = { attendance: [], chat: [], requests: [], users: [], notifications: [] };
+    let localCache = { attendance: [], requests: [], users: [], notifications: [] };
     let superAdminCache = { companies: [], users: [] };
     let notificationsPanelOpen = false, syncInterval = null, isLoadingCloud = false;
     let impersonatedCompany = null;
@@ -978,7 +942,7 @@
       try { await account.deleteSession('current'); } catch(e){}
       if (syncInterval) { clearInterval(syncInterval); syncInterval = null; }
       currentUser = null; impersonatedCompany = null;
-      localCache = { attendance: [], chat: [], requests: [], users: [], notifications: [] };
+      localCache = { attendance: [], requests: [], users: [], notifications: [] };
       superAdminCache = { companies: [], users: [] };
       document.getElementById('mainApp').classList.add('hidden-view');
       document.getElementById('loginScreen').classList.add('hidden-view');
@@ -1082,7 +1046,7 @@
       if (!impersonatedCompany) return;
       currentUser = impersonatedCompany.originalUser;
       impersonatedCompany = null;
-      localCache = { attendance: [], chat: [], requests: [], users: [], notifications: [] };
+      localCache = { attendance: [], requests: [], users: [], notifications: [] };
       showApp(); switchTab('superadmin'); toast(t('msg_back_to_owner'));
     }
 
@@ -1116,7 +1080,7 @@
           if (r.documents.length < 100) break;
           cursor = r.documents[r.documents.length - 1].$id; safety++;
         }
-        const nc = { attendance: [], chat: [], requests: [], users: [], notifications: [] };
+        const nc = { attendance: [], requests: [], users: [], notifications: [] };
         all.forEach(d => {
           if (currentUser && !currentUser.isSuperAdmin && d.companyId !== currentUser.companyId) return;
           const p = safeParse(d.Payload);
@@ -1124,13 +1088,11 @@
           const type = d.entitytype || p.entitytype;
           switch(type) {
             case 'ATTENDANCE': nc.attendance.push(item); break;
-            case 'CHAT': nc.chat.push(item); break;
             case 'REQUEST': nc.requests.push(item); break;
             case 'USER': nc.users.push(item); break;
             case 'NOTIFICATION': nc.notifications.push(item); break;
           }
         });
-        nc.chat.sort((a,b) => (a.createdAt||'').localeCompare(b.createdAt||''));
         nc.attendance.sort((a,b) => (b.date||'').localeCompare(a.date||''));
         nc.requests.sort((a,b) => (b.createdAt||'').localeCompare(a.createdAt||''));
         nc.notifications.sort((a,b) => (b.createdAt||'').localeCompare(a.createdAt||''));
@@ -1201,20 +1163,7 @@
       document.getElementById('loginScreen').classList.add('hidden-view');
       document.getElementById('landingScreen').classList.add('hidden-view');
       document.getElementById('mainApp').classList.remove('hidden-view');
-      
-      document.getElementById('headerUserName').textContent = currentUser.name;
-      document.getElementById('headerAvatarText').textContent = currentUser.name.charAt(0);
-      if (currentUser.profileImage) {
-        document.getElementById('headerAvatarImg').src = currentUser.profileImage;
-        document.getElementById('headerAvatarImg').classList.remove('hidden');
-        document.getElementById('headerAvatarText').classList.add('hidden');
-      } else {
-        document.getElementById('headerAvatarImg').classList.add('hidden');
-        document.getElementById('headerAvatarText').classList.remove('hidden');
-      }
 
-      document.getElementById('headerUserRole').textContent = currentUser.role === 'super_admin' ? t('msg_super_admin_role') : currentUser.role === 'manager' ? (currentUser._impersonating ? t('msg_impersonate_role') : t('msg_manager_role')) : t('msg_employee_role');
-      document.getElementById('headerCompanyName').textContent = currentUser.companyName || '—';
       const isSA = currentUser.isSuperAdmin === true;
       const isMgr = currentUser.role === 'manager' || currentUser.role === 'super_admin';
       document.getElementById('saBadge').classList.toggle('hidden', !isSA || currentUser._impersonating);
@@ -1239,6 +1188,8 @@
       document.getElementById('notifBellBtn').classList.toggle('hidden', !isMgr);
       document.getElementById('employeesCompanyHint').textContent = `${t('msg_company_employees_hint')} ${currentUser.companyName || ''}`;
       
+      document.getElementById('headerCompanyName').textContent = currentUser.companyName || '—';
+
       const now = new Date();
       document.getElementById('reportMonth').value = now.getMonth() + 1;
       document.getElementById('reportYear').value = now.getFullYear();
@@ -1251,15 +1202,15 @@
       syncInterval = setInterval(async () => {
         try {
           if (isSA && !currentUser._impersonating) { await loadSuperAdminData(); renderSuperAdminCompanies(); }
-          else { await loadAllFromCloud(); renderDashboardStats(); renderChat(); renderRequests(); renderAttendance(); renderEmployees(); }
+          else { await loadAllFromCloud(); renderDashboardStats(); renderRequests(); renderAttendance(); renderEmployees(); }
         } catch(e){}
       }, 20000);
     }
 
-    function renderAll() { renderDashboardStats(); renderAttendance(); renderChat(); renderRequests(); renderEmployees(); }
+    function renderAll() { renderDashboardStats(); renderAttendance(); renderRequests(); renderEmployees(); }
 
     function switchTab(id) {
-      ['dashboard','attendance','chat','requests','employees','reports','superadmin'].forEach(t2 => {
+      ['dashboard','attendance','requests','employees','reports','superadmin'].forEach(t2 => {
         const el = document.getElementById('view-' + t2); if (el) el.classList.add('hidden-view');
         const b = document.getElementById('tabBtn-' + t2); if(b) { b.classList.remove('brand-gradient','text-white','shadow-md'); b.classList.add('dark:text-slate-400','text-slate-600'); }
       });
@@ -1281,9 +1232,6 @@
 
       const pendingReqCount = localCache.requests.filter(r => r.status === 'pending').length;
       document.getElementById('statPendingRequests').textContent = pendingReqCount;
-
-      const chatCount = localCache.chat.length;
-      document.getElementById('statChatMessages').textContent = chatCount;
 
       const dashAttList = document.getElementById('dashRecentAttendanceList');
       dashAttList.innerHTML = '';
@@ -1374,35 +1322,6 @@
       if (!rec) return;
       rec.checkOut = new Date().toLocaleTimeString(currentLang === 'ar' ? 'ar-EG' : currentLang === 'it' ? 'it-IT' : 'en-US');
       try { await updateCloudDoc(rec._docId, 'ATTENDANCE', rec); document.getElementById('btnCheckOut').disabled = true; renderAttendance(); renderDashboardStats(); toast(t('msg_checkout_recorded')); } catch(e){}
-    }
-
-    function renderChat() {
-      const b = document.getElementById('chatMessagesBox'); b.innerHTML = '';
-      const targetCompanyId = currentUser.companyId;
-      const safe = localCache.chat.filter(m => {
-        if (!targetCompanyId) return true;
-        return m._companyId === targetCompanyId || m.companyId === targetCompanyId;
-      });
-      if (!safe.length) { b.innerHTML = `<div class="text-center text-slate-500 py-8 text-xs">${t('msg_no_messages')}</div>`; return; }
-      safe.forEach(m => {
-        const me = m.userId === currentUser.id;
-        const d = document.createElement('div');
-        d.className = `flex flex-col ${me?'items-end':'items-start'}`;
-        d.innerHTML = `<div class="flex items-center gap-1.5 mb-1 text-[11px] text-slate-400"><span class="font-bold dark:text-slate-200 text-slate-800">${escapeHtml(m.userName)}</span><span>${m.time}</span></div><div class="p-3 rounded-2xl text-xs max-w-[80%] ${me?'brand-gradient text-white':'dark:bg-slate-700 bg-slate-200 dark:text-slate-100 text-slate-900 border dark:border-slate-600 border-slate-300'}">${escapeHtml(m.text)}</div>`;
-        b.appendChild(d);
-      });
-      b.scrollTop = b.scrollHeight;
-    }
-
-    async function handleSendChat(e) {
-      e.preventDefault();
-      if (!currentUser?.companyId) return alert(t('msg_send_in_company'));
-      const inp = document.getElementById('chatInput'); const txt = inp.value.trim(); if (!txt) return;
-      inp.value = '';
-      const pl = { id: 'msg_' + Date.now(), userId: currentUser.id, userName: currentUser.name, userRole: currentUser.role, companyId: currentUser.companyId, text: txt, time: new Date().toLocaleTimeString(currentLang === 'ar' ? 'ar-EG' : currentLang === 'it' ? 'it-IT' : 'en-US', { hour:'2-digit', minute:'2-digit' }), createdAt: new Date().toISOString() };
-      localCache.chat.push({ ...pl, _docId: 'temp_' + Date.now(), _companyId: currentUser.companyId });
-      renderChat(); renderDashboardStats();
-      try { const d = await createCloudDoc('CHAT', pl); const i = localCache.chat.findIndex(m => m._docId && m._docId.startsWith('temp_')); if (i !== -1) localCache.chat[i] = { ...pl, _docId: d.$id, _companyId: d.companyId }; renderChat(); renderDashboardStats(); } catch(e) { inp.value = txt; }
     }
 
     function renderRequests() {
@@ -1501,9 +1420,6 @@
           p.ProfileImage = ev.target.result;
           await databases.updateDocument(CFG.databaseId, CFG.collectionId, currentUser._docId, { Payload: JSON.stringify(p) });
           currentUser.profileImage = ev.target.result;
-          document.getElementById('headerAvatarImg').src = ev.target.result;
-          document.getElementById('headerAvatarImg').classList.remove('hidden');
-          document.getElementById('headerAvatarText').classList.add('hidden');
           toast(t('msg_photo_updated'));
         } catch(e){ alert(t('msg_photo_too_big')); }
       };
@@ -1518,8 +1434,6 @@
         p.DisplayName = nn;
         await databases.updateDocument(CFG.databaseId, CFG.collectionId, currentUser._docId, { Payload: JSON.stringify(p), Username: nn });
         currentUser.name = nn;
-        document.getElementById('headerUserName').textContent = nn;
-        document.getElementById('headerAvatarText').textContent = nn.charAt(0);
         renderDashboardStats();
         toast(t('msg_saved')); closeModal('profileModal');
       } catch(e){ alert(t('msg_failed')); }
