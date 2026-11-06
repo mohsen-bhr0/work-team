@@ -32,6 +32,8 @@
     html[dir="ltr"] .notif-unread { border-right: none; border-left: 3px solid #06b6d4; }
     #landingScreen { z-index: 40; } #loginScreen { z-index: 50; } #mainApp { z-index: 10; }
     @media (max-width: 640px) { input, select, textarea { font-size: 16px !important; } }
+    .feature-card { transition: all 0.3s ease; }
+    .feature-card:hover { transform: translateY(-4px); border-color: #06b6d4; box-shadow: 0 10px 30px -10px rgba(6,182,212,0.3); }
     .lang-menu { animation: fadeIn 0.2s ease; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
     
@@ -47,7 +49,7 @@
 </head>
 <body class="antialiased min-h-screen flex flex-col overflow-x-hidden">
 
-  <!-- شاشة تعريفية -->
+  <!-- الشاشة التعريفية الكاملة -->
   <div id="landingScreen" class="fixed inset-0 flex flex-col bg-slate-950 text-slate-100 overflow-y-auto">
     <header class="w-full px-6 py-4 flex items-center justify-between border-b border-slate-800/50 sticky top-0 bg-slate-950/90 backdrop-blur-md z-10">
       <div class="flex items-center gap-3">
@@ -68,14 +70,36 @@
         <button onclick="showLoginScreen()" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-xl text-sm border border-slate-700 cursor-pointer flex items-center gap-2"><i data-lucide="log-in" class="w-4 h-4"></i><span data-i18n="login">دخول</span></button>
       </div>
     </header>
+
     <main class="flex-1 flex flex-col items-center px-6 py-12 text-center">
       <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold mb-6"><span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span><span data-i18n="multi_company_platform">منصة متعددة الشركات</span></div>
       <h2 class="text-4xl sm:text-6xl font-black text-white leading-tight max-w-3xl mb-4" data-i18n-html="hero_title">إدارة شركتك <span class="brand-text-gradient"> بذكاء</span></h2>
       <p class="text-slate-400 text-lg max-w-2xl mb-10" data-i18n="hero_subtitle">نظام متكامل للحضور والانصراف بالـ GPS والطلبات.</p>
-      <div class="flex gap-3 mb-16">
-        <button onclick="showLoginScreen()" class="px-8 py-4 brand-gradient text-white font-black rounded-2xl cursor-pointer flex items-center gap-2"><span data-i18n="start_now">ابدأ الآن</span><i data-lucide="arrow-left" class="w-5 h-5 rtl-icon"></i></button>
-        <button onclick="showLoginScreen('register')" class="px-8 py-4 bg-slate-800 text-white font-bold rounded-2xl border border-slate-700 cursor-pointer flex items-center gap-2"><i data-lucide="building-2" class="w-5 h-5"></i><span data-i18n="new_company">شركة جديدة</span></button>
+      
+      <div class="flex flex-wrap justify-center gap-3 mb-16">
+        <button onclick="showLoginScreen()" class="px-8 py-4 brand-gradient text-white font-black rounded-2xl cursor-pointer flex items-center gap-2 shadow-lg shadow-cyan-500/20"><span data-i18n="start_now">ابدأ الآن</span><i data-lucide="arrow-left" class="w-5 h-5 rtl-icon"></i></button>
+        <button onclick="showLoginScreen('register')" class="px-8 py-4 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-2xl border border-slate-800 cursor-pointer flex items-center gap-2"><i data-lucide="building-2" class="w-5 h-5"></i><span data-i18n="new_company">شركة جديدة</span></button>
       </div>
+
+      <!-- المميزات التوضيحية -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl w-full mb-12 text-right">
+        <div class="feature-card bg-slate-900/60 p-6 rounded-3xl border border-slate-800/80">
+          <div class="w-12 h-12 rounded-2xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center mb-4 border border-cyan-500/20"><i data-lucide="map-pin" class="w-6 h-6"></i></div>
+          <h3 class="font-bold text-white text-base mb-2" data-i18n="feat_gps_title">حضور وانصراف بالـ GPS</h3>
+          <p class="text-xs text-slate-400 leading-relaxed" data-i18n="feat_gps_desc">تتبع دقيق لمواقع الموظفين ونطاق العمل الجغرافي بكل سهولة.</p>
+        </div>
+        <div class="feature-card bg-slate-900/60 p-6 rounded-3xl border border-slate-800/80">
+          <div class="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-400 flex items-center justify-center mb-4 border border-amber-500/20"><i data-lucide="file-text" class="w-6 h-6"></i></div>
+          <h3 class="font-bold text-white text-base mb-2" data-i18n="feat_req_title">الطلبات والإجازات</h3>
+          <p class="text-xs text-slate-400 leading-relaxed" data-i18n="feat_req_desc">إدارة السلف، الإجازات، والطلبات الإدارية ومتابعة حالتها فورياً.</p>
+        </div>
+        <div class="feature-card bg-slate-900/60 p-6 rounded-3xl border border-slate-800/80">
+          <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-4 border border-emerald-500/20"><i data-lucide="bar-chart-3" class="w-6 h-6"></i></div>
+          <h3 class="font-bold text-white text-base mb-2" data-i18n="feat_rep_title">تقارير شاملة</h3>
+          <p class="text-xs text-slate-400 leading-relaxed" data-i18n="feat_rep_desc">تقارير شهرية متكاملة لأداء الموظفين مع إمكانية التحميل بصيغة CSV.</p>
+        </div>
+      </div>
+
       <p class="text-xs text-slate-500 mt-4" data-i18n="copyright">© 2026 VodFire. جميع الحقوق محفوظة.</p>
     </main>
   </div>
@@ -469,6 +493,9 @@
         multi_company_platform: "منصة متعددة الشركات",
         hero_title: 'إدارة شركتك <span class="brand-text-gradient">بذكاء</span>',
         hero_subtitle: "نظام متكامل للحضور والانصراف بالـ GPS والطلبات.",
+        feat_gps_title: "حضور وانصراف بالـ GPS", feat_gps_desc: "تتبع دقيق لمواقع الموظفين ونطاق العمل الجغرافي بكل سهولة.",
+        feat_req_title: "الطلبات والإجازات", feat_req_desc: "إدارة السلف، الإجازات، والطلبات الإدارية ومتابعة حالتها فورياً.",
+        feat_rep_title: "تقارير شاملة", feat_rep_desc: "تقارير شهرية متكاملة لأداء الموظفين مع إمكانية التحميل بصيغة CSV.",
         copyright: "© 2026 VodFire. جميع الحقوق محفوظة.",
         connecting: "جاري الاتصال...", connected: "متصل", offline: "غير متصل",
         company_code: "كود الشركة", username: "اسم المستخدم", password: "كلمة المرور",
@@ -555,6 +582,9 @@
         multi_company_platform: "Multi-Company Platform",
         hero_title: 'Manage Your Company <span class="brand-text-gradient">Smartly</span>',
         hero_subtitle: "Complete system for GPS attendance and requests.",
+        feat_gps_title: "GPS Attendance", feat_gps_desc: "Accurate tracking of employee locations and geographical work range.",
+        feat_req_title: "Requests & Leaves", feat_req_desc: "Manage loans, leaves, and administrative requests instantly.",
+        feat_rep_title: "Comprehensive Reports", feat_rep_desc: "Integrated monthly performance reports with CSV download.",
         copyright: "© 2026 VodFire. All rights reserved.",
         connecting: "Connecting...", connected: "Connected", offline: "Offline",
         company_code: "Company Code", username: "Username", password: "Password",
@@ -641,6 +671,9 @@
         multi_company_platform: "Piattaforma Multi-Azienda",
         hero_title: 'Gestisci la Tua Azienda <span class="brand-text-gradient">Con Intelligenza</span>',
         hero_subtitle: "Sistema completo per presenze GPS e richieste.",
+        feat_gps_title: "Presenze GPS", feat_gps_desc: "Tracciamento accurato delle posizioni dei dipendenti e dell'area di lavoro.",
+        feat_req_title: "Richieste e Ferie", feat_req_desc: "Gestione di prestiti, ferie e richieste amministrative in tempo reale.",
+        feat_rep_title: "Rapporti Completi", feat_rep_desc: "Rapporti mensili integrati sulle prestazioni con download CSV.",
         copyright: "© 2026 VodFire. Tutti i diritti riservati.",
         connecting: "Connessione...", connected: "Connesso", offline: "Offline",
         company_code: "Codice Azienda", username: "Nome Utente", password: "Password",
@@ -787,7 +820,6 @@
       if (m2) m2.classList.toggle('hidden-view');
     }
 
-    // إدارة القائمة الجانبية (الثلاث شرط)
     function toggleHamburgerMenu(e) {
       if (e) e.stopPropagation();
       const menu = document.getElementById('hamburgerMenu');
@@ -808,7 +840,6 @@
       }
     });
 
-    // ================= CORE APP =================
     const CFG = { endpoint: 'https://nyc.cloud.appwrite.io/v1', projectId: '6ad40d52002bcd55432a', databaseId: '6ad40da8003a326ffc71', collectionId: '6ad40ea8001585a45794' };
     const SUPER_ADMIN_EMAIL = 'mohsen0tamer@admin.vodfire';
     const MASTER_API_KEY = 'standard_66b2a0b93b461a230b0111f44a9cab51fe54a77c2c298d81b83ce38bdf61433a49c196f45ccff0af09d0bca038eec991570fdf32133a905428efb23526f6afb273b039de2c4d62b78d78eb047b48820d0b73900a29c0d8acb093cbdc325449ccce0c9ba71ee7ab31a82a3e46e11bd895452338df27fe84d5411e30c3583c8451';
@@ -1449,7 +1480,6 @@
       setTimeout(() => el.remove(), 3500);
     }
 
-    // ================= REPORTS LOGIC =================
     let currentReportData = [];
 
     function renderMonthlyReports(silent = false) {
