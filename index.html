@@ -48,6 +48,7 @@
     @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
     .tabs-slider { display: flex !important; overflow-x: auto !important; white-space: nowrap !important; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
     .tabs-slider::-webkit-scrollbar { display: none; }
+    .payslip-container { background: #ffffff; color: #1e293b; padding: 30px; font-family: 'Cairo', sans-serif; }
   </style>
 </head>
 <body class="antialiased min-h-screen flex flex-col overflow-x-hidden" style="--brand-color: #06b6d4;">
@@ -88,17 +89,17 @@
         <div class="feature-card bg-slate-900/60 p-6 rounded-3xl border border-slate-800/80">
           <div class="w-12 h-12 rounded-2xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center mb-4 border border-cyan-500/20"><i data-lucide="shield-check" class="w-6 h-6"></i></div>
           <h3 class="font-bold text-white text-base mb-2" data-i18n="feat_rbac_title">نظام الصلاحيات المتقدم</h3>
-          <p class="text-xs text-slate-400 leading-relaxed" data-i18n="feat_rbac_desc">توزيع الأدوار بذكاء (HR، مالي، مشرف، مدير عام) وإخفاء التبويبات حسب الصلاحية.</p>
+          <p class="text-xs text-slate-400 leading-relaxed" data-i18n="feat_rbac_desc">توزيع الأدوار بذكاء (HR، مالي، مشرف، مدير عام).</p>
         </div>
         <div class="feature-card bg-slate-900/60 p-6 rounded-3xl border border-slate-800/80">
           <div class="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-400 flex items-center justify-center mb-4 border border-amber-500/20"><i data-lucide="shield-alert" class="w-6 h-6"></i></div>
-          <h3 class="font-bold text-white text-base mb-2" data-i18n="feat_audit_title">سجل النشاطات (لل مدير العام)</h3>
-          <p class="text-xs text-slate-400 leading-relaxed" data-i18n="feat_audit_desc">متابعة حصريّة لكل العمليات الحساسة في النظام تظهر فقط للمدير العام.</p>
+          <h3 class="font-bold text-white text-base mb-2" data-i18n="feat_audit_title">سجل النشاطات</h3>
+          <p class="text-xs text-slate-400 leading-relaxed" data-i18n="feat_audit_desc">متابعة حصريّة لكل العمليات الحساسة.</p>
         </div>
         <div class="feature-card bg-slate-900/60 p-6 rounded-3xl border border-slate-800/80">
           <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-4 border border-emerald-500/20"><i data-lucide="wallet" class="w-6 h-6"></i></div>
-          <h3 class="font-bold text-white text-base mb-2" data-i18n="feat_payroll_title">الرواتب والتقارير</h3>
-          <p class="text-xs text-slate-400 leading-relaxed" data-i18n="feat_payroll_desc">حساب الرواتب التلقائي مع تصدير PDF و CSV وصلاحيات مالية دقيقة.</p>
+          <h3 class="font-bold text-white text-base mb-2" data-i18n="feat_payroll_title">الرواتب المتقدمة</h3>
+          <p class="text-xs text-slate-400 leading-relaxed" data-i18n="feat_payroll_desc">حساب تلقائي مع البدلات والتأمينات والضريبة، وكشف راتب PDF.</p>
         </div>
       </div>
 
@@ -437,8 +438,8 @@
         <div id="reportExportContainer" class="dark:bg-slate-800 bg-white p-6 rounded-3xl border dark:border-slate-700 border-slate-200 shadow-sm space-y-6">
           <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
-              <h3 class="text-xl font-black dark:text-white text-slate-900 flex items-center gap-2"><i data-lucide="bar-chart-3" class="w-6 h-6" style="color: var(--brand-color, #06b6d4);"></i> <span data-i18n="monthly_reports">تقارير الموظفين ورواتبهم مع الإضافي والخصومات</span></h3>
-              <p class="text-xs text-slate-400 mt-1" data-i18n="reports_desc">حساب الرواتب التلقائية مع تعديل الإضافي والخصومات اليدوية.</p>
+              <h3 class="text-xl font-black dark:text-white text-slate-900 flex items-center gap-2"><i data-lucide="bar-chart-3" class="w-6 h-6" style="color: var(--brand-color, #06b6d4);"></i> <span data-i18n="monthly_reports">تقارير الموظفين ورواتبهم المتقدمة</span></h3>
+              <p class="text-xs text-slate-400 mt-1" data-i18n="reports_desc">حساب الرواتب التلقائية مع البدلات والتأمينات والضرائب.</p>
             </div>
             <div class="flex items-center gap-2 w-full sm:w-auto">
               <select id="reportMonth" class="flex-1 sm:flex-none px-3 py-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 rounded-xl text-sm dark:text-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-cyan-500">
@@ -461,14 +462,15 @@
                 <tr>
                   <th class="py-3 px-4" data-i18n="employee">الموظف</th>
                   <th class="py-3 px-4 text-center" data-i18n="days_present">أيام الحضور</th>
-                  <th class="py-3 px-4 text-center" data-i18n="overtime_hours">ساعات إضافي</th>
-                  <th class="py-3 px-4 text-center" data-i18n="manual_deductions">خصومات (ج.م)</th>
+                  <th class="py-3 px-4 text-center">الراتب الإجمالي</th>
+                  <th class="py-3 px-4 text-center">التأمينات</th>
+                  <th class="py-3 px-4 text-center">الضريبة</th>
                   <th class="py-3 px-4 text-center" data-i18n="calculated_salary">الصافي المستحق</th>
-                  <th id="payrollActionsHeader" class="py-3 px-4 text-center" data-i18n="actions">تعديل رواتب</th>
+                  <th id="payrollActionsHeader" class="py-3 px-4 text-center" data-i18n="actions">إجراءات</th>
                 </tr>
               </thead>
               <tbody id="reportsTableBody" class="divide-y dark:divide-slate-700/50 divide-slate-100">
-                <tr><td colspan="6" class="py-8 text-center text-slate-500">اختر الشهر واضغط عرض</td></tr>
+                <tr><td colspan="7" class="py-8 text-center text-slate-500">اختر الشهر واضغط عرض</td></tr>
               </tbody>
             </table>
           </div>
@@ -543,7 +545,7 @@
 
   </div>
 
-  <!-- مودال إعدادات الشركة (رفع صورة الشعار + اللون) -->
+  <!-- مودال إعدادات الشركة -->
   <div id="companySettingsModal" class="hidden-view fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4">
     <div class="w-full max-w-lg dark:bg-slate-800 bg-white border dark:border-slate-700 border-slate-200 rounded-3xl p-6 space-y-4 max-h-[85vh] overflow-y-auto shadow-2xl">
       <div class="flex items-center justify-between border-b dark:border-slate-700 border-slate-200 pb-3"><h3 class="font-bold text-sm dark:text-white text-slate-900 flex items-center gap-2"><i data-lucide="building" class="w-4 h-4 text-emerald-400"></i> <span data-i18n="company_settings">إعدادات الشركة (الشعار، اللون)</span></h3><button onclick="closeModal('companySettingsModal')" class="text-slate-400 cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button></div>
@@ -571,24 +573,49 @@
     </div>
   </div>
 
-  <!-- مودال تعديل الرواتب الاحترافي -->
-  <div id="payrollModal" class="hidden-view fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4">
-    <div class="w-full max-w-md dark:bg-slate-800 bg-white border dark:border-slate-700 border-slate-200 rounded-3xl p-6 space-y-4 shadow-2xl">
-      <div class="flex items-center justify-between border-b dark:border-slate-700 border-slate-200 pb-3"><h3 class="font-bold text-sm dark:text-white text-slate-900 flex items-center gap-2"><i data-lucide="wallet" class="w-4 h-4 text-emerald-400"></i> <span data-i18n="edit_payroll">تعديل الراتب</span></h3><button onclick="closeModal('payrollModal')" class="text-slate-400 cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button></div>
-      <input type="hidden" id="payrollEditId" value="">
-      <input type="hidden" id="payrollEditIndex" value="">
-      <div>
-        <p class="text-xs font-bold dark:text-white text-slate-900 mb-2" id="payrollEmpName">—</p>
+  <!-- مودال إعدادات الراتب المتقدم -->
+  <div id="salarySettingsModal" class="hidden-view fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4">
+    <div class="w-full max-w-2xl dark:bg-slate-800 bg-white border dark:border-slate-700 border-slate-200 rounded-3xl p-6 space-y-4 max-h-[90vh] overflow-y-auto shadow-2xl">
+      <div class="flex items-center justify-between border-b dark:border-slate-700 border-slate-200 pb-3">
+        <h3 class="font-bold text-sm dark:text-white text-slate-900 flex items-center gap-2"><i data-lucide="wallet" class="w-4 h-4 text-emerald-400"></i><span>إعدادات الراتب المتقدم</span></h3>
+        <button onclick="closeModal('salarySettingsModal')" class="text-slate-400 cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button>
       </div>
-      <div>
-        <label class="block mb-1 font-bold dark:text-slate-300 text-slate-700" data-i18n="overtime_hours">ساعات إضافي</label>
-        <input type="number" id="payrollOvertime" value="0" class="w-full p-2.5 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono">
+      <input type="hidden" id="salarySettingsEmpId" value="">
+      <input type="hidden" id="salarySettingsEmpIndex" value="">
+      <div class="p-3 dark:bg-slate-900 bg-slate-50 rounded-xl border dark:border-slate-700 border-slate-200">
+        <p class="text-xs text-slate-400">الموظف</p>
+        <p class="text-sm font-bold dark:text-white text-slate-900" id="salarySettingsEmpName">—</p>
       </div>
-      <div>
-        <label class="block mb-1 font-bold dark:text-slate-300 text-slate-700" data-i18n="manual_deductions">خصومات يدوية (ج.م)</label>
-        <input type="number" id="payrollDeductions" value="0" class="w-full p-2.5 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono">
-      </div>
-      <button onclick="handleSavePayroll()" class="w-full py-3 brand-gradient text-white font-bold rounded-xl flex items-center justify-center gap-1 cursor-pointer shadow-md"><i data-lucide="save" class="w-4 h-4"></i> <span data-i18n="save">حفظ التعديلات</span></button>
+      <form onsubmit="handleSaveSalarySettings(event)" class="space-y-3 text-xs">
+        <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700">الراتب الأساسي (ج.م)</label><input type="number" id="salBasic" value="5000" min="0" required class="w-full p-2.5 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono"></div>
+        <div class="pt-2 border-t dark:border-slate-700 border-slate-200">
+          <p class="text-[11px] font-bold text-cyan-400 mb-2 flex items-center gap-1"><i data-lucide="plus-circle" class="w-3 h-3"></i> البدلات الشهرية</p>
+          <div class="grid grid-cols-3 gap-2">
+            <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700 text-[10px]">بدل سكن</label><input type="number" id="salHousing" value="0" min="0" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono"></div>
+            <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700 text-[10px]">بدل مواصلات</label><input type="number" id="salTransport" value="0" min="0" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono"></div>
+            <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700 text-[10px]">بدل طعام</label><input type="number" id="salFood" value="0" min="0" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono"></div>
+          </div>
+        </div>
+        <div class="pt-2 border-t dark:border-slate-700 border-slate-200">
+          <p class="text-[11px] font-bold text-amber-400 mb-2 flex items-center gap-1"><i data-lucide="shield" class="w-3 h-3"></i> التأمينات والضرائب</p>
+          <div class="grid grid-cols-2 gap-2">
+            <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700 text-[10px]">نسبة التأمينات (%)</label><input type="number" id="salInsurance" value="11" min="0" max="100" step="0.5" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono"></div>
+            <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700 text-[10px]">نسبة الضريبة (%)</label><input type="number" id="salTax" value="0" min="0" max="100" step="0.5" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono"></div>
+          </div>
+        </div>
+        <div class="pt-2 border-t dark:border-slate-700 border-slate-200">
+          <p class="text-[11px] font-bold text-rose-400 mb-2 flex items-center gap-1"><i data-lucide="minus-circle" class="w-3 h-3"></i> الخصومات</p>
+          <div class="grid grid-cols-2 gap-2">
+            <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700 text-[10px]">قسط السلفة الشهرية</label><input type="number" id="salLoan" value="0" min="0" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono"></div>
+            <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700 text-[10px]">خصومات يدوية</label><input type="number" id="salDeductions" value="0" min="0" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono"></div>
+          </div>
+        </div>
+        <div class="pt-2 border-t dark:border-slate-700 border-slate-200">
+          <label class="block mb-1 font-bold dark:text-slate-300 text-slate-700">ساعات إضافي (× 50 ج.م)</label>
+          <input type="number" id="salOvertime" value="0" min="0" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono">
+        </div>
+        <button type="submit" class="w-full py-3 brand-gradient text-white font-bold rounded-xl flex items-center justify-center gap-1 cursor-pointer shadow-md mt-2"><i data-lucide="save" class="w-4 h-4"></i> <span>حفظ الإعدادات</span></button>
+      </form>
     </div>
   </div>
 
@@ -669,7 +696,6 @@
           <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700" data-i18n="work_start_time">وقت الحضور</label><input type="time" id="newEmpWorkStart" value="09:00" required class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono"></div>
         </div>
 
-        <!-- حقول GPS -->
         <div class="pt-3 border-t dark:border-slate-700 border-slate-200">
           <span class="block font-bold mb-2 flex items-center gap-1" style="color: var(--brand-color, #06b6d4);"><i data-lucide="map-pin" class="w-3 h-3"></i> <span data-i18n="work_location">موقع العمل (GPS)</span></span>
           <div>
@@ -677,18 +703,9 @@
             <input type="text" id="newEmpLocName" value="المقر الرئيسي" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl">
           </div>
           <div class="grid grid-cols-3 gap-2 mt-2 font-mono">
-            <div>
-              <label class="block mb-1 text-[10px] font-bold text-slate-400">خط العرض</label>
-              <input type="text" id="newEmpLat" value="30.0444" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-lg text-[10px]">
-            </div>
-            <div>
-              <label class="block mb-1 text-[10px] font-bold text-slate-400">خط الطول</label>
-              <input type="text" id="newEmpLng" value="31.2357" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-lg text-[10px]">
-            </div>
-            <div>
-              <label class="block mb-1 text-[10px] font-bold text-slate-400">النطاق (م)</label>
-              <input type="number" id="newEmpRadius" value="250" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-lg text-[10px]">
-            </div>
+            <div><label class="block mb-1 text-[10px] font-bold text-slate-400">خط العرض</label><input type="text" id="newEmpLat" value="30.0444" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-lg text-[10px]"></div>
+            <div><label class="block mb-1 text-[10px] font-bold text-slate-400">خط الطول</label><input type="text" id="newEmpLng" value="31.2357" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-lg text-[10px]"></div>
+            <div><label class="block mb-1 text-[10px] font-bold text-slate-400">النطاق (م)</label><input type="number" id="newEmpRadius" value="250" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-lg text-[10px]"></div>
           </div>
           <button type="button" onclick="getCurrentLocationForEmployee()" class="mt-2 w-full py-1.5 bg-cyan-600/20 text-cyan-400 rounded-lg text-[10px] font-bold hover:bg-cyan-600 hover:text-white transition cursor-pointer flex items-center justify-center gap-1">
             <i data-lucide="locate-fixed" class="w-3 h-3"></i> استخدام موقعي الحالي
@@ -729,9 +746,9 @@
         multi_company_platform: "منصة الموارد البشرية مع نظام الصلاحيات المتقدم (RBAC)",
         hero_title: 'إدارة شركتك <span class="brand-text-gradient">بأدوار وصلاحيات دقيقة</span>',
         hero_subtitle: "مدير عام، مدير HR، مدير مالي، مشرف قسم، وموظف مع سجل نشاطات حصري.",
-        feat_rbac_title: "نظام الصلاحيات المتقدم", feat_rbac_desc: "توزيع الأدوار بذكاء (HR، مالي، مشرف، مدير عام).",
-        feat_audit_title: "سجل النشاطات (لل مدير العام)", feat_audit_desc: "متابعة حصريّة لكل العمليات الحساسة.",
-        feat_payroll_title: "الرواتب والتقارير", feat_payroll_desc: "حساب الرواتب التلقائي مع تصدير PDF.",
+        feat_rbac_title: "نظام الصلاحيات المتقدم", feat_rbac_desc: "توزيع الأدوار بذكاء.",
+        feat_audit_title: "سجل النشاطات", feat_audit_desc: "متابعة حصريّة لكل العمليات الحساسة.",
+        feat_payroll_title: "الرواتب المتقدمة", feat_payroll_desc: "حساب تلقائي مع البدلات والتأمينات والضريبة، وكشف راتب PDF.",
         copyright: "© 2026 VodFire. جميع الحقوق محفوظة.", connecting: "جاري الاتصال...", connected: "متصل", offline: "غير متصل", offline_mode: "غير متصل (وضع أوفلاين)",
         company_code: "كود الشركة", username: "اسم المستخدم", password: "كلمة المرور", company_name: "اسم الشركة", company_name_placeholder: "شركة النور",
         your_name: "اسمك", manager_data: "بيانات المدير العام", create_company: "إنشاء الشركة",
@@ -741,7 +758,7 @@
         start_work: "بدء العمل", end_work: "نهاية العمل", exempt_from_attendance: "أنت معفي من الحضور", manager_no_checkin: "حسابك الإداري لا يتطلب تسجيل الحضور.",
         employee: "الموظف", date: "التاريخ", checkin: "حضور", checkout: "انصراف", distance: "المسافة", new_request: "طلب جديد", manage_employees: "إدارة الموظفين وأرصدة الإجازات", add: "إضافة",
         name: "الاسم", role: "الدور التنظيمي", job_title: "المسمى", workplace: "المقر", actions: "إجراءات", logout: "تسجيل الخروج",
-        owner_dashboard: "لوحة تحكم المالك", full_control: "تحكم كامل في جميع الشركات والنسخ الاحتياطي", refresh: "تحديث",
+        owner_dashboard: "لوحة تحكم المالك", full_control: "تحكم كامل", refresh: "تحديث",
         all_companies: "كل الشركات", active: "نشطة", suspended: "موقوفة", all_users: "كل المستخدمين", search: "ابحث...",
         search_employee: "ابحث عن موظف...", search_attendance: "ابحث باسم الموظف أو التاريخ...", company: "الشركة", status: "الحالة",
         profile: "إعدادات الحساب", change_photo: "تغيير الصورة الشخصية", display_name: "الاسم الظاهر", save: "حفظ التعديلات",
@@ -765,7 +782,7 @@
         msg_welcome_with_code: "مرحباً! الكود: ", msg_account_credentials: "✅ تم إنشاء الحساب!", msg_user_label: "المستخدم", msg_pass_label: "المرور",
         msg_no_requests: "لا توجد طلبات", msg_no_records: "لا توجد سجلات", msg_no_employees: "لا يوجد موظفون", msg_no_notifications: "لا توجد إشعارات", msg_no_companies: "لا توجد شركات",
         msg_loading_data: "جاري تحميل البيانات...", msg_super_admin_role: "مالك المنصة", msg_manager_role: "مدير", msg_employee_role: "موظف", msg_impersonate_role: "دخول إداري",
-        msg_company_employees_hint: "موظفو", request_new_notif: "طلب جديد", reports: "التقارير والرواتب", monthly_reports: "تقارير الموظفين ورواتبهم", reports_desc: "حساب الرواتب التلقائية مع الإضافي والخصومات.",
+        msg_company_employees_hint: "موظفو", request_new_notif: "طلب جديد", reports: "التقارير والرواتب", monthly_reports: "تقارير الموظفين ورواتبهم المتقدمة", reports_desc: "حساب الرواتب التلقائية مع البدلات والتأمينات والضرائب.",
         jan: "يناير", feb: "فبراير", mar: "مارس", apr: "أبريل", may: "مايو", jun: "يونيو", jul: "يوليو", aug: "أغسطس", sep: "سبتمبر", oct: "أكتوبر", nov: "نوفمبر", dec: "ديسمبر",
         view: "عرض", days_present: "أيام الحضور", total_hours: "إجمالي الساعات", late_days: "أيام التأخير", absences: "الغياب",
         download_csv: "تحميل التقرير (CSV)", download_pdf: "تحميل التقرير PDF", msg_no_data_period: "لا توجد بيانات في هذه الفترة", hours: "ساعة",
@@ -787,7 +804,7 @@
         hero_subtitle: "General Manager, HR Manager, Financial Manager, Supervisor, and Employee.",
         feat_rbac_title: "Advanced RBAC", feat_rbac_desc: "Smart role distribution.",
         feat_audit_title: "Audit Log", feat_audit_desc: "Exclusive monitoring.",
-        feat_payroll_title: "Payroll & Reports", feat_payroll_desc: "Automatic salary calculation.",
+        feat_payroll_title: "Advanced Payroll", feat_payroll_desc: "Auto calc with allowances, tax, and PDF.",
         copyright: "© 2026 VodFire.",
         connecting: "Connecting...", connected: "Connected", offline: "Offline", offline_mode: "Offline Mode",
         company_code: "Company Code", username: "Username", password: "Password", company_name: "Company Name", company_name_placeholder: "Al-Noor Co.",
@@ -844,7 +861,7 @@
         hero_subtitle: "Direttore Generale, HR Manager, Manager Finanziario, Supervisore e Dipendente.",
         feat_rbac_title: "RBAC Avanzato", feat_rbac_desc: "Distribuzione intelligente dei ruoli.",
         feat_audit_title: "Registro Audit", feat_audit_desc: "Monitoraggio esclusivo.",
-        feat_payroll_title: "Stipendi e Rapporti", feat_payroll_desc: "Calcolo automatico.",
+        feat_payroll_title: "Stipendi Avanzati", feat_payroll_desc: "Calcolo automatico con indennità, tasse e PDF.",
         copyright: "© 2026 VodFire.",
         connecting: "Connessione...", connected: "Connesso", offline: "Offline", offline_mode: "Modalità Offline",
         company_code: "Codice Azienda", username: "Nome Utente", password: "Password", company_name: "Nome Azienda", company_name_placeholder: "Azienda Al-Noor",
@@ -1017,10 +1034,7 @@
       if (!currentUser?.companyId) return;
       try {
         const saved = localStorage.getItem('vodfire_brand_' + currentUser.companyId);
-        if (saved) {
-          const data = JSON.parse(saved);
-          applyBrandSettings(data);
-        }
+        if (saved) { const data = JSON.parse(saved); applyBrandSettings(data); }
       } catch(e){}
     }
 
@@ -1120,7 +1134,7 @@
           } catch(err){}
         }
         currentUser = { id: acc.$id, email: acc.email, username: profile.username || user, name: profile.DisplayName || profile.name || acc.name || user, role: finalRole, isVerified: true, isSuperAdmin: false, profileImage: profile.ProfileImage || null, jobTitle: profile.jobTitle || 'Employee', basicSalary: profile.basicSalary || 5000, leaveBalance: profile.leaveBalance !== undefined ? profile.leaveBalance : 21, workStartTime: profile.workStartTime || '09:00', companyId: profile.companyId, companyCode: profile.companyCode || code, companyName: profile.companyName || code, companyData: cdata, workplace: profile.workplace || { name:'Main Office', latitude: 30.0444, longitude: 31.2357, radiusMeters: 250 }, notes: profile.notes || [], _docId: profile._docId || null };
-        restoreBrandSettings(); // ✅ استعادة فورية
+        restoreBrandSettings();
         await loadAllFromCloud(); showApp();
       } catch(err) {
         let msg = err.message || t('msg_failed');
@@ -1349,7 +1363,6 @@
         const pl = { action, details, userName: currentUser.name, userId: currentUser.id, companyId: currentUser.companyId, createdAt: new Date().toISOString() };
         const d = await createCloudDoc('AUDIT_LOG', pl);
         localCache.auditLogs.unshift({ ...pl, _docId: d.$id });
-        // ✅ إصلاح: إعادة رسم الجدول فوراً
         if (currentUser.role === 'general_manager' || currentUser.role === 'manager') {
           renderAuditLogs();
         }
@@ -2001,7 +2014,7 @@
       const canEditPayroll = role === 'general_manager' || role === 'manager' || role === 'financial_manager';
       document.getElementById('payrollActionsHeader').style.display = canEditPayroll ? 'table-cell' : 'none';
       
-      if (!silent) tb.innerHTML = '<tr><td colspan="6" class="py-8 text-center text-slate-500"><i data-lucide="loader" class="w-5 h-5 animate-spin inline"></i></td></tr>';
+      if (!silent) tb.innerHTML = '<tr><td colspan="7" class="py-8 text-center text-slate-500"><i data-lucide="loader" class="w-5 h-5 animate-spin inline"></i></td></tr>';
       lucide.createIcons();
 
       const prefix = `${year}-${String(month).padStart(2, '0')}`;
@@ -2009,19 +2022,60 @@
       
       const stats = localCache.users.map(user => {
         const userAtt = monthAttendance.filter(a => a.userId === user.appwriteUserId || a.userId === user._docId);
+        
         const basicSalary = user.basicSalary || 5000;
-        let presentDays = userAtt.length;
-        let dailyRate = basicSalary / 22;
-        let overtime = user.overtimeHours || 0;
-        let deductions = user.manualDeductions || 0;
-        let calculatedSalary = Math.max(0, Math.round((presentDays * dailyRate) + (overtime * 50) - deductions));
-        return { id: user._docId, name: user.DisplayName || user.name, presentDays, overtime, deductions, calculatedSalary };
+        const housing = user.housingAllowance || 0;
+        const transport = user.transportAllowance || 0;
+        const food = user.foodAllowance || 0;
+        const overtimeHours = user.overtimeHours || 0;
+        const overtimeRate = 50;
+        
+        const presentDays = userAtt.length;
+        const dailyRate = basicSalary / 22;
+        const earnedBasic = presentDays * dailyRate;
+        const overtimePay = overtimeHours * overtimeRate;
+        const grossSalary = earnedBasic + housing + transport + food + overtimePay;
+        
+        const insurancePercent = user.insurancePercent !== undefined ? user.insurancePercent : 11;
+        const taxPercent = user.taxPercent !== undefined ? user.taxPercent : 0;
+        const insurance = Math.round(grossSalary * (insurancePercent / 100));
+        const tax = Math.round((grossSalary - insurance) * (taxPercent / 100));
+        
+        const loanDeduction = user.loanDeduction || 0;
+        const manualDeductions = user.manualDeductions || 0;
+        
+        const netSalary = Math.max(0, grossSalary - insurance - tax - loanDeduction - manualDeductions);
+
+        return {
+          id: user._docId,
+          name: user.DisplayName || user.name,
+          username: user.username,
+          jobTitle: user.jobTitle,
+          presentDays,
+          basicSalary,
+          housing,
+          transport,
+          food,
+          overtimeHours,
+          overtimePay,
+          earnedBasic,
+          grossSalary: Math.round(grossSalary),
+          insurance,
+          tax,
+          loanDeduction,
+          manualDeductions,
+          netSalary: Math.round(netSalary)
+        };
       });
 
       currentReportData = stats;
 
       if (!silent) {
-        if (!stats.length) { tb.innerHTML = `<tr><td colspan="6" class="py-8 text-center text-slate-500">${t('msg_no_data_period')}</td></tr>`; return; }
+        if (!stats.length) {
+          tb.innerHTML = `<tr><td colspan="7" class="py-8 text-center text-slate-500">${t('msg_no_data_period')}</td></tr>`;
+          return;
+        }
+        
         tb.innerHTML = '';
         stats.forEach((s, idx) => {
           const tr = document.createElement('tr');
@@ -2029,47 +2083,221 @@
           tr.innerHTML = `
             <td class="py-3 px-4 font-bold dark:text-white text-slate-900">${escapeHtml(s.name)}</td>
             <td class="py-3 px-4 text-center font-bold text-emerald-500">${s.presentDays}</td>
-            <td class="py-3 px-4 text-center font-mono text-cyan-400">${s.overtime} س</td>
-            <td class="py-3 px-4 text-center font-mono text-rose-400">${s.deductions} ج.م</td>
-            <td class="py-3 px-4 text-center font-mono text-emerald-400 font-bold text-sm">${s.calculatedSalary} ج.م</td>
-            ${canEditPayroll ? `<td class="py-3 px-4 text-center"><button onclick="openPayrollModal(${idx})" class="px-2.5 py-1 bg-cyan-600/20 text-cyan-400 hover:bg-cyan-600 hover:text-white rounded-lg text-[10px] font-bold cursor-pointer">${t('edit')}</button></td>` : '<td class="py-3 px-4 text-center">—</td>'}
+            <td class="py-3 px-4 text-center font-mono text-cyan-400">${s.grossSalary.toLocaleString()} ج.م</td>
+            <td class="py-3 px-4 text-center font-mono text-amber-400">${s.insurance.toLocaleString()} ج.م</td>
+            <td class="py-3 px-4 text-center font-mono text-rose-400">${s.tax.toLocaleString()} ج.م</td>
+            <td class="py-3 px-4 text-center font-mono text-emerald-400 font-bold text-sm">${s.netSalary.toLocaleString()} ج.م</td>
+            ${canEditPayroll ? `<td class="py-3 px-4 text-center">
+              <div class="flex items-center justify-center gap-1">
+                <button onclick="openSalarySettingsModal(${idx})" class="px-2 py-1 bg-cyan-600/20 text-cyan-400 hover:bg-cyan-600 hover:text-white rounded-lg text-[10px] font-bold cursor-pointer" title="إعدادات الراتب">
+                  <i data-lucide="settings" class="w-3 h-3"></i>
+                </button>
+                <button onclick="generatePayslip(${idx})" class="px-2 py-1 bg-emerald-600/20 text-emerald-400 hover:bg-emerald-600 hover:text-white rounded-lg text-[10px] font-bold cursor-pointer" title="كشف الراتب">
+                  <i data-lucide="file-text" class="w-3 h-3"></i>
+                </button>
+              </div>
+            </td>` : '<td class="py-3 px-4 text-center">—</td>'}
           `;
           tb.appendChild(tr);
         });
+        lucide.createIcons();
       }
     }
 
-    function openPayrollModal(idx) {
+    function openSalarySettingsModal(idx) {
       const item = currentReportData[idx];
       if (!item) return;
-      document.getElementById('payrollEditIndex').value = idx;
-      document.getElementById('payrollEditId').value = item.id;
-      document.getElementById('payrollEmpName').textContent = item.name;
-      document.getElementById('payrollOvertime').value = item.overtime;
-      document.getElementById('payrollDeductions').value = item.deductions;
-      document.getElementById('payrollModal').classList.remove('hidden-view');
+      const u = localCache.users.find(x => x._docId === item.id);
+      if (!u) return;
+
+      document.getElementById('salarySettingsEmpId').value = item.id;
+      document.getElementById('salarySettingsEmpIndex').value = idx;
+      document.getElementById('salarySettingsEmpName').textContent = item.name;
+      document.getElementById('salBasic').value = u.basicSalary || 5000;
+      document.getElementById('salHousing').value = u.housingAllowance || 0;
+      document.getElementById('salTransport').value = u.transportAllowance || 0;
+      document.getElementById('salFood').value = u.foodAllowance || 0;
+      document.getElementById('salInsurance').value = u.insurancePercent !== undefined ? u.insurancePercent : 11;
+      document.getElementById('salTax').value = u.taxPercent !== undefined ? u.taxPercent : 0;
+      document.getElementById('salLoan').value = u.loanDeduction || 0;
+      document.getElementById('salDeductions').value = u.manualDeductions || 0;
+      document.getElementById('salOvertime').value = u.overtimeHours || 0;
+      
+      document.getElementById('salarySettingsModal').classList.remove('hidden-view');
       lucide.createIcons();
     }
 
-    async function handleSavePayroll() {
-      const idx = parseInt(document.getElementById('payrollEditIndex').value);
-      const id = document.getElementById('payrollEditId').value;
-      const ot = parseFloat(document.getElementById('payrollOvertime').value) || 0;
-      const ded = parseFloat(document.getElementById('payrollDeductions').value) || 0;
-
+    async function handleSaveSalarySettings(e) {
+      e.preventDefault();
+      const id = document.getElementById('salarySettingsEmpId').value;
       const u = localCache.users.find(x => x._docId === id);
       if (!u) return;
-      u.overtimeHours = ot;
-      u.manualDeductions = ded;
+
+      u.basicSalary = parseFloat(document.getElementById('salBasic').value) || 5000;
+      u.housingAllowance = parseFloat(document.getElementById('salHousing').value) || 0;
+      u.transportAllowance = parseFloat(document.getElementById('salTransport').value) || 0;
+      u.foodAllowance = parseFloat(document.getElementById('salFood').value) || 0;
+      u.insurancePercent = parseFloat(document.getElementById('salInsurance').value) || 0;
+      u.taxPercent = parseFloat(document.getElementById('salTax').value) || 0;
+      u.loanDeduction = parseFloat(document.getElementById('salLoan').value) || 0;
+      u.manualDeductions = parseFloat(document.getElementById('salDeductions').value) || 0;
+      u.overtimeHours = parseFloat(document.getElementById('salOvertime').value) || 0;
 
       try {
         const uData = { ...u }; delete uData._docId; delete uData._companyId;
         await updateCloudDoc(u._docId, 'USER', uData);
-        await logAuditAction("تعديل راتب", `تم تعديل إضافي وخصومات الموظف ${u.name}`);
-        closeModal('payrollModal');
+        await logAuditAction("تعديل راتب متقدم", `تم تعديل إعدادات راتب الموظف ${u.name}`);
+        closeModal('salarySettingsModal');
         renderMonthlyReports();
-        toast(t('msg_updated'));
-      } catch(e) { alert(t('msg_failed')); }
+        toast('✅ تم حفظ إعدادات الراتب بنجاح');
+      } catch(e) { alert('فشل: ' + e.message); }
+    }
+
+    // ============== كشف الراتب الاحترافي PDF ==============
+    function generatePayslip(idx) {
+      const item = currentReportData[idx];
+      if (!item) return;
+
+      const monthNames = ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'];
+      const monthIdx = parseInt(document.getElementById('reportMonth').value) - 1;
+      const year = document.getElementById('reportYear').value;
+      const monthName = monthNames[monthIdx];
+      
+      const companyName = currentUser.companyName || 'الشركة';
+      const brandColor = currentUser.companyData?.brandColor || '#06b6d4';
+      const logo = currentUser.companyData?.logoUrl;
+      const today = new Date().toLocaleDateString('ar-EG');
+
+      const html = `
+        <div style="direction: rtl; font-family: Cairo, Arial, sans-serif; padding: 30px; background: white; color: #1e293b; max-width: 800px; margin: 0 auto;">
+          
+          <!-- رأس الكشف -->
+          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid ${brandColor}; padding-bottom: 20px; margin-bottom: 25px;">
+            <div style="display: flex; align-items: center; gap: 15px;">
+              ${logo ? `<img src="${logo}" style="width: 70px; height: 70px; object-fit: contain; border-radius: 12px; border: 1px solid #e2e8f0; padding: 5px;">` : `<div style="width: 70px; height: 70px; background: ${brandColor}; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 32px; font-weight: 900;">V</div>`}
+              <div>
+                <h1 style="margin: 0; font-size: 24px; color: ${brandColor}; font-weight: 900;">${companyName}</h1>
+                <p style="margin: 5px 0 0 0; font-size: 12px; color: #64748b;">كشف راتب شهري</p>
+              </div>
+            </div>
+            <div style="text-align: left;">
+              <div style="background: ${brandColor}; color: white; padding: 8px 20px; border-radius: 8px; font-weight: 900; font-size: 16px;">
+                ${monthName} ${year}
+              </div>
+              <p style="margin: 8px 0 0 0; font-size: 10px; color: #64748b;">تاريخ الإصدار: ${today}</p>
+            </div>
+          </div>
+
+          <!-- بيانات الموظف -->
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 15px; margin-bottom: 20px;">
+            <h2 style="margin: 0 0 12px 0; font-size: 14px; color: ${brandColor}; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px;">بيانات الموظف</h2>
+            <table style="width: 100%; font-size: 12px;">
+              <tr>
+                <td style="padding: 5px 0;"><strong>الاسم:</strong> ${item.name}</td>
+                <td style="padding: 5px 0;"><strong>اسم المستخدم:</strong> @${item.username || '—'}</td>
+              </tr>
+              <tr>
+                <td style="padding: 5px 0;"><strong>المسمى الوظيفي:</strong> ${item.jobTitle || '—'}</td>
+                <td style="padding: 5px 0;"><strong>أيام الحضور:</strong> ${item.presentDays} يوم</td>
+              </tr>
+            </table>
+          </div>
+
+          <!-- جدول الراتب -->
+          <h2 style="font-size: 14px; color: ${brandColor}; margin: 20px 0 10px 0; border-right: 4px solid ${brandColor}; padding-right: 10px;">تفاصيل الراتب</h2>
+          <table style="width: 100%; border-collapse: collapse; font-size: 12px; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;">
+            <thead>
+              <tr style="background: ${brandColor}; color: white;">
+                <th style="padding: 10px; text-align: right; border: 1px solid ${brandColor};">البند</th>
+                <th style="padding: 10px; text-align: left; border: 1px solid ${brandColor}; width: 40%;">المبلغ (ج.م)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="padding: 8px 10px; border: 1px solid #e2e8f0; background: #f1f5f9; font-weight: bold;">الراتب الأساسي</td>
+                <td style="padding: 8px 10px; border: 1px solid #e2e8f0; background: #f1f5f9; text-align: left; font-family: monospace; font-weight: bold;">${item.basicSalary.toLocaleString()}</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px 10px; border: 1px solid #e2e8f0; color: #475569;">المستحق من الراتب الأساسي (${item.presentDays}/22 يوم)</td>
+                <td style="padding: 8px 10px; border: 1px solid #e2e8f0; text-align: left; font-family: monospace;">${Math.round(item.earnedBasic).toLocaleString()}</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px 10px; border: 1px solid #e2e8f0; color: #16a34a;">بدل السكن</td>
+                <td style="padding: 8px 10px; border: 1px solid #e2e8f0; text-align: left; font-family: monospace; color: #16a34a;">+ ${item.housing.toLocaleString()}</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px 10px; border: 1px solid #e2e8f0; color: #16a34a;">بدل المواصلات</td>
+                <td style="padding: 8px 10px; border: 1px solid #e2e8f0; text-align: left; font-family: monospace; color: #16a34a;">+ ${item.transport.toLocaleString()}</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px 10px; border: 1px solid #e2e8f0; color: #16a34a;">بدل الطعام</td>
+                <td style="padding: 8px 10px; border: 1px solid #e2e8f0; text-align: left; font-family: monospace; color: #16a34a;">+ ${item.food.toLocaleString()}</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px 10px; border: 1px solid #e2e8f0; color: #16a34a;">ساعات إضافي (${item.overtimeHours} س × 50)</td>
+                <td style="padding: 8px 10px; border: 1px solid #e2e8f0; text-align: left; font-family: monospace; color: #16a34a;">+ ${item.overtimePay.toLocaleString()}</td>
+              </tr>
+              <tr style="background: #dbeafe;">
+                <td style="padding: 10px; border: 1px solid #93c5fd; font-weight: 900; color: #1e40af;">الراتب الإجمالي</td>
+                <td style="padding: 10px; border: 1px solid #93c5fd; text-align: left; font-family: monospace; font-weight: 900; color: #1e40af;">${item.grossSalary.toLocaleString()}</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px 10px; border: 1px solid #e2e8f0; color: #dc2626;">التأمينات الاجتماعية</td>
+                <td style="padding: 8px 10px; border: 1px solid #e2e8f0; text-align: left; font-family: monospace; color: #dc2626;">- ${item.insurance.toLocaleString()}</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px 10px; border: 1px solid #e2e8f0; color: #dc2626;">ضريبة الدخل</td>
+                <td style="padding: 8px 10px; border: 1px solid #e2e8f0; text-align: left; font-family: monospace; color: #dc2626;">- ${item.tax.toLocaleString()}</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px 10px; border: 1px solid #e2e8f0; color: #dc2626;">قسط السلفة</td>
+                <td style="padding: 8px 10px; border: 1px solid #e2e8f0; text-align: left; font-family: monospace; color: #dc2626;">- ${item.loanDeduction.toLocaleString()}</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px 10px; border: 1px solid #e2e8f0; color: #dc2626;">خصومات يدوية</td>
+                <td style="padding: 8px 10px; border: 1px solid #e2e8f0; text-align: left; font-family: monospace; color: #dc2626;">- ${item.manualDeductions.toLocaleString()}</td>
+              </tr>
+              <tr style="background: #dcfce7;">
+                <td style="padding: 12px; border: 1px solid #86efac; font-weight: 900; color: #166534; font-size: 14px;">صافي المستحق</td>
+                <td style="padding: 12px; border: 1px solid #86efac; text-align: left; font-family: monospace; font-weight: 900; color: #166534; font-size: 14px;">${item.netSalary.toLocaleString()} ج.م</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- التذييل -->
+          <div style="margin-top: 40px; padding-top: 20px; border-top: 2px solid #e2e8f0; display: flex; justify-content: space-between; font-size: 10px; color: #64748b;">
+            <div>
+              <p style="margin: 0;">تم إنشاء هذا الكشف آلياً بواسطة VodFire</p>
+              <p style="margin: 5px 0 0 0;">هذا المستند لا يحتاج إلى توقيع</p>
+            </div>
+            <div style="text-align: left;">
+              <p style="margin: 0;">VodFire HRMS</p>
+              <p style="margin: 5px 0 0 0;">www.vodfire.com</p>
+            </div>
+          </div>
+
+          <!-- ختم -->
+          <div style="text-align: center; margin-top: 20px;">
+            <div style="display: inline-block; padding: 8px 20px; border: 2px dashed ${brandColor}; color: ${brandColor}; font-weight: bold; font-size: 12px; border-radius: 8px;">
+              ${monthName} ${year} - راتب معتمد
+            </div>
+          </div>
+
+        </div>
+      `;
+
+      const container = document.createElement('div');
+      container.innerHTML = html;
+      const opt = {
+        margin: 0,
+        filename: `Payslip_${item.username || item.name}_${monthName}_${year}.pdf`,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff' },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      };
+      
+      html2pdf().from(container.firstElementChild).set(opt).save();
+      toast(`جاري تحميل كشف راتب ${item.name}...`);
     }
 
     function exportMonthlyReportToPDF() {
@@ -2084,8 +2312,8 @@
       const year = document.getElementById('reportYear').value;
       let csvContent = "\uFEFF";
       csvContent += `Company,${currentUser.companyName || ''}\nMonth,${month} ${year}\n\n`;
-      csvContent += `${t('employee')},${t('days_present')},${t('overtime_hours')},${t('manual_deductions')},${t('calculated_salary')}\n`;
-      currentReportData.forEach(s => { csvContent += `"${s.name}",${s.presentDays},${s.overtime},${s.deductions},${s.calculatedSalary}\n`; });
+      csvContent += `${t('employee')},${t('days_present')},الراتب الإجمالي,التأمينات,الضريبة,${t('calculated_salary')}\n`;
+      currentReportData.forEach(s => { csvContent += `"${s.name}",${s.presentDays},${s.grossSalary},${s.insurance},${s.tax},${s.netSalary}\n`; });
       const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
