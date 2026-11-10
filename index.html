@@ -5,13 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <title data-i18n="app_title">VodFire - منصة إدارة الموارد البشرية المؤسسية</title>
   <meta name="theme-color" id="metaThemeColor" content="#06b6d4" />
-  
   <link rel="manifest" href="data:application/manifest+json;charset=utf-8,%7B%22name%22%3A%22VodFire%20Business%20Platform%22%2C%22short_name%22%3A%22VodFire%22%2C%22start_url%22%3A%22.%2F%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230f172a%22%2C%22theme_color%22%3A%22%2306b6d4%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22https%3A%2F%2Fcdn-icons-png.flaticon.com%2F512%2F2921%2F2921222.png%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fpng%22%7D%5D%7D">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="VodFire">
   <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/2921/2921222.png">
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -22,7 +20,6 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-
   <script type="module">
     import { Client, Databases, Account, ID, Query, Functions } from 'https://cdn.jsdelivr.net/npm/appwrite@15.0.0/+esm';
     window.AppwriteSDK = { Client, Databases, Account, ID, Query, Functions };
@@ -53,7 +50,6 @@
 </head>
 <body class="antialiased min-h-screen flex flex-col overflow-x-hidden" style="--brand-color: #06b6d4;">
 
-  <!-- الشاشة التعريفية -->
   <div id="landingScreen" class="fixed inset-0 flex flex-col bg-slate-950 text-slate-100 overflow-y-auto">
     <header class="w-full px-6 py-4 flex items-center justify-between border-b border-slate-800/50 sticky top-0 bg-slate-950/90 backdrop-blur-md z-10">
       <div class="flex items-center gap-3">
@@ -74,17 +70,14 @@
         <button onclick="showLoginScreen()" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-xl text-sm border border-slate-700 cursor-pointer flex items-center gap-2"><i data-lucide="log-in" class="w-4 h-4"></i><span data-i18n="login">دخول</span></button>
       </div>
     </header>
-
     <main class="flex-1 flex flex-col items-center px-6 py-12 text-center">
       <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold mb-6"><span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span><span data-i18n="multi_company_platform">منصة الموارد البشرية مع نظام الصلاحيات المتقدم (RBAC)</span></div>
       <h2 class="text-4xl sm:text-6xl font-black text-white leading-tight max-w-3xl mb-4" data-i18n-html="hero_title">إدارة شركتك <span class="brand-text-gradient">بأدوار وصلاحيات دقيقة</span></h2>
       <p class="text-slate-400 text-lg max-w-2xl mb-10" data-i18n="hero_subtitle">مدير عام، مدير HR، مدير مالي، مشرف قسم، وموظف مع سجل نشاطات حصري.</p>
-      
       <div class="flex flex-wrap justify-center gap-3 mb-16">
         <button onclick="showLoginScreen()" class="px-8 py-4 brand-gradient text-white font-black rounded-2xl cursor-pointer flex items-center gap-2 shadow-lg shadow-cyan-500/20"><span data-i18n="start_now">ابدأ الآن</span><i data-lucide="arrow-left" class="w-5 h-5 rtl-icon"></i></button>
         <button onclick="showLoginScreen('register')" class="px-8 py-4 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-2xl border border-slate-800 cursor-pointer flex items-center gap-2"><i data-lucide="building-2" class="w-5 h-5"></i><span data-i18n="new_company">شركة جديدة</span></button>
       </div>
-
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl w-full mb-12 text-right">
         <div class="feature-card bg-slate-900/60 p-6 rounded-3xl border border-slate-800/80">
           <div class="w-12 h-12 rounded-2xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center mb-4 border border-cyan-500/20"><i data-lucide="shield-check" class="w-6 h-6"></i></div>
@@ -102,12 +95,10 @@
           <p class="text-xs text-slate-400 leading-relaxed" data-i18n="feat_payroll_desc">حساب تلقائي مع البدلات والتأمينات والضريبة، وكشف راتب PDF.</p>
         </div>
       </div>
-
       <p class="text-xs text-slate-500 mt-4" data-i18n="copyright">© 2026 VodFire. جميع الحقوق محفوظة.</p>
     </main>
   </div>
 
-  <!-- شاشة الدخول -->
   <div id="loginScreen" class="hidden-view fixed inset-0 flex items-center justify-center bg-slate-950/95 p-4 overflow-y-auto">
     <div class="absolute top-4 right-4 z-10 flex items-center gap-2">
       <div class="relative">
@@ -154,7 +145,6 @@
     </div>
   </div>
 
-  <!-- التطبيق الرئيسي -->
   <div id="mainApp" class="hidden-view flex flex-col min-h-screen">
     <header class="dark:bg-slate-800 bg-white border-b dark:border-slate-700 border-slate-200 sticky top-0 z-30 shadow-md">
       <div class="max-w-7xl mx-auto px-3 sm:px-6 h-16 flex items-center justify-between gap-2">
@@ -179,12 +169,10 @@
         <p class="text-xs font-bold dark:text-white text-slate-900" id="menuUserName">—</p>
         <p class="text-[10px] font-mono" id="menuUserEmail" style="color: var(--brand-color, #06b6d4);">—</p>
       </div>
-      
       <button onclick="toggleDarkMode()" class="w-full px-3 py-2.5 rounded-xl text-xs font-bold dark:text-slate-300 text-slate-700 dark:hover:bg-slate-700 hover:bg-slate-100 flex items-center justify-between cursor-pointer">
         <span class="flex items-center gap-2"><i data-lucide="moon" class="w-4 h-4 text-amber-400 dark:hidden"></i><i data-lucide="sun" class="w-4 h-4 text-amber-300 hidden dark:block"></i> <span data-i18n="theme_mode">الوضع (داكن / فاتح)</span></span>
         <span class="text-[10px] opacity-75 dark:text-amber-300 text-slate-500" id="themeModeLabel">تبديل</span>
       </button>
-
       <div class="px-3 py-2">
         <p class="text-[11px] font-bold text-slate-400 mb-1.5 flex items-center gap-1.5"><i data-lucide="globe" class="w-3.5 h-3.5"></i> <span data-i18n="language">اللغة</span></p>
         <div class="grid grid-cols-3 gap-1">
@@ -193,547 +181,506 @@
           <button onclick="setLanguage('it')" class="py-1.5 bg-slate-700/40 hover:bg-cyan-600 hover:text-white rounded-lg text-xs font-bold text-center cursor-pointer">IT</button>
         </div>
       </div>
-
       <div class="border-t dark:border-slate-700 border-slate-200 pt-1 my-1"></div>
-
       <button onclick="openProfileModal(); toggleHamburgerMenu();" class="w-full px-3 py-2.5 rounded-xl text-xs font-bold dark:text-slate-300 text-slate-700 dark:hover:bg-slate-700 hover:bg-slate-100 flex items-center gap-2 cursor-pointer">
         <i data-lucide="user-cog" class="w-4 h-4" style="color: var(--brand-color, #06b6d4);"></i> <span data-i18n="account_settings">إعدادات الحساب</span>
       </button>
-      
       <button id="companySettingsMenuBtn" onclick="openCompanySettingsModal(); toggleHamburgerMenu();" class="hidden w-full px-3 py-2.5 rounded-xl text-xs font-bold dark:text-slate-300 text-slate-700 dark:hover:bg-slate-700 hover:bg-slate-100 flex items-center gap-2 cursor-pointer">
         <i data-lucide="building" class="w-4 h-4 text-emerald-400"></i> <span data-i18n="company_settings">إعدادات الشركة والشعار</span>
       </button>
-
       <div class="border-t dark:border-slate-700 border-slate-200 pt-1 my-1"></div>
-
+      <button onclick="diagnoseUsers()" class="w-full px-3 py-2.5 rounded-xl text-xs font-bold text-amber-400 hover:bg-amber-500/10 flex items-center gap-2 cursor-pointer">
+        <i data-lucide="bug" class="w-4 h-4"></i> <span>🔍 فحص المستخدمين</span>
+      </button>
       <button onclick="handleLogout()" class="w-full px-3 py-2.5 rounded-xl text-xs font-bold text-rose-500 hover:bg-rose-500/10 flex items-center gap-2 cursor-pointer">
         <i data-lucide="log-out" class="w-4 h-4"></i> <span data-i18n="logout">تسجيل الخروج</span>
       </button>
     </div>
+    
+  <div id="notificationsPanel" class="hidden-view fixed top-16 left-3 sm:left-auto sm:right-6 w-[340px] max-w-[92vw] dark:bg-slate-800 bg-white border dark:border-slate-700 border-slate-200 rounded-2xl shadow-2xl z-40 max-h-[70vh] flex flex-col overflow-hidden">
+    <div class="p-3 border-b dark:border-slate-700 border-slate-200 flex items-center justify-between"><h4 class="font-bold text-sm dark:text-white text-slate-900 flex items-center gap-2"><i data-lucide="bell" class="w-4 h-4" style="color: var(--brand-color, #06b6d4);"></i><span data-i18n="notifications">الإشعارات</span></h4><button onclick="markAllNotificationsRead()" class="text-[10px] cursor-pointer" style="color: var(--brand-color, #06b6d4);" data-i18n="mark_all">تحديد الكل</button></div>
+    <div id="notificationsList" class="flex-1 overflow-y-auto p-2 space-y-2"></div>
+  </div>
 
-    <div id="notificationsPanel" class="hidden-view fixed top-16 left-3 sm:left-auto sm:right-6 w-[340px] max-w-[92vw] dark:bg-slate-800 bg-white border dark:border-slate-700 border-slate-200 rounded-2xl shadow-2xl z-40 max-h-[70vh] flex flex-col overflow-hidden">
-      <div class="p-3 border-b dark:border-slate-700 border-slate-200 flex items-center justify-between"><h4 class="font-bold text-sm dark:text-white text-slate-900 flex items-center gap-2"><i data-lucide="bell" class="w-4 h-4" style="color: var(--brand-color, #06b6d4);"></i><span data-i18n="notifications">الإشعارات</span></h4><button onclick="markAllNotificationsRead()" class="text-[10px] cursor-pointer" style="color: var(--brand-color, #06b6d4);" data-i18n="mark_all">تحديد الكل</button></div>
-      <div id="notificationsList" class="flex-1 overflow-y-auto p-2 space-y-2"></div>
+  <main class="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 py-5 space-y-6">
+    <div class="w-full dark:bg-slate-800/90 bg-white/90 backdrop-blur-md p-1.5 rounded-2xl border dark:border-slate-700/80 border-slate-200 shadow-sm sticky top-16 z-20 overflow-hidden">
+      <div class="tabs-slider items-center gap-2 py-0.5 px-1">
+        <button id="tabBtn-dashboard" onclick="switchTab('dashboard')" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs whitespace-nowrap brand-gradient text-white cursor-pointer shadow-md"><i data-lucide="layout-dashboard" class="w-4 h-4"></i><span data-i18n="dashboard">الرئيسية</span></button>
+        <button id="tabBtn-attendance" onclick="switchTab('attendance')" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs whitespace-nowrap dark:text-slate-400 text-slate-600 dark:hover:bg-slate-700/60 hover:bg-slate-100 cursor-pointer"><i data-lucide="clock" class="w-4 h-4"></i><span data-i18n="attendance">الحضور</span></button>
+        <button id="tabBtn-requests" onclick="switchTab('requests')" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs whitespace-nowrap dark:text-slate-400 text-slate-600 dark:hover:bg-slate-700/60 hover:bg-slate-100 cursor-pointer"><i data-lucide="file-text" class="w-4 h-4"></i><span data-i18n="requests">الطلبات والإجازات</span></button>
+        <button id="tabBtn-employees" onclick="switchTab('employees')" class="tab-btn hidden flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs whitespace-nowrap dark:text-slate-400 text-slate-600 dark:hover:bg-slate-700/60 hover:bg-slate-100 cursor-pointer"><i data-lucide="users" class="w-4 h-4"></i><span data-i18n="employees">الموظفون</span></button>
+        <button id="tabBtn-reports" onclick="switchTab('reports')" class="tab-btn hidden flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs whitespace-nowrap dark:text-slate-400 text-slate-600 dark:hover:bg-slate-700/60 hover:bg-slate-100 cursor-pointer"><i data-lucide="bar-chart-3" class="w-4 h-4"></i><span data-i18n="reports">التقارير والرواتب</span></button>
+        <button id="tabBtn-audit" onclick="switchTab('audit')" class="tab-btn hidden flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs whitespace-nowrap dark:text-slate-400 text-slate-600 dark:hover:bg-slate-700/60 hover:bg-slate-100 cursor-pointer"><i data-lucide="shield-alert" class="w-4 h-4"></i><span data-i18n="audit_log">سجل النشاطات</span></button>
+        <button id="tabBtn-superadmin" onclick="switchTab('superadmin')" class="tab-btn hidden flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs whitespace-nowrap text-amber-500 bg-amber-500/10 hover:bg-amber-500/20 cursor-pointer"><i data-lucide="crown" class="w-4 h-4"></i><span data-i18n="owner_panel">لوحة المالك</span></button>
+      </div>
     </div>
 
-    <main class="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 py-5 space-y-6">
-      
-      <div class="w-full dark:bg-slate-800/90 bg-white/90 backdrop-blur-md p-1.5 rounded-2xl border dark:border-slate-700/80 border-slate-200 shadow-sm sticky top-16 z-20 overflow-hidden">
-        <div class="tabs-slider items-center gap-2 py-0.5 px-1">
-          <button id="tabBtn-dashboard" onclick="switchTab('dashboard')" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs whitespace-nowrap brand-gradient text-white cursor-pointer shadow-md"><i data-lucide="layout-dashboard" class="w-4 h-4"></i><span data-i18n="dashboard">الرئيسية</span></button>
-          <button id="tabBtn-attendance" onclick="switchTab('attendance')" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs whitespace-nowrap dark:text-slate-400 text-slate-600 dark:hover:bg-slate-700/60 hover:bg-slate-100 cursor-pointer"><i data-lucide="clock" class="w-4 h-4"></i><span data-i18n="attendance">الحضور</span></button>
-          <button id="tabBtn-requests" onclick="switchTab('requests')" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs whitespace-nowrap dark:text-slate-400 text-slate-600 dark:hover:bg-slate-700/60 hover:bg-slate-100 cursor-pointer"><i data-lucide="file-text" class="w-4 h-4"></i><span data-i18n="requests">الطلبات والإجازات</span></button>
-          <button id="tabBtn-employees" onclick="switchTab('employees')" class="tab-btn hidden flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs whitespace-nowrap dark:text-slate-400 text-slate-600 dark:hover:bg-slate-700/60 hover:bg-slate-100 cursor-pointer"><i data-lucide="users" class="w-4 h-4"></i><span data-i18n="employees">الموظفون</span></button>
-          <button id="tabBtn-reports" onclick="switchTab('reports')" class="tab-btn hidden flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs whitespace-nowrap dark:text-slate-400 text-slate-600 dark:hover:bg-slate-700/60 hover:bg-slate-100 cursor-pointer"><i data-lucide="bar-chart-3" class="w-4 h-4"></i><span data-i18n="reports">التقارير والرواتب</span></button>
-          <button id="tabBtn-audit" onclick="switchTab('audit')" class="tab-btn hidden flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs whitespace-nowrap dark:text-slate-400 text-slate-600 dark:hover:bg-slate-700/60 hover:bg-slate-100 cursor-pointer"><i data-lucide="shield-alert" class="w-4 h-4"></i><span data-i18n="audit_log">سجل النشاطات</span></button>
-          <button id="tabBtn-superadmin" onclick="switchTab('superadmin')" class="tab-btn hidden flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs whitespace-nowrap text-amber-500 bg-amber-500/10 hover:bg-amber-500/20 cursor-pointer"><i data-lucide="crown" class="w-4 h-4"></i><span data-i18n="owner_panel">لوحة المالك</span></button>
+    <section id="view-dashboard" class="space-y-6">
+      <div class="relative overflow-hidden bg-gradient-to-r from-cyan-900/40 via-slate-800 to-blue-900/40 p-6 sm:p-8 rounded-3xl border border-cyan-500/30 shadow-xl">
+        <div class="absolute -left-10 -top-10 w-40 h-40 bg-cyan-500/10 rounded-full blur-2xl"></div>
+        <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div>
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold mb-2">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> <span id="dashRoleBadgeLabel" data-i18n="dashboard_welcome_badge">لوحة التحكم المؤسسية</span>
+            </div>
+            <h2 id="dashWelcomeTitle" class="text-2xl sm:text-3xl font-black text-white">مرحباً بك، —</h2>
+            <p class="text-slate-300 text-xs sm:text-sm mt-1" data-i18n="dashboard_welcome_desc">إليك نظرة عامة ومباشرة على إحصائيات شركتك ورصيد إجازاتك.</p>
+          </div>
+          <div class="flex items-center gap-2 dark:bg-slate-900/80 bg-white/80 px-4 py-2.5 rounded-2xl border dark:border-slate-700 border-slate-200 shadow-inner">
+            <i data-lucide="calendar" class="w-4 h-4" style="color: var(--brand-color, #06b6d4);"></i>
+            <span id="dashCurrentDate" class="text-xs font-mono font-bold dark:text-slate-200 text-slate-800">—</span>
+          </div>
         </div>
       </div>
-
-      <!-- 1. قسم الرئيسية -->
-      <section id="view-dashboard" class="space-y-6">
-        <div class="relative overflow-hidden bg-gradient-to-r from-cyan-900/40 via-slate-800 to-blue-900/40 p-6 sm:p-8 rounded-3xl border border-cyan-500/30 shadow-xl">
-          <div class="absolute -left-10 -top-10 w-40 h-40 bg-cyan-500/10 rounded-full blur-2xl"></div>
-          <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-            <div>
-              <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold mb-2">
-                <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> <span id="dashRoleBadgeLabel" data-i18n="dashboard_welcome_badge">لوحة التحكم المؤسسية</span>
-              </div>
-              <h2 id="dashWelcomeTitle" class="text-2xl sm:text-3xl font-black text-white">مرحباً بك، —</h2>
-              <p class="text-slate-300 text-xs sm:text-sm mt-1" data-i18n="dashboard_welcome_desc">إليك نظرة عامة ومباشرة على إحصائيات شركتك ورصيد إجازاتك.</p>
-            </div>
-            <div class="flex items-center gap-2 dark:bg-slate-900/80 bg-white/80 px-4 py-2.5 rounded-2xl border dark:border-slate-700 border-slate-200 shadow-inner">
-              <i data-lucide="calendar" class="w-4 h-4" style="color: var(--brand-color, #06b6d4);"></i>
-              <span id="dashCurrentDate" class="text-xs font-mono font-bold dark:text-slate-200 text-slate-800">—</span>
-            </div>
+      <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+        <div class="dark:bg-slate-800/90 bg-white transition border dark:border-slate-700/80 border-slate-200 p-5 rounded-3xl shadow-lg relative overflow-hidden group">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-10 h-10 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center" style="color: var(--brand-color, #06b6d4);"><i data-lucide="users" class="w-5 h-5"></i></div>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400" data-i18n="total">إجمالي</span>
           </div>
+          <div class="text-2xl sm:text-3xl font-black dark:text-white text-slate-900 mb-1" id="statTotalEmployees">0</div>
+          <div class="text-xs text-slate-400 font-bold" data-i18n="stat_employees_label">إجمالي الموظفين المسجلين</div>
         </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
-          <div class="dark:bg-slate-800/90 bg-white transition border dark:border-slate-700/80 border-slate-200 p-5 rounded-3xl shadow-lg relative overflow-hidden group">
-            <div class="flex items-center justify-between mb-3">
-              <div class="w-10 h-10 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center" style="color: var(--brand-color, #06b6d4);"><i data-lucide="users" class="w-5 h-5"></i></div>
-              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400" data-i18n="total">إجمالي</span>
-            </div>
-            <div class="text-2xl sm:text-3xl font-black dark:text-white text-slate-900 mb-1" id="statTotalEmployees">0</div>
-            <div class="text-xs text-slate-400 font-bold" data-i18n="stat_employees_label">إجمالي الموظفين المسجلين</div>
+        <div class="dark:bg-slate-800/90 bg-white transition border dark:border-slate-700/80 border-slate-200 p-5 rounded-3xl shadow-lg relative overflow-hidden group">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-10 h-10 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400"><i data-lucide="user-check" class="w-5 h-5"></i></div>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400" data-i18n="today">اليوم</span>
           </div>
-
-          <div class="dark:bg-slate-800/90 bg-white transition border dark:border-slate-700/80 border-slate-200 p-5 rounded-3xl shadow-lg relative overflow-hidden group">
-            <div class="flex items-center justify-between mb-3">
-              <div class="w-10 h-10 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400"><i data-lucide="user-check" class="w-5 h-5"></i></div>
-              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400" data-i18n="today">اليوم</span>
-            </div>
-            <div class="text-2xl sm:text-3xl font-black text-emerald-500 mb-1" id="statTodayAttendance">0</div>
-            <div class="text-xs text-slate-400 font-bold" data-i18n="stat_attendance_label">الموظفون الحاضرون اليوم</div>
-          </div>
-
-          <div class="dark:bg-slate-800/90 bg-white transition border dark:border-slate-700/80 border-slate-200 p-5 rounded-3xl shadow-lg relative overflow-hidden group">
-            <div class="flex items-center justify-between mb-3">
-              <div class="w-10 h-10 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400"><i data-lucide="file-clock" class="w-5 h-5"></i></div>
-              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400" data-i18n="pending">قيد الانتظار</span>
-            </div>
-            <div class="text-2xl sm:text-3xl font-black text-amber-500 mb-1" id="statPendingRequests">0</div>
-            <div class="text-xs text-slate-400 font-bold" data-i18n="stat_requests_label">طلبات بانتظار الموافقة</div>
-          </div>
-
-          <div class="dark:bg-slate-800/90 bg-white transition border dark:border-slate-700/80 border-slate-200 p-5 rounded-3xl shadow-lg relative overflow-hidden group">
-            <div class="flex items-center justify-between mb-3">
-              <div class="w-10 h-10 rounded-2xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400"><i data-lucide="calendar" class="w-5 h-5"></i></div>
-              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-400" data-i18n="leave_balance">رصيد الإجازات</span>
-            </div>
-            <div class="text-2xl sm:text-3xl font-black text-purple-400 mb-1" id="statLeaveBalance">21</div>
-            <div class="text-xs text-slate-400 font-bold" data-i18n="stat_leave_label">أيام الإجازات المتبقية لك</div>
-          </div>
+          <div class="text-2xl sm:text-3xl font-black text-emerald-500 mb-1" id="statTodayAttendance">0</div>
+          <div class="text-xs text-slate-400 font-bold" data-i18n="stat_attendance_label">الموظفون الحاضرون اليوم</div>
         </div>
-
-        <div id="chartsContainerWrapper" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div class="dark:bg-slate-800 bg-white p-6 rounded-3xl border dark:border-slate-700 border-slate-200 shadow-sm">
-            <h4 class="font-bold text-sm dark:text-white text-slate-900 mb-4 flex items-center gap-2"><i data-lucide="bar-chart-2" class="w-4 h-4 text-cyan-400"></i> <span data-i18n="chart_attendance_week">الحضور خلال الأسبوع</span></h4>
-            <div class="h-64 relative flex items-center justify-center">
-              <canvas id="weeklyAttendanceChart"></canvas>
-            </div>
+        <div class="dark:bg-slate-800/90 bg-white transition border dark:border-slate-700/80 border-slate-200 p-5 rounded-3xl shadow-lg relative overflow-hidden group">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-10 h-10 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400"><i data-lucide="file-clock" class="w-5 h-5"></i></div>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400" data-i18n="pending">قيد الانتظار</span>
           </div>
-          <div class="dark:bg-slate-800 bg-white p-6 rounded-3xl border dark:border-slate-700 border-slate-200 shadow-sm">
-            <h4 class="font-bold text-sm dark:text-white text-slate-900 mb-4 flex items-center gap-2"><i data-lucide="pie-chart" class="w-4 h-4 text-emerald-400"></i> <span data-i18n="chart_absence_ratio">نسبة الحضور والغياب الشهرية</span></h4>
-            <div class="h-64 relative flex items-center justify-center">
-              <canvas id="absenceRatioChart"></canvas>
-            </div>
-          </div>
+          <div class="text-2xl sm:text-3xl font-black text-amber-500 mb-1" id="statPendingRequests">0</div>
+          <div class="text-xs text-slate-400 font-bold" data-i18n="stat_requests_label">طلبات بانتظار الموافقة</div>
         </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div class="dark:bg-slate-800 bg-white p-6 rounded-3xl border dark:border-slate-700 border-slate-200 shadow-sm flex flex-col justify-between">
-            <div>
-              <div class="flex items-center justify-between mb-4">
-                <h4 class="font-bold text-sm dark:text-white text-slate-900 flex items-center gap-2"><i data-lucide="clock" class="w-4 h-4" style="color: var(--brand-color, #06b6d4);"></i> <span data-i18n="recent_attendance">حضور اليوم السريع</span></h4>
-                <button onclick="switchTab('attendance')" class="text-xs font-bold hover:underline" style="color: var(--brand-color, #06b6d4);" data-i18n="view_all">عرض الكل</button>
-              </div>
-              <div id="dashRecentAttendanceList" class="space-y-2.5"></div>
-            </div>
+        <div class="dark:bg-slate-800/90 bg-white transition border dark:border-slate-700/80 border-slate-200 p-5 rounded-3xl shadow-lg relative overflow-hidden group">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-10 h-10 rounded-2xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400"><i data-lucide="calendar" class="w-5 h-5"></i></div>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-400" data-i18n="leave_balance">رصيد الإجازات</span>
           </div>
-
-          <div class="dark:bg-slate-800 bg-white p-6 rounded-3xl border dark:border-slate-700 border-slate-200 shadow-sm flex flex-col justify-between">
-            <div>
-              <div class="flex items-center justify-between mb-4">
-                <h4 class="font-bold text-sm dark:text-white text-slate-900 flex items-center gap-2"><i data-lucide="file-text" class="w-4 h-4 text-amber-400"></i> <span data-i18n="recent_requests">أحدث الطلبات</span></h4>
-                <button onclick="switchTab('requests')" class="text-xs font-bold hover:underline" style="color: var(--brand-color, #06b6d4);" data-i18n="view_all">عرض الكل</button>
-              </div>
-              <div id="dashRecentRequestsList" class="space-y-2.5"></div>
-            </div>
-          </div>
-
-          <div class="dark:bg-slate-800 bg-white p-6 rounded-3xl border dark:border-slate-700 border-slate-200 shadow-sm flex flex-col justify-between">
-            <div>
-              <h4 class="font-bold text-sm dark:text-white text-slate-900 flex items-center gap-2 mb-4"><i data-lucide="zap" class="w-4 h-4 text-emerald-400"></i> <span data-i18n="quick_actions">اختصارات سريعة</span></h4>
-              <div class="grid grid-cols-2 gap-3">
-                <button onclick="switchTab('attendance')" class="p-3 dark:bg-slate-900 bg-slate-50 dark:hover:bg-slate-700/60 hover:bg-slate-100 border dark:border-slate-700 border-slate-200 rounded-2xl text-right transition cursor-pointer flex flex-col gap-2">
-                  <div class="w-8 h-8 rounded-xl bg-cyan-500/10 flex items-center justify-center" style="color: var(--brand-color, #06b6d4);"><i data-lucide="clock" class="w-4 h-4"></i></div>
-                  <span class="text-xs font-bold dark:text-white text-slate-800" data-i18n="attendance">الحضور</span>
-                </button>
-                <button onclick="switchTab('requests'); openNewRequestModal();" class="p-3 dark:bg-slate-900 bg-slate-50 dark:hover:bg-slate-700/60 hover:bg-slate-100 border dark:border-slate-700 border-slate-200 rounded-2xl text-right transition cursor-pointer flex flex-col gap-2">
-                  <div class="w-8 h-8 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center"><i data-lucide="plus" class="w-4 h-4"></i></div>
-                  <span class="text-xs font-bold dark:text-white text-slate-800" data-i18n="new_request">طلب جديد</span>
-                </button>
-                <button onclick="switchTab('employees')" id="quickActionEmpBtn" class="p-3 dark:bg-slate-900 bg-slate-50 dark:hover:bg-slate-700/60 hover:bg-slate-100 border dark:border-slate-700 border-slate-200 rounded-2xl text-right transition cursor-pointer flex flex-col gap-2 col-span-2">
-                  <div class="w-8 h-8 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center"><i data-lucide="users" class="w-4 h-4"></i></div>
-                  <span class="text-xs font-bold dark:text-white text-slate-800" data-i18n="employees">الموظفون</span>
-                </button>
-              </div>
-            </div>
-          </div>
+          <div class="text-2xl sm:text-3xl font-black text-purple-400 mb-1" id="statLeaveBalance">21</div>
+          <div class="text-xs text-slate-400 font-bold" data-i18n="stat_leave_label">أيام الإجازات المتبقية لك</div>
         </div>
-      </section>
-
-      <!-- 2. قسم الحضور -->
-      <section id="view-attendance" class="hidden-view space-y-6">
-        <div id="employeeAttendanceBlock" class="dark:bg-slate-800 bg-white p-6 rounded-3xl border dark:border-slate-700 border-slate-200 space-y-6 shadow-sm">
-          <div class="flex items-center justify-between pb-5 border-b dark:border-slate-700 border-slate-200">
-            <div><h3 class="text-xl font-black dark:text-white text-slate-900 flex items-center gap-2"><i data-lucide="map-pin" class="w-6 h-6" style="color: var(--brand-color, #06b6d4);"></i><span data-i18n="check_attendance">تسجيل الحضور</span></h3></div>
-            <div id="attendanceTodayStatusBadge" class="px-3 py-1.5 rounded-full text-xs font-bold bg-amber-500/10 text-amber-500 border border-amber-500/30" data-i18n="not_started">لم تبدأ</div>
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="p-4 dark:bg-slate-900 bg-slate-50 rounded-2xl border dark:border-slate-700 border-slate-200"><span class="text-xs font-bold text-slate-400 block mb-1" data-i18n="your_workplace">مقر عملك</span><div id="empWorkplaceName" class="font-bold text-sm dark:text-white text-slate-900">—</div><div id="empWorkplaceCoords" class="text-xs text-slate-500 font-mono mt-1">—</div></div>
-            <div class="p-4 dark:bg-slate-900 bg-slate-50 rounded-2xl border dark:border-slate-700 border-slate-200"><div class="flex items-center justify-between mb-1"><span class="text-xs font-bold text-slate-400" data-i18n="your_location">موقعك</span><button onclick="checkEmployeeGPS(true)" class="text-xs font-bold cursor-pointer hover:underline" style="color: var(--brand-color, #06b6d4);" data-i18n="check">فحص</button></div><div id="empDistanceText" class="text-sm font-bold dark:text-white text-slate-900" data-i18n="press_check">اضغط فحص</div></div>
-          </div>
-          <div class="grid grid-cols-2 gap-4">
-            <button id="btnCheckIn" onclick="handleCheckIn()" class="py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded-2xl text-sm cursor-pointer flex items-center justify-center gap-2 shadow-lg shadow-emerald-900/20"><i data-lucide="log-in" class="w-5 h-5"></i> <span data-i18n="start_work">بدء العمل</span></button>
-            <button id="btnCheckOut" onclick="handleCheckOut()" disabled class="py-4 dark:bg-slate-700 bg-slate-300 text-white font-black rounded-2xl text-sm cursor-pointer disabled:opacity-40 flex items-center justify-center gap-2"><i data-lucide="log-out" class="w-5 h-5"></i> <span data-i18n="end_work">نهاية العمل</span></button>
-          </div>
+      </div>
+      <div id="chartsContainerWrapper" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="dark:bg-slate-800 bg-white p-6 rounded-3xl border dark:border-slate-700 border-slate-200 shadow-sm">
+          <h4 class="font-bold text-sm dark:text-white text-slate-900 mb-4 flex items-center gap-2"><i data-lucide="bar-chart-2" class="w-4 h-4 text-cyan-400"></i> <span data-i18n="chart_attendance_week">الحضور خلال الأسبوع</span></h4>
+          <div class="h-64 relative flex items-center justify-center"><canvas id="weeklyAttendanceChart"></canvas></div>
         </div>
-        <div id="managerAttendanceBlock" class="hidden-view dark:bg-slate-800 bg-white p-6 rounded-3xl border dark:border-slate-700 border-slate-200 shadow-sm">
-          <div class="flex items-center gap-4"><div class="w-12 h-12 rounded-2xl bg-cyan-900/50 flex items-center justify-center border border-cyan-800"><i data-lucide="shield-check" class="w-6 h-6" style="color: var(--brand-color, #06b6d4);"></i></div><div><h3 class="font-black dark:text-white text-slate-900" data-i18n="exempt_from_attendance">أنت معفي من الحضور</h3><p class="text-xs text-slate-400 mt-1" data-i18n="manager_no_checkin">حسابك الإداري لا يتطلب تسجيل الحضور.</p></div></div>
+        <div class="dark:bg-slate-800 bg-white p-6 rounded-3xl border dark:border-slate-700 border-slate-200 shadow-sm">
+          <h4 class="font-bold text-sm dark:text-white text-slate-900 mb-4 flex items-center gap-2"><i data-lucide="pie-chart" class="w-4 h-4 text-emerald-400"></i> <span data-i18n="chart_absence_ratio">نسبة الحضور والغياب الشهرية</span></h4>
+          <div class="h-64 relative flex items-center justify-center"><canvas id="absenceRatioChart"></canvas></div>
         </div>
-        
-        <div class="dark:bg-slate-800 bg-white p-4 rounded-3xl border dark:border-slate-700 border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-sm">
-          <div class="relative w-full sm:w-72">
-            <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute right-3 top-3"></i>
-            <input type="text" id="attendanceSearchInput" oninput="renderAttendance()" data-i18n-ph="search_attendance" placeholder="ابحث باسم الموظف أو التاريخ..." class="w-full pr-9 pl-3 py-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 rounded-xl text-xs dark:text-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-cyan-500">
-          </div>
-          <div class="text-xs text-slate-400" id="attendanceCountHint"></div>
-        </div>
-
-        <div class="dark:bg-slate-800 bg-white rounded-3xl border dark:border-slate-700 border-slate-200 overflow-hidden shadow-sm">
-          <div class="overflow-x-auto">
-            <table class="w-full text-right text-xs">
-              <thead class="dark:bg-slate-900/50 bg-slate-100 text-slate-400 font-bold border-b dark:border-slate-700 border-slate-200">
-                <tr>
-                  <th class="py-3.5 px-4" data-i18n="employee">الموظف</th>
-                  <th class="py-3.5 px-4" data-i18n="date">التاريخ</th>
-                  <th class="py-3.5 px-4" data-i18n="checkin">حضور</th>
-                  <th class="py-3.5 px-4" data-i18n="checkout">انصراف</th>
-                  <th class="py-3.5 px-4 text-center" data-i18n="distance">المسافة</th>
-                  <th id="attendanceActionsHeader" class="py-3.5 px-4 text-center hidden" data-i18n="actions">إجراءات</th>
-                </tr>
-              </thead>
-              <tbody id="attendanceTableBody" class="divide-y dark:divide-slate-700/50 divide-slate-100"></tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <!-- 3. قسم الطلبات والإجازات -->
-      <section id="view-requests" class="hidden-view space-y-6">
-        <div class="dark:bg-slate-800 bg-white p-5 rounded-3xl border dark:border-slate-700 border-slate-200 flex items-center justify-between shadow-sm"><h3 class="text-lg font-black dark:text-white text-slate-900 flex items-center gap-2"><i data-lucide="file-text" class="w-5 h-5" style="color: var(--brand-color, #06b6d4);"></i> <span data-i18n="requests">الطلبات والإجازات</span></h3><button onclick="openNewRequestModal()" class="px-4 py-2.5 brand-gradient text-white font-bold rounded-xl text-xs cursor-pointer flex items-center gap-1"><i data-lucide="plus" class="w-3 h-3"></i> <span data-i18n="new_request">طلب جديد</span></button></div>
-        <div id="requestsList" class="space-y-3"></div>
-      </section>
-
-      <!-- 4. قسم الموظفين -->
-      <section id="view-employees" class="hidden-view space-y-6">
-        <div class="dark:bg-slate-800 bg-white p-5 rounded-3xl border dark:border-slate-700 border-slate-200 flex items-center justify-between shadow-sm flex-wrap gap-3">
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="dark:bg-slate-800 bg-white p-6 rounded-3xl border dark:border-slate-700 border-slate-200 shadow-sm flex flex-col justify-between">
           <div>
-            <h3 class="text-lg font-black dark:text-white text-slate-900 flex items-center gap-2"><i data-lucide="users" class="w-5 h-5" style="color: var(--brand-color, #06b6d4);"></i> <span data-i18n="manage_employees">إدارة الموظفين وأرصدة الإجازات والصلاحيات</span></h3>
-            <p id="employeesCompanyHint" class="text-[10px] text-slate-500 mt-0.5">—</p>
+            <div class="flex items-center justify-between mb-4">
+              <h4 class="font-bold text-sm dark:text-white text-slate-900 flex items-center gap-2"><i data-lucide="clock" class="w-4 h-4" style="color: var(--brand-color, #06b6d4);"></i> <span data-i18n="recent_attendance">حضور اليوم السريع</span></h4>
+              <button onclick="switchTab('attendance')" class="text-xs font-bold hover:underline" style="color: var(--brand-color, #06b6d4);" data-i18n="view_all">عرض الكل</button>
+            </div>
+            <div id="dashRecentAttendanceList" class="space-y-2.5"></div>
+          </div>
+        </div>
+        <div class="dark:bg-slate-800 bg-white p-6 rounded-3xl border dark:border-slate-700 border-slate-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <h4 class="font-bold text-sm dark:text-white text-slate-900 flex items-center gap-2"><i data-lucide="file-text" class="w-4 h-4 text-amber-400"></i> <span data-i18n="recent_requests">أحدث الطلبات</span></h4>
+              <button onclick="switchTab('requests')" class="text-xs font-bold hover:underline" style="color: var(--brand-color, #06b6d4);" data-i18n="view_all">عرض الكل</button>
+            </div>
+            <div id="dashRecentRequestsList" class="space-y-2.5"></div>
+          </div>
+        </div>
+        <div class="dark:bg-slate-800 bg-white p-6 rounded-3xl border dark:border-slate-700 border-slate-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <h4 class="font-bold text-sm dark:text-white text-slate-900 flex items-center gap-2 mb-4"><i data-lucide="zap" class="w-4 h-4 text-emerald-400"></i> <span data-i18n="quick_actions">اختصارات سريعة</span></h4>
+            <div class="grid grid-cols-2 gap-3">
+              <button onclick="switchTab('attendance')" class="p-3 dark:bg-slate-900 bg-slate-50 dark:hover:bg-slate-700/60 hover:bg-slate-100 border dark:border-slate-700 border-slate-200 rounded-2xl text-right transition cursor-pointer flex flex-col gap-2">
+                <div class="w-8 h-8 rounded-xl bg-cyan-500/10 flex items-center justify-center" style="color: var(--brand-color, #06b6d4);"><i data-lucide="clock" class="w-4 h-4"></i></div>
+                <span class="text-xs font-bold dark:text-white text-slate-800" data-i18n="attendance">الحضور</span>
+              </button>
+              <button onclick="switchTab('requests'); openNewRequestModal();" class="p-3 dark:bg-slate-900 bg-slate-50 dark:hover:bg-slate-700/60 hover:bg-slate-100 border dark:border-slate-700 border-slate-200 rounded-2xl text-right transition cursor-pointer flex flex-col gap-2">
+                <div class="w-8 h-8 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center"><i data-lucide="plus" class="w-4 h-4"></i></div>
+                <span class="text-xs font-bold dark:text-white text-slate-800" data-i18n="new_request">طلب جديد</span>
+              </button>
+              <button onclick="switchTab('employees')" id="quickActionEmpBtn" class="p-3 dark:bg-slate-900 bg-slate-50 dark:hover:bg-slate-700/60 hover:bg-slate-100 border dark:border-slate-700 border-slate-200 rounded-2xl text-right transition cursor-pointer flex flex-col gap-2 col-span-2">
+                <div class="w-8 h-8 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center"><i data-lucide="users" class="w-4 h-4"></i></div>
+                <span class="text-xs font-bold dark:text-white text-slate-800" data-i18n="employees">الموظفون</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-attendance" class="hidden-view space-y-6">
+      <div id="employeeAttendanceBlock" class="dark:bg-slate-800 bg-white p-6 rounded-3xl border dark:border-slate-700 border-slate-200 space-y-6 shadow-sm">
+        <div class="flex items-center justify-between pb-5 border-b dark:border-slate-700 border-slate-200">
+          <div><h3 class="text-xl font-black dark:text-white text-slate-900 flex items-center gap-2"><i data-lucide="map-pin" class="w-6 h-6" style="color: var(--brand-color, #06b6d4);"></i><span data-i18n="check_attendance">تسجيل الحضور</span></h3></div>
+          <div id="attendanceTodayStatusBadge" class="px-3 py-1.5 rounded-full text-xs font-bold bg-amber-500/10 text-amber-500 border border-amber-500/30" data-i18n="not_started">لم تبدأ</div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="p-4 dark:bg-slate-900 bg-slate-50 rounded-2xl border dark:border-slate-700 border-slate-200"><span class="text-xs font-bold text-slate-400 block mb-1" data-i18n="your_workplace">مقر عملك</span><div id="empWorkplaceName" class="font-bold text-sm dark:text-white text-slate-900">—</div><div id="empWorkplaceCoords" class="text-xs text-slate-500 font-mono mt-1">—</div></div>
+          <div class="p-4 dark:bg-slate-900 bg-slate-50 rounded-2xl border dark:border-slate-700 border-slate-200"><div class="flex items-center justify-between mb-1"><span class="text-xs font-bold text-slate-400" data-i18n="your_location">موقعك</span><button onclick="checkEmployeeGPS(true)" class="text-xs font-bold cursor-pointer hover:underline" style="color: var(--brand-color, #06b6d4);" data-i18n="check">فحص</button></div><div id="empDistanceText" class="text-sm font-bold dark:text-white text-slate-900" data-i18n="press_check">اضغط فحص</div></div>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <button id="btnCheckIn" onclick="handleCheckIn()" class="py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded-2xl text-sm cursor-pointer flex items-center justify-center gap-2 shadow-lg shadow-emerald-900/20"><i data-lucide="log-in" class="w-5 h-5"></i> <span data-i18n="start_work">بدء العمل</span></button>
+          <button id="btnCheckOut" onclick="handleCheckOut()" disabled class="py-4 dark:bg-slate-700 bg-slate-300 text-white font-black rounded-2xl text-sm cursor-pointer disabled:opacity-40 flex items-center justify-center gap-2"><i data-lucide="log-out" class="w-5 h-5"></i> <span data-i18n="end_work">نهاية العمل</span></button>
+        </div>
+      </div>
+      <div id="managerAttendanceBlock" class="hidden-view dark:bg-slate-800 bg-white p-6 rounded-3xl border dark:border-slate-700 border-slate-200 shadow-sm">
+        <div class="flex items-center gap-4"><div class="w-12 h-12 rounded-2xl bg-cyan-900/50 flex items-center justify-center border border-cyan-800"><i data-lucide="shield-check" class="w-6 h-6" style="color: var(--brand-color, #06b6d4);"></i></div><div><h3 class="font-black dark:text-white text-slate-900" data-i18n="exempt_from_attendance">أنت معفي من الحضور</h3><p class="text-xs text-slate-400 mt-1" data-i18n="manager_no_checkin">حسابك الإداري لا يتطلب تسجيل الحضور.</p></div></div>
+      </div>
+      <div class="dark:bg-slate-800 bg-white p-4 rounded-3xl border dark:border-slate-700 border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-sm">
+        <div class="relative w-full sm:w-72">
+          <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute right-3 top-3"></i>
+          <input type="text" id="attendanceSearchInput" oninput="renderAttendance()" data-i18n-ph="search_attendance" placeholder="ابحث باسم الموظف أو التاريخ..." class="w-full pr-9 pl-3 py-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 rounded-xl text-xs dark:text-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-cyan-500">
+        </div>
+        <div class="text-xs text-slate-400" id="attendanceCountHint"></div>
+      </div>
+      <div class="dark:bg-slate-800 bg-white rounded-3xl border dark:border-slate-700 border-slate-200 overflow-hidden shadow-sm">
+        <div class="overflow-x-auto">
+          <table class="w-full text-right text-xs">
+            <thead class="dark:bg-slate-900/50 bg-slate-100 text-slate-400 font-bold border-b dark:border-slate-700 border-slate-200">
+              <tr>
+                <th class="py-3.5 px-4" data-i18n="employee">الموظف</th>
+                <th class="py-3.5 px-4" data-i18n="date">التاريخ</th>
+                <th class="py-3.5 px-4" data-i18n="checkin">حضور</th>
+                <th class="py-3.5 px-4" data-i18n="checkout">انصراف</th>
+                <th class="py-3.5 px-4 text-center" data-i18n="distance">المسافة</th>
+                <th id="attendanceActionsHeader" class="py-3.5 px-4 text-center hidden" data-i18n="actions">إجراءات</th>
+              </tr>
+            </thead>
+            <tbody id="attendanceTableBody" class="divide-y dark:divide-slate-700/50 divide-slate-100"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-requests" class="hidden-view space-y-6">
+      <div class="dark:bg-slate-800 bg-white p-5 rounded-3xl border dark:border-slate-700 border-slate-200 flex items-center justify-between shadow-sm"><h3 class="text-lg font-black dark:text-white text-slate-900 flex items-center gap-2"><i data-lucide="file-text" class="w-5 h-5" style="color: var(--brand-color, #06b6d4);"></i> <span data-i18n="requests">الطلبات والإجازات</span></h3><button onclick="openNewRequestModal()" class="px-4 py-2.5 brand-gradient text-white font-bold rounded-xl text-xs cursor-pointer flex items-center gap-1"><i data-lucide="plus" class="w-3 h-3"></i> <span data-i18n="new_request">طلب جديد</span></button></div>
+      <div id="requestsList" class="space-y-3"></div>
+    </section>
+
+    <section id="view-employees" class="hidden-view space-y-6">
+      <div class="dark:bg-slate-800 bg-white p-5 rounded-3xl border dark:border-slate-700 border-slate-200 flex items-center justify-between shadow-sm flex-wrap gap-3">
+        <div>
+          <h3 class="text-lg font-black dark:text-white text-slate-900 flex items-center gap-2"><i data-lucide="users" class="w-5 h-5" style="color: var(--brand-color, #06b6d4);"></i> <span data-i18n="manage_employees">إدارة الموظفين وأرصدة الإجازات والصلاحيات</span></h3>
+          <p id="employeesCompanyHint" class="text-[10px] text-slate-500 mt-0.5">—</p>
+        </div>
+        <div class="flex items-center gap-2 w-full sm:w-auto">
+          <div class="relative flex-1 sm:w-60">
+            <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute right-3 top-3"></i>
+            <input type="text" id="employeeSearchInput" oninput="renderEmployees()" data-i18n-ph="search_employee" placeholder="ابحث عن موظف..." class="w-full pr-9 pl-3 py-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 rounded-xl text-xs dark:text-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-cyan-500">
+          </div>
+          <button id="addEmpHeaderBtn" onclick="openNewEmployeeModal()" class="px-4 py-2.5 brand-gradient text-white font-bold rounded-xl text-xs cursor-pointer flex items-center gap-1 shrink-0"><i data-lucide="user-plus" class="w-3 h-3"></i> <span data-i18n="add">إضافة</span></button>
+        </div>
+      </div>
+      <div class="dark:bg-slate-800 bg-white rounded-3xl border dark:border-slate-700 border-slate-200 overflow-hidden shadow-sm">
+        <div class="overflow-x-auto">
+          <table class="w-full text-right text-xs">
+            <thead class="dark:bg-slate-900/50 bg-slate-100 text-slate-400 font-bold border-b dark:border-slate-700 border-slate-200">
+              <tr>
+                <th class="py-3.5 px-4" data-i18n="name">الاسم</th>
+                <th class="py-3.5 px-4" data-i18n="username">المستخدم</th>
+                <th class="py-3.5 px-4" data-i18n="role">الدور التنظيمي</th>
+                <th class="py-3.5 px-4" data-i18n="job_title">المسمى</th>
+                <th class="py-3.5 px-4" data-i18n="basic_salary">الراتب الأساسي</th>
+                <th class="py-3.5 px-4 text-center" data-i18n="leave_balance">رصيد الإجازات</th>
+                <th class="py-3.5 px-4 text-center" data-i18n="actions">إجراءات</th>
+              </tr>
+            </thead>
+            <tbody id="employeesTableBody" class="divide-y dark:divide-slate-700/50 divide-slate-100"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-reports" class="hidden-view space-y-6">
+      <div id="reportExportContainer" class="dark:bg-slate-800 bg-white p-6 rounded-3xl border dark:border-slate-700 border-slate-200 shadow-sm space-y-6">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div>
+            <h3 class="text-xl font-black dark:text-white text-slate-900 flex items-center gap-2"><i data-lucide="bar-chart-3" class="w-6 h-6" style="color: var(--brand-color, #06b6d4);"></i> <span data-i18n="monthly_reports">تقارير الموظفين ورواتبهم المتقدمة</span></h3>
+            <p class="text-xs text-slate-400 mt-1" data-i18n="reports_desc">حساب الرواتب التلقائية مع البدلات والتأمينات والضرائب.</p>
           </div>
           <div class="flex items-center gap-2 w-full sm:w-auto">
-            <div class="relative flex-1 sm:w-60">
-              <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute right-3 top-3"></i>
-              <input type="text" id="employeeSearchInput" oninput="renderEmployees()" data-i18n-ph="search_employee" placeholder="ابحث عن موظف..." class="w-full pr-9 pl-3 py-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 rounded-xl text-xs dark:text-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-cyan-500">
-            </div>
-            <button id="addEmpHeaderBtn" onclick="openNewEmployeeModal()" class="px-4 py-2.5 brand-gradient text-white font-bold rounded-xl text-xs cursor-pointer flex items-center gap-1 shrink-0"><i data-lucide="user-plus" class="w-3 h-3"></i> <span data-i18n="add">إضافة</span></button>
+            <select id="reportMonth" class="flex-1 sm:flex-none px-3 py-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 rounded-xl text-sm dark:text-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-cyan-500">
+              <option value="1" data-i18n="jan">يناير</option><option value="2" data-i18n="feb">فبراير</option><option value="3" data-i18n="mar">مارس</option>
+              <option value="4" data-i18n="apr">أبريل</option><option value="5" data-i18n="may">مايو</option><option value="6" data-i18n="jun">يونيو</option>
+              <option value="7" data-i18n="jul">يوليو</option><option value="8" data-i18n="aug">أغسطس</option><option value="9" data-i18n="sep">سبتمبر</option>
+              <option value="10" data-i18n="oct">أكتوبر</option><option value="11" data-i18n="nov">نوفمبر</option><option value="12" data-i18n="dec">ديسمبر</option>
+            </select>
+            <select id="reportYear" class="px-3 py-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 rounded-xl text-sm dark:text-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-cyan-500">
+              <option value="2026">2026</option><option value="2025">2025</option>
+            </select>
+            <button onclick="renderMonthlyReports()" class="px-3 py-2 brand-gradient text-white font-bold rounded-xl text-xs cursor-pointer flex items-center gap-1"><i data-lucide="search" class="w-3 h-3"></i> <span data-i18n="view">عرض</span></button>
           </div>
         </div>
-        <div class="dark:bg-slate-800 bg-white rounded-3xl border dark:border-slate-700 border-slate-200 overflow-hidden shadow-sm">
-          <div class="overflow-x-auto">
-            <table class="w-full text-right text-xs">
-              <thead class="dark:bg-slate-900/50 bg-slate-100 text-slate-400 font-bold border-b dark:border-slate-700 border-slate-200">
-                <tr>
-                  <th class="py-3.5 px-4" data-i18n="name">الاسم</th>
-                  <th class="py-3.5 px-4" data-i18n="username">المستخدم</th>
-                  <th class="py-3.5 px-4" data-i18n="role">الدور التنظيمي</th>
-                  <th class="py-3.5 px-4" data-i18n="job_title">المسمى</th>
-                  <th class="py-3.5 px-4" data-i18n="basic_salary">الراتب الأساسي</th>
-                  <th class="py-3.5 px-4 text-center" data-i18n="leave_balance">رصيد الإجازات</th>
-                  <th class="py-3.5 px-4 text-center" data-i18n="actions">إجراءات</th>
-                </tr>
-              </thead>
-              <tbody id="employeesTableBody" class="divide-y dark:divide-slate-700/50 divide-slate-100"></tbody>
-            </table>
-          </div>
+        <div class="overflow-x-auto dark:bg-slate-900/50 bg-slate-50 rounded-2xl border dark:border-slate-700 border-slate-200">
+          <table class="w-full text-right text-xs">
+            <thead class="dark:bg-slate-900 bg-slate-200 text-slate-500 dark:text-slate-400 font-bold border-b dark:border-slate-700 border-slate-200">
+              <tr>
+                <th class="py-3 px-4" data-i18n="employee">الموظف</th>
+                <th class="py-3 px-4 text-center" data-i18n="days_present">أيام الحضور</th>
+                <th class="py-3 px-4 text-center">الراتب الإجمالي</th>
+                <th class="py-3 px-4 text-center">التأمينات</th>
+                <th class="py-3 px-4 text-center">الضريبة</th>
+                <th class="py-3 px-4 text-center" data-i18n="calculated_salary">الصافي المستحق</th>
+                <th id="payrollActionsHeader" class="py-3 px-4 text-center" data-i18n="actions">إجراءات</th>
+              </tr>
+            </thead>
+            <tbody id="reportsTableBody" class="divide-y dark:divide-slate-700/50 divide-slate-100">
+              <tr><td colspan="7" class="py-8 text-center text-slate-500">اختر الشهر واضغط عرض</td></tr>
+            </tbody>
+          </table>
         </div>
-      </section>
+      </div>
+      <div class="flex items-center justify-end gap-3 flex-wrap">
+        <button onclick="exportMonthlyReportToPDF()" class="px-5 py-3 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-2xl text-xs cursor-pointer flex items-center gap-2 shadow-lg shadow-rose-900/20">
+          <i data-lucide="file-text" class="w-4 h-4"></i> <span data-i18n="download_pdf">تحميل التقرير PDF</span>
+        </button>
+        <button onclick="exportMonthlyReportToCSV()" class="px-5 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-2xl text-xs cursor-pointer flex items-center gap-2 shadow-lg shadow-emerald-900/20">
+          <i data-lucide="download" class="w-4 h-4"></i> <span data-i18n="download_csv">تحميل التقرير (CSV)</span>
+        </button>
+      </div>
+    </section>
 
-      <!-- 5. قسم التقارير والرواتب -->
-      <section id="view-reports" class="hidden-view space-y-6">
-        <div id="reportExportContainer" class="dark:bg-slate-800 bg-white p-6 rounded-3xl border dark:border-slate-700 border-slate-200 shadow-sm space-y-6">
-          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <div>
-              <h3 class="text-xl font-black dark:text-white text-slate-900 flex items-center gap-2"><i data-lucide="bar-chart-3" class="w-6 h-6" style="color: var(--brand-color, #06b6d4);"></i> <span data-i18n="monthly_reports">تقارير الموظفين ورواتبهم المتقدمة</span></h3>
-              <p class="text-xs text-slate-400 mt-1" data-i18n="reports_desc">حساب الرواتب التلقائية مع البدلات والتأمينات والضرائب.</p>
-            </div>
-            <div class="flex items-center gap-2 w-full sm:w-auto">
-              <select id="reportMonth" class="flex-1 sm:flex-none px-3 py-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 rounded-xl text-sm dark:text-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-cyan-500">
-                <option value="1" data-i18n="jan">يناير</option><option value="2" data-i18n="feb">فبراير</option><option value="3" data-i18n="mar">مارس</option>
-                <option value="4" data-i18n="apr">أبريل</option><option value="5" data-i18n="may">مايو</option><option value="6" data-i18n="jun">يونيو</option>
-                <option value="7" data-i18n="jul">يوليو</option><option value="8" data-i18n="aug">أغسطس</option><option value="9" data-i18n="sep">سبتمبر</option>
-                <option value="10" data-i18n="oct">أكتوبر</option><option value="11" data-i18n="nov">نوفمبر</option><option value="12" data-i18n="dec">ديسمبر</option>
-              </select>
-              <select id="reportYear" class="px-3 py-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 rounded-xl text-sm dark:text-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-cyan-500">
-                <option value="2026">2026</option>
-                <option value="2025">2025</option>
-              </select>
-              <button onclick="renderMonthlyReports()" class="px-3 py-2 brand-gradient text-white font-bold rounded-xl text-xs cursor-pointer flex items-center gap-1"><i data-lucide="search" class="w-3 h-3"></i> <span data-i18n="view">عرض</span></button>
-            </div>
-          </div>
-          
-          <div class="overflow-x-auto dark:bg-slate-900/50 bg-slate-50 rounded-2xl border dark:border-slate-700 border-slate-200">
-            <table class="w-full text-right text-xs">
-              <thead class="dark:bg-slate-900 bg-slate-200 text-slate-500 dark:text-slate-400 font-bold border-b dark:border-slate-700 border-slate-200">
-                <tr>
-                  <th class="py-3 px-4" data-i18n="employee">الموظف</th>
-                  <th class="py-3 px-4 text-center" data-i18n="days_present">أيام الحضور</th>
-                  <th class="py-3 px-4 text-center">الراتب الإجمالي</th>
-                  <th class="py-3 px-4 text-center">التأمينات</th>
-                  <th class="py-3 px-4 text-center">الضريبة</th>
-                  <th class="py-3 px-4 text-center" data-i18n="calculated_salary">الصافي المستحق</th>
-                  <th id="payrollActionsHeader" class="py-3 px-4 text-center" data-i18n="actions">إجراءات</th>
-                </tr>
-              </thead>
-              <tbody id="reportsTableBody" class="divide-y dark:divide-slate-700/50 divide-slate-100">
-                <tr><td colspan="7" class="py-8 text-center text-slate-500">اختر الشهر واضغط عرض</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <div class="flex items-center justify-end gap-3 flex-wrap">
-          <button onclick="exportMonthlyReportToPDF()" class="px-5 py-3 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-2xl text-xs cursor-pointer flex items-center gap-2 shadow-lg shadow-rose-900/20">
-            <i data-lucide="file-text" class="w-4 h-4"></i> <span data-i18n="download_pdf">تحميل التقرير PDF</span>
-          </button>
-          <button onclick="exportMonthlyReportToCSV()" class="px-5 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-2xl text-xs cursor-pointer flex items-center gap-2 shadow-lg shadow-emerald-900/20">
-            <i data-lucide="download" class="w-4 h-4"></i> <span data-i18n="download_csv">تحميل التقرير (CSV)</span>
-          </button>
-        </div>
-      </section>
-
-      <!-- 6. قسم سجل النشاطات -->
-      <section id="view-audit" class="hidden-view space-y-6">
-        <div class="dark:bg-slate-800 bg-white p-5 rounded-3xl border dark:border-slate-700 border-slate-200 flex items-center justify-between shadow-sm">
-          <div>
-            <h3 class="text-lg font-black dark:text-white text-slate-900 flex items-center gap-2"><i data-lucide="shield-alert" class="w-5 h-5 text-amber-400"></i> <span data-i18n="audit_log_title">سجل النشاطات والعمليات الحساسة (للمدير العام فقط)</span></h3>
-            <p class="text-xs text-slate-400 mt-0.5" data-i18n="audit_log_desc">متابعة كافة حركات الحذف، التعديل، والموافقات بالتواريخ بدقة تامة.</p>
-          </div>
-          <button onclick="refreshAuditLogs()" class="px-3 py-2 bg-slate-700 text-white font-bold rounded-xl text-xs cursor-pointer flex items-center gap-1"><i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> <span data-i18n="refresh">تحديث</span></button>
-        </div>
-        <div class="dark:bg-slate-800 bg-white rounded-3xl border dark:border-slate-700 border-slate-200 overflow-hidden shadow-sm">
-          <div class="overflow-x-auto">
-            <table class="w-full text-right text-xs">
-              <thead class="dark:bg-slate-900/50 bg-slate-100 text-slate-400 font-bold border-b dark:border-slate-700 border-slate-200">
-                <tr>
-                  <th class="py-3.5 px-4" data-i18n="date_time">التاريخ والوقت</th>
-                  <th class="py-3.5 px-4" data-i18n="user">المسؤول / المستخدم</th>
-                  <th class="py-3.5 px-4" data-i18n="action_type">نوع الحدث</th>
-                  <th class="py-3.5 px-4" data-i18n="details">التفاصيل</th>
-                </tr>
-              </thead>
-              <tbody id="auditTableBody" class="divide-y dark:divide-slate-700/50 divide-slate-100"></tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <!-- 7. لوحة المالك -->
-      <section id="view-superadmin" class="hidden-view space-y-6">
-        <div class="bg-gradient-to-br from-amber-900/30 via-slate-800 to-slate-800 p-6 rounded-3xl border-2 border-amber-700/50 shadow-sm">
-          <div class="flex items-center justify-between flex-wrap gap-3">
-            <div class="flex items-center gap-4">
-              <div class="w-14 h-14 rounded-2xl bg-amber-500/20 border border-amber-600 flex items-center justify-center"><i data-lucide="crown" class="w-7 h-7 text-amber-400"></i></div>
-              <div><h3 class="text-xl font-black text-white" data-i18n="owner_dashboard">لوحة تحكم المالك</h3><p class="text-xs text-amber-300 mt-1" data-i18n="full_control">تحكم كامل في جميع الشركات والنسخ الاحتياطي</p></div>
-            </div>
-            <div class="flex items-center gap-2 flex-wrap">
-              <button onclick="exportSystemBackup()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs cursor-pointer flex items-center gap-1.5"><i data-lucide="download-cloud" class="w-4 h-4"></i> <span data-i18n="backup_json">نسخة احتياطية (JSON)</span></button>
-              <label class="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 text-white font-bold rounded-xl text-xs cursor-pointer flex items-center gap-1.5"><i data-lucide="upload-cloud" class="w-4 h-4"></i> <span data-i18n="restore_json">استعادة البيانات</span><input type="file" accept=".json" class="hidden" onchange="importSystemBackup(event)"></label>
-              <button onclick="manualRefreshSA()" class="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-xl text-xs cursor-pointer flex items-center gap-1"><i data-lucide="refresh-cw" class="w-3 h-3"></i> <span data-i18n="refresh">تحديث</span></button>
-            </div>
-          </div>
-        </div>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-          <div class="dark:bg-slate-800 bg-white p-5 rounded-3xl border dark:border-slate-700 border-slate-200 shadow-sm"><div class="flex items-center gap-2 mb-2"><i data-lucide="building-2" class="w-4 h-4" style="color: var(--brand-color, #06b6d4);"></i><span class="text-[10px] text-slate-400" data-i18n="all_companies">كل الشركات</span></div><div id="saTotalCompanies" class="text-2xl font-black dark:text-white text-slate-900">0</div></div>
-          <div class="dark:bg-slate-800 bg-white p-5 rounded-3xl border dark:border-slate-700 border-slate-200 shadow-sm"><div class="flex items-center gap-2 mb-2"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i><span class="text-[10px] text-slate-400" data-i18n="active">نشطة</span></div><div id="saActiveCompanies" class="text-2xl font-black text-emerald-500">0</div></div>
-          <div class="dark:bg-slate-800 bg-white p-5 rounded-3xl border dark:border-slate-700 border-slate-200 shadow-sm"><div class="flex items-center gap-2 mb-2"><i data-lucide="pause-circle" class="w-4 h-4 text-rose-400"></i><span class="text-[10px] text-slate-400" data-i18n="suspended">موقوفة</span></div><div id="saSuspendedCompanies" class="text-2xl font-black text-rose-500">0</div></div>
-          <div class="dark:bg-slate-800 bg-white p-5 rounded-3xl border dark:border-slate-700 border-slate-200 shadow-sm"><div class="flex items-center gap-2 mb-2"><i data-lucide="users" class="w-4 h-4 text-amber-400"></i><span class="text-[10px] text-slate-400" data-i18n="all_users">كل المستخدمين</span></div><div id="saTotalUsers" class="text-2xl font-black text-amber-500">0</div></div>
-        </div>
-        <div class="dark:bg-slate-800 bg-white rounded-3xl border dark:border-slate-700 border-slate-200 overflow-hidden shadow-sm">
-          <div class="p-4 border-b dark:border-slate-700 border-slate-200 flex items-center justify-between flex-wrap gap-2">
-            <h4 class="font-bold text-sm dark:text-white text-slate-900" data-i18n="all_companies">كل الشركات</h4>
-            <input type="text" id="saSearchInput" oninput="renderSuperAdminCompanies()" data-i18n-ph="search" placeholder="ابحث..." class="px-3 py-1.5 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 rounded-lg text-xs dark:text-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-cyan-500 w-full sm:w-64">
-          </div>
-          <div class="overflow-x-auto"><table class="w-full text-right text-xs"><thead class="dark:bg-slate-900/50 bg-slate-100 text-slate-400 font-bold border-b dark:border-slate-700 border-slate-200"><tr><th class="py-3 px-4" data-i18n="company">الشركة</th><th class="py-3 px-4" data-i18n="code">الكود</th><th class="py-3 px-4" data-i18n="status">الحالة</th><th class="py-3 px-4" data-i18n="employees">الموظفون</th><th class="py-3 px-4 text-center" data-i18n="actions">إجراءات</th></tr></thead><tbody id="saCompaniesTableBody" class="divide-y dark:divide-slate-700/50 divide-slate-100"></tbody></table></div>
-        </div>
-      </section>
-    </main>
-
-  </div>
-
-  <!-- مودال إعدادات الشركة -->
-  <div id="companySettingsModal" class="hidden-view fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4">
-    <div class="w-full max-w-lg dark:bg-slate-800 bg-white border dark:border-slate-700 border-slate-200 rounded-3xl p-6 space-y-4 max-h-[85vh] overflow-y-auto shadow-2xl">
-      <div class="flex items-center justify-between border-b dark:border-slate-700 border-slate-200 pb-3"><h3 class="font-bold text-sm dark:text-white text-slate-900 flex items-center gap-2"><i data-lucide="building" class="w-4 h-4 text-emerald-400"></i> <span data-i18n="company_settings">إعدادات الشركة (الشعار، اللون)</span></h3><button onclick="closeModal('companySettingsModal')" class="text-slate-400 cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button></div>
-      <form onsubmit="handleSaveCompanySettings(event)" class="space-y-4 text-xs">
+    <section id="view-audit" class="hidden-view space-y-6">
+      <div class="dark:bg-slate-800 bg-white p-5 rounded-3xl border dark:border-slate-700 border-slate-200 flex items-center justify-between shadow-sm">
         <div>
-          <label class="block mb-1 font-bold dark:text-slate-300 text-slate-700" data-i18n="company_logo_upload">رفع شعار الشركة (صورة من جهازك)</label>
-          <div class="flex items-center gap-2">
-            <label for="companyLogoUpload" class="flex-1 cursor-pointer px-4 py-2.5 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 rounded-xl text-xs font-bold flex items-center justify-center gap-2 hover:opacity-80" style="color: var(--brand-color, #06b6d4);">
-              <i data-lucide="upload" class="w-4 h-4"></i> <span id="logoUploadLabel" data-i18n="choose_image">اختر صورة</span>
-            </label>
-            <input type="file" id="companyLogoUpload" accept="image/*" class="hidden" onchange="handleCompanyLogoUpload(event)">
-            <img id="logoPreviewImg" class="w-12 h-12 rounded-xl object-cover hidden border dark:border-slate-700 border-slate-300">
-          </div>
-          <p class="text-[10px] text-slate-500 mt-1">الحد الأقصى 500 كيلوبايت</p>
+          <h3 class="text-lg font-black dark:text-white text-slate-900 flex items-center gap-2"><i data-lucide="shield-alert" class="w-5 h-5 text-amber-400"></i> <span data-i18n="audit_log_title">سجل النشاطات والعمليات الحساسة (للمدير العام فقط)</span></h3>
+          <p class="text-xs text-slate-400 mt-0.5" data-i18n="audit_log_desc">متابعة كافة حركات الحذف، التعديل، والموافقات بالتواريخ بدقة تامة.</p>
         </div>
-        <div>
-          <label class="block mb-1 font-bold dark:text-slate-300 text-slate-700" data-i18n="brand_color">اللون الرئيسي للتطبيق (Brand Color)</label>
-          <div class="flex items-center gap-3">
-            <input type="color" id="companyBrandColorInput" value="#06b6d4" class="w-12 h-10 rounded-xl cursor-pointer bg-transparent border dark:border-slate-700 border-slate-300">
-            <input type="text" id="companyBrandColorHex" value="#06b6d4" class="flex-1 p-2.5 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono">
-          </div>
+        <button onclick="refreshAuditLogs()" class="px-3 py-2 bg-slate-700 text-white font-bold rounded-xl text-xs cursor-pointer flex items-center gap-1"><i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> <span data-i18n="refresh">تحديث</span></button>
+      </div>
+      <div class="dark:bg-slate-800 bg-white rounded-3xl border dark:border-slate-700 border-slate-200 overflow-hidden shadow-sm">
+        <div class="overflow-x-auto">
+          <table class="w-full text-right text-xs">
+            <thead class="dark:bg-slate-900/50 bg-slate-100 text-slate-400 font-bold border-b dark:border-slate-700 border-slate-200">
+              <tr>
+                <th class="py-3.5 px-4" data-i18n="date_time">التاريخ والوقت</th>
+                <th class="py-3.5 px-4" data-i18n="user">المسؤول / المستخدم</th>
+                <th class="py-3.5 px-4" data-i18n="action_type">نوع الحدث</th>
+                <th class="py-3.5 px-4" data-i18n="details">التفاصيل</th>
+              </tr>
+            </thead>
+            <tbody id="auditTableBody" class="divide-y dark:divide-slate-700/50 divide-slate-100"></tbody>
+          </table>
         </div>
-        <button type="submit" class="w-full py-3 brand-gradient text-white font-bold rounded-xl flex items-center justify-center gap-1 cursor-pointer shadow-md"><i data-lucide="save" class="w-4 h-4"></i> <span data-i18n="save">حفظ الإعدادات وتطبيقها فوراً</span></button>
-      </form>
-    </div>
-  </div>
+      </div>
+    </section>
 
-  <!-- مودال إعدادات الراتب المتقدم -->
-  <div id="salarySettingsModal" class="hidden-view fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4">
-    <div class="w-full max-w-2xl dark:bg-slate-800 bg-white border dark:border-slate-700 border-slate-200 rounded-3xl p-6 space-y-4 max-h-[90vh] overflow-y-auto shadow-2xl">
-      <div class="flex items-center justify-between border-b dark:border-slate-700 border-slate-200 pb-3">
-        <h3 class="font-bold text-sm dark:text-white text-slate-900 flex items-center gap-2"><i data-lucide="wallet" class="w-4 h-4 text-emerald-400"></i><span>إعدادات الراتب المتقدم</span></h3>
-        <button onclick="closeModal('salarySettingsModal')" class="text-slate-400 cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button>
+    <section id="view-superadmin" class="hidden-view space-y-6">
+      <div class="bg-gradient-to-br from-amber-900/30 via-slate-800 to-slate-800 p-6 rounded-3xl border-2 border-amber-700/50 shadow-sm">
+        <div class="flex items-center justify-between flex-wrap gap-3">
+          <div class="flex items-center gap-4">
+            <div class="w-14 h-14 rounded-2xl bg-amber-500/20 border border-amber-600 flex items-center justify-center"><i data-lucide="crown" class="w-7 h-7 text-amber-400"></i></div>
+            <div><h3 class="text-xl font-black text-white" data-i18n="owner_dashboard">لوحة تحكم المالك</h3><p class="text-xs text-amber-300 mt-1" data-i18n="full_control">تحكم كامل في جميع الشركات والنسخ الاحتياطي</p></div>
+          </div>
+          <div class="flex items-center gap-2 flex-wrap">
+            <button onclick="exportSystemBackup()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs cursor-pointer flex items-center gap-1.5"><i data-lucide="download-cloud" class="w-4 h-4"></i> <span data-i18n="backup_json">نسخة احتياطية (JSON)</span></button>
+            <label class="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 text-white font-bold rounded-xl text-xs cursor-pointer flex items-center gap-1.5"><i data-lucide="upload-cloud" class="w-4 h-4"></i> <span data-i18n="restore_json">استعادة البيانات</span><input type="file" accept=".json" class="hidden" onchange="importSystemBackup(event)"></label>
+            <button onclick="manualRefreshSA()" class="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-xl text-xs cursor-pointer flex items-center gap-1"><i data-lucide="refresh-cw" class="w-3 h-3"></i> <span data-i18n="refresh">تحديث</span></button>
+          </div>
+        </div>
       </div>
-      <input type="hidden" id="salarySettingsEmpId" value="">
-      <input type="hidden" id="salarySettingsEmpIndex" value="">
-      <div class="p-3 dark:bg-slate-900 bg-slate-50 rounded-xl border dark:border-slate-700 border-slate-200">
-        <p class="text-xs text-slate-400">الموظف</p>
-        <p class="text-sm font-bold dark:text-white text-slate-900" id="salarySettingsEmpName">—</p>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div class="dark:bg-slate-800 bg-white p-5 rounded-3xl border dark:border-slate-700 border-slate-200 shadow-sm"><div class="flex items-center gap-2 mb-2"><i data-lucide="building-2" class="w-4 h-4" style="color: var(--brand-color, #06b6d4);"></i><span class="text-[10px] text-slate-400" data-i18n="all_companies">كل الشركات</span></div><div id="saTotalCompanies" class="text-2xl font-black dark:text-white text-slate-900">0</div></div>
+        <div class="dark:bg-slate-800 bg-white p-5 rounded-3xl border dark:border-slate-700 border-slate-200 shadow-sm"><div class="flex items-center gap-2 mb-2"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i><span class="text-[10px] text-slate-400" data-i18n="active">نشطة</span></div><div id="saActiveCompanies" class="text-2xl font-black text-emerald-500">0</div></div>
+        <div class="dark:bg-slate-800 bg-white p-5 rounded-3xl border dark:border-slate-700 border-slate-200 shadow-sm"><div class="flex items-center gap-2 mb-2"><i data-lucide="pause-circle" class="w-4 h-4 text-rose-400"></i><span class="text-[10px] text-slate-400" data-i18n="suspended">موقوفة</span></div><div id="saSuspendedCompanies" class="text-2xl font-black text-rose-500">0</div></div>
+        <div class="dark:bg-slate-800 bg-white p-5 rounded-3xl border dark:border-slate-700 border-slate-200 shadow-sm"><div class="flex items-center gap-2 mb-2"><i data-lucide="users" class="w-4 h-4 text-amber-400"></i><span class="text-[10px] text-slate-400" data-i18n="all_users">كل المستخدمين</span></div><div id="saTotalUsers" class="text-2xl font-black text-amber-500">0</div></div>
       </div>
-      <form onsubmit="handleSaveSalarySettings(event)" class="space-y-3 text-xs">
-        <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700">الراتب الأساسي (ج.م)</label><input type="number" id="salBasic" value="5000" min="0" required class="w-full p-2.5 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono"></div>
-        <div class="pt-2 border-t dark:border-slate-700 border-slate-200">
-          <p class="text-[11px] font-bold text-cyan-400 mb-2 flex items-center gap-1"><i data-lucide="plus-circle" class="w-3 h-3"></i> البدلات الشهرية</p>
-          <div class="grid grid-cols-3 gap-2">
-            <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700 text-[10px]">بدل سكن</label><input type="number" id="salHousing" value="0" min="0" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono"></div>
-            <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700 text-[10px]">بدل مواصلات</label><input type="number" id="salTransport" value="0" min="0" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono"></div>
-            <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700 text-[10px]">بدل طعام</label><input type="number" id="salFood" value="0" min="0" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono"></div>
-          </div>
+      <div class="dark:bg-slate-800 bg-white rounded-3xl border dark:border-slate-700 border-slate-200 overflow-hidden shadow-sm">
+        <div class="p-4 border-b dark:border-slate-700 border-slate-200 flex items-center justify-between flex-wrap gap-2">
+          <h4 class="font-bold text-sm dark:text-white text-slate-900" data-i18n="all_companies">كل الشركات</h4>
+          <input type="text" id="saSearchInput" oninput="renderSuperAdminCompanies()" data-i18n-ph="search" placeholder="ابحث..." class="px-3 py-1.5 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 rounded-lg text-xs dark:text-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-cyan-500 w-full sm:w-64">
         </div>
-        <div class="pt-2 border-t dark:border-slate-700 border-slate-200">
-          <p class="text-[11px] font-bold text-amber-400 mb-2 flex items-center gap-1"><i data-lucide="shield" class="w-3 h-3"></i> التأمينات والضرائب</p>
-          <div class="grid grid-cols-2 gap-2">
-            <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700 text-[10px]">نسبة التأمينات (%)</label><input type="number" id="salInsurance" value="11" min="0" max="100" step="0.5" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono"></div>
-            <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700 text-[10px]">نسبة الضريبة (%)</label><input type="number" id="salTax" value="0" min="0" max="100" step="0.5" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono"></div>
-          </div>
-        </div>
-        <div class="pt-2 border-t dark:border-slate-700 border-slate-200">
-          <p class="text-[11px] font-bold text-rose-400 mb-2 flex items-center gap-1"><i data-lucide="minus-circle" class="w-3 h-3"></i> الخصومات</p>
-          <div class="grid grid-cols-2 gap-2">
-            <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700 text-[10px]">قسط السلفة الشهرية</label><input type="number" id="salLoan" value="0" min="0" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono"></div>
-            <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700 text-[10px]">خصومات يدوية</label><input type="number" id="salDeductions" value="0" min="0" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono"></div>
-          </div>
-        </div>
-        <div class="pt-2 border-t dark:border-slate-700 border-slate-200">
-          <label class="block mb-1 font-bold dark:text-slate-300 text-slate-700">ساعات إضافي (× 50 ج.م)</label>
-          <input type="number" id="salOvertime" value="0" min="0" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono">
-        </div>
-        <button type="submit" class="w-full py-3 brand-gradient text-white font-bold rounded-xl flex items-center justify-center gap-1 cursor-pointer shadow-md mt-2"><i data-lucide="save" class="w-4 h-4"></i> <span>حفظ الإعدادات</span></button>
-      </form>
-    </div>
-  </div>
+        <div class="overflow-x-auto"><table class="w-full text-right text-xs"><thead class="dark:bg-slate-900/50 bg-slate-100 text-slate-400 font-bold border-b dark:border-slate-700 border-slate-200"><tr><th class="py-3 px-4" data-i18n="company">الشركة</th><th class="py-3 px-4" data-i18n="code">الكود</th><th class="py-3 px-4" data-i18n="status">الحالة</th><th class="py-3 px-4" data-i18n="employees">الموظفون</th><th class="py-3 px-4 text-center" data-i18n="actions">إجراءات</th></tr></thead><tbody id="saCompaniesTableBody" class="divide-y dark:divide-slate-700/50 divide-slate-100"></tbody></table></div>
+      </div>
+    </section>
+  </main>
+</div>
 
-  <!-- مودال الملف الشخصي للموظف -->
-  <div id="employeeProfileModal" class="hidden-view fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4">
-    <div class="w-full max-w-2xl dark:bg-slate-800 bg-white border dark:border-slate-700 border-slate-200 rounded-3xl p-6 space-y-5 max-h-[90vh] overflow-y-auto shadow-2xl">
-      <div class="flex items-center justify-between border-b dark:border-slate-700 border-slate-200 pb-3">
-        <h3 class="font-black text-base dark:text-white text-slate-900 flex items-center gap-2"><i data-lucide="user" class="w-5 h-5" style="color: var(--brand-color, #06b6d4);"></i> <span data-i18n="employee_profile_title">الملف الشخصي للموظف</span></h3>
-        <button onclick="closeModal('employeeProfileModal')" class="text-slate-400 cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button>
-      </div>
-      
-      <div class="flex items-center gap-4 p-4 dark:bg-slate-900 bg-slate-50 rounded-2xl border dark:border-slate-700 border-slate-200">
-        <div id="profAvatarBox" class="w-16 h-16 rounded-2xl brand-gradient flex items-center justify-center text-2xl font-black text-white shrink-0 overflow-hidden shadow-inner"></div>
-        <div class="flex-1">
-          <h4 id="profName" class="font-black text-lg dark:text-white text-slate-900">—</h4>
-          <p id="profRoleTitle" class="text-xs mt-0.5" style="color: var(--brand-color, #06b6d4);">—</p>
-          <div class="flex gap-4 mt-2">
-            <span id="profSalary" class="text-xs font-mono text-slate-300">—</span>
-            <span id="profLeaveBal" class="text-xs font-mono text-purple-400 font-bold">—</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="space-y-2">
-        <label class="block text-xs font-bold dark:text-slate-300 text-slate-700" data-i18n="manager_notes">ملاحظات وتنبيهات الإدارة</label>
-        <div id="noteInputContainer" class="flex gap-2">
-          <input type="text" id="newNoteInput" data-i18n-ph="note_placeholder" placeholder="أضف ملاحظة أو تقييماً أداءً..." class="flex-1 p-2.5 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-cyan-500">
-          <button onclick="handleAddEmployeeNote()" class="px-4 py-2.5 brand-gradient text-white font-bold rounded-xl text-xs cursor-pointer shadow-md" data-i18n="add">إضافة</button>
-        </div>
-        <div id="profNotesList" class="space-y-1.5 mt-2 max-h-32 overflow-y-auto"></div>
-      </div>
-
+<div id="companySettingsModal" class="hidden-view fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4">
+  <div class="w-full max-w-lg dark:bg-slate-800 bg-white border dark:border-slate-700 border-slate-200 rounded-3xl p-6 space-y-4 max-h-[85vh] overflow-y-auto shadow-2xl">
+    <div class="flex items-center justify-between border-b dark:border-slate-700 border-slate-200 pb-3"><h3 class="font-bold text-sm dark:text-white text-slate-900 flex items-center gap-2"><i data-lucide="building" class="w-4 h-4 text-emerald-400"></i> <span data-i18n="company_settings">إعدادات الشركة (الشعار، اللون)</span></h3><button onclick="closeModal('companySettingsModal')" class="text-slate-400 cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button></div>
+    <form onsubmit="handleSaveCompanySettings(event)" class="space-y-4 text-xs">
       <div>
-        <h5 class="font-bold text-xs dark:text-slate-200 text-slate-800 mb-2 flex items-center gap-1.5"><i data-lucide="clock" class="w-4 h-4 text-amber-400"></i> <span data-i18n="attendance_history">سجل الحضور الأخير</span></h5>
-        <div id="profAttendanceList" class="space-y-1.5 max-h-40 overflow-y-auto"></div>
+        <label class="block mb-1 font-bold dark:text-slate-300 text-slate-700" data-i18n="company_logo_upload">رفع شعار الشركة (صورة من جهازك)</label>
+        <div class="flex items-center gap-2">
+          <label for="companyLogoUpload" class="flex-1 cursor-pointer px-4 py-2.5 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 rounded-xl text-xs font-bold flex items-center justify-center gap-2 hover:opacity-80" style="color: var(--brand-color, #06b6d4);">
+            <i data-lucide="upload" class="w-4 h-4"></i> <span id="logoUploadLabel" data-i18n="choose_image">اختر صورة</span>
+          </label>
+          <input type="file" id="companyLogoUpload" accept="image/*" class="hidden" onchange="handleCompanyLogoUpload(event)">
+          <img id="logoPreviewImg" class="w-12 h-12 rounded-xl object-cover hidden border dark:border-slate-700 border-slate-300">
+        </div>
+        <p class="text-[10px] text-slate-500 mt-1">الحد الأقصى 500 كيلوبايت</p>
+      </div>
+      <div>
+        <label class="block mb-1 font-bold dark:text-slate-300 text-slate-700" data-i18n="brand_color">اللون الرئيسي للتطبيق (Brand Color)</label>
+        <div class="flex items-center gap-3">
+          <input type="color" id="companyBrandColorInput" value="#06b6d4" class="w-12 h-10 rounded-xl cursor-pointer bg-transparent border dark:border-slate-700 border-slate-300">
+          <input type="text" id="companyBrandColorHex" value="#06b6d4" class="flex-1 p-2.5 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono">
+        </div>
+      </div>
+      <button type="submit" class="w-full py-3 brand-gradient text-white font-bold rounded-xl flex items-center justify-center gap-1 cursor-pointer shadow-md"><i data-lucide="save" class="w-4 h-4"></i> <span data-i18n="save">حفظ الإعدادات وتطبيقها فوراً</span></button>
+    </form>
+  </div>
+</div>
+
+<div id="salarySettingsModal" class="hidden-view fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4">
+  <div class="w-full max-w-2xl dark:bg-slate-800 bg-white border dark:border-slate-700 border-slate-200 rounded-3xl p-6 space-y-4 max-h-[90vh] overflow-y-auto shadow-2xl">
+    <div class="flex items-center justify-between border-b dark:border-slate-700 border-slate-200 pb-3">
+      <h3 class="font-bold text-sm dark:text-white text-slate-900 flex items-center gap-2"><i data-lucide="wallet" class="w-4 h-4 text-emerald-400"></i><span>إعدادات الراتب المتقدم</span></h3>
+      <button onclick="closeModal('salarySettingsModal')" class="text-slate-400 cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button>
+    </div>
+    <input type="hidden" id="salarySettingsEmpId" value="">
+    <input type="hidden" id="salarySettingsEmpIndex" value="">
+    <div class="p-3 dark:bg-slate-900 bg-slate-50 rounded-xl border dark:border-slate-700 border-slate-200">
+      <p class="text-xs text-slate-400">الموظف</p>
+      <p class="text-sm font-bold dark:text-white text-slate-900" id="salarySettingsEmpName">—</p>
+    </div>
+    <form onsubmit="handleSaveSalarySettings(event)" class="space-y-3 text-xs">
+      <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700">الراتب الأساسي (ج.م)</label><input type="number" id="salBasic" value="5000" min="0" required class="w-full p-2.5 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono"></div>
+      <div class="pt-2 border-t dark:border-slate-700 border-slate-200">
+        <p class="text-[11px] font-bold text-cyan-400 mb-2 flex items-center gap-1"><i data-lucide="plus-circle" class="w-3 h-3"></i> البدلات الشهرية</p>
+        <div class="grid grid-cols-3 gap-2">
+          <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700 text-[10px]">بدل سكن</label><input type="number" id="salHousing" value="0" min="0" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono"></div>
+          <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700 text-[10px]">بدل مواصلات</label><input type="number" id="salTransport" value="0" min="0" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono"></div>
+          <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700 text-[10px]">بدل طعام</label><input type="number" id="salFood" value="0" min="0" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono"></div>
+        </div>
+      </div>
+      <div class="pt-2 border-t dark:border-slate-700 border-slate-200">
+        <p class="text-[11px] font-bold text-amber-400 mb-2 flex items-center gap-1"><i data-lucide="shield" class="w-3 h-3"></i> التأمينات والضرائب</p>
+        <div class="grid grid-cols-2 gap-2">
+          <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700 text-[10px]">نسبة التأمينات (%)</label><input type="number" id="salInsurance" value="11" min="0" max="100" step="0.5" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono"></div>
+          <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700 text-[10px]">نسبة الضريبة (%)</label><input type="number" id="salTax" value="0" min="0" max="100" step="0.5" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono"></div>
+        </div>
+      </div>
+      <div class="pt-2 border-t dark:border-slate-700 border-slate-200">
+        <p class="text-[11px] font-bold text-rose-400 mb-2 flex items-center gap-1"><i data-lucide="minus-circle" class="w-3 h-3"></i> الخصومات</p>
+        <div class="grid grid-cols-2 gap-2">
+          <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700 text-[10px]">قسط السلفة الشهرية</label><input type="number" id="salLoan" value="0" min="0" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono"></div>
+          <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700 text-[10px]">خصومات يدوية</label><input type="number" id="salDeductions" value="0" min="0" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono"></div>
+        </div>
+      </div>
+      <div class="pt-2 border-t dark:border-slate-700 border-slate-200">
+        <label class="block mb-1 font-bold dark:text-slate-300 text-slate-700">ساعات إضافي (× 50 ج.م)</label>
+        <input type="number" id="salOvertime" value="0" min="0" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono">
+      </div>
+      <button type="submit" class="w-full py-3 brand-gradient text-white font-bold rounded-xl flex items-center justify-center gap-1 cursor-pointer shadow-md mt-2"><i data-lucide="save" class="w-4 h-4"></i> <span>حفظ الإعدادات</span></button>
+    </form>
+  </div>
+</div>
+
+<div id="employeeProfileModal" class="hidden-view fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4">
+  <div class="w-full max-w-2xl dark:bg-slate-800 bg-white border dark:border-slate-700 border-slate-200 rounded-3xl p-6 space-y-5 max-h-[90vh] overflow-y-auto shadow-2xl">
+    <div class="flex items-center justify-between border-b dark:border-slate-700 border-slate-200 pb-3">
+      <h3 class="font-black text-base dark:text-white text-slate-900 flex items-center gap-2"><i data-lucide="user" class="w-5 h-5" style="color: var(--brand-color, #06b6d4);"></i> <span data-i18n="employee_profile_title">الملف الشخصي للموظف</span></h3>
+      <button onclick="closeModal('employeeProfileModal')" class="text-slate-400 cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button>
+    </div>
+    <div class="flex items-center gap-4 p-4 dark:bg-slate-900 bg-slate-50 rounded-2xl border dark:border-slate-700 border-slate-200">
+      <div id="profAvatarBox" class="w-16 h-16 rounded-2xl brand-gradient flex items-center justify-center text-2xl font-black text-white shrink-0 overflow-hidden shadow-inner"></div>
+      <div class="flex-1">
+        <h4 id="profName" class="font-black text-lg dark:text-white text-slate-900">—</h4>
+        <p id="profRoleTitle" class="text-xs mt-0.5" style="color: var(--brand-color, #06b6d4);">—</p>
+        <div class="flex gap-4 mt-2">
+          <span id="profSalary" class="text-xs font-mono text-slate-300">—</span>
+          <span id="profLeaveBal" class="text-xs font-mono text-purple-400 font-bold">—</span>
+        </div>
       </div>
     </div>
-  </div>
-
-  <!-- مودال إعدادات الحساب -->
-  <div id="profileModal" class="hidden-view fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4">
-    <div class="w-full max-w-md dark:bg-slate-800 bg-white border dark:border-slate-700 border-slate-200 rounded-3xl p-6 space-y-5 shadow-2xl">
-      <div class="flex items-center justify-between border-b dark:border-slate-700 border-slate-200 pb-3"><h3 class="font-bold text-sm dark:text-white text-slate-900" data-i18n="profile">إعدادات الحساب</h3><button onclick="closeModal('profileModal')" class="text-slate-400 cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button></div>
-      <div class="flex flex-col items-center gap-3">
-        <div class="w-24 h-24 rounded-full brand-gradient flex items-center justify-center text-3xl font-black text-white overflow-hidden shadow-inner"><img id="profileAvatarImg" class="w-full h-full object-cover hidden" /><span id="profileAvatarText">م</span></div>
-        <label for="avatarUpload" class="cursor-pointer px-4 py-2 dark:bg-slate-900 bg-slate-100 border dark:border-slate-700 border-slate-300 rounded-xl text-xs font-bold flex items-center gap-1 hover:opacity-80" style="color: var(--brand-color, #06b6d4);"><i data-lucide="camera" class="w-3 h-3"></i> <span data-i18n="change_photo">تغيير الصورة الشخصية</span></label>
-        <input type="file" id="avatarUpload" accept="image/*" class="hidden" onchange="handleAvatarUpload(event)" />
+    <div class="space-y-2">
+      <label class="block text-xs font-bold dark:text-slate-300 text-slate-700" data-i18n="manager_notes">ملاحظات وتنبيهات الإدارة</label>
+      <div id="noteInputContainer" class="flex gap-2">
+        <input type="text" id="newNoteInput" data-i18n-ph="note_placeholder" placeholder="أضف ملاحظة أو تقييماً أداءً..." class="flex-1 p-2.5 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-cyan-500">
+        <button onclick="handleAddEmployeeNote()" class="px-4 py-2.5 brand-gradient text-white font-bold rounded-xl text-xs cursor-pointer shadow-md" data-i18n="add">إضافة</button>
       </div>
-      <div><label class="block text-xs font-bold dark:text-slate-300 text-slate-700 mb-1.5" data-i18n="display_name">الاسم الظاهر</label><input type="text" id="newDisplayName" class="w-full p-3 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500"><button onclick="handleChangeName()" class="w-full py-2.5 brand-gradient text-white font-bold rounded-xl text-xs mt-3 cursor-pointer shadow-md" data-i18n="save">حفظ التعديلات</button></div>
+      <div id="profNotesList" class="space-y-1.5 mt-2 max-h-32 overflow-y-auto"></div>
+    </div>
+    <div>
+      <h5 class="font-bold text-xs dark:text-slate-200 text-slate-800 mb-2 flex items-center gap-1.5"><i data-lucide="clock" class="w-4 h-4 text-amber-400"></i> <span data-i18n="attendance_history">سجل الحضور الأخير</span></h5>
+      <div id="profAttendanceList" class="space-y-1.5 max-h-40 overflow-y-auto"></div>
     </div>
   </div>
+</div>
 
-  <div id="employeeModal" class="hidden-view fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4">
-    <div class="w-full max-w-lg dark:bg-slate-800 bg-white border dark:border-slate-700 border-slate-200 rounded-3xl p-6 space-y-3 max-h-[85vh] overflow-y-auto shadow-2xl">
-      <div class="flex items-center justify-between border-b dark:border-slate-700 border-slate-200 pb-3"><h3 class="font-bold text-sm dark:text-white text-slate-900" data-i18n="add_employee_manager">إضافة موظف أو مسؤول</h3><button onclick="closeModal('employeeModal')" class="text-slate-400 cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button></div>
-      <form onsubmit="handleCreateEmployee(event)" class="space-y-3 text-xs">
-        <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700" data-i18n="name_required">الاسم *</label><input type="text" id="newEmpFullName" required class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl"></div>
-        <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700" data-i18n="username_required">المستخدم *</label><input type="text" id="newEmpUsername" dir="ltr" required class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono"></div>
-        <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700" data-i18n="password_required">كلمة المرور *</label><input type="text" id="newEmpPass" dir="ltr" required minlength="8" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono"></div>
-        
-        <div>
-          <label class="block mb-1 font-bold dark:text-slate-300 text-slate-700" data-i18n="rbac_role_label">الدور التنظيمي (RBAC)</label>
-          <select id="newEmpRole" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl">
-            <option value="general_manager" data-i18n="role_gen_mgr">مدير عام (General Manager)</option>
-            <option value="hr_manager" data-i18n="role_hr">مدير موارد بشرية (HR Manager)</option>
-            <option value="financial_manager" data-i18n="role_fin">مدير مالي (Financial Manager)</option>
-            <option value="department_supervisor" data-i18n="role_sup">مشرف قسم (Department Supervisor)</option>
-            <option value="employee" selected data-i18n="role_emp">موظف (Employee)</option>
-          </select>
+<div id="profileModal" class="hidden-view fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4">
+  <div class="w-full max-w-md dark:bg-slate-800 bg-white border dark:border-slate-700 border-slate-200 rounded-3xl p-6 space-y-5 shadow-2xl">
+    <div class="flex items-center justify-between border-b dark:border-slate-700 border-slate-200 pb-3"><h3 class="font-bold text-sm dark:text-white text-slate-900" data-i18n="profile">إعدادات الحساب</h3><button onclick="closeModal('profileModal')" class="text-slate-400 cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button></div>
+    <div class="flex flex-col items-center gap-3">
+      <div class="w-24 h-24 rounded-full brand-gradient flex items-center justify-center text-3xl font-black text-white overflow-hidden shadow-inner"><img id="profileAvatarImg" class="w-full h-full object-cover hidden" /><span id="profileAvatarText">م</span></div>
+      <label for="avatarUpload" class="cursor-pointer px-4 py-2 dark:bg-slate-900 bg-slate-100 border dark:border-slate-700 border-slate-300 rounded-xl text-xs font-bold flex items-center gap-1 hover:opacity-80" style="color: var(--brand-color, #06b6d4);"><i data-lucide="camera" class="w-3 h-3"></i> <span data-i18n="change_photo">تغيير الصورة الشخصية</span></label>
+      <input type="file" id="avatarUpload" accept="image/*" class="hidden" onchange="handleAvatarUpload(event)" />
+    </div>
+    <div><label class="block text-xs font-bold dark:text-slate-300 text-slate-700 mb-1.5" data-i18n="display_name">الاسم الظاهر</label><input type="text" id="newDisplayName" class="w-full p-3 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500"><button onclick="handleChangeName()" class="w-full py-2.5 brand-gradient text-white font-bold rounded-xl text-xs mt-3 cursor-pointer shadow-md" data-i18n="save">حفظ التعديلات</button></div>
+  </div>
+</div>
+
+<div id="employeeModal" class="hidden-view fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4">
+  <div class="w-full max-w-lg dark:bg-slate-800 bg-white border dark:border-slate-700 border-slate-200 rounded-3xl p-6 space-y-3 max-h-[85vh] overflow-y-auto shadow-2xl">
+    <div class="flex items-center justify-between border-b dark:border-slate-700 border-slate-200 pb-3"><h3 class="font-bold text-sm dark:text-white text-slate-900" data-i18n="add_employee_manager">إضافة موظف أو مسؤول</h3><button onclick="closeModal('employeeModal')" class="text-slate-400 cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button></div>
+    <form onsubmit="handleCreateEmployee(event)" class="space-y-3 text-xs">
+      <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700" data-i18n="name_required">الاسم *</label><input type="text" id="newEmpFullName" required class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl"></div>
+      <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700" data-i18n="username_required">المستخدم *</label><input type="text" id="newEmpUsername" dir="ltr" required class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono"></div>
+      <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700" data-i18n="password_required">كلمة المرور *</label><input type="text" id="newEmpPass" dir="ltr" required minlength="8" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono"></div>
+      <div>
+        <label class="block mb-1 font-bold dark:text-slate-300 text-slate-700" data-i18n="rbac_role_label">الدور التنظيمي (RBAC)</label>
+        <select id="newEmpRole" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl">
+          <option value="general_manager" data-i18n="role_gen_mgr">مدير عام (General Manager)</option>
+          <option value="hr_manager" data-i18n="role_hr">مدير موارد بشرية (HR Manager)</option>
+          <option value="financial_manager" data-i18n="role_fin">مدير مالي (Financial Manager)</option>
+          <option value="department_supervisor" data-i18n="role_sup">مشرف قسم (Department Supervisor)</option>
+          <option value="employee" selected data-i18n="role_emp">موظف (Employee)</option>
+        </select>
+      </div>
+      <div class="grid grid-cols-2 gap-2">
+        <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700" data-i18n="job_title">المسمى الوظيفي</label><input type="text" id="newEmpTitle" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl"></div>
+        <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700" data-i18n="basic_salary">الراتب الأساسي (ج.م)</label><input type="number" id="newEmpSalary" value="5000" required class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono"></div>
+      </div>
+      <div class="grid grid-cols-2 gap-2">
+        <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700" data-i18n="leave_balance">رصيد الإجازات (يوم)</label><input type="number" id="newEmpLeaveBal" value="21" required class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono"></div>
+        <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700" data-i18n="work_start_time">وقت الحضور</label><input type="time" id="newEmpWorkStart" value="09:00" required class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono"></div>
+      </div>
+      <div class="pt-3 border-t dark:border-slate-700 border-slate-200">
+        <span class="block font-bold mb-2 flex items-center gap-1" style="color: var(--brand-color, #06b6d4);"><i data-lucide="map-pin" class="w-3 h-3"></i> <span data-i18n="work_location">موقع العمل (GPS)</span></span>
+        <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700" data-i18n="location_name">اسم المقر</label><input type="text" id="newEmpLocName" value="المقر الرئيسي" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl"></div>
+        <div class="grid grid-cols-3 gap-2 mt-2 font-mono">
+          <div><label class="block mb-1 text-[10px] font-bold text-slate-400">خط العرض</label><input type="text" id="newEmpLat" value="30.0444" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-lg text-[10px]"></div>
+          <div><label class="block mb-1 text-[10px] font-bold text-slate-400">خط الطول</label><input type="text" id="newEmpLng" value="31.2357" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-lg text-[10px]"></div>
+          <div><label class="block mb-1 text-[10px] font-bold text-slate-400">النطاق (م)</label><input type="number" id="newEmpRadius" value="250" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-lg text-[10px]"></div>
         </div>
+        <button type="button" onclick="getCurrentLocationForEmployee()" class="mt-2 w-full py-1.5 bg-cyan-600/20 text-cyan-400 rounded-lg text-[10px] font-bold hover:bg-cyan-600 hover:text-white transition cursor-pointer flex items-center justify-center gap-1">
+          <i data-lucide="locate-fixed" class="w-3 h-3"></i> استخدام موقعي الحالي
+        </button>
+      </div>
+      <button type="submit" class="w-full py-2.5 brand-gradient text-white font-bold rounded-xl flex items-center justify-center gap-1 cursor-pointer"><i data-lucide="user-plus" class="w-4 h-4"></i> <span data-i18n="add">إضافة</span></button>
+    </form>
+  </div>
+</div>
 
+<div id="newRequestModal" class="hidden-view fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4">
+  <div class="w-full max-w-md dark:bg-slate-800 bg-white border dark:border-slate-700 border-slate-200 rounded-3xl p-6 space-y-3 shadow-2xl">
+    <div class="flex items-center justify-between border-b dark:border-slate-700 border-slate-200 pb-3"><h3 class="font-bold text-sm dark:text-white text-slate-900" data-i18n="new_request">طلب جديد</h3><button onclick="closeModal('newRequestModal')" class="text-slate-400 cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button></div>
+    <form onsubmit="handleSaveRequest(event)" class="space-y-3 text-xs">
+      <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700" data-i18n="type">النوع</label><select id="reqTypeSelect" onchange="toggleRequestFormFields()" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl"><option value="leave" data-i18n="leave">إجازة</option><option value="loan" data-i18n="loan">سلفة</option></select></div>
+      <div id="reqLeaveFields">
+        <label class="block mb-1 font-bold dark:text-slate-300 text-slate-700" data-i18n="leave_type">نوع الإجازة وعدد الأيام</label>
         <div class="grid grid-cols-2 gap-2">
-          <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700" data-i18n="job_title">المسمى الوظيفي</label><input type="text" id="newEmpTitle" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl"></div>
-          <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700" data-i18n="basic_salary">الراتب الأساسي (ج.م)</label><input type="number" id="newEmpSalary" value="5000" required class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono"></div>
+          <select id="reqLeaveType" class="p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl"><option value="سنوية" data-i18n="annual">سنوية</option><option value="مرضية" data-i18n="sick">مرضية</option><option value="طارئة" data-i18n="emergency">طارئة</option></select>
+          <input type="number" id="reqLeaveDays" value="1" min="1" max="30" class="p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono" placeholder="عدد الأيام">
         </div>
-        <div class="grid grid-cols-2 gap-2">
-          <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700" data-i18n="leave_balance">رصيد الإجازات (يوم)</label><input type="number" id="newEmpLeaveBal" value="21" required class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono"></div>
-          <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700" data-i18n="work_start_time">وقت الحضور</label><input type="time" id="newEmpWorkStart" value="09:00" required class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono"></div>
-        </div>
-
-        <div class="pt-3 border-t dark:border-slate-700 border-slate-200">
-          <span class="block font-bold mb-2 flex items-center gap-1" style="color: var(--brand-color, #06b6d4);"><i data-lucide="map-pin" class="w-3 h-3"></i> <span data-i18n="work_location">موقع العمل (GPS)</span></span>
-          <div>
-            <label class="block mb-1 font-bold dark:text-slate-300 text-slate-700" data-i18n="location_name">اسم المقر</label>
-            <input type="text" id="newEmpLocName" value="المقر الرئيسي" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl">
-          </div>
-          <div class="grid grid-cols-3 gap-2 mt-2 font-mono">
-            <div><label class="block mb-1 text-[10px] font-bold text-slate-400">خط العرض</label><input type="text" id="newEmpLat" value="30.0444" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-lg text-[10px]"></div>
-            <div><label class="block mb-1 text-[10px] font-bold text-slate-400">خط الطول</label><input type="text" id="newEmpLng" value="31.2357" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-lg text-[10px]"></div>
-            <div><label class="block mb-1 text-[10px] font-bold text-slate-400">النطاق (م)</label><input type="number" id="newEmpRadius" value="250" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-lg text-[10px]"></div>
-          </div>
-          <button type="button" onclick="getCurrentLocationForEmployee()" class="mt-2 w-full py-1.5 bg-cyan-600/20 text-cyan-400 rounded-lg text-[10px] font-bold hover:bg-cyan-600 hover:text-white transition cursor-pointer flex items-center justify-center gap-1">
-            <i data-lucide="locate-fixed" class="w-3 h-3"></i> استخدام موقعي الحالي
-          </button>
-        </div>
-        <button type="submit" class="w-full py-2.5 brand-gradient text-white font-bold rounded-xl flex items-center justify-center gap-1 cursor-pointer"><i data-lucide="user-plus" class="w-4 h-4"></i> <span data-i18n="add">إضافة</span></button>
-      </form>
-    </div>
+      </div>
+      <div id="reqLoanFields" class="hidden-view"><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700" data-i18n="amount">المبلغ</label><input type="number" id="reqLoanAmount" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl"></div>
+      <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700" data-i18n="reason_required">السبب *</label><textarea id="reqReason" required rows="2" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl"></textarea></div>
+      <button type="submit" class="w-full py-2.5 brand-gradient text-white font-bold rounded-xl flex items-center justify-center gap-1 cursor-pointer"><i data-lucide="send" class="w-4 h-4"></i> <span data-i18n="send">إرسال</span></button>
+    </form>
   </div>
-
-  <div id="newRequestModal" class="hidden-view fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4">
-    <div class="w-full max-w-md dark:bg-slate-800 bg-white border dark:border-slate-700 border-slate-200 rounded-3xl p-6 space-y-3 shadow-2xl">
-      <div class="flex items-center justify-between border-b dark:border-slate-700 border-slate-200 pb-3"><h3 class="font-bold text-sm dark:text-white text-slate-900" data-i18n="new_request">طلب جديد</h3><button onclick="closeModal('newRequestModal')" class="text-slate-400 cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button></div>
-      <form onsubmit="handleSaveRequest(event)" class="space-y-3 text-xs">
-        <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700" data-i18n="type">النوع</label><select id="reqTypeSelect" onchange="toggleRequestFormFields()" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl"><option value="leave" data-i18n="leave">إجازة</option><option value="loan" data-i18n="loan">سلفة</option></select></div>
-        <div id="reqLeaveFields">
-          <label class="block mb-1 font-bold dark:text-slate-300 text-slate-700" data-i18n="leave_type">نوع الإجازة وعدد الأيام</label>
-          <div class="grid grid-cols-2 gap-2">
-            <select id="reqLeaveType" class="p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl"><option value="سنوية" data-i18n="annual">سنوية</option><option value="مرضية" data-i18n="sick">مرضية</option><option value="طارئة" data-i18n="emergency">طارئة</option></select>
-            <input type="number" id="reqLeaveDays" value="1" min="1" max="30" class="p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono" placeholder="عدد الأيام">
-          </div>
-        </div>
-        <div id="reqLoanFields" class="hidden-view"><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700" data-i18n="amount">المبلغ</label><input type="number" id="reqLoanAmount" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl"></div>
-        <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700" data-i18n="reason_required">السبب *</label><textarea id="reqReason" required rows="2" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl"></textarea></div>
-        <button type="submit" class="w-full py-2.5 brand-gradient text-white font-bold rounded-xl flex items-center justify-center gap-1 cursor-pointer"><i data-lucide="send" class="w-4 h-4"></i> <span data-i18n="send">إرسال</span></button>
-      </form>
-    </div>
-  </div>
+</div>
 
   <script>
     if ('serviceWorker' in navigator) {
@@ -762,9 +709,9 @@
         all_companies: "كل الشركات", active: "نشطة", suspended: "موقوفة", all_users: "كل المستخدمين", search: "ابحث...",
         search_employee: "ابحث عن موظف...", search_attendance: "ابحث باسم الموظف أو التاريخ...", company: "الشركة", status: "الحالة",
         profile: "إعدادات الحساب", change_photo: "تغيير الصورة الشخصية", display_name: "الاسم الظاهر", save: "حفظ التعديلات",
-        add_employee_manager: "إضافة موظف أو مسؤول", name_required: "الاسم *",
+        add_employee_manager: "إضافة موظف أو مسؤول", name_required: "الاسم *", username_required: "المستخدم *", password_required: "كلمة المرور *",
         rbac_role_label: "الدور التنظيمي (RBAC)", role_gen_mgr: "مدير عام (General Manager)", role_hr: "مدير موارد بشرية (HR Manager)", role_fin: "مدير مالي (Financial Manager)", role_sup: "مشرف قسم (Department Supervisor)", role_emp: "موظف (Employee)",
-        type: "النوع", leave: "إجازة", loan: "سلفة", leave_type: "نوع الإجازة", annual: "سنوية", sick: "مرضية", emergency: "طارئة", amount: "المبلغ", reason_required: "السبب *",
+        type: "النوع", leave: "إجازة", loan: "سلفة", leave_type: "نوع الإجازة", annual: "سنوية", sick: "مرضية", emergency: "طارئة", amount: "المبلغ", reason_required: "السبب *", send: "إرسال",
         status_pending: "قيد المراجعة", status_approved: "موافق", status_rejected: "مرفوض", approve: "موافقة", reject: "رفض", delete: "حذف", edit: "تعديل", on_duty: "على رأس العمل",
         msg_fill_fields: "املأ كل الحقول", msg_code_format: "الكود 3-20 حرف", msg_user_format: "المستخدم 3-30 حرف",
         msg_pass_length: "كلمة المرور 8+ أحرف", msg_code_used: "الكود مستخدم", msg_user_used: "اسم المستخدم مستخدم",
@@ -786,7 +733,8 @@
         jan: "يناير", feb: "فبراير", mar: "مارس", apr: "أبريل", may: "مايو", jun: "يونيو", jul: "يوليو", aug: "أغسطس", sep: "سبتمبر", oct: "أكتوبر", nov: "نوفمبر", dec: "ديسمبر",
         view: "عرض", days_present: "أيام الحضور", total_hours: "إجمالي الساعات", late_days: "أيام التأخير", absences: "الغياب",
         download_csv: "تحميل التقرير (CSV)", download_pdf: "تحميل التقرير PDF", msg_no_data_period: "لا توجد بيانات في هذه الفترة", hours: "ساعة",
-        work_start_time: "وقت بدء العمل الرسمي", dashboard_welcome_badge: "لوحة التحكم المؤسسية", dashboard_welcome_desc: "إليك نظرة عامة على إحصائيات شركتك ورصيد إجازاتك.",
+        work_start_time: "وقت بدء العمل الرسمي", work_location: "موقع العمل (GPS)", location_name: "اسم المقر",
+        dashboard_welcome_badge: "لوحة التحكم المؤسسية", dashboard_welcome_desc: "إليك نظرة عامة على إحصائيات شركتك ورصيد إجازاتك.",
         total: "إجمالي", today: "اليوم", pending: "قيد الانتظار", stat_employees_label: "إجمالي الموظفين المسجلين", stat_attendance_label: "الموظفون الحاضرون اليوم",
         stat_requests_label: "طلبات بانتظار الموافقة", leave_balance: "رصيد الإجازات", stat_leave_label: "أيام الإجازات المتبقية لك",
         recent_attendance: "حضور اليوم السريع", view_all: "عرض الكل", recent_requests: "أحدث الطلبات", quick_actions: "اختصارات سريعة",
@@ -819,9 +767,9 @@
         all_companies: "All Companies", active: "Active", suspended: "Suspended", all_users: "All Users", search: "Search...",
         search_employee: "Search employee...", search_attendance: "Search by name or date...", company: "Company", status: "Status",
         profile: "Account Settings", change_photo: "Change Photo", display_name: "Display Name", save: "Save",
-        add_employee_manager: "Add Employee or Manager", name_required: "Name *",
+        add_employee_manager: "Add Employee or Manager", name_required: "Name *", username_required: "Username *", password_required: "Password *",
         rbac_role_label: "Organizational Role (RBAC)", role_gen_mgr: "General Manager", role_hr: "HR Manager", role_fin: "Financial Manager", role_sup: "Supervisor", role_emp: "Employee",
-        type: "Type", leave: "Leave", loan: "Loan", leave_type: "Leave Type", annual: "Annual", sick: "Sick", emergency: "Emergency", amount: "Amount", reason_required: "Reason *",
+        type: "Type", leave: "Leave", loan: "Loan", leave_type: "Leave Type", annual: "Annual", sick: "Sick", emergency: "Emergency", amount: "Amount", reason_required: "Reason *", send: "Send",
         status_pending: "Pending", status_approved: "Approved", status_rejected: "Rejected", approve: "Approve", reject: "Reject", delete: "Delete", edit: "Edit", on_duty: "On duty",
         msg_fill_fields: "Fill all fields", msg_code_format: "Code 3-20 chars", msg_user_format: "Username 3-30 chars",
         msg_pass_length: "Password 8+ chars", msg_code_used: "Code used", msg_user_used: "Username used",
@@ -843,7 +791,8 @@
         jan: "January", feb: "February", mar: "March", apr: "April", may: "May", jun: "June", jul: "July", aug: "August", sep: "September", oct: "October", nov: "November", dec: "December",
         view: "View", days_present: "Days Present", total_hours: "Total Hours", late_days: "Late Days", absences: "Absences",
         download_csv: "Download CSV", download_pdf: "Download PDF", msg_no_data_period: "No data", hours: "hrs",
-        work_start_time: "Work Start Time", dashboard_welcome_badge: "Enterprise Dashboard", dashboard_welcome_desc: "Overview of your company.",
+        work_start_time: "Work Start Time", work_location: "Work Location (GPS)", location_name: "Location Name",
+        dashboard_welcome_badge: "Enterprise Dashboard", dashboard_welcome_desc: "Overview of your company.",
         total: "Total", today: "Today", pending: "Pending", stat_employees_label: "Total Employees", stat_attendance_label: "Present Today",
         stat_requests_label: "Pending Requests", leave_balance: "Leave Balance", stat_leave_label: "Your remaining leave days",
         recent_attendance: "Recent Attendance", view_all: "View All", recent_requests: "Recent Requests", quick_actions: "Quick Actions",
@@ -876,9 +825,9 @@
         all_companies: "Tutte le Aziende", active: "Attive", suspended: "Sospese", all_users: "Tutti gli Utenti", search: "Cerca...",
         search_employee: "Cerca dipendente...", search_attendance: "Cerca per nome o data...", company: "Azienda", status: "Stato",
         profile: "Impostazioni Account", change_photo: "Cambia Foto", display_name: "Nome Visualizzato", save: "Salva",
-        add_employee_manager: "Aggiungi Dipendente o Manager", name_required: "Nome *",
+        add_employee_manager: "Aggiungi Dipendente o Manager", name_required: "Nome *", username_required: "Utente *", password_required: "Password *",
         rbac_role_label: "Ruolo Organizzativo (RBAC)", role_gen_mgr: "Direttore Generale", role_hr: "HR Manager", role_fin: "Manager Finanziario", role_sup: "Supervisore", role_emp: "Dipendente",
-        type: "Tipo", leave: "Ferie", loan: "Prestito", leave_type: "Tipo Ferie", annual: "Annuale", sick: "Malattia", emergency: "Emergenza", amount: "Importo", reason_required: "Motivo *",
+        type: "Tipo", leave: "Ferie", loan: "Prestito", leave_type: "Tipo Ferie", annual: "Annuale", sick: "Malattia", emergency: "Emergenza", amount: "Importo", reason_required: "Motivo *", send: "Invia",
         status_pending: "In Attesa", status_approved: "Approvata", status_rejected: "Rifiutata", approve: "Approva", reject: "Rifiuta", delete: "Elimina", edit: "Modifica", on_duty: "In servizio",
         msg_fill_fields: "Compila i campi", msg_code_format: "Codice 3-20", msg_user_format: "Utente 3-30",
         msg_pass_length: "Password 8+ caratteri", msg_code_used: "Codice in uso", msg_user_used: "Utente in uso",
@@ -897,10 +846,11 @@
         msg_no_requests: "Nessuna richiesta", msg_no_records: "Nessun record", msg_no_employees: "Nessun dipendente", msg_no_notifications: "Nessuna notifica", msg_no_companies: "Nessuna azienda",
         msg_loading_data: "Caricamento...", msg_super_admin_role: "Proprietario", msg_manager_role: "Manager", msg_employee_role: "Dipendente", msg_impersonate_role: "Accesso Admin",
         msg_company_employees_hint: "Dipendenti di", request_new_notif: "Nuova Richiesta", reports: "Rapporti e Stipendi", monthly_reports: "Rapporti e Stipendi", reports_desc: "Calcolo automatico.",
-        jan: "Gennaio", feb: "Febbraio", mar: "Marzo", apr: "Aprile", may: "Maggio", jun: "Giugno", jul: "Luglio", aug: "Agosto", sep: "Settembre", oct: "Ottobre", nov: "Novembre", dic: "Dicembre",
+        jan: "Gennaio", feb: "Febbraio", mar: "Marzo", apr: "Aprile", may: "Maggio", jun: "Giugno", jul: "Luglio", aug: "Agosto", sep: "Settembre", oct: "Ottobre", nov: "Novembre", dec: "Dicembre",
         view: "Visualizza", days_present: "Giorni Presenti", total_hours: "Ore Totali", late_days: "Ritardi", absences: "Assenze",
         download_csv: "Scarica CSV", download_pdf: "Scarica PDF", msg_no_data_period: "Nessun dato", hours: "ore",
-        work_start_time: "Orario Inizio Lavoro", dashboard_welcome_badge: "Dashboard Aziendale", dashboard_welcome_desc: "Panoramica dell'azienda.",
+        work_start_time: "Orario Inizio Lavoro", work_location: "Sede di Lavoro (GPS)", location_name: "Nome Sede",
+        dashboard_welcome_badge: "Dashboard Aziendale", dashboard_welcome_desc: "Panoramica dell'azienda.",
         total: "Totale", today: "Oggi", pending: "In Attesa", stat_employees_label: "Totale Dipendenti", stat_attendance_label: "Presenti Oggi",
         stat_requests_label: "Richieste in Attesa", leave_balance: "Saldo Ferie", stat_leave_label: "Giorni di ferie rimanenti",
         recent_attendance: "Presenze Recenti", view_all: "Vedi Tutti", recent_requests: "Richieste Recenti", quick_actions: "Azioni Rapide",
@@ -1016,7 +966,6 @@
       if (hexInput) hexInput.value = color;
       const colInput = document.getElementById('companyBrandColorInput');
       if (colInput) colInput.value = color;
-
       const logo = cdata.logoUrl;
       const lCont1 = document.getElementById('landingLogoContainer');
       const lCont2 = document.getElementById('headerLogoContainer');
@@ -1024,7 +973,6 @@
         if (lCont1) lCont1.innerHTML = `<img src="${logo}" class="w-full h-full object-cover">`;
         if (lCont2) lCont2.innerHTML = `<img src="${logo}" class="w-full h-full object-cover">`;
       }
-      
       if (currentUser?.companyId) {
         localStorage.setItem('vodfire_brand_' + currentUser.companyId, JSON.stringify({ brandColor: color, logoUrl: logo }));
       }
@@ -1450,21 +1398,17 @@
       document.getElementById('loginScreen').classList.add('hidden-view');
       document.getElementById('landingScreen').classList.add('hidden-view');
       document.getElementById('mainApp').classList.remove('hidden-view');
-
       const isSA = currentUser.isSuperAdmin === true;
       const role = currentUser.role || 'employee';
-
       document.getElementById('saBadge').classList.toggle('hidden', !isSA || currentUser._impersonating);
       document.getElementById('tabBtn-superadmin').classList.toggle('hidden', !isSA || currentUser._impersonating);
       document.getElementById('exitImpersonateBtn').classList.toggle('hidden', !currentUser._impersonating);
       document.getElementById('companySettingsMenuBtn').classList.toggle('hidden', role !== 'general_manager' && role !== 'manager');
-
       const isGenMgr = role === 'general_manager' || role === 'manager';
       const isHR = role === 'hr_manager';
       const isFinance = role === 'financial_manager';
       const isSupervisor = role === 'department_supervisor';
       const isEmployee = role === 'employee';
-
       if (isEmployee || isSupervisor) {
         document.getElementById('employeeAttendanceBlock').classList.remove('hidden-view');
         document.getElementById('managerAttendanceBlock').classList.add('hidden-view');
@@ -1479,33 +1423,26 @@
         document.getElementById('managerAttendanceBlock').classList.remove('hidden-view');
         document.getElementById('attendanceActionsHeader').classList.toggle('hidden', isFinance);
       }
-
       const tabEmp = document.getElementById('tabBtn-employees');
       const tabRep = document.getElementById('tabBtn-reports');
       const tabAudit = document.getElementById('tabBtn-audit');
       const notifBell = document.getElementById('notifBellBtn');
-
       if (isGenMgr) { tabEmp.style.display = 'flex'; tabRep.style.display = 'flex'; tabAudit.classList.remove('hidden'); notifBell.classList.remove('hidden'); }
       else if (isHR) { tabEmp.style.display = 'flex'; tabRep.style.display = 'flex'; tabAudit.classList.add('hidden'); notifBell.classList.remove('hidden'); }
       else if (isFinance) { tabEmp.style.display = 'none'; tabRep.style.display = 'flex'; tabAudit.classList.add('hidden'); notifBell.classList.remove('hidden'); }
       else if (isSupervisor) { tabEmp.style.display = 'none'; tabRep.style.display = 'none'; tabAudit.classList.add('hidden'); notifBell.classList.remove('hidden'); }
       else { tabEmp.style.display = 'none'; tabRep.style.display = 'none'; tabAudit.classList.add('hidden'); notifBell.classList.add('hidden'); }
-
       document.getElementById('employeesCompanyHint').textContent = `${t('msg_company_employees_hint')} ${currentUser.companyName || ''}`;
       document.getElementById('headerCompanyName').textContent = currentUser.companyName || '—';
       document.getElementById('statLeaveBalance').textContent = currentUser.leaveBalance !== undefined ? currentUser.leaveBalance : 21;
-      
       if (currentUser.companyData) applyBrandSettings(currentUser.companyData);
       else restoreBrandSettings();
-
       const now = new Date();
       document.getElementById('reportMonth').value = now.getMonth() + 1;
       document.getElementById('reportYear').value = now.getFullYear();
-
       renderAll(); renderNotificationsBadge();
       if (isSA && !currentUser._impersonating) { switchTab('superadmin'); renderSuperAdminCompanies(); } else { switchTab('dashboard'); }
       lucide.createIcons();
-      
       if (syncInterval) clearInterval(syncInterval);
       syncInterval = setInterval(async () => {
         try {
@@ -1531,14 +1468,12 @@
 
     function renderDashboardStats() {
       const today = new Date().toISOString().slice(0, 10);
-      document.getElementById('dashWelcomeTitle').textContent = `${t('home') === 'Home' ? 'Welcome' : 'مرحباً'}، ${currentUser.name}`;
+      document.getElementById('dashWelcomeTitle').textContent = `${currentLang === 'ar' ? 'مرحباً' : 'Welcome'}، ${currentUser.name}`;
       document.getElementById('dashCurrentDate').textContent = new Date().toLocaleDateString(currentLang === 'ar' ? 'ar-EG' : currentLang === 'it' ? 'it-IT' : 'en-US', { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' });
-
       document.getElementById('statTotalEmployees').textContent = localCache.users.length;
       document.getElementById('statTodayAttendance').textContent = localCache.attendance.filter(a => a.date === today).length;
       document.getElementById('statPendingRequests').textContent = localCache.requests.filter(r => r.status === 'pending').length;
       document.getElementById('statLeaveBalance').textContent = currentUser.leaveBalance !== undefined ? currentUser.leaveBalance : 21;
-
       const dashAttList = document.getElementById('dashRecentAttendanceList');
       dashAttList.innerHTML = '';
       const todayAtts = localCache.attendance.filter(a => a.date === today).slice(0, 4);
@@ -1551,7 +1486,6 @@
           dashAttList.appendChild(item);
         });
       }
-
       const dashReqList = document.getElementById('dashRecentRequestsList');
       dashReqList.innerHTML = '';
       const recentReqs = localCache.requests.slice(0, 4);
@@ -1570,10 +1504,8 @@
     function renderCharts() {
       const role = currentUser.role || 'employee';
       if (role === 'employee') return;
-
       const daysOfWeek = ['السبت', 'الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة'];
       const counts = [5, 12, 15, 14, 16, 10, 2];
-      
       const ctx1 = document.getElementById('weeklyAttendanceChart');
       if (ctx1) {
         if (weeklyChartInstance) weeklyChartInstance.destroy();
@@ -1583,11 +1515,9 @@
           options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94a3b8' } }, x: { grid: { display: false }, ticks: { color: '#94a3b8' } } } }
         });
       }
-
       const totalEmp = localCache.users.length || 1;
       const presentToday = localCache.attendance.filter(a => a.date === new Date().toISOString().slice(0,10)).length;
       const absentToday = Math.max(0, totalEmp - presentToday);
-
       const ctx2 = document.getElementById('absenceRatioChart');
       if (ctx2) {
         if (absenceChartInstance) absenceChartInstance.destroy();
@@ -1604,13 +1534,10 @@
       const role = currentUser.role || 'employee';
       const isMgr = role !== 'employee';
       const search = (document.getElementById('attendanceSearchInput')?.value || '').toLowerCase();
-      
       let list = isMgr ? localCache.attendance : localCache.attendance.filter(r => r.userId === currentUser.id);
       if (search) list = list.filter(r => (r.userName||'').toLowerCase().includes(search) || (r.date||'').includes(search));
-      
       document.getElementById('attendanceCountHint').textContent = `${list.length} سجل`;
       if (!list.length) { tb.innerHTML = `<tr><td colspan="6" class="py-6 text-center text-slate-500">${t('msg_no_records')}</td></tr>`; return; }
-      
       list.forEach(r => {
         const tr = document.createElement('tr'); tr.className = 'dark:hover:bg-slate-700/30 hover:bg-slate-50';
         tr.innerHTML = `
@@ -1718,7 +1645,6 @@
       const reason = document.getElementById('reqReason').value.trim();
       const leaveDays = parseInt(document.getElementById('reqLeaveDays').value) || 1;
       const title = t2 === 'leave' ? `${t('leave')} (${document.getElementById('reqLeaveType').value} - ${leaveDays} يوم)` : `${t('loan')} ${document.getElementById('reqLoanAmount').value}`;
-      
       const pl = { id: 'req_' + Date.now(), userId: currentUser.id, userName: currentUser.name, companyId: currentUser.companyId, type: t2, leaveDays: t2==='leave'?leaveDays:0, title, reason, status: 'pending', createdAt: new Date().toISOString() };
       try {
         const d = await createCloudDoc('REQUEST', pl);
@@ -1740,7 +1666,10 @@
             targetUser.leaveBalance = Math.max(0, (targetUser.leaveBalance !== undefined ? targetUser.leaveBalance : 21) - (r.leaveDays || 1));
             const uData = { ...targetUser }; delete uData._docId; delete uData._companyId;
             await updateCloudDoc(targetUser._docId, 'USER', uData);
-            if (currentUser.id === targetUser.appwriteUserId) currentUser.leaveBalance = targetUser.leaveBalance;
+            if (currentUser._docId === targetUser._docId) {
+              currentUser.leaveBalance = targetUser.leaveBalance;
+              document.getElementById('statLeaveBalance').textContent = targetUser.leaveBalance;
+            }
           }
         }
         await logAuditAction("اعتماد طلب", `تم ${status === 'approved' ? 'الموافقة على' : 'رفض'} طلب (${r.title}) للموظف ${r.userName}`);
@@ -1753,17 +1682,13 @@
       const role = currentUser.role || 'employee';
       const canManageEmp = role === 'general_manager' || role === 'manager' || role === 'hr_manager';
       document.getElementById('addEmpHeaderBtn').style.display = canManageEmp ? 'flex' : 'none';
-
       const search = (document.getElementById('employeeSearchInput')?.value || '').toLowerCase();
       let list = localCache.users;
       if (search) list = list.filter(u => (u.name||'').toLowerCase().includes(search) || (u.username||'').toLowerCase().includes(search));
-
       if (!list.length) { tb.innerHTML = `<tr><td colspan="7" class="py-6 text-center text-slate-500">${t('msg_no_employees')}</td></tr>`; return; }
-      
       list.forEach(u => {
         const uRole = u.role || 'employee';
         const roleLabel = uRole === 'general_manager' ? t('role_gen_mgr') : uRole === 'hr_manager' ? t('role_hr') : uRole === 'financial_manager' ? t('role_fin') : uRole === 'department_supervisor' ? t('role_sup') : t('role_emp');
-        
         const tr = document.createElement('tr'); tr.className = 'dark:hover:bg-slate-700/30 hover:bg-slate-50 cursor-pointer';
         tr.onclick = (e) => { if (!e.target.closest('button')) openEmployeeProfile(u._docId); };
         tr.innerHTML = `
@@ -1784,7 +1709,6 @@
       const u = localCache.users.find(x => x._docId === docId);
       if (!u) return;
       currentViewingEmployeeId = docId;
-
       document.getElementById('profName').textContent = u.DisplayName || u.name;
       const uRole = u.role || 'employee';
       const roleLabel = uRole === 'general_manager' ? t('role_gen_mgr') : uRole === 'hr_manager' ? t('role_hr') : uRole === 'financial_manager' ? t('role_fin') : uRole === 'department_supervisor' ? t('role_sup') : t('role_emp');
@@ -1792,14 +1716,11 @@
       document.getElementById('profSalary').textContent = `${t('basic_salary')}: ${u.basicSalary || 5000} ج.م`;
       document.getElementById('profLeaveBal').textContent = `${t('leave_balance')}: ${u.leaveBalance !== undefined ? u.leaveBalance : 21} يوم`;
       document.getElementById('profAvatarBox').textContent = (u.name || 'م')[0];
-
       renderEmployeeNotesList(u);
       renderEmployeeProfileAttendance(u);
-
       const role = currentUser.role || 'employee';
       const canAddNotes = role === 'general_manager' || role === 'manager' || role === 'hr_manager' || role === 'department_supervisor';
       document.getElementById('noteInputContainer').style.display = canAddNotes ? 'flex' : 'none';
-
       document.getElementById('employeeProfileModal').classList.remove('hidden-view');
       lucide.createIcons();
     }
@@ -1840,7 +1761,6 @@
       list.innerHTML = '';
       const atts = localCache.attendance.filter(a => a.userId === u.appwriteUserId || a.userId === u._docId).slice(0, 5);
       if (!atts.length) { list.innerHTML = `<div class="text-[11px] text-slate-500">${t('msg_no_records')}</div>`; return; }
-      atts.regs?.forEach?.(a => {});
       atts.forEach(a => {
         const d = document.createElement('div');
         d.className = 'p-2 rounded-xl dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-200 text-xs flex items-center justify-between font-mono';
@@ -1865,7 +1785,6 @@
       const lat = parseFloat(document.getElementById('newEmpLat').value) || 30.0444;
       const lng = parseFloat(document.getElementById('newEmpLng').value) || 31.2357;
       const radius = parseInt(document.getElementById('newEmpRadius').value) || 250;
-      
       if (!name || !user || !pass) return alert(t('msg_required_fields'));
       if (pass.length < 8) return alert(t('msg_pass_short'));
       if (localCache.users.find(u => u.username === user)) return alert(t('msg_user_used'));
@@ -1874,19 +1793,19 @@
       btn.disabled = true; btn.innerHTML = '<i data-lucide="loader" class="w-4 h-4 animate-spin inline"></i> ' + t('msg_loading'); lucide.createIcons();
       try {
         const email = `${user}@${currentUser.companyCode}.vodfire`;
-        
-        // تم تصحيح اسم دالة Appwrite هنا ليطابق ما كتبته في لوحة التحكم تماماً: create-uesr
         const execution = await functions.createExecution(
-          'create-uesr', 
-          JSON.stringify({ email, password: pass, name, role, jobTitle: jt, basicSalary, leaveBalance, workStartTime, companyId: currentUser.companyId, companyCode: currentUser.companyCode, companyName: currentUser.companyName, workplace: { name: locName, latitude: lat, longitude: lng, radiusMeters: radius } })
+          'create-uesr',
+          JSON.stringify({ email, password: pass, name, username: user, role, jobTitle: jt, basicSalary, leaveBalance, workStartTime, companyId: currentUser.companyId, companyCode: currentUser.companyCode, companyName: currentUser.companyName, workplace: { name: locName, latitude: lat, longitude: lng, radiusMeters: radius } })
         );
-        
-        if (execution.status === 'failed') throw new Error(execution.responseString || t('msg_failed'));
-        
+        let result = {};
+        try { result = JSON.parse(execution.responseBody || execution.responseString || '{}'); } catch(err) { result = { success: true }; }
+        if (result.success === false || result.error) throw new Error(result.error || t('msg_failed'));
         await loadAllFromCloud();
+        const newUser = localCache.users.find(u => u.username === user);
         await logAuditAction("إضافة موظف", `تمت إضافة الموظف الجديد: ${name} بدور (${role})`);
         closeModal('employeeModal'); e.target.reset(); renderEmployees(); renderDashboardStats();
-        alert(`${t('msg_account_credentials')}\n\n${t('msg_user_label')}: ${user}\n${t('msg_pass_label')}: ${pass}`);
+        if (newUser) alert(`✅ ${t('msg_account_credentials')}\n\n${t('msg_user_label')}: ${user}\n${t('msg_pass_label')}: ${pass}`);
+        else alert('⚠️ تم إنشاء الحساب لكنه لم يظهر في القائمة. اضغط "فحص المستخدمين" للتشخيص.');
       } catch(err) { alert('❌ ' + (err.message || JSON.stringify(err))); } finally { btn.disabled = false; btn.innerHTML = orig; lucide.createIcons(); }
     }
 
@@ -2012,69 +1931,35 @@
       const role = currentUser.role || 'employee';
       const canEditPayroll = role === 'general_manager' || role === 'manager' || role === 'financial_manager';
       document.getElementById('payrollActionsHeader').style.display = canEditPayroll ? 'table-cell' : 'none';
-      
       if (!silent) tb.innerHTML = '<tr><td colspan="7" class="py-8 text-center text-slate-500"><i data-lucide="loader" class="w-5 h-5 animate-spin inline"></i></td></tr>';
       lucide.createIcons();
-
       const prefix = `${year}-${String(month).padStart(2, '0')}`;
       const monthAttendance = localCache.attendance.filter(a => a.date && a.date.startsWith(prefix));
-      
       const stats = localCache.users.map(user => {
         const userAtt = monthAttendance.filter(a => a.userId === user.appwriteUserId || a.userId === user._docId);
-        
         const basicSalary = user.basicSalary || 5000;
         const housing = user.housingAllowance || 0;
         const transport = user.transportAllowance || 0;
         const food = user.foodAllowance || 0;
         const overtimeHours = user.overtimeHours || 0;
         const overtimeRate = 50;
-        
         const presentDays = userAtt.length;
         const dailyRate = basicSalary / 22;
         const earnedBasic = presentDays * dailyRate;
         const overtimePay = overtimeHours * overtimeRate;
         const grossSalary = earnedBasic + housing + transport + food + overtimePay;
-        
         const insurancePercent = user.insurancePercent !== undefined ? user.insurancePercent : 11;
         const taxPercent = user.taxPercent !== undefined ? user.taxPercent : 0;
         const insurance = Math.round(grossSalary * (insurancePercent / 100));
         const tax = Math.round((grossSalary - insurance) * (taxPercent / 100));
-        
         const loanDeduction = user.loanDeduction || 0;
         const manualDeductions = user.manualDeductions || 0;
-        
         const netSalary = Math.max(0, grossSalary - insurance - tax - loanDeduction - manualDeductions);
-
-        return {
-          id: user._docId,
-          name: user.DisplayName || user.name,
-          username: user.username,
-          jobTitle: user.jobTitle,
-          presentDays,
-          basicSalary,
-          housing,
-          transport,
-          food,
-          overtimeHours,
-          overtimePay,
-          earnedBasic,
-          grossSalary: Math.round(grossSalary),
-          insurance,
-          tax,
-          loanDeduction,
-          manualDeductions,
-          netSalary: Math.round(netSalary)
-        };
+        return { id: user._docId, name: user.DisplayName || user.name, username: user.username, jobTitle: user.jobTitle, presentDays, basicSalary, housing, transport, food, overtimeHours, overtimePay, earnedBasic, grossSalary: Math.round(grossSalary), insurance, tax, loanDeduction, manualDeductions, netSalary: Math.round(netSalary) };
       });
-
       currentReportData = stats;
-
       if (!silent) {
-        if (!stats.length) {
-          tb.innerHTML = `<tr><td colspan="7" class="py-8 text-center text-slate-500">${t('msg_no_data_period')}</td></tr>`;
-          return;
-        }
-        
+        if (!stats.length) { tb.innerHTML = `<tr><td colspan="7" class="py-8 text-center text-slate-500">${t('msg_no_data_period')}</td></tr>`; return; }
         tb.innerHTML = '';
         stats.forEach((s, idx) => {
           const tr = document.createElement('tr');
@@ -2086,16 +1971,7 @@
             <td class="py-3 px-4 text-center font-mono text-amber-400">${s.insurance.toLocaleString()} ج.م</td>
             <td class="py-3 px-4 text-center font-mono text-rose-400">${s.tax.toLocaleString()} ج.م</td>
             <td class="py-3 px-4 text-center font-mono text-emerald-400 font-bold text-sm">${s.netSalary.toLocaleString()} ج.م</td>
-            ${canEditPayroll ? `<td class="py-3 px-4 text-center">
-              <div class="flex items-center justify-center gap-1">
-                <button onclick="openSalarySettingsModal(${idx})" class="px-2 py-1 bg-cyan-600/20 text-cyan-400 hover:bg-cyan-600 hover:text-white rounded-lg text-[10px] font-bold cursor-pointer" title="إعدادات الراتب">
-                  <i data-lucide="settings" class="w-3 h-3"></i>
-                </button>
-                <button onclick="generatePayslip(${idx})" class="px-2 py-1 bg-emerald-600/20 text-emerald-400 hover:bg-emerald-600 hover:text-white rounded-lg text-[10px] font-bold cursor-pointer" title="كشف الراتب">
-                  <i data-lucide="file-text" class="w-3 h-3"></i>
-                </button>
-              </div>
-            </td>` : '<td class="py-3 px-4 text-center">—</td>'}
+            ${canEditPayroll ? `<td class="py-3 px-4 text-center"><div class="flex items-center justify-center gap-1"><button onclick="openSalarySettingsModal(${idx})" class="px-2 py-1 bg-cyan-600/20 text-cyan-400 hover:bg-cyan-600 hover:text-white rounded-lg text-[10px] font-bold cursor-pointer" title="إعدادات الراتب"><i data-lucide="settings" class="w-3 h-3"></i></button><button onclick="generatePayslip(${idx})" class="px-2 py-1 bg-emerald-600/20 text-emerald-400 hover:bg-emerald-600 hover:text-white rounded-lg text-[10px] font-bold cursor-pointer" title="كشف الراتب"><i data-lucide="file-text" class="w-3 h-3"></i></button></div></td>` : '<td class="py-3 px-4 text-center">—</td>'}
           `;
           tb.appendChild(tr);
         });
@@ -2108,7 +1984,6 @@
       if (!item) return;
       const u = localCache.users.find(x => x._docId === item.id);
       if (!u) return;
-
       document.getElementById('salarySettingsEmpId').value = item.id;
       document.getElementById('salarySettingsEmpIndex').value = idx;
       document.getElementById('salarySettingsEmpName').textContent = item.name;
@@ -2121,7 +1996,6 @@
       document.getElementById('salLoan').value = u.loanDeduction || 0;
       document.getElementById('salDeductions').value = u.manualDeductions || 0;
       document.getElementById('salOvertime').value = u.overtimeHours || 0;
-      
       document.getElementById('salarySettingsModal').classList.remove('hidden-view');
       lucide.createIcons();
     }
@@ -2131,7 +2005,6 @@
       const id = document.getElementById('salarySettingsEmpId').value;
       const u = localCache.users.find(x => x._docId === id);
       if (!u) return;
-
       u.basicSalary = parseFloat(document.getElementById('salBasic').value) || 5000;
       u.housingAllowance = parseFloat(document.getElementById('salHousing').value) || 0;
       u.transportAllowance = parseFloat(document.getElementById('salTransport').value) || 0;
@@ -2141,7 +2014,6 @@
       u.loanDeduction = parseFloat(document.getElementById('salLoan').value) || 0;
       u.manualDeductions = parseFloat(document.getElementById('salDeductions').value) || 0;
       u.overtimeHours = parseFloat(document.getElementById('salOvertime').value) || 0;
-
       try {
         const uData = { ...u }; delete uData._docId; delete uData._companyId;
         await updateCloudDoc(u._docId, 'USER', uData);
@@ -2155,134 +2027,60 @@
     function generatePayslip(idx) {
       const item = currentReportData[idx];
       if (!item) return;
-
       const monthNames = ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'];
       const monthIdx = parseInt(document.getElementById('reportMonth').value) - 1;
       const year = document.getElementById('reportYear').value;
       const monthName = monthNames[monthIdx];
-      
       const companyName = currentUser.companyName || 'الشركة';
       const brandColor = currentUser.companyData?.brandColor || '#06b6d4';
       const logo = currentUser.companyData?.logoUrl;
       const today = new Date().toLocaleDateString('ar-EG');
-
       const html = `
         <div style="direction: rtl; font-family: Cairo, Arial, sans-serif; padding: 30px; background: white; color: #1e293b; max-width: 800px; margin: 0 auto;">
           <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid ${brandColor}; padding-bottom: 20px; margin-bottom: 25px;">
             <div style="display: flex; align-items: center; gap: 15px;">
               ${logo ? `<img src="${logo}" style="width: 70px; height: 70px; object-fit: contain; border-radius: 12px; border: 1px solid #e2e8f0; padding: 5px;">` : `<div style="width: 70px; height: 70px; background: ${brandColor}; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 32px; font-weight: 900;">V</div>`}
-              <div>
-                <h1 style="margin: 0; font-size: 24px; color: ${brandColor}; font-weight: 900;">${companyName}</h1>
-                <p style="margin: 5px 0 0 0; font-size: 12px; color: #64748b;">كشف راتب شهري</p>
-              </div>
+              <div><h1 style="margin: 0; font-size: 24px; color: ${brandColor}; font-weight: 900;">${companyName}</h1><p style="margin: 5px 0 0 0; font-size: 12px; color: #64748b;">كشف راتب شهري</p></div>
             </div>
             <div style="text-align: left;">
-              <div style="background: ${brandColor}; color: white; padding: 8px 20px; border-radius: 8px; font-weight: 900; font-size: 16px;">
-                ${monthName} ${year}
-              </div>
+              <div style="background: ${brandColor}; color: white; padding: 8px 20px; border-radius: 8px; font-weight: 900; font-size: 16px;">${monthName} ${year}</div>
               <p style="margin: 8px 0 0 0; font-size: 10px; color: #64748b;">تاريخ الإصدار: ${today}</p>
             </div>
           </div>
           <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 15px; margin-bottom: 20px;">
             <h2 style="margin: 0 0 12px 0; font-size: 14px; color: ${brandColor}; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px;">بيانات الموظف</h2>
             <table style="width: 100%; font-size: 12px;">
-              <tr>
-                <td style="padding: 5px 0;"><strong>الاسم:</strong> ${item.name}</td>
-                <td style="padding: 5px 0;"><strong>اسم المستخدم:</strong> @${item.username || '—'}</td>
-              </tr>
-              <tr>
-                <td style="padding: 5px 0;"><strong>المسمى الوظيفي:</strong> ${item.jobTitle || '—'}</td>
-                <td style="padding: 5px 0;"><strong>أيام الحضور:</strong> ${item.presentDays} يوم</td>
-              </tr>
+              <tr><td style="padding: 5px 0;"><strong>الاسم:</strong> ${item.name}</td><td style="padding: 5px 0;"><strong>اسم المستخدم:</strong> @${item.username || '—'}</td></tr>
+              <tr><td style="padding: 5px 0;"><strong>المسمى الوظيفي:</strong> ${item.jobTitle || '—'}</td><td style="padding: 5px 0;"><strong>أيام الحضور:</strong> ${item.presentDays} يوم</td></tr>
             </table>
           </div>
           <h2 style="font-size: 14px; color: ${brandColor}; margin: 20px 0 10px 0; border-right: 4px solid ${brandColor}; padding-right: 10px;">تفاصيل الراتب</h2>
           <table style="width: 100%; border-collapse: collapse; font-size: 12px; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;">
-            <thead>
-              <tr style="background: ${brandColor}; color: white;">
-                <th style="padding: 10px; text-align: right; border: 1px solid ${brandColor};">البند</th>
-                <th style="padding: 10px; text-align: left; border: 1px solid ${brandColor}; width: 40%;">المبلغ (ج.م)</th>
-              </tr>
-            </thead>
+            <thead><tr style="background: ${brandColor}; color: white;"><th style="padding: 10px; text-align: right; border: 1px solid ${brandColor};">البند</th><th style="padding: 10px; text-align: left; border: 1px solid ${brandColor}; width: 40%;">المبلغ (ج.م)</th></tr></thead>
             <tbody>
-              <tr>
-                <td style="padding: 8px 10px; border: 1px solid #e2e8f0; background: #f1f5f9; font-weight: bold;">الراتب الأساسي</td>
-                <td style="padding: 8px 10px; border: 1px solid #e2e8f0; background: #f1f5f9; text-align: left; font-family: monospace; font-weight: bold;">${item.basicSalary.toLocaleString()}</td>
-              </tr>
-              <tr>
-                <td style="padding: 8px 10px; border: 1px solid #e2e8f0; color: #475569;">المستحق من الراتب الأساسي (${item.presentDays}/22 يوم)</td>
-                <td style="padding: 8px 10px; border: 1px solid #e2e8f0; text-align: left; font-family: monospace;">${Math.round(item.earnedBasic).toLocaleString()}</td>
-              </tr>
-              <tr>
-                <td style="padding: 8px 10px; border: 1px solid #e2e8f0; color: #16a34a;">بدل السكن</td>
-                <td style="padding: 8px 10px; border: 1px solid #e2e8f0; text-align: left; font-family: monospace; color: #16a34a;">+ ${item.housing.toLocaleString()}</td>
-              </tr>
-              <tr>
-                <td style="padding: 8px 10px; border: 1px solid #e2e8f0; color: #16a34a;">بدل المواصلات</td>
-                <td style="padding: 8px 10px; border: 1px solid #e2e8f0; text-align: left; font-family: monospace; color: #16a34a;">+ ${item.transport.toLocaleString()}</td>
-              </tr>
-              <tr>
-                <td style="padding: 8px 10px; border: 1px solid #e2e8f0; color: #16a34a;">بدل الطعام</td>
-                <td style="padding: 8px 10px; border: 1px solid #e2e8f0; text-align: left; font-family: monospace; color: #16a34a;">+ ${item.food.toLocaleString()}</td>
-              </tr>
-              <tr>
-                <td style="padding: 8px 10px; border: 1px solid #e2e8f0; color: #16a34a;">ساعات إضافي (${item.overtimeHours} س × 50)</td>
-                <td style="padding: 8px 10px; border: 1px solid #e2e8f0; text-align: left; font-family: monospace; color: #16a34a;">+ ${item.overtimePay.toLocaleString()}</td>
-              </tr>
-              <tr style="background: #dbeafe;">
-                <td style="padding: 10px; border: 1px solid #93c5fd; font-weight: 900; color: #1e40af;">الراتب الإجمالي</td>
-                <td style="padding: 10px; border: 1px solid #93c5fd; text-align: left; font-family: monospace; font-weight: 900; color: #1e40af;">${item.grossSalary.toLocaleString()}</td>
-              </tr>
-              <tr>
-                <td style="padding: 8px 10px; border: 1px solid #e2e8f0; color: #dc2626;">التأمينات الاجتماعية</td>
-                <td style="padding: 8px 10px; border: 1px solid #e2e8f0; text-align: left; font-family: monospace; color: #dc2626;">- ${item.insurance.toLocaleString()}</td>
-              </tr>
-              <tr>
-                <td style="padding: 8px 10px; border: 1px solid #e2e8f0; color: #dc2626;">ضريبة الدخل</td>
-                <td style="padding: 8px 10px; border: 1px solid #e2e8f0; text-align: left; font-family: monospace; color: #dc2626;">- ${item.tax.toLocaleString()}</td>
-              </tr>
-              <tr>
-                <td style="padding: 8px 10px; border: 1px solid #e2e8f0; color: #dc2626;">قسط السلفة</td>
-                <td style="padding: 8px 10px; border: 1px solid #e2e8f0; text-align: left; font-family: monospace; color: #dc2626;">- ${item.loanDeduction.toLocaleString()}</td>
-              </tr>
-              <tr>
-                <td style="padding: 8px 10px; border: 1px solid #e2e8f0; color: #dc2626;">خصومات يدوية</td>
-                <td style="padding: 8px 10px; border: 1px solid #e2e8f0; text-align: left; font-family: monospace; color: #dc2626;">- ${item.manualDeductions.toLocaleString()}</td>
-              </tr>
-              <tr style="background: #dcfce7;">
-                <td style="padding: 12px; border: 1px solid #86efac; font-weight: 900; color: #166534; font-size: 14px;">صافي المستحق</td>
-                <td style="padding: 12px; border: 1px solid #86efac; text-align: left; font-family: monospace; font-weight: 900; color: #166534; font-size: 14px;">${item.netSalary.toLocaleString()} ج.م</td>
-              </tr>
+              <tr><td style="padding: 8px 10px; border: 1px solid #e2e8f0; background: #f1f5f9; font-weight: bold;">الراتب الأساسي</td><td style="padding: 8px 10px; border: 1px solid #e2e8f0; background: #f1f5f9; text-align: left; font-family: monospace; font-weight: bold;">${item.basicSalary.toLocaleString()}</td></tr>
+              <tr><td style="padding: 8px 10px; border: 1px solid #e2e8f0; color: #475569;">المستحق من الراتب الأساسي (${item.presentDays}/22 يوم)</td><td style="padding: 8px 10px; border: 1px solid #e2e8f0; text-align: left; font-family: monospace;">${Math.round(item.earnedBasic).toLocaleString()}</td></tr>
+              <tr><td style="padding: 8px 10px; border: 1px solid #e2e8f0; color: #16a34a;">بدل السكن</td><td style="padding: 8px 10px; border: 1px solid #e2e8f0; text-align: left; font-family: monospace; color: #16a34a;">+ ${item.housing.toLocaleString()}</td></tr>
+              <tr><td style="padding: 8px 10px; border: 1px solid #e2e8f0; color: #16a34a;">بدل المواصلات</td><td style="padding: 8px 10px; border: 1px solid #e2e8f0; text-align: left; font-family: monospace; color: #16a34a;">+ ${item.transport.toLocaleString()}</td></tr>
+              <tr><td style="padding: 8px 10px; border: 1px solid #e2e8f0; color: #16a34a;">بدل الطعام</td><td style="padding: 8px 10px; border: 1px solid #e2e8f0; text-align: left; font-family: monospace; color: #16a34a;">+ ${item.food.toLocaleString()}</td></tr>
+              <tr><td style="padding: 8px 10px; border: 1px solid #e2e8f0; color: #16a34a;">ساعات إضافي (${item.overtimeHours} س × 50)</td><td style="padding: 8px 10px; border: 1px solid #e2e8f0; text-align: left; font-family: monospace; color: #16a34a;">+ ${item.overtimePay.toLocaleString()}</td></tr>
+              <tr style="background: #dbeafe;"><td style="padding: 10px; border: 1px solid #93c5fd; font-weight: 900; color: #1e40af;">الراتب الإجمالي</td><td style="padding: 10px; border: 1px solid #93c5fd; text-align: left; font-family: monospace; font-weight: 900; color: #1e40af;">${item.grossSalary.toLocaleString()}</td></tr>
+              <tr><td style="padding: 8px 10px; border: 1px solid #e2e8f0; color: #dc2626;">التأمينات الاجتماعية</td><td style="padding: 8px 10px; border: 1px solid #e2e8f0; text-align: left; font-family: monospace; color: #dc2626;">- ${item.insurance.toLocaleString()}</td></tr>
+              <tr><td style="padding: 8px 10px; border: 1px solid #e2e8f0; color: #dc2626;">ضريبة الدخل</td><td style="padding: 8px 10px; border: 1px solid #e2e8f0; text-align: left; font-family: monospace; color: #dc2626;">- ${item.tax.toLocaleString()}</td></tr>
+              <tr><td style="padding: 8px 10px; border: 1px solid #e2e8f0; color: #dc2626;">قسط السلفة</td><td style="padding: 8px 10px; border: 1px solid #e2e8f0; text-align: left; font-family: monospace; color: #dc2626;">- ${item.loanDeduction.toLocaleString()}</td></tr>
+              <tr><td style="padding: 8px 10px; border: 1px solid #e2e8f0; color: #dc2626;">خصومات يدوية</td><td style="padding: 8px 10px; border: 1px solid #e2e8f0; text-align: left; font-family: monospace; color: #dc2626;">- ${item.manualDeductions.toLocaleString()}</td></tr>
+              <tr style="background: #dcfce7;"><td style="padding: 12px; border: 1px solid #86efac; font-weight: 900; color: #166534; font-size: 14px;">صافي المستحق</td><td style="padding: 12px; border: 1px solid #86efac; text-align: left; font-family: monospace; font-weight: 900; color: #166534; font-size: 14px;">${item.netSalary.toLocaleString()} ج.م</td></tr>
             </tbody>
           </table>
           <div style="margin-top: 40px; padding-top: 20px; border-top: 2px solid #e2e8f0; display: flex; justify-content: space-between; font-size: 10px; color: #64748b;">
-            <div>
-              <p style="margin: 0;">تم إنشاء هذا الكشف آلياً بواسطة VodFire</p>
-              <p style="margin: 5px 0 0 0;">هذا المستند لا يحتاج إلى توقيع</p>
-            </div>
-            <div style="text-align: left;">
-              <p style="margin: 0;">VodFire HRMS</p>
-              <p style="margin: 5px 0 0 0;">www.vodfire.com</p>
-            </div>
-          </div>
-          <div style="text-align: center; margin-top: 20px;">
-            <div style="display: inline-block; padding: 8px 20px; border: 2px dashed ${brandColor}; color: ${brandColor}; font-weight: bold; font-size: 12px; border-radius: 8px;">
-              ${monthName} ${year} - راتب معتمد
-            </div>
+            <div><p style="margin: 0;">تم إنشاء هذا الكشف آلياً بواسطة VodFire</p><p style="margin: 5px 0 0 0;">هذا المستند لا يحتاج إلى توقيع</p></div>
+            <div style="text-align: left;"><p style="margin: 0;">VodFire HRMS</p><p style="margin: 5px 0 0 0;">www.vodfire.com</p></div>
           </div>
         </div>
       `;
-
       const container = document.createElement('div');
       container.innerHTML = html;
-      const opt = {
-        margin: 0,
-        filename: `Payslip_${item.username || item.name}_${monthName}_${year}.pdf`,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff' },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-      };
-      
+      const opt = { margin: 0, filename: `Payslip_${item.username || item.name}_${monthName}_${year}.pdf`, image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff' }, jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' } };
       html2pdf().from(container.firstElementChild).set(opt).save();
       toast(`جاري تحميل كشف راتب ${item.name}...`);
     }
@@ -2339,13 +2137,57 @@
       reader.readAsText(file);
     }
 
+    // ═══════════════════════════════════════════════════════
+    // 🔍 زر التشخيص المؤقت — احذفه بعد حل المشكلة
+    // ═══════════════════════════════════════════════════════
+    window.diagnoseUsers = async function() {
+      if (!currentUser) { alert('سجّل دخول أولاً'); return; }
+      try {
+        const docs = await databases.listDocuments(CFG.databaseId, CFG.collectionId, [
+          SDK.Query.equal('entitytype', 'USER'),
+          SDK.Query.orderDesc('$createdAt'),
+          SDK.Query.limit(20)
+        ]);
+        let report = '📊 عدد المستخدمين: ' + docs.documents.length + '\n';
+        report += '🏢 companyId الحالي: ' + currentUser.companyId + '\n';
+        report += '🏢 companyCode الحالي: ' + (currentUser.companyCode || '—') + '\n';
+        report += '👤 اسم المدير: ' + currentUser.name + '\n';
+        report += '═══════════════════════════════════════\n\n';
+        docs.documents.forEach(function(d, i) {
+          const p = safeParse(d.Payload);
+          const rootMatch = d.companyId === currentUser.companyId;
+          report += '👤 مستخدم #' + (i + 1) + ':\n';
+          report += '   الاسم: ' + (p.name || '❌') + '\n';
+          report += '   الإيميل: ' + (p.email || d.userEmail || '❌') + '\n';
+          report += '   الدور: ' + (p.role || '❌') + '\n';
+          report += '   companyId جذري: ' + (d.companyId || '❌ فارغ') + ' ' + (rootMatch ? '✅' : '❌ لا يطابق') + '\n';
+          report += '   companyId Payload: ' + (p.companyId || '❌ فارغ') + '\n';
+          report += '   CompanyCode جذري: ' + (d.CompanyCode || '❌ فارغ') + '\n';
+          report += '   appwriteUserId: ' + (p.appwriteUserId || '❌ غير موجود') + '\n';
+          report += '   Doc ID: ' + d.$id + '\n';
+          report += '───────────────────────────────────\n';
+        });
+        const modal = document.createElement('div');
+        modal.setAttribute('data-diagnose-modal', '1');
+        modal.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.95);padding:15px;overflow:auto;';
+        modal.innerHTML = '<div style="max-width:700px;margin:0 auto;background:#1e293b;color:#fff;padding:20px;border-radius:16px;font-family:monospace;font-size:12px;direction:ltr;text-align:left;">' +
+          '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;border-bottom:1px solid #334155;padding-bottom:10px;">' +
+            '<h3 style="margin:0;color:#06b6d4;font-size:14px;">🔍 نتيجة الفحص</h3>' +
+            '<button onclick="document.querySelector(\'[data-diagnose-modal]\').remove()" style="background:#dc2626;color:#fff;border:none;padding:8px 16px;border-radius:8px;cursor:pointer;font-weight:bold;font-size:12px;">إغلاق</button>' +
+          '</div>' +
+          '<textarea style="width:100%;min-height:450px;background:#0f172a;color:#e2e8f0;border:1px solid #334155;border-radius:8px;padding:12px;font-family:monospace;font-size:11px;line-height:1.6;box-sizing:border-box;" readonly onclick="this.select()">' + report + '</textarea>' +
+          '<p style="color:#94a3b8;font-size:11px;margin-top:10px;">💡 انقر داخل المربع لاختيار كل النص</p>' +
+        '</div>';
+        document.body.appendChild(modal);
+      } catch(e) { alert('❌ خطأ: ' + e.message); }
+    };
+
     window.addEventListener('DOMContentLoaded', async () => {
       const savedLang = localStorage.getItem('vodfire_lang') || 'ar';
       setLanguage(savedLang);
       const savedTheme = localStorage.getItem('vodfire_theme') || 'dark';
       if (savedTheme === 'light') document.documentElement.classList.remove('dark');
       else document.documentElement.classList.add('dark');
-
       document.getElementById('landingScreen').classList.remove('hidden-view');
       document.getElementById('loginScreen').classList.add('hidden-view');
       document.getElementById('mainApp').classList.add('hidden-view');
@@ -2363,11 +2205,7 @@
               let finalRole = profile.role || 'employee';
               let cdata = {};
               if (profile.companyId) {
-                try { 
-                  const cd = await databases.getDocument(CFG.databaseId, CFG.collectionId, profile.companyId); 
-                  cdata = safeParse(cd.Payload); 
-                  if (cdata.ownerId === acc.$id && (!profile.role || profile.role === 'manager')) finalRole = 'general_manager'; 
-                } catch(e){}
+                try { const cd = await databases.getDocument(CFG.databaseId, CFG.collectionId, profile.companyId); cdata = safeParse(cd.Payload); if (cdata.ownerId === acc.$id && (!profile.role || profile.role === 'manager')) finalRole = 'general_manager'; } catch(e){}
               }
               currentUser = { id: acc.$id, email: acc.email, username: profile.username || acc.email.split('@')[0], name: profile.DisplayName || profile.name || acc.name || 'User', role: finalRole, isVerified: true, isSuperAdmin: false, profileImage: profile.ProfileImage || null, jobTitle: profile.jobTitle || 'Employee', basicSalary: profile.basicSalary || 5000, leaveBalance: profile.leaveBalance !== undefined ? profile.leaveBalance : 21, workStartTime: profile.workStartTime || '09:00', companyId: profile.companyId, companyCode: profile.companyCode, companyName: profile.companyName || profile.companyCode, companyData: cdata, workplace: profile.workplace || { name:'—', latitude: 0, longitude: 0, radiusMeters: 0 }, notes: profile.notes || [], _docId: profile._docId || null };
               restoreBrandSettings();
