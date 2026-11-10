@@ -1875,9 +1875,9 @@
       try {
         const email = `${user}@${currentUser.companyCode}.vodfire`;
         
-        // استخدام Appwrite Functions أو Backend آمن بدلاً من كشف Master API Key في الكود
+        // تم تصحيح اسم دالة Appwrite هنا ليطابق ما كتبته في لوحة التحكم تماماً: create-uesr
         const execution = await functions.createExecution(
-          'create-employee-function-id', 
+          'create-uesr', 
           JSON.stringify({ email, password: pass, name, role, jobTitle: jt, basicSalary, leaveBalance, workStartTime, companyId: currentUser.companyId, companyCode: currentUser.companyCode, companyName: currentUser.companyName, workplace: { name: locName, latitude: lat, longitude: lng, radiusMeters: radius } })
         );
         
