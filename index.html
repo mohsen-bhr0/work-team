@@ -22,6 +22,7 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@vladmandic/face-api/dist/face-api.js"></script>
 
   <script type="module">
     import { Client, Databases, Account, ID, Query, Functions } from 'https://cdn.jsdelivr.net/npm/appwrite@15.0.0/+esm';
@@ -342,10 +343,39 @@
           <div><h3 class="text-xl font-black dark:text-white text-slate-900 flex items-center gap-2"><i data-lucide="map-pin" class="w-6 h-6" style="color: var(--brand-color, #06b6d4);"></i><span data-i18n="check_attendance">تسجيل الحضور</span></h3></div>
           <div id="attendanceTodayStatusBadge" class="px-3 py-1.5 rounded-full text-xs font-bold bg-amber-500/10 text-amber-500 border border-amber-500/30" data-i18n="not_started">لم تبدأ</div>
         </div>
+        
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div class="p-4 dark:bg-slate-900 bg-slate-50 rounded-2xl border dark:border-slate-700 border-slate-200"><span class="text-xs font-bold text-slate-400 block mb-1" data-i18n="your_workplace">مقر عملك</span><div id="empWorkplaceName" class="font-bold text-sm dark:text-white text-slate-900">—</div><div id="empWorkplaceCoords" class="text-xs text-slate-500 font-mono mt-1">—</div></div>
-          <div class="p-4 dark:bg-slate-900 bg-slate-50 rounded-2xl border dark:border-slate-700 border-slate-200"><div class="flex items-center justify-between mb-1"><span class="text-xs font-bold text-slate-400" data-i18n="your_location">موقعك</span><button onclick="checkEmployeeGPS(true)" class="text-xs font-bold cursor-pointer hover:underline" style="color: var(--brand-color, #06b6d4);" data-i18n="check">فحص</button></div><div id="empDistanceText" class="text-sm font-bold dark:text-white text-slate-900" data-i18n="press_check">اضغط فحص</div></div>
+          <div class="p-4 dark:bg-slate-900 bg-slate-50 rounded-2xl border dark:border-slate-700 border-slate-200">
+            <span class="text-xs font-bold text-slate-400 block mb-1" data-i18n="your_workplace">مقر عملك</span>
+            <div id="empWorkplaceName" class="font-bold text-sm dark:text-white text-slate-900">—</div>
+            <div id="empWorkplaceCoords" class="text-xs text-slate-500 font-mono mt-1">—</div>
+          </div>
+          <div class="p-4 dark:bg-slate-900 bg-slate-50 rounded-2xl border dark:border-slate-700 border-slate-200">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-xs font-bold text-slate-400" data-i18n="your_location">موقعك</span>
+              <button onclick="checkEmployeeGPS(true)" class="text-xs font-bold cursor-pointer hover:underline" style="color: var(--brand-color, #06b6d4);" data-i18n="check">فحص</button>
+            </div>
+            <div id="empDistanceText" class="text-sm font-bold dark:text-white text-slate-900" data-i18n="press_check">اضغط فحص</div>
+          </div>
         </div>
+
+        <!-- قسم بصمة الوجه -->
+        <div class="p-4 dark:bg-slate-900 bg-slate-50 rounded-2xl border dark:border-slate-700 border-slate-200 flex flex-col items-center">
+          <span class="text-sm font-bold dark:text-white text-slate-900 mb-2 flex items-center gap-2"><i data-lucide="scan-face" class="w-5 h-5 text-cyan-400"></i> بصمة الوجه (Face ID)</span>
+          <div class="relative w-full max-w-sm aspect-video bg-black rounded-xl overflow-hidden mb-3">
+            <video id="faceVideo" autoplay muted playsinline class="w-full h-full object-cover hidden"></video>
+            <div id="facePlaceholder" class="absolute inset-0 flex flex-col items-center justify-center text-slate-500">
+              <i data-lucide="camera" class="w-10 h-10 mb-2"></i>
+              <span class="text-xs">الكاميرا غير مفعلة</span>
+            </div>
+          </div>
+          <div class="flex gap-2 w-full max-w-sm">
+            <button type="button" onclick="startFaceCamera()" id="btnStartFace" class="flex-1 py-2 bg-slate-700 hover:bg-slate-600 text-white font-bold rounded-xl text-xs cursor-pointer">تشغيل الكاميرا</button>
+            <button type="button" onclick="captureFace()" id="btnCaptureFace" class="flex-1 py-2 bg-cyan-600 hover:bg-cyan-700 text-white font-bold rounded-xl text-xs cursor-pointer hidden">التقاط الوجه</button>
+          </div>
+          <div id="faceStatusText" class="text-xs font-bold mt-2 text-amber-500 hidden">جاري التعرف...</div>
+        </div>
+
         <div class="grid grid-cols-2 gap-4">
           <button id="btnCheckIn" onclick="handleCheckIn()" class="py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded-2xl text-sm cursor-pointer flex items-center justify-center gap-2 shadow-lg shadow-emerald-900/20"><i data-lucide="log-in" class="w-5 h-5"></i> <span data-i18n="start_work">بدء العمل</span></button>
           <button id="btnCheckOut" onclick="handleCheckOut()" disabled class="py-4 dark:bg-slate-700 bg-slate-300 text-white font-black rounded-2xl text-sm cursor-pointer disabled:opacity-40 flex items-center justify-center gap-2"><i data-lucide="log-out" class="w-5 h-5"></i> <span data-i18n="end_work">نهاية العمل</span></button>
@@ -742,9 +772,9 @@
         all_companies: "كل الشركات", active: "نشطة", suspended: "موقوفة", all_users: "كل المستخدمين", search: "ابحث...",
         search_employee: "ابحث عن موظف...", search_attendance: "ابحث باسم الموظف أو التاريخ...", company: "الشركة", status: "الحالة",
         profile: "إعدادات الحساب", change_photo: "تغيير الصورة الشخصية", display_name: "الاسم الظاهر", save: "حفظ التعديلات",
-        add_employee_manager: "إضافة موظف أو مسؤول", name_required: "الاسم *",
+        add_employee_manager: "إضافة موظف أو مسؤول", name_required: "الاسم *", username_required: "المستخدم *", password_required: "كلمة المرور *",
         rbac_role_label: "الدور التنظيمي (RBAC)", role_gen_mgr: "مدير عام (General Manager)", role_hr: "مدير موارد بشرية (HR Manager)", role_fin: "مدير مالي (Financial Manager)", role_sup: "مشرف قسم (Department Supervisor)", role_emp: "موظف (Employee)",
-        type: "النوع", leave: "إجازة", loan: "سلفة", leave_type: "نوع الإجازة", annual: "سنوية", sick: "مرضية", emergency: "طارئة", amount: "المبلغ", reason_required: "السبب *",
+        type: "النوع", leave: "إجازة", loan: "سلفة", leave_type: "نوع الإجازة", annual: "سنوية", sick: "مرضية", emergency: "طارئة", amount: "المبلغ", reason_required: "السبب *", send: "إرسال",
         status_pending: "قيد المراجعة", status_approved: "موافق", status_rejected: "مرفوض", approve: "موافقة", reject: "رفض", delete: "حذف", edit: "تعديل", on_duty: "على رأس العمل",
         msg_fill_fields: "املأ كل الحقول", msg_code_format: "الكود 3-20 حرف", msg_user_format: "المستخدم 3-30 حرف",
         msg_pass_length: "كلمة المرور 8+ أحرف", msg_code_used: "الكود مستخدم", msg_user_used: "اسم المستخدم مستخدم",
@@ -766,7 +796,8 @@
         jan: "يناير", feb: "فبراير", mar: "مارس", apr: "أبريل", may: "مايو", jun: "يونيو", jul: "يوليو", aug: "أغسطس", sep: "سبتمبر", oct: "أكتوبر", nov: "نوفمبر", dec: "ديسمبر",
         view: "عرض", days_present: "أيام الحضور", total_hours: "إجمالي الساعات", late_days: "أيام التأخير", absences: "الغياب",
         download_csv: "تحميل التقرير (CSV)", download_pdf: "تحميل التقرير PDF", msg_no_data_period: "لا توجد بيانات في هذه الفترة", hours: "ساعة",
-        work_start_time: "وقت بدء العمل الرسمي", dashboard_welcome_badge: "لوحة التحكم المؤسسية", dashboard_welcome_desc: "إليك نظرة عامة على إحصائيات شركتك ورصيد إجازاتك.",
+        work_start_time: "وقت بدء العمل الرسمي", work_location: "موقع العمل (GPS)", location_name: "اسم المقر",
+        dashboard_welcome_badge: "لوحة التحكم المؤسسية", dashboard_welcome_desc: "إليك نظرة عامة على إحصائيات شركتك ورصيد إجازاتك.",
         total: "إجمالي", today: "اليوم", pending: "قيد الانتظار", stat_employees_label: "إجمالي الموظفين المسجلين", stat_attendance_label: "الموظفون الحاضرون اليوم",
         stat_requests_label: "طلبات بانتظار الموافقة", leave_balance: "رصيد الإجازات", stat_leave_label: "أيام الإجازات المتبقية لك",
         recent_attendance: "حضور اليوم السريع", view_all: "عرض الكل", recent_requests: "أحدث الطلبات", quick_actions: "اختصارات سريعة",
@@ -799,9 +830,9 @@
         all_companies: "All Companies", active: "Active", suspended: "Suspended", all_users: "All Users", search: "Search...",
         search_employee: "Search employee...", search_attendance: "Search by name or date...", company: "Company", status: "Status",
         profile: "Account Settings", change_photo: "Change Photo", display_name: "Display Name", save: "Save",
-        add_employee_manager: "Add Employee or Manager", name_required: "Name *",
+        add_employee_manager: "Add Employee or Manager", name_required: "Name *", username_required: "Username *", password_required: "Password *",
         rbac_role_label: "Organizational Role (RBAC)", role_gen_mgr: "General Manager", role_hr: "HR Manager", role_fin: "Financial Manager", role_sup: "Supervisor", role_emp: "Employee",
-        type: "Type", leave: "Leave", loan: "Loan", leave_type: "Leave Type", annual: "Annual", sick: "Sick", emergency: "Emergency", amount: "Amount", reason_required: "Reason *",
+        type: "Type", leave: "Leave", loan: "Loan", leave_type: "Leave Type", annual: "Annual", sick: "Sick", emergency: "Emergency", amount: "Amount", reason_required: "Reason *", send: "Send",
         status_pending: "Pending", status_approved: "Approved", status_rejected: "Rejected", approve: "Approve", reject: "Reject", delete: "Delete", edit: "Edit", on_duty: "On duty",
         msg_fill_fields: "Fill all fields", msg_code_format: "Code 3-20 chars", msg_user_format: "Username 3-30 chars",
         msg_pass_length: "Password 8+ chars", msg_code_used: "Code used", msg_user_used: "Username used",
@@ -823,7 +854,8 @@
         jan: "January", feb: "February", mar: "March", apr: "April", may: "May", jun: "June", jul: "July", aug: "August", sep: "September", oct: "October", nov: "November", dec: "December",
         view: "View", days_present: "Days Present", total_hours: "Total Hours", late_days: "Late Days", absences: "Absences",
         download_csv: "Download CSV", download_pdf: "Download PDF", msg_no_data_period: "No data", hours: "hrs",
-        work_start_time: "Work Start Time", dashboard_welcome_badge: "Enterprise Dashboard", dashboard_welcome_desc: "Overview of your company.",
+        work_start_time: "Work Start Time", work_location: "Work Location (GPS)", location_name: "Location Name",
+        dashboard_welcome_badge: "Enterprise Dashboard", dashboard_welcome_desc: "Overview of your company.",
         total: "Total", today: "Today", pending: "Pending", stat_employees_label: "Total Employees", stat_attendance_label: "Present Today",
         stat_requests_label: "Pending Requests", leave_balance: "Leave Balance", stat_leave_label: "Your remaining leave days",
         recent_attendance: "Recent Attendance", view_all: "View All", recent_requests: "Recent Requests", quick_actions: "Quick Actions",
@@ -856,9 +888,9 @@
         all_companies: "Tutte le Aziende", active: "Attive", suspended: "Sospese", all_users: "Tutti gli Utenti", search: "Cerca...",
         search_employee: "Cerca dipendente...", search_attendance: "Cerca per nome o data...", company: "Azienda", status: "Stato",
         profile: "Impostazioni Account", change_photo: "Cambia Foto", display_name: "Nome Visualizzato", save: "Salva",
-        add_employee_manager: "Aggiungi Dipendente o Manager", name_required: "Nome *",
+        add_employee_manager: "Aggiungi Dipendente o Manager", name_required: "Nome *", username_required: "Utente *", password_required: "Password *",
         rbac_role_label: "Ruolo Organizzativo (RBAC)", role_gen_mgr: "Direttore Generale", role_hr: "HR Manager", role_fin: "Manager Finanziario", role_sup: "Supervisore", role_emp: "Dipendente",
-        type: "Tipo", leave: "Ferie", loan: "Prestito", leave_type: "Tipo Ferie", annual: "Annuale", sick: "Malattia", emergency: "Emergenza", amount: "Importo", reason_required: "Motivo *",
+        type: "Tipo", leave: "Ferie", loan: "Prestito", leave_type: "Tipo Ferie", annual: "Annuale", sick: "Malattia", emergency: "Emergenza", amount: "Importo", reason_required: "Motivo *", send: "Invia",
         status_pending: "In Attesa", status_approved: "Approvata", status_rejected: "Rifiutata", approve: "Approva", reject: "Rifiuta", delete: "Elimina", edit: "Modifica", on_duty: "In servizio",
         msg_fill_fields: "Compila i campi", msg_code_format: "Codice 3-20", msg_user_format: "Utente 3-30",
         msg_pass_length: "Password 8+ caratteri", msg_code_used: "Codice in uso", msg_user_used: "Utente in uso",
@@ -880,7 +912,8 @@
         jan: "Gennaio", feb: "Febbraio", mar: "Marzo", apr: "Aprile", may: "Maggio", jun: "Giugno", jul: "Luglio", aug: "Agosto", sep: "Settembre", oct: "Ottobre", nov: "Novembre", dec: "Dicembre",
         view: "Visualizza", days_present: "Giorni Presenti", total_hours: "Ore Totali", late_days: "Ritardi", absences: "Assenze",
         download_csv: "Scarica CSV", download_pdf: "Scarica PDF", msg_no_data_period: "Nessun dato", hours: "ore",
-        work_start_time: "Orario Inizio Lavoro", dashboard_welcome_badge: "Dashboard Aziendale", dashboard_welcome_desc: "Panoramica dell'azienda.",
+        work_start_time: "Orario Inizio Lavoro", work_location: "Sede di Lavoro (GPS)", location_name: "Nome Sede",
+        dashboard_welcome_badge: "Dashboard Aziendale", dashboard_welcome_desc: "Panoramica dell'azienda.",
         total: "Totale", today: "Oggi", pending: "In Attesa", stat_employees_label: "Totale Dipendenti", stat_attendance_label: "Presenti Oggi",
         stat_requests_label: "Richieste in Attesa", leave_balance: "Saldo Ferie", stat_leave_label: "Giorni di ferie rimanenti",
         recent_attendance: "Presenze Recenti", view_all: "Vedi Tutti", recent_requests: "Richieste Recenti", quick_actions: "Azioni Rapide",
@@ -966,6 +999,11 @@
     let currentViewingEmployeeId = null;
     let pendingLogoBase64 = null;
     let isOnline = navigator.onLine;
+
+    // Face ID Variables
+    let faceStream = null;
+    let isFaceModelLoaded = false;
+    let faceCapturedData = null;
 
     window.addEventListener('online', () => { isOnline = true; document.getElementById('offlineIndicator')?.classList.add('hidden'); syncOfflineData(); });
     window.addEventListener('offline', () => { isOnline = false; document.getElementById('offlineIndicator')?.classList.remove('hidden'); });
@@ -1239,9 +1277,11 @@
       if (!confirm(t('msg_delete_company_confirm'))) return;
       if (!confirm(t('msg_delete_company_final'))) return;
       try {
+        // مسح مستندات الشركة بالكامل (بما فيها الموظفين والحضور والطلبات)
         const r = await databases.listDocuments(CFG.databaseId, CFG.collectionId, [SDK.Query.equal('companyId', docId), SDK.Query.limit(500)]);
         for (const d of r.documents) { try { await databases.deleteDocument(CFG.databaseId, CFG.collectionId, d.$id); } catch(e){} }
         try { await databases.deleteDocument(CFG.databaseId, CFG.collectionId, docId); } catch(e){}
+        
         toast(t('msg_company_deleted') + ` "${name}"`);
         await loadSuperAdminData(); renderSuperAdminCompanies();
       } catch(e) { alert(t('msg_failed') + ': ' + e.message); }
@@ -1551,21 +1591,34 @@
       const role = currentUser.role || 'employee';
       if (role === 'employee') return;
 
-      const daysOfWeek = ['السبت', 'الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة'];
-      const counts = [5, 12, 15, 14, 16, 10, 2];
+      const last7Days = [];
+      const counts = [];
+      const dayNames = [];
+      const daysAr = ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
       
+      for (let i = 6; i >= 0; i--) {
+        const d = new Date();
+        d.setDate(d.getDate() - i);
+        const dateStr = d.toISOString().slice(0, 10);
+        last7Days.push(dateStr);
+        dayNames.push(daysAr[d.getDay()]);
+        const dailyCount = localCache.attendance.filter(a => a.date === dateStr).length;
+        counts.push(dailyCount);
+      }
+
       const ctx1 = document.getElementById('weeklyAttendanceChart');
       if (ctx1) {
         if (weeklyChartInstance) weeklyChartInstance.destroy();
         weeklyChartInstance = new Chart(ctx1, {
           type: 'bar',
-          data: { labels: daysOfWeek, datasets: [{ label: t('attendance'), data: counts, backgroundColor: '#06b6d4', borderRadius: 8 }] },
-          options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94a3b8' } }, x: { grid: { display: false }, ticks: { color: '#94a3b8' } } } }
+          data: { labels: dayNames, datasets: [{ label: t('attendance'), data: counts, backgroundColor: '#06b6d4', borderRadius: 8 }] },
+          options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { precision: 0, color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }, x: { grid: { display: false }, ticks: { color: '#94a3b8' } } } }
         });
       }
 
       const totalEmp = localCache.users.length || 1;
-      const presentToday = localCache.attendance.filter(a => a.date === new Date().toISOString().slice(0,10)).length;
+      const todayStr = new Date().toISOString().slice(0, 10);
+      const presentToday = localCache.attendance.filter(a => a.date === todayStr).length;
       const absentToday = Math.max(0, totalEmp - presentToday);
 
       const ctx2 = document.getElementById('absenceRatioChart');
@@ -1643,22 +1696,97 @@
       });
     }
 
+    // دوال بصمة الوجه
+    async function loadFaceModels() {
+      if (isFaceModelLoaded) return;
+      try {
+        const MODEL_URL = 'https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model/';
+        await faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL);
+        isFaceModelLoaded = true;
+      } catch(e) { console.error("فشل تحميل موديلات الوجه", e); }
+    }
+
+    async function startFaceCamera() {
+      try {
+        await loadFaceModels();
+        faceStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } });
+        const video = document.getElementById('faceVideo');
+        video.srcObject = faceStream;
+        video.classList.remove('hidden');
+        document.getElementById('facePlaceholder').classList.add('hidden');
+        document.getElementById('btnStartFace').classList.add('hidden');
+        document.getElementById('btnCaptureFace').classList.remove('hidden');
+        document.getElementById('faceStatusText').classList.remove('hidden');
+        document.getElementById('faceStatusText').textContent = 'جاري فحص الوجه...';
+        
+        const interval = setInterval(async () => {
+          if (!faceStream || video.paused || video.ended) { clearInterval(interval); return; }
+          const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions());
+          if (detections.length > 0) {
+             document.getElementById('faceStatusText').textContent = '✅ تم التعرف على الوجه، اضغط التقاط';
+             document.getElementById('faceStatusText').className = 'text-xs font-bold mt-2 text-emerald-500';
+             clearInterval(interval);
+          } else {
+             document.getElementById('faceStatusText').textContent = '❌ لم يتم العثور على وجه، اقترب من الكاميرا';
+             document.getElementById('faceStatusText').className = 'text-xs font-bold mt-2 text-rose-500';
+          }
+        }, 1000);
+      } catch (e) { alert('تعذر فتح الكاميرا: ' + e.message); }
+    }
+
+    async function captureFace() {
+      const video = document.getElementById('faceVideo');
+      const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions());
+      if (detections.length === 0) { alert('لم يتم العثور على وجه واضح! جرب تاني.'); return; }
+      
+      const canvas = document.createElement('canvas');
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      canvas.getContext('2d').drawImage(video, 0, 0);
+      faceCapturedData = canvas.toDataURL('image/jpeg', 0.5);
+
+      if (faceStream) {
+        faceStream.getTracks().forEach(track => track.stop());
+        faceStream = null;
+      }
+      
+      video.classList.add('hidden');
+      document.getElementById('facePlaceholder').classList.remove('hidden');
+      document.getElementById('btnStartFace').classList.remove('hidden');
+      document.getElementById('btnCaptureFace').classList.add('hidden');
+      document.getElementById('faceStatusText').classList.add('hidden');
+      
+      alert('✅ تم التقاط بصمة الوجه بنجاح!');
+    }
+
     async function handleCheckIn() {
       if (currentUser.role !== 'employee') return alert(t('msg_you_exempt'));
       const today = new Date().toISOString().slice(0,10);
       if (localCache.attendance.find(r => r.userId === currentUser.id && r.date === today)) return alert(t('msg_already_checked_in'));
+      if (!faceCapturedData) return alert('⚠️ يجب التقاط بصمة الوجه أولاً قبل تسجيل الحضور.');
+      
       try {
         const { dist } = await checkEmployeeGPS();
         const w = currentUser.workplace;
         if (dist > w.radiusMeters) return alert(`${t('msg_out_of_range')} (${dist}m > ${w.radiusMeters}m)`);
+        
         const now = new Date();
-        const pl = { id: 'att_' + Date.now(), userId: currentUser.id, userName: currentUser.name, companyId: currentUser.companyId, date: now.toISOString().slice(0,10), checkIn: now.toLocaleTimeString(currentLang === 'ar' ? 'ar-EG' : currentLang === 'it' ? 'it-IT' : 'en-US'), checkOut: null, distance: dist };
+        const pl = { 
+          id: 'att_' + Date.now(), userId: currentUser.id, userName: currentUser.name, companyId: currentUser.companyId, 
+          date: now.toISOString().slice(0,10), checkIn: now.toLocaleTimeString(currentLang === 'ar' ? 'ar-EG' : currentLang === 'it' ? 'it-IT' : 'en-US'), 
+          checkOut: null, distance: dist, faceId: faceCapturedData 
+        };
+        
         const d = await createCloudDoc('ATTENDANCE', pl);
         localCache.attendance.unshift({ ...pl, _docId: d.$id });
+        
         document.getElementById('btnCheckIn').disabled = true;
         document.getElementById('btnCheckOut').disabled = false;
         document.getElementById('attendanceTodayStatusBadge').textContent = `${t('started')} ${pl.checkIn}`;
-        renderAttendance(); renderDashboardStats(); toast(t('msg_attendance_recorded'));
+        
+        faceCapturedData = null;
+        renderAttendance(); renderDashboardStats(); 
+        toast('✅ تم تسجيل الحضور ببصمة الوجه والموقع');
       } catch(e) { alert(t('msg_failed') + ': ' + e.message); }
     }
 
@@ -1833,7 +1961,6 @@
 
     function openNewEmployeeModal() { document.getElementById('employeeModal').classList.remove('hidden-view'); }
 
-    // 🔥 الدالة المعدلة: بتحفظ الموظف في الجدول من المتصفح وتأخذ ID الشركة أوتوماتيك
     async function handleCreateEmployee(e) {
       e.preventDefault();
       const name = document.getElementById('newEmpFullName').value.trim();
@@ -1852,20 +1979,16 @@
       if (!name || !user || !pass) return alert(t('msg_required_fields'));
       if (pass.length < 8) return alert(t('msg_pass_short'));
       if (localCache.users.find(u => u.username === user)) return alert(t('msg_user_used'));
-      
       const btn = e.target.querySelector('button[type="submit"]');
       const orig = btn.innerHTML;
-      btn.disabled = true; 
-      btn.innerHTML = '<i data-lucide="loader" class="w-4 h-4 animate-spin inline"></i> ' + t('msg_loading'); 
-      lucide.createIcons();
-      
+      btn.disabled = true; btn.innerHTML = '<i data-lucide="loader" class="w-4 h-4 animate-spin inline"></i> ' + t('msg_loading'); lucide.createIcons();
       try {
         const email = `${user}@${currentUser.companyCode}.vodfire`;
         
-        // 1. استدعاء الدالة القديمة (بس بتنشئ الحساب في Auth)
+        // 1. استدعاء الدالة السحابية (القديمة) لإنشاء الحساب في Auth
         const execution = await functions.createExecution(
           'create-uesr', 
-          JSON.stringify({ email, password: pass, name })
+          JSON.stringify({ email, password: pass, name, username: user, role, jobTitle: jt, basicSalary, leaveBalance, workStartTime, companyId: currentUser.companyId, companyCode: currentUser.companyCode, companyName: currentUser.companyName, workplace: { name: locName, latitude: lat, longitude: lng, radiusMeters: radius } })
         );
         
         if (execution.status === 'failed') throw new Error(execution.responseString || t('msg_failed'));
@@ -1884,7 +2007,7 @@
           basicSalary: basicSalary,
           leaveBalance: leaveBalance,
           workStartTime: workStartTime,
-          companyId: currentUser.companyId, // هنا السر: بياخد الآي دي من المدير
+          companyId: currentUser.companyId,
           companyCode: currentUser.companyCode,
           companyName: currentUser.companyName,
           appwriteUserId: result.user ? result.user.$id : null, 
@@ -1898,7 +2021,7 @@
           Payload: JSON.stringify(userPayload),
           Username: name,
           userEmail: email,
-          companyId: currentUser.companyId, // فلتر الشركة
+          companyId: currentUser.companyId,
           CompanyCode: currentUser.companyCode,
           createdAt: new Date().toISOString()
         });
@@ -1931,11 +2054,15 @@
       if (!confirm(t('msg_delete_emp_confirm'))) return;
       try {
         const u = localCache.users.find(x => x._docId === id);
+        if (!u) return;
+        
+        // مسح المستند من قاعدة البيانات
         await deleteCloudDoc(id);
-        await logAuditAction("حذف موظف", `تم حذف الموظف: ${u ? u.name : id}`);
+        await logAuditAction("حذف موظف", `تم حذف الموظف: ${u.name}`);
         localCache.users = localCache.users.filter(x => x._docId !== id);
         renderEmployees(); renderDashboardStats();
-      } catch(e){}
+        toast('✅ تم حذف الموظف من القائمة');
+      } catch(e){ alert('فشل الحذف: ' + e.message); }
     }
 
     function openProfileModal() { document.getElementById('newDisplayName').value = currentUser.name; document.getElementById('profileModal').classList.remove('hidden-view'); lucide.createIcons(); }
