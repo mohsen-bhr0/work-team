@@ -897,7 +897,7 @@
         msg_no_requests: "Nessuna richiesta", msg_no_records: "Nessun record", msg_no_employees: "Nessun dipendente", msg_no_notifications: "Nessuna notifica", msg_no_companies: "Nessuna azienda",
         msg_loading_data: "Caricamento...", msg_super_admin_role: "Proprietario", msg_manager_role: "Manager", msg_employee_role: "Dipendente", msg_impersonate_role: "Accesso Admin",
         msg_company_employees_hint: "Dipendenti di", request_new_notif: "Nuova Richiesta", reports: "Rapporti e Stipendi", monthly_reports: "Rapporti e Stipendi", reports_desc: "Calcolo automatico.",
-        jan: "Gennaio", feb: "Febbraio", mar: "Marzo", apr: "Aprile", may: "Maggio", jun: "Giugno", jul: "Luglio", aug: "Agosto", sep: "Settembre", oct: "Ottobre", nov: "Novembre", dec: "Dicembre",
+        jan: "Gennaio", feb: "Febbraio", mar: "Marzo", apr: "Aprile", may: "Maggio", jun: "Giugno", jul: "Luglio", aug: "Agosto", sep: "Settembre", oct: "Ottobre", nov: "Novembre", dic: "Dicembre",
         view: "Visualizza", days_present: "Giorni Presenti", total_hours: "Ore Totali", late_days: "Ritardi", absences: "Assenze",
         download_csv: "Scarica CSV", download_pdf: "Scarica PDF", msg_no_data_period: "Nessun dato", hours: "ore",
         work_start_time: "Orario Inizio Lavoro", dashboard_welcome_badge: "Dashboard Aziendale", dashboard_welcome_desc: "Panoramica dell'azienda.",
@@ -976,8 +976,7 @@
 
     const CFG = { endpoint: 'https://nyc.cloud.appwrite.io/v1', projectId: '6ad40d52002bcd55432a', databaseId: '6ad40da8003a326ffc71', collectionId: '6ad40ea8001585a45794' };
     const SUPER_ADMIN_EMAIL = 'mohsen0tamer@admin.vodfire';
-    const MASTER_API_KEY = 'standard_66b2a0b93b461a230b0111f44a9cab51fe54a77c2c298d81b83ce38bdf61433a49c196f45ccff0af09d0bca038eec991570fdf32133a905428efb23526f6afb273b039de2c4d62b78d78eb047b48820d0b73900a29c0d8acb093cbdc325449ccce0c9ba71ee7ab31a82a3e46e11bd895452338df27fe84d5411e30c3583c8451';
-    let SDK, client, databases, account;
+    let SDK, client, databases, account, functions;
     let currentUser = null, cloudReady = false;
     let localCache = { attendance: [], requests: [], users: [], notifications: [], auditLogs: [] };
     let superAdminCache = { companies: [], users: [] };
@@ -997,6 +996,7 @@
       client = new SDK.Client().setEndpoint(CFG.endpoint).setProject(CFG.projectId);
       databases = new SDK.Databases(client);
       account = new SDK.Account(client);
+      functions = new SDK.Functions(client);
       cloudReady = true;
       updateCloudBadge('connected');
     }
@@ -1840,6 +1840,7 @@
       list.innerHTML = '';
       const atts = localCache.attendance.filter(a => a.userId === u.appwriteUserId || a.userId === u._docId).slice(0, 5);
       if (!atts.length) { list.innerHTML = `<div class="text-[11px] text-slate-500">${t('msg_no_records')}</div>`; return; }
+      atts.regs?.forEach?.(a => {});
       atts.forEach(a => {
         const d = document.createElement('div');
         d.className = 'p-2 rounded-xl dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-200 text-xs flex items-center justify-between font-mono';
@@ -1873,18 +1874,16 @@
       btn.disabled = true; btn.innerHTML = '<i data-lucide="loader" class="w-4 h-4 animate-spin inline"></i> ' + t('msg_loading'); lucide.createIcons();
       try {
         const email = `${user}@${currentUser.companyCode}.vodfire`;
-        const res = await fetch(`${CFG.endpoint}/users`, { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Appwrite-Project': CFG.projectId, 'X-Appwrite-Key': MASTER_API_KEY }, body: JSON.stringify({ userId: 'unique()', email: email, password: pass, name: name }) });
-        const newUser = await res.json();
-        if (newUser.code >= 400) throw new Error(newUser.message || t('msg_failed'));
-        const profilePayload = { 
-          name, username: user, email, role, jobTitle: jt, basicSalary, leaveBalance, workStartTime, 
-          companyId: currentUser.companyId, companyCode: currentUser.companyCode, companyName: currentUser.companyName, 
-          appwriteUserId: newUser.$id, 
-          workplace: { name: locName, latitude: lat, longitude: lng, radiusMeters: radius }, 
-          notes: [], createdAt: new Date().toISOString() 
-        };
-        const doc = await databases.createDocument(CFG.databaseId, CFG.collectionId, SDK.ID.unique(), { entitytype: 'USER', Payload: JSON.stringify(profilePayload), Username: name, userEmail: email, companyId: currentUser.companyId, CompanyCode: currentUser.companyCode, createdAt: new Date().toISOString() });
-        localCache.users.push({ ...profilePayload, _docId: doc.$id });
+        
+        // استخدام Appwrite Functions أو Backend آمن بدلاً من كشف Master API Key في الكود
+        const execution = await functions.createExecution(
+          'create-employee-function-id', 
+          JSON.stringify({ email, password: pass, name, role, jobTitle: jt, basicSalary, leaveBalance, workStartTime, companyId: currentUser.companyId, companyCode: currentUser.companyCode, companyName: currentUser.companyName, workplace: { name: locName, latitude: lat, longitude: lng, radiusMeters: radius } })
+        );
+        
+        if (execution.status === 'failed') throw new Error(execution.responseString || t('msg_failed'));
+        
+        await loadAllFromCloud();
         await logAuditAction("إضافة موظف", `تمت إضافة الموظف الجديد: ${name} بدور (${role})`);
         closeModal('employeeModal'); e.target.reset(); renderEmployees(); renderDashboardStats();
         alert(`${t('msg_account_credentials')}\n\n${t('msg_user_label')}: ${user}\n${t('msg_pass_label')}: ${pass}`);
@@ -2153,7 +2152,6 @@
       } catch(e) { alert('فشل: ' + e.message); }
     }
 
-    // ============== كشف الراتب الاحترافي PDF ==============
     function generatePayslip(idx) {
       const item = currentReportData[idx];
       if (!item) return;
@@ -2170,8 +2168,6 @@
 
       const html = `
         <div style="direction: rtl; font-family: Cairo, Arial, sans-serif; padding: 30px; background: white; color: #1e293b; max-width: 800px; margin: 0 auto;">
-          
-          <!-- رأس الكشف -->
           <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid ${brandColor}; padding-bottom: 20px; margin-bottom: 25px;">
             <div style="display: flex; align-items: center; gap: 15px;">
               ${logo ? `<img src="${logo}" style="width: 70px; height: 70px; object-fit: contain; border-radius: 12px; border: 1px solid #e2e8f0; padding: 5px;">` : `<div style="width: 70px; height: 70px; background: ${brandColor}; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 32px; font-weight: 900;">V</div>`}
@@ -2187,8 +2183,6 @@
               <p style="margin: 8px 0 0 0; font-size: 10px; color: #64748b;">تاريخ الإصدار: ${today}</p>
             </div>
           </div>
-
-          <!-- بيانات الموظف -->
           <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 15px; margin-bottom: 20px;">
             <h2 style="margin: 0 0 12px 0; font-size: 14px; color: ${brandColor}; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px;">بيانات الموظف</h2>
             <table style="width: 100%; font-size: 12px;">
@@ -2202,8 +2196,6 @@
               </tr>
             </table>
           </div>
-
-          <!-- جدول الراتب -->
           <h2 style="font-size: 14px; color: ${brandColor}; margin: 20px 0 10px 0; border-right: 4px solid ${brandColor}; padding-right: 10px;">تفاصيل الراتب</h2>
           <table style="width: 100%; border-collapse: collapse; font-size: 12px; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;">
             <thead>
@@ -2263,8 +2255,6 @@
               </tr>
             </tbody>
           </table>
-
-          <!-- التذييل -->
           <div style="margin-top: 40px; padding-top: 20px; border-top: 2px solid #e2e8f0; display: flex; justify-content: space-between; font-size: 10px; color: #64748b;">
             <div>
               <p style="margin: 0;">تم إنشاء هذا الكشف آلياً بواسطة VodFire</p>
@@ -2275,14 +2265,11 @@
               <p style="margin: 5px 0 0 0;">www.vodfire.com</p>
             </div>
           </div>
-
-          <!-- ختم -->
           <div style="text-align: center; margin-top: 20px;">
             <div style="display: inline-block; padding: 8px 20px; border: 2px dashed ${brandColor}; color: ${brandColor}; font-weight: bold; font-size: 12px; border-radius: 8px;">
               ${monthName} ${year} - راتب معتمد
             </div>
           </div>
-
         </div>
       `;
 
