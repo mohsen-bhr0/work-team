@@ -48,9 +48,13 @@
     .tabs-slider { display: flex !important; overflow-x: auto !important; white-space: nowrap !important; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
     .tabs-slider::-webkit-scrollbar { display: none; }
     .payslip-container { background: #ffffff; color: #1e293b; padding: 30px; font-family: 'Cairo', sans-serif; }
+    
+    /* 🎯 إخفاء الإحصائيات والرسوم عن الموظف العادي */
+    .manager-only { display: block; }
+    body[data-role="employee"] .manager-only { display: none !important; }
   </style>
 </head>
-<body class="antialiased min-h-screen flex flex-col overflow-x-hidden" style="--brand-color: #06b6d4;">
+<body class="antialiased min-h-screen flex flex-col overflow-x-hidden" style="--brand-color: #06b6d4;" data-role="guest">
 
   <div id="landingScreen" class="fixed inset-0 flex flex-col bg-slate-950 text-slate-100 overflow-y-auto">
     <header class="w-full px-6 py-4 flex items-center justify-between border-b border-slate-800/50 sticky top-0 bg-slate-950/90 backdrop-blur-md z-10">
@@ -239,8 +243,9 @@
         </div>
       </div>
 
+      <!-- 🎯 الإحصائيات: أول 3 كروت للمديرين فقط، الكارت الرابع (الإجازات) متاح للكل -->
       <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
-        <div class="dark:bg-slate-800/90 bg-white transition border dark:border-slate-700/80 border-slate-200 p-5 rounded-3xl shadow-lg relative overflow-hidden group">
+        <div class="manager-only dark:bg-slate-800/90 bg-white transition border dark:border-slate-700/80 border-slate-200 p-5 rounded-3xl shadow-lg relative overflow-hidden group">
           <div class="flex items-center justify-between mb-3">
             <div class="w-10 h-10 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center" style="color: var(--brand-color, #06b6d4);"><i data-lucide="users" class="w-5 h-5"></i></div>
             <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400" data-i18n="total">إجمالي</span>
@@ -248,7 +253,7 @@
           <div class="text-2xl sm:text-3xl font-black dark:text-white text-slate-900 mb-1" id="statTotalEmployees">0</div>
           <div class="text-xs text-slate-400 font-bold" data-i18n="stat_employees_label">إجمالي الموظفين المسجلين</div>
         </div>
-        <div class="dark:bg-slate-800/90 bg-white transition border dark:border-slate-700/80 border-slate-200 p-5 rounded-3xl shadow-lg relative overflow-hidden group">
+        <div class="manager-only dark:bg-slate-800/90 bg-white transition border dark:border-slate-700/80 border-slate-200 p-5 rounded-3xl shadow-lg relative overflow-hidden group">
           <div class="flex items-center justify-between mb-3">
             <div class="w-10 h-10 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400"><i data-lucide="user-check" class="w-5 h-5"></i></div>
             <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400" data-i18n="today">اليوم</span>
@@ -256,7 +261,7 @@
           <div class="text-2xl sm:text-3xl font-black text-emerald-500 mb-1" id="statTodayAttendance">0</div>
           <div class="text-xs text-slate-400 font-bold" data-i18n="stat_attendance_label">الموظفون الحاضرون اليوم</div>
         </div>
-        <div class="dark:bg-slate-800/90 bg-white transition border dark:border-slate-700/80 border-slate-200 p-5 rounded-3xl shadow-lg relative overflow-hidden group">
+        <div class="manager-only dark:bg-slate-800/90 bg-white transition border dark:border-slate-700/80 border-slate-200 p-5 rounded-3xl shadow-lg relative overflow-hidden group">
           <div class="flex items-center justify-between mb-3">
             <div class="w-10 h-10 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400"><i data-lucide="file-clock" class="w-5 h-5"></i></div>
             <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400" data-i18n="pending">قيد الانتظار</span>
@@ -274,7 +279,7 @@
         </div>
       </div>
 
-      <div id="chartsContainerWrapper" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div id="chartsContainerWrapper" class="manager-only grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div class="dark:bg-slate-800 bg-white p-6 rounded-3xl border dark:border-slate-700 border-slate-200 shadow-sm">
           <h4 class="font-bold text-sm dark:text-white text-slate-900 mb-4 flex items-center gap-2"><i data-lucide="bar-chart-2" class="w-4 h-4 text-cyan-400"></i> <span data-i18n="chart_attendance_week">الحضور خلال الأسبوع</span></h4>
           <div class="h-64 relative flex items-center justify-center"><canvas id="weeklyAttendanceChart"></canvas></div>
@@ -316,7 +321,7 @@
                 <div class="w-8 h-8 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center"><i data-lucide="plus" class="w-4 h-4"></i></div>
                 <span class="text-xs font-bold dark:text-white text-slate-800" data-i18n="new_request">طلب جديد</span>
               </button>
-              <button onclick="switchTab('employees')" id="quickActionEmpBtn" class="p-3 dark:bg-slate-900 bg-slate-50 dark:hover:bg-slate-700/60 hover:bg-slate-100 border dark:border-slate-700 border-slate-200 rounded-2xl text-right transition cursor-pointer flex flex-col gap-2 col-span-2">
+              <button onclick="switchTab('employees')" id="quickActionEmpBtn" class="manager-only p-3 dark:bg-slate-900 bg-slate-50 dark:hover:bg-slate-700/60 hover:bg-slate-100 border dark:border-slate-700 border-slate-200 rounded-2xl text-right transition cursor-pointer flex flex-col gap-2 col-span-2">
                 <div class="w-8 h-8 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center"><i data-lucide="users" class="w-4 h-4"></i></div>
                 <span class="text-xs font-bold dark:text-white text-slate-800" data-i18n="employees">الموظفون</span>
               </button>
@@ -557,6 +562,174 @@
   </main>
 </div>
 
+<!-- مودال إعدادات الشركة (اللون) -->
+<div id="companySettingsModal" class="hidden-view fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4">
+  <div class="w-full max-w-lg dark:bg-slate-800 bg-white border dark:border-slate-700 border-slate-200 rounded-3xl p-6 space-y-4 max-h-[85vh] overflow-y-auto shadow-2xl">
+    <div class="flex items-center justify-between border-b dark:border-slate-700 border-slate-200 pb-3"><h3 class="font-bold text-sm dark:text-white text-slate-900 flex items-center gap-2"><i data-lucide="building" class="w-4 h-4 text-emerald-400"></i> <span data-i18n="company_settings">إعدادات الشركة (اللون)</span></h3><button onclick="closeModal('companySettingsModal')" class="text-slate-400 cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button></div>
+    <form onsubmit="handleSaveCompanySettings(event)" class="space-y-4 text-xs">
+      <div>
+        <label class="block mb-1 font-bold dark:text-slate-300 text-slate-700" data-i18n="brand_color">اللون الرئيسي للتطبيق</label>
+        <div class="flex items-center gap-3">
+          <input type="color" id="companyBrandColorInput" value="#06b6d4" class="w-12 h-10 rounded-xl cursor-pointer bg-transparent border dark:border-slate-700 border-slate-300">
+          <input type="text" id="companyBrandColorHex" value="#06b6d4" class="flex-1 p-2.5 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono">
+        </div>
+      </div>
+      <button type="submit" class="w-full py-3 brand-gradient text-white font-bold rounded-xl flex items-center justify-center gap-1 cursor-pointer shadow-md"><i data-lucide="save" class="w-4 h-4"></i> <span data-i18n="save">حفظ الإعدادات</span></button>
+    </form>
+  </div>
+</div>
+
+<!-- مودال إعدادات الراتب -->
+<div id="salarySettingsModal" class="hidden-view fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4">
+  <div class="w-full max-w-2xl dark:bg-slate-800 bg-white border dark:border-slate-700 border-slate-200 rounded-3xl p-6 space-y-4 max-h-[90vh] overflow-y-auto shadow-2xl">
+    <div class="flex items-center justify-between border-b dark:border-slate-700 border-slate-200 pb-3">
+      <h3 class="font-bold text-sm dark:text-white text-slate-900 flex items-center gap-2"><i data-lucide="wallet" class="w-4 h-4 text-emerald-400"></i><span>إعدادات الراتب المتقدم</span></h3>
+      <button onclick="closeModal('salarySettingsModal')" class="text-slate-400 cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button>
+    </div>
+    <input type="hidden" id="salarySettingsEmpId" value="">
+    <input type="hidden" id="salarySettingsEmpIndex" value="">
+    <div class="p-3 dark:bg-slate-900 bg-slate-50 rounded-xl border dark:border-slate-700 border-slate-200"><p class="text-xs text-slate-400">الموظف</p><p class="text-sm font-bold dark:text-white text-slate-900" id="salarySettingsEmpName">—</p></div>
+    <form onsubmit="handleSaveSalarySettings(event)" class="space-y-3 text-xs">
+      <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700">الراتب الأساسي (ج.م)</label><input type="number" id="salBasic" value="5000" min="0" required class="w-full p-2.5 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono"></div>
+      <div class="pt-2 border-t dark:border-slate-700 border-slate-200"><p class="text-[11px] font-bold text-cyan-400 mb-2 flex items-center gap-1"><i data-lucide="plus-circle" class="w-3 h-3"></i> البدلات</p><div class="grid grid-cols-3 gap-2"><div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700 text-[10px]">سكن</label><input type="number" id="salHousing" value="0" min="0" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono"></div><div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700 text-[10px]">مواصلات</label><input type="number" id="salTransport" value="0" min="0" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono"></div><div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700 text-[10px]">طعام</label><input type="number" id="salFood" value="0" min="0" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono"></div></div></div>
+      <div class="pt-2 border-t dark:border-slate-700 border-slate-200"><p class="text-[11px] font-bold text-amber-400 mb-2 flex items-center gap-1"><i data-lucide="shield" class="w-3 h-3"></i> التأمينات والضرائب</p><div class="grid grid-cols-2 gap-2"><div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700 text-[10px]">تأمينات (%)</label><input type="number" id="salInsurance" value="11" min="0" max="100" step="0.5" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono"></div><div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700 text-[10px]">ضريبة (%)</label><input type="number" id="salTax" value="0" min="0" max="100" step="0.5" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono"></div></div></div>
+      <div class="pt-2 border-t dark:border-slate-700 border-slate-200"><p class="text-[11px] font-bold text-rose-400 mb-2 flex items-center gap-1"><i data-lucide="minus-circle" class="w-3 h-3"></i> الخصومات</p><div class="grid grid-cols-2 gap-2"><div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700 text-[10px]">سلفة</label><input type="number" id="salLoan" value="0" min="0" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono"></div><div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700 text-[10px]">يدوية</label><input type="number" id="salDeductions" value="0" min="0" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono"></div></div></div>
+      <div class="pt-2 border-t dark:border-slate-700 border-slate-200"><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700">ساعات إضافي (× 50 ج.م)</label><input type="number" id="salOvertime" value="0" min="0" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono"></div>
+      <button type="submit" class="w-full py-3 brand-gradient text-white font-bold rounded-xl flex items-center justify-center gap-1 cursor-pointer shadow-md mt-2"><i data-lucide="save" class="w-4 h-4"></i> <span>حفظ</span></button>
+    </form>
+  </div>
+</div>
+
+<!-- مودال الملف الشخصي للموظف -->
+<div id="employeeProfileModal" class="hidden-view fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4">
+  <div class="w-full max-w-2xl dark:bg-slate-800 bg-white border dark:border-slate-700 border-slate-200 rounded-3xl p-6 space-y-5 max-h-[90vh] overflow-y-auto shadow-2xl">
+    <div class="flex items-center justify-between border-b dark:border-slate-700 border-slate-200 pb-3">
+      <h3 class="font-black text-base dark:text-white text-slate-900 flex items-center gap-2"><i data-lucide="user" class="w-5 h-5" style="color: var(--brand-color, #06b6d4);"></i> <span data-i18n="employee_profile_title">الملف الشخصي للموظف</span></h3>
+      <button onclick="closeModal('employeeProfileModal')" class="text-slate-400 cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button>
+    </div>
+    <div class="flex items-center gap-4 p-4 dark:bg-slate-900 bg-slate-50 rounded-2xl border dark:border-slate-700 border-slate-200">
+      <div id="profAvatarBox" class="w-16 h-16 rounded-2xl brand-gradient flex items-center justify-center text-2xl font-black text-white shrink-0 overflow-hidden shadow-inner"></div>
+      <div class="flex-1">
+        <h4 id="profName" class="font-black text-lg dark:text-white text-slate-900">—</h4>
+        <p id="profRoleTitle" class="text-xs mt-0.5" style="color: var(--brand-color, #06b6d4);">—</p>
+        <div class="flex gap-4 mt-2"><span id="profSalary" class="text-xs font-mono text-slate-300">—</span><span id="profLeaveBal" class="text-xs font-mono text-purple-400 font-bold">—</span></div>
+      </div>
+    </div>
+    <div class="space-y-2">
+      <label class="block text-xs font-bold dark:text-slate-300 text-slate-700" data-i18n="manager_notes">ملاحظات وتنبيهات الإدارة</label>
+      <div id="noteInputContainer" class="flex gap-2">
+        <input type="text" id="newNoteInput" data-i18n-ph="note_placeholder" placeholder="أضف ملاحظة..." class="flex-1 p-2.5 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl text-xs">
+        <button onclick="handleAddEmployeeNote()" class="px-4 py-2.5 brand-gradient text-white font-bold rounded-xl text-xs cursor-pointer shadow-md" data-i18n="add">إضافة</button>
+      </div>
+      <div id="profNotesList" class="space-y-1.5 mt-2 max-h-32 overflow-y-auto"></div>
+    </div>
+    <div>
+      <h5 class="font-bold text-xs dark:text-slate-200 text-slate-800 mb-2 flex items-center gap-1.5"><i data-lucide="clock" class="w-4 h-4 text-amber-400"></i> <span data-i18n="attendance_history">سجل الحضور الأخير</span></h5>
+      <div id="profAttendanceList" class="space-y-1.5 max-h-40 overflow-y-auto"></div>
+    </div>
+  </div>
+</div>
+
+<!-- 🎯 مودال إعدادات الحساب (الجديد): تعديل اسم الشركة + حذف الشركة -->
+<div id="profileModal" class="hidden-view fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4">
+  <div class="w-full max-w-md dark:bg-slate-800 bg-white border dark:border-slate-700 border-slate-200 rounded-3xl p-6 space-y-4 shadow-2xl">
+    <div class="flex items-center justify-between border-b dark:border-slate-700 border-slate-200 pb-3">
+      <h3 class="font-bold text-sm dark:text-white text-slate-900" data-i18n="profile">إعدادات الحساب</h3>
+      <button onclick="closeModal('profileModal')" class="text-slate-400 cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button>
+    </div>
+    
+    <!-- معلومات الحساب -->
+    <div class="p-3 dark:bg-slate-900 bg-slate-50 rounded-xl border dark:border-slate-700 border-slate-200">
+      <p class="text-[10px] text-slate-400 mb-1">الاسم</p>
+      <p class="text-sm font-bold dark:text-white text-slate-900" id="profileCurrentName">—</p>
+      <p class="text-[10px] text-slate-400 mt-2 mb-1">الدور</p>
+      <p class="text-sm font-bold text-cyan-400" id="profileCurrentRole">—</p>
+    </div>
+
+    <!-- تعديل اسم الشركة (للمدير فقط) -->
+    <div id="editCompanyNameSection" class="hidden space-y-2">
+      <label class="block text-xs font-bold dark:text-slate-300 text-slate-700">تعديل اسم الشركة</label>
+      <input type="text" id="editCompanyNameInput" class="w-full p-2.5 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl text-sm">
+      <button onclick="handleUpdateCompanyName()" class="w-full py-2.5 bg-cyan-600 hover:bg-cyan-700 text-white font-bold rounded-xl text-xs cursor-pointer flex items-center justify-center gap-2">
+        <i data-lucide="save" class="w-3.5 h-3.5"></i> حفظ اسم الشركة
+      </button>
+    </div>
+
+    <!-- حذف الشركة (للمدير فقط) -->
+    <div id="deleteCompanySection" class="hidden border-t dark:border-slate-700 border-slate-200 pt-4 mt-2">
+      <p class="text-[10px] font-bold text-rose-400 mb-2 flex items-center gap-1"><i data-lucide="alert-triangle" class="w-3 h-3"></i> منطقة الخطر</p>
+      <button onclick="handleDeleteMyCompany()" class="w-full py-2.5 bg-rose-600/20 hover:bg-rose-600 text-rose-400 hover:text-white border border-rose-700 rounded-xl text-xs font-bold transition cursor-pointer flex items-center justify-center gap-2">
+        <i data-lucide="trash-2" class="w-4 h-4"></i> حذف الشركة نهائياً
+      </button>
+      <p class="text-[9px] text-slate-500 mt-2 text-center">سيتم حذف كل البيانات والموظفين نهائياً. لا يمكن التراجع.</p>
+    </div>
+  </div>
+</div>
+
+<div id="employeeModal" class="hidden-view fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4">
+  <div class="w-full max-w-lg dark:bg-slate-800 bg-white border dark:border-slate-700 border-slate-200 rounded-3xl p-6 space-y-3 max-h-[85vh] overflow-y-auto shadow-2xl">
+    <div class="flex items-center justify-between border-b dark:border-slate-700 border-slate-200 pb-3"><h3 class="font-bold text-sm dark:text-white text-slate-900" data-i18n="add_employee_manager">إضافة موظف</h3><button onclick="closeModal('employeeModal')" class="text-slate-400 cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button></div>
+    <form onsubmit="handleCreateEmployee(event)" class="space-y-3 text-xs">
+      <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700" data-i18n="name_required">الاسم *</label><input type="text" id="newEmpFullName" required class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl"></div>
+      <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700" data-i18n="username_required">المستخدم *</label><input type="text" id="newEmpUsername" dir="ltr" required class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono"></div>
+      <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700" data-i18n="password_required">كلمة المرور *</label><input type="text" id="newEmpPass" dir="ltr" required minlength="8" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono"></div>
+      <div>
+        <label class="block mb-1 font-bold dark:text-slate-300 text-slate-700" data-i18n="rbac_role_label">الدور</label>
+        <select id="newEmpRole" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl">
+          <option value="general_manager" data-i18n="role_gen_mgr">مدير عام</option>
+          <option value="hr_manager" data-i18n="role_hr">مدير HR</option>
+          <option value="financial_manager" data-i18n="role_fin">مدير مالي</option>
+          <option value="department_supervisor" data-i18n="role_sup">مشرف</option>
+          <option value="employee" selected data-i18n="role_emp">موظف</option>
+        </select>
+      </div>
+      <div class="grid grid-cols-2 gap-2">
+        <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700" data-i18n="job_title">المسمى</label><input type="text" id="newEmpTitle" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl"></div>
+        <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700" data-i18n="basic_salary">الراتب</label><input type="number" id="newEmpSalary" value="5000" required class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono"></div>
+      </div>
+      <div class="grid grid-cols-2 gap-2">
+        <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700" data-i18n="leave_balance">رصيد الإجازات</label><input type="number" id="newEmpLeaveBal" value="21" required class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono"></div>
+        <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700">ساعات العمل (بداية/نهاية)</label>
+          <div class="flex gap-1">
+            <input type="time" id="newEmpWorkStart" value="09:00" required class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono">
+            <input type="time" id="newEmpWorkEnd" value="17:00" required class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono">
+          </div>
+        </div>
+      </div>
+      <div class="pt-3 border-t dark:border-slate-700 border-slate-200">
+        <span class="block font-bold mb-2 flex items-center gap-1" style="color: var(--brand-color, #06b6d4);"><i data-lucide="map-pin" class="w-3 h-3"></i> <span>الموقع (GPS)</span></span>
+        <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700" data-i18n="location_name">اسم المقر</label><input type="text" id="newEmpLocName" value="المقر الرئيسي" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl"></div>
+        <div class="grid grid-cols-3 gap-2 mt-2 font-mono">
+          <div><label class="block mb-1 text-[10px] font-bold text-slate-400">خط العرض</label><input type="text" id="newEmpLat" value="30.0444" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-lg text-[10px]"></div>
+          <div><label class="block mb-1 text-[10px] font-bold text-slate-400">خط الطول</label><input type="text" id="newEmpLng" value="31.2357" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-lg text-[10px]"></div>
+          <div><label class="block mb-1 text-[10px] font-bold text-slate-400">النطاق (م)</label><input type="number" id="newEmpRadius" value="250" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-lg text-[10px]"></div>
+        </div>
+        <button type="button" onclick="getCurrentLocationForEmployee()" class="mt-2 w-full py-1.5 bg-cyan-600/20 text-cyan-400 rounded-lg text-[10px] font-bold hover:bg-cyan-600 hover:text-white transition cursor-pointer flex items-center justify-center gap-1"><i data-lucide="locate-fixed" class="w-3 h-3"></i> استخدام موقعي</button>
+      </div>
+      <button type="submit" class="w-full py-2.5 brand-gradient text-white font-bold rounded-xl flex items-center justify-center gap-1 cursor-pointer"><i data-lucide="user-plus" class="w-4 h-4"></i> <span data-i18n="add">إضافة</span></button>
+    </form>
+  </div>
+</div>
+
+<div id="newRequestModal" class="hidden-view fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4">
+  <div class="w-full max-w-md dark:bg-slate-800 bg-white border dark:border-slate-700 border-slate-200 rounded-3xl p-6 space-y-3 shadow-2xl">
+    <div class="flex items-center justify-between border-b dark:border-slate-700 border-slate-200 pb-3"><h3 class="font-bold text-sm dark:text-white text-slate-900" data-i18n="new_request">طلب جديد</h3><button onclick="closeModal('newRequestModal')" class="text-slate-400 cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button></div>
+    <form onsubmit="handleSaveRequest(event)" class="space-y-3 text-xs">
+      <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700" data-i18n="type">النوع</label><select id="reqTypeSelect" onchange="toggleRequestFormFields()" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl"><option value="leave" data-i18n="leave">إجازة</option><option value="loan" data-i18n="loan">سلفة</option></select></div>
+      <div id="reqLeaveFields">
+        <label class="block mb-1 font-bold dark:text-slate-300 text-slate-700" data-i18n="leave_type">نوع الإجازة</label>
+        <div class="grid grid-cols-2 gap-2">
+          <select id="reqLeaveType" class="p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl"><option value="سنوية" data-i18n="annual">سنوية</option><option value="مرضية" data-i18n="sick">مرضية</option><option value="طارئة" data-i18n="emergency">طارئة</option></select>
+          <input type="number" id="reqLeaveDays" value="1" min="1" max="30" class="p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl font-mono" placeholder="الأيام">
+        </div>
+      </div>
+      <div id="reqLoanFields" class="hidden-view"><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700" data-i18n="amount">المبلغ</label><input type="number" id="reqLoanAmount" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl"></div>
+      <div><label class="block mb-1 font-bold dark:text-slate-300 text-slate-700" data-i18n="reason_required">السبب *</label><textarea id="reqReason" required rows="2" class="w-full p-2 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-300 dark:text-white text-slate-900 rounded-xl"></textarea></div>
+      <button type="submit" class="w-full py-2.5 brand-gradient text-white font-bold rounded-xl flex items-center justify-center gap-1 cursor-pointer"><i data-lucide="send" class="w-4 h-4"></i> <span data-i18n="send">إرسال</span></button>
+    </form>
+  </div>
+</div>
+
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => { navigator.serviceWorker.register('./sw.js').catch(err => {}); });
@@ -771,6 +944,17 @@
       } catch(e) { console.warn('فشل إضافة لدفتر العناوين:', e); }
     }
 
+    async function updateCompaniesMapName(code, newName) {
+      try {
+        await loadCompaniesMap();
+        const entry = companiesMapCache.find(c => c.code === code);
+        if (entry && entry._docId) {
+          await masterDatabases.updateDocument(MASTER_CFG.databaseId, MASTER_CFG.companiesMapId, entry._docId, { name: newName });
+          entry.name = newName;
+        }
+      } catch(e) { console.warn('فشل تحديث الاسم في دفتر العناوين:', e); }
+    }
+
     async function getNextServerForCompany() {
       try {
         const r = await masterDatabases.listDocuments(MASTER_CFG.databaseId, MASTER_CFG.companiesMapId, [SDK.Query.limit(1)]);
@@ -939,123 +1123,74 @@
       } catch(e) {}
     }
 
-    // 🎯 تم تعديل الدالة دي عشان تاخد السيرفر الصح وتضيف زرار الإيقاف
     function renderSuperAdminCompanies() {
       const tbody = document.getElementById('saCompaniesTableBody');
       if (!tbody) return;
       tbody.innerHTML = '';
-      
       const search = (document.getElementById('saSearchInput')?.value || '').toLowerCase();
-      
       document.getElementById('saTotalCompanies').textContent = superAdminCache.companies.length;
       document.getElementById('saActiveCompanies').textContent = superAdminCache.companies.filter(c => c.status !== 'suspended').length;
       document.getElementById('saSuspendedCompanies').textContent = superAdminCache.companies.filter(c => c.status === 'suspended').length;
       document.getElementById('saTotalUsers').textContent = superAdminCache.users.length;
-
       const filtered = superAdminCache.companies.filter(c => !search || (c.name||'').toLowerCase().includes(search) || (c.code||'').toLowerCase().includes(search));
-      
-      if (!filtered.length) { 
-        tbody.innerHTML = `<tr><td colspan="5" class="py-8 text-center text-slate-500">${t('msg_no_companies')}</td></tr>`; 
-        return; 
-      }
-
+      if (!filtered.length) { tbody.innerHTML = `<tr><td colspan="5" class="py-8 text-center text-slate-500">${t('msg_no_companies')}</td></tr>`; return; }
       filtered.forEach(c => {
         const isSusp = c.status === 'suspended';
         const userCount = superAdminCache.users.filter(u => u.companyId === c._docId).length;
         const serverLabel = c._server === 'server2' ? 'S2' : 'S1';
-        
         const tr = document.createElement('tr');
         tr.className = 'dark:hover:bg-slate-700/30 hover:bg-slate-50';
-        
         tr.innerHTML = `
-          <td class="py-3 px-4">
-            <div class="font-bold dark:text-white text-slate-900">${escapeHtml(c.name || '—')}</div>
-            <div class="text-[9px] text-slate-500">${c._docId.slice(-8)}</div>
-          </td>
-          <td class="py-3 px-4 font-mono text-xs" style="color: var(--brand-color, #06b6d4);">
-            ${escapeHtml(c.code || '—')} <span class="text-[9px] opacity-70">${serverLabel}</span>
-          </td>
-          <td class="py-3 px-4">
-            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${isSusp ? 'bg-rose-900/50 text-rose-400 border border-rose-800' : 'bg-emerald-900/50 text-emerald-400 border border-emerald-800'}">
-              ${isSusp ? t('suspended') : t('active')}
-            </span>
-          </td>
+          <td class="py-3 px-4"><div class="font-bold dark:text-white text-slate-900">${escapeHtml(c.name || '—')}</div><div class="text-[9px] text-slate-500">${c._docId.slice(-8)}</div></td>
+          <td class="py-3 px-4 font-mono text-xs" style="color: var(--brand-color, #06b6d4);">${escapeHtml(c.code || '—')} <span class="text-[9px] opacity-70">${serverLabel}</span></td>
+          <td class="py-3 px-4"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${isSusp ? 'bg-rose-900/50 text-rose-400 border border-rose-800' : 'bg-emerald-900/50 text-emerald-400 border border-emerald-800'}">${isSusp ? t('suspended') : t('active')}</span></td>
           <td class="py-3 px-4 font-bold dark:text-slate-300 text-slate-700">${userCount}</td>
-          <td class="py-3 px-4">
-            <div class="flex items-center gap-1.5 flex-wrap">
-              <button onclick="toggleCompanyStatus('${c._docId}', '${c.status || 'active'}', '${c._server}')" class="px-2 py-1 ${isSusp ? 'bg-emerald-900/50 text-emerald-400 hover:bg-emerald-800' : 'bg-rose-900/50 text-rose-400 hover:bg-rose-800'} rounded-lg text-[10px] font-bold cursor-pointer flex items-center gap-1">
-                <i data-lucide="${isSusp ? 'play' : 'pause'}" class="w-3 h-3"></i> ${isSusp ? t('active') : t('suspended')}
-              </button>
-              <button onclick="enterCompany('${c._docId}', '${escapeHtml(c.name||'')}', '${escapeHtml(c.code||'')}', '${c._server}')" class="px-2 py-1 bg-cyan-900/50 text-cyan-400 hover:bg-cyan-800 rounded-lg text-[10px] font-bold cursor-pointer flex items-center gap-1">
-                <i data-lucide="search" class="w-3 h-3"></i> ${t('login')}
-              </button>
-              <button onclick="deleteCompanyPermanently('${c._docId}', '${escapeHtml(c.name||'')}', '${c._server}')" class="px-2 py-1 bg-rose-900/50 text-rose-400 hover:bg-rose-800 rounded-lg text-[10px] font-bold cursor-pointer flex items-center gap-1">
-                <i data-lucide="trash-2" class="w-3 h-3"></i>
-              </button>
-            </div>
-          </td>
+          <td class="py-3 px-4"><div class="flex items-center gap-1.5 flex-wrap">
+            <button onclick="toggleCompanyStatus('${c._docId}', '${c.status || 'active'}', '${c._server}')" class="px-2 py-1 ${isSusp ? 'bg-emerald-900/50 text-emerald-400 hover:bg-emerald-800' : 'bg-rose-900/50 text-rose-400 hover:bg-rose-800'} rounded-lg text-[10px] font-bold cursor-pointer flex items-center gap-1">
+              <i data-lucide="${isSusp ? 'play' : 'pause'}" class="w-3 h-3"></i> ${isSusp ? t('active') : t('suspended')}
+            </button>
+            <button onclick="enterCompany('${c._docId}', '${escapeHtml(c.name||'')}', '${escapeHtml(c.code||'')}', '${c._server}')" class="px-2 py-1 bg-cyan-900/50 text-cyan-400 hover:bg-cyan-800 rounded-lg text-[10px] font-bold cursor-pointer flex items-center gap-1">
+              <i data-lucide="search" class="w-3 h-3"></i> ${t('login')}
+            </button>
+            <button onclick="deleteCompanyPermanently('${c._docId}', '${escapeHtml(c.name||'')}', '${c._server}')" class="px-2 py-1 bg-rose-900/50 text-rose-400 hover:bg-rose-800 rounded-lg text-[10px] font-bold cursor-pointer flex items-center gap-1">
+              <i data-lucide="trash-2" class="w-3 h-3"></i>
+            </button>
+          </div></td>
         `;
         tbody.appendChild(tr);
       });
       lucide.createIcons();
     }
 
-    // 🎯 تم تعديل الدالة دي عشان تاخد السيرفر الصح
     async function toggleCompanyStatus(docId, currentStatus, serverId) {
       const newStatus = currentStatus === 'suspended' ? 'active' : 'suspended';
       const action = newStatus === 'suspended' ? t('msg_suspend_confirm') : t('msg_activate_confirm');
       if (!confirm(action)) return;
-      
       try {
         const cfg = getServerConfig(serverId || 'server1');
         const dbs = (serverId === 'server2') ? server2Databases : masterDatabases;
-        
         const d = await dbs.getDocument(cfg.databaseId, cfg.collectionId, docId);
-        const p = safeParse(d.Payload); 
-        p.status = newStatus;
-        
-        await dbs.updateDocument(cfg.databaseId, cfg.collectionId, docId, { 
-          Payload: JSON.stringify(p), 
-          Status: newStatus 
-        });
-        
+        const p = safeParse(d.Payload); p.status = newStatus;
+        await dbs.updateDocument(cfg.databaseId, cfg.collectionId, docId, { Payload: JSON.stringify(p), Status: newStatus });
         toast(newStatus === 'suspended' ? t('msg_company_suspended_toast') : t('msg_company_activated_toast'));
-        await loadSuperAdminData(); 
-        renderSuperAdminCompanies();
-      } catch(e) { 
-        alert(t('msg_failed') + ': ' + e.message); 
-      }
+        await loadSuperAdminData(); renderSuperAdminCompanies();
+      } catch(e) { alert(t('msg_failed') + ': ' + e.message); }
     }
 
     function renderServersList() {
       const container = document.getElementById('serversList');
       const globalStats = document.getElementById('serversGlobalStats');
       if (!container) return;
-
       const totalCompanies = superAdminCache.companies.length;
       const totalUsers = superAdminCache.users.length;
-
       if (globalStats) {
         globalStats.innerHTML = `
-          <div class="dark:bg-slate-800 bg-white p-4 rounded-2xl border dark:border-slate-700 border-slate-200">
-            <div class="text-[10px] text-slate-400 font-bold mb-1">إجمالي الشركات</div>
-            <div class="text-2xl font-black text-amber-400">${totalCompanies}</div>
-          </div>
-          <div class="dark:bg-slate-800 bg-white p-4 rounded-2xl border dark:border-slate-700 border-slate-200">
-            <div class="text-[10px] text-slate-400 font-bold mb-1">إجمالي المستخدمين</div>
-            <div class="text-2xl font-black text-cyan-400">${totalUsers}</div>
-          </div>
-          <div class="dark:bg-slate-800 bg-white p-4 rounded-2xl border dark:border-slate-700 border-slate-200">
-            <div class="text-[10px] text-slate-400 font-bold mb-1">عدد السيرفرات</div>
-            <div class="text-2xl font-black text-emerald-400">${SERVERS_LIST.length}</div>
-          </div>
-          <div class="dark:bg-slate-800 bg-white p-4 rounded-2xl border dark:border-slate-700 border-slate-200">
-            <div class="text-[10px] text-slate-400 font-bold mb-1">السيرفر الرئيسي</div>
-            <div class="text-2xl font-black text-purple-400">Master</div>
-          </div>
+          <div class="dark:bg-slate-800 bg-white p-4 rounded-2xl border dark:border-slate-700 border-slate-200"><div class="text-[10px] text-slate-400 font-bold mb-1">إجمالي الشركات</div><div class="text-2xl font-black text-amber-400">${totalCompanies}</div></div>
+          <div class="dark:bg-slate-800 bg-white p-4 rounded-2xl border dark:border-slate-700 border-slate-200"><div class="text-[10px] text-slate-400 font-bold mb-1">إجمالي المستخدمين</div><div class="text-2xl font-black text-cyan-400">${totalUsers}</div></div>
+          <div class="dark:bg-slate-800 bg-white p-4 rounded-2xl border dark:border-slate-700 border-slate-200"><div class="text-[10px] text-slate-400 font-bold mb-1">عدد السيرفرات</div><div class="text-2xl font-black text-emerald-400">${SERVERS_LIST.length}</div></div>
+          <div class="dark:bg-slate-800 bg-white p-4 rounded-2xl border dark:border-slate-700 border-slate-200"><div class="text-[10px] text-slate-400 font-bold mb-1">السيرفر الرئيسي</div><div class="text-2xl font-black text-purple-400">Master</div></div>
         `;
       }
-
       container.innerHTML = '';
       SERVERS_LIST.forEach((server) => {
         const serverCompanies = superAdminCache.companies.filter(c => c._server === server.id).length;
@@ -1064,30 +1199,14 @@
         card.className = 'dark:bg-slate-800 bg-white p-5 rounded-3xl border-2 dark:border-slate-700 border-slate-200 shadow-sm';
         card.innerHTML = `
           <div class="flex items-center justify-between mb-4">
-            <div class="flex items-center gap-3">
-              <div class="w-12 h-12 rounded-2xl bg-cyan-500/20 border border-cyan-600 flex items-center justify-center">
-                <i data-lucide="server" class="w-6 h-6 text-cyan-400"></i>
-              </div>
-              <div>
-                <h4 class="font-bold text-sm dark:text-white text-slate-900">${escapeHtml(server.name)}</h4>
-                <p class="text-[10px] font-mono text-slate-500">${server.projectId.slice(0, 12)}...</p>
-              </div>
-            </div>
+            <div class="flex items-center gap-3"><div class="w-12 h-12 rounded-2xl bg-cyan-500/20 border border-cyan-600 flex items-center justify-center"><i data-lucide="server" class="w-6 h-6 text-cyan-400"></i></div><div><h4 class="font-bold text-sm dark:text-white text-slate-900">${escapeHtml(server.name)}</h4><p class="text-[10px] font-mono text-slate-500">${server.projectId.slice(0, 12)}...</p></div></div>
             <span class="px-2 py-1 rounded-lg text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-700">نشط</span>
           </div>
           <div class="grid grid-cols-2 gap-2 mb-4">
-            <div class="p-2 dark:bg-slate-900 bg-slate-50 rounded-xl">
-              <div class="text-[9px] text-slate-400">الشركات</div>
-              <div class="text-sm font-bold text-amber-400">${serverCompanies}</div>
-            </div>
-            <div class="p-2 dark:bg-slate-900 bg-slate-50 rounded-xl">
-              <div class="text-[9px] text-slate-400">المستخدمون</div>
-              <div class="text-sm font-bold text-cyan-400">${serverUsers}</div>
-            </div>
+            <div class="p-2 dark:bg-slate-900 bg-slate-50 rounded-xl"><div class="text-[9px] text-slate-400">الشركات</div><div class="text-sm font-bold text-amber-400">${serverCompanies}</div></div>
+            <div class="p-2 dark:bg-slate-900 bg-slate-50 rounded-xl"><div class="text-[9px] text-slate-400">المستخدمون</div><div class="text-sm font-bold text-cyan-400">${serverUsers}</div></div>
           </div>
-          <a href="${server.dashboardUrl}" target="_blank" class="w-full py-2 bg-cyan-600 hover:bg-cyan-700 text-white font-bold rounded-xl text-xs cursor-pointer flex items-center justify-center gap-1.5">
-            <i data-lucide="external-link" class="w-3 h-3"></i> فتح لوحة Appwrite
-          </a>
+          <a href="${server.dashboardUrl}" target="_blank" class="w-full py-2 bg-cyan-600 hover:bg-cyan-700 text-white font-bold rounded-xl text-xs cursor-pointer flex items-center justify-center gap-1.5"><i data-lucide="external-link" class="w-3 h-3"></i> فتح لوحة Appwrite</a>
         `;
         container.appendChild(card);
       });
@@ -1126,9 +1245,98 @@
         const r = await dbs.listDocuments(cfg.databaseId, cfg.collectionId, [SDK.Query.equal('companyId', docId), SDK.Query.limit(500)]);
         for (const d of r.documents) { try { await dbs.deleteDocument(cfg.databaseId, cfg.collectionId, d.$id); } catch(e){} }
         try { await dbs.deleteDocument(cfg.databaseId, cfg.collectionId, docId); } catch(e){}
+        // حذف من دفتر العناوين
+        try {
+          await loadCompaniesMap();
+          const company = superAdminCache.companies.find(c => c._docId === docId);
+          if (company && company.code) {
+            const mapEntry = companiesMapCache.find(x => x.code === company.code);
+            if (mapEntry && mapEntry._docId) await masterDatabases.deleteDocument(MASTER_CFG.databaseId, MASTER_CFG.companiesMapId, mapEntry._docId);
+          }
+        } catch(e){}
         toast(t('msg_company_deleted') + ` "${name}"`);
         await loadSuperAdminData(); renderSuperAdminCompanies();
       } catch(e) { alert(t('msg_failed') + ': ' + e.message); }
+    }
+
+    // 🗑️ حذف شركتي (للمدير)
+    async function handleDeleteMyCompany() {
+      if (!currentUser || (currentUser.role !== 'general_manager' && currentUser.role !== 'manager')) return alert('⚠️ متاح فقط لمدير الشركة');
+      if (currentUser._impersonating) return alert('⚠️ غير متاح في وضع الدخول الإداري');
+      
+      if (!confirm('⚠️ هل أنت متأكد من حذف شركتك نهائياً؟\n\nسيتم حذف كل الموظفين، الحضور، الطلبات، الرواتب.\n\nلا يمكن التراجع!')) return;
+      const confirmCode = prompt('للتأكيد النهائي، اكتب كود شركتك بالكامل:\n(' + currentUser.companyCode + ')');
+      if (confirmCode !== currentUser.companyCode) { alert('❌ الكود غير صحيح. تم إلغاء العملية.'); return; }
+      
+      try {
+        const cfg = getServerConfig(currentServerId);
+        
+        // 1. حذف كل مستندات الشركة
+        const r = await currentDatabases.listDocuments(cfg.databaseId, cfg.collectionId, [SDK.Query.equal('companyId', currentUser.companyId), SDK.Query.limit(500)]);
+        for (const d of r.documents) { try { await currentDatabases.deleteDocument(cfg.databaseId, cfg.collectionId, d.$id); } catch(e){} }
+        
+        // 2. حذف مستند الشركة
+        try { await currentDatabases.deleteDocument(cfg.databaseId, cfg.collectionId, currentUser.companyId); } catch(e){}
+        
+        // 3. حذف من دفتر العناوين
+        try {
+          await loadCompaniesMap();
+          const mapEntry = companiesMapCache.find(x => x.code === currentUser.companyCode);
+          if (mapEntry && mapEntry._docId) await masterDatabases.deleteDocument(MASTER_CFG.databaseId, MASTER_CFG.companiesMapId, mapEntry._docId);
+        } catch(e){}
+        
+        // 4. مسح الكاش المحلي
+        localStorage.removeItem('vodfire_server_' + currentUser.companyCode);
+        localStorage.removeItem('vodfire_cache_' + currentUser.companyId);
+        localStorage.removeItem('vodfire_brand_' + currentUser.companyId);
+        
+        // 5. تسجيل الخروج
+        try { await currentAccount.deleteSession('current'); } catch(e){}
+        
+        alert('✅ تم حذف الشركة وكل بياناتها نهائياً.\n\nسيتم تحويلك للصفحة الرئيسية.');
+        currentUser = null;
+        impersonatedCompany = null;
+        localCache = { attendance: [], requests: [], users: [], notifications: [], auditLogs: [] };
+        document.getElementById('mainApp').classList.add('hidden-view');
+        document.getElementById('loginScreen').classList.add('hidden-view');
+        document.getElementById('landingScreen').classList.remove('hidden-view');
+        lucide.createIcons();
+      } catch(e) { alert('❌ فشل: ' + e.message); }
+    }
+
+    // ✏️ تعديل اسم الشركة
+    async function handleUpdateCompanyName() {
+      if (!currentUser || (currentUser.role !== 'general_manager' && currentUser.role !== 'manager')) return alert('⚠️ متاح فقط لمدير الشركة');
+      const newName = document.getElementById('editCompanyNameInput').value.trim();
+      if (!newName) return alert('يرجى إدخال اسم الشركة');
+      
+      try {
+        const cfg = getServerConfig(currentServerId);
+        // 1. تحديث مستند الشركة
+        const compDoc = await currentDatabases.getDocument(cfg.databaseId, cfg.collectionId, currentUser.companyId);
+        const cdata = safeParse(compDoc.Payload);
+        cdata.name = newName;
+        await currentDatabases.updateDocument(cfg.databaseId, cfg.collectionId, currentUser.companyId, { Payload: JSON.stringify(cdata) });
+        
+        // 2. تحديث اسم الشركة في كل المستخدمين
+        const r = await currentDatabases.listDocuments(cfg.databaseId, cfg.collectionId, [SDK.Query.equal('companyId', currentUser.companyId), SDK.Query.limit(500)]);
+        for (const d of r.documents) {
+          if (d.entitytype === 'USER' || (safeParse(d.Payload).entitytype === 'USER')) {
+            const p = safeParse(d.Payload);
+            if (p.companyName !== newName) {
+              p.companyName = newName;
+              try { await currentDatabases.updateDocument(cfg.databaseId, cfg.collectionId, d.$id, { Payload: JSON.stringify(p) }); } catch(e){}
+            }
+          }
+        }
+        
+        // 3. تحديث دفتر العناوين
+        await updateCompaniesMapName(currentUser.companyCode, newName);
+        
+        currentUser.companyName = newName;
+        document.getElementById('headerCompanyName').textContent = newName;
+        alert('✅ تم تحديث اسم الشركة بنجاح!');
+      } catch(e) { alert('❌ فشل: ' + e.message); }
     }
 
     async function loadAllFromCloud() {
@@ -1233,12 +1441,7 @@
       list.forEach(log => {
         const tr = document.createElement('tr');
         tr.className = 'dark:hover:bg-slate-700/30 hover:bg-slate-50';
-        tr.innerHTML = `
-          <td class="py-3.5 px-4 font-mono text-xs text-slate-400">${new Date(log.createdAt).toLocaleString()}</td>
-          <td class="py-3.5 px-4 font-bold dark:text-white text-slate-900">${escapeHtml(log.userName)}</td>
-          <td class="py-3.5 px-4"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-cyan-900/50 text-cyan-400">${escapeHtml(log.action)}</span></td>
-          <td class="py-3.5 px-4 dark:text-slate-300 text-slate-700">${escapeHtml(log.details)}</td>
-        `;
+        tr.innerHTML = `<td class="py-3.5 px-4 font-mono text-xs text-slate-400">${new Date(log.createdAt).toLocaleString()}</td><td class="py-3.5 px-4 font-bold dark:text-white text-slate-900">${escapeHtml(log.userName)}</td><td class="py-3.5 px-4"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-cyan-900/50 text-cyan-400">${escapeHtml(log.action)}</span></td><td class="py-3.5 px-4 dark:text-slate-300 text-slate-700">${escapeHtml(log.details)}</td>`;
         tb.appendChild(tr);
       });
       lucide.createIcons();
@@ -1254,25 +1457,14 @@
       } catch(e){}
     }
     function playNotifSound() {
-      try {
-        const ctx = new (window.AudioContext || window.webkitAudioContext)();
-        const o = ctx.createOscillator(); const g = ctx.createGain();
-        o.connect(g); g.connect(ctx.destination); o.frequency.value = 800;
-        g.gain.setValueAtTime(0.15, ctx.currentTime);
-        g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
-        o.start(); o.stop(ctx.currentTime + 0.3);
-      } catch(e){}
+      try { const ctx = new (window.AudioContext || window.webkitAudioContext)(); const o = ctx.createOscillator(); const g = ctx.createGain(); o.connect(g); g.connect(ctx.destination); o.frequency.value = 800; g.gain.setValueAtTime(0.15, ctx.currentTime); g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3); o.start(); o.stop(ctx.currentTime + 0.3); } catch(e){}
     }
     function renderNotificationsBadge() {
       const unread = localCache.notifications.filter(n => !n.read).length;
       const b = document.getElementById('notifBadge');
       if (unread > 0) { b.textContent = unread > 9 ? '9+' : unread; b.classList.remove('hidden'); } else b.classList.add('hidden');
     }
-    function toggleNotificationsPanel() {
-      notificationsPanelOpen = !notificationsPanelOpen;
-      const p = document.getElementById('notificationsPanel');
-      if (notificationsPanelOpen) { p.classList.remove('hidden-view'); renderNotificationsList(); } else p.classList.add('hidden-view');
-    }
+    function toggleNotificationsPanel() { notificationsPanelOpen = !notificationsPanelOpen; const p = document.getElementById('notificationsPanel'); if (notificationsPanelOpen) { p.classList.remove('hidden-view'); renderNotificationsList(); } else p.classList.add('hidden-view'); }
     function renderNotificationsList() {
       const l = document.getElementById('notificationsList'); l.innerHTML = '';
       if (!localCache.notifications.length) { l.innerHTML = `<div class="text-center text-slate-500 py-8 text-xs">${t('msg_no_notifications')}</div>`; return; }
@@ -1284,15 +1476,8 @@
         l.appendChild(d);
       });
     }
-    async function markNotificationRead(id) {
-      const n = localCache.notifications.find(x => x._docId === id); if (!n || n.read) return;
-      n.read = true;
-      try { await updateCloudDoc(id, 'NOTIFICATION', n); renderNotificationsBadge(); renderNotificationsList(); } catch(e){}
-    }
-    async function markAllNotificationsRead() {
-      for (const n of localCache.notifications.filter(x => !x.read)) { n.read = true; try { await updateCloudDoc(n._docId, 'NOTIFICATION', n); } catch(e){} }
-      renderNotificationsBadge(); renderNotificationsList();
-    }
+    async function markNotificationRead(id) { const n = localCache.notifications.find(x => x._docId === id); if (!n || n.read) return; n.read = true; try { await updateCloudDoc(id, 'NOTIFICATION', n); renderNotificationsBadge(); renderNotificationsList(); } catch(e){} }
+    async function markAllNotificationsRead() { for (const n of localCache.notifications.filter(x => !x.read)) { n.read = true; try { await updateCloudDoc(n._docId, 'NOTIFICATION', n); } catch(e){} } renderNotificationsBadge(); renderNotificationsList(); }
 
     function showApp() {
       document.getElementById('loginScreen').classList.add('hidden-view');
@@ -1300,6 +1485,10 @@
       document.getElementById('mainApp').classList.remove('hidden-view');
       const isSA = currentUser.isSuperAdmin === true;
       const role = currentUser.role || 'employee';
+      
+      // 🎯 تحديد الـ data-role للـ body (عشان CSS يخفي الإحصائيات عن الموظف)
+      document.body.setAttribute('data-role', isSA && !currentUser._impersonating ? 'superadmin' : role);
+      
       document.getElementById('saBadge').classList.toggle('hidden', !isSA || currentUser._impersonating);
       document.getElementById('tabBtn-superadmin').classList.toggle('hidden', !isSA || currentUser._impersonating);
       document.getElementById('tabBtn-servers').classList.toggle('hidden', !isSA || currentUser._impersonating);
@@ -1382,23 +1571,11 @@
       const dashAttList = document.getElementById('dashRecentAttendanceList'); dashAttList.innerHTML = '';
       const todayAtts = localCache.attendance.filter(a => a.date === today).slice(0, 4);
       if (!todayAtts.length) { dashAttList.innerHTML = `<div class="text-xs text-slate-500 py-3 text-center">${t('msg_no_records')}</div>`; }
-      else {
-        todayAtts.forEach(a => {
-          const item = document.createElement('div'); item.className = 'flex items-center justify-between p-2.5 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700/60 border-slate-200 rounded-xl text-xs';
-          item.innerHTML = `<span class="font-bold dark:text-white text-slate-900">${escapeHtml(a.userName)}</span><span class="text-emerald-500 font-mono">${a.checkIn}</span>`;
-          dashAttList.appendChild(item);
-        });
-      }
+      else { todayAtts.forEach(a => { const item = document.createElement('div'); item.className = 'flex items-center justify-between p-2.5 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700/60 border-slate-200 rounded-xl text-xs'; item.innerHTML = `<span class="font-bold dark:text-white text-slate-900">${escapeHtml(a.userName)}</span><span class="text-emerald-500 font-mono">${a.checkIn}</span>`; dashAttList.appendChild(item); }); }
       const dashReqList = document.getElementById('dashRecentRequestsList'); dashReqList.innerHTML = '';
       const recentReqs = localCache.requests.slice(0, 4);
       if (!recentReqs.length) { dashReqList.innerHTML = `<div class="text-xs text-slate-500 py-3 text-center">${t('msg_no_requests')}</div>`; }
-      else {
-        recentReqs.forEach(r => {
-          const item = document.createElement('div'); item.className = 'flex items-center justify-between p-2.5 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700/60 border-slate-200 rounded-xl text-xs';
-          item.innerHTML = `<span class="font-bold dark:text-white text-slate-900 truncate max-w-[120px]">${escapeHtml(r.title)}</span><span class="px-2 py-0.5 rounded-full text-[9px] font-bold ${r.status==='approved'?'bg-emerald-900/50 text-emerald-400':r.status==='rejected'?'bg-rose-900/50 text-rose-400':'bg-amber-900/50 text-amber-400'}">${t('status_'+r.status)}</span>`;
-          dashReqList.appendChild(item);
-        });
-      }
+      else { recentReqs.forEach(r => { const item = document.createElement('div'); item.className = 'flex items-center justify-between p-2.5 dark:bg-slate-900 bg-slate-50 border dark:border-slate-700/60 border-slate-200 rounded-xl text-xs'; item.innerHTML = `<span class="font-bold dark:text-white text-slate-900 truncate max-w-[120px]">${escapeHtml(r.title)}</span><span class="px-2 py-0.5 rounded-full text-[9px] font-bold ${r.status==='approved'?'bg-emerald-900/50 text-emerald-400':r.status==='rejected'?'bg-rose-900/50 text-rose-400':'bg-amber-900/50 text-amber-400'}">${t('status_'+r.status)}</span>`; dashReqList.appendChild(item); }); }
       lucide.createIcons();
     }
 
@@ -1406,12 +1583,7 @@
       const role = currentUser.role || 'employee';
       if (role === 'employee') return;
       const counts = []; const dayNames = []; const daysAr = ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
-      for (let i = 6; i >= 0; i--) {
-        const d = new Date(); d.setDate(d.getDate() - i);
-        const dateStr = d.toISOString().slice(0, 10);
-        dayNames.push(daysAr[d.getDay()]);
-        counts.push(localCache.attendance.filter(a => a.date === dateStr).length);
-      }
+      for (let i = 6; i >= 0; i--) { const d = new Date(); d.setDate(d.getDate() - i); const dateStr = d.toISOString().slice(0, 10); dayNames.push(daysAr[d.getDay()]); counts.push(localCache.attendance.filter(a => a.date === dateStr).length); }
       const ctx1 = document.getElementById('weeklyAttendanceChart');
       if (ctx1) { if (weeklyChartInstance) weeklyChartInstance.destroy(); weeklyChartInstance = new Chart(ctx1, { type: 'bar', data: { labels: dayNames, datasets: [{ label: t('attendance'), data: counts, backgroundColor: '#06b6d4', borderRadius: 8 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { precision: 0, color: '#94a3b8' } } } } }); }
       const totalEmp = localCache.users.length || 1;
@@ -1432,14 +1604,7 @@
       if (!list.length) { tb.innerHTML = `<tr><td colspan="6" class="py-6 text-center text-slate-500">${t('msg_no_records')}</td></tr>`; return; }
       list.forEach(r => {
         const tr = document.createElement('tr'); tr.className = 'dark:hover:bg-slate-700/30 hover:bg-slate-50';
-        tr.innerHTML = `
-          <td class="py-3.5 px-4 font-bold dark:text-white text-slate-900">${escapeHtml(r.userName)}</td>
-          <td class="py-3.5 px-4 font-mono text-slate-400">${r.date}</td>
-          <td class="py-3.5 px-4 font-bold text-emerald-500">${r.checkIn}${r.isLate ? ' <span class="text-rose-400 text-[9px]">(متأخر)</span>' : ''}</td>
-          <td class="py-3.5 px-4 dark:text-slate-300 text-slate-700">${r.checkOut || '<span class="text-amber-500 font-bold">'+t('on_duty')+'</span>'}</td>
-          <td class="py-3.5 px-4 text-center font-mono">${r.distance}m</td>
-          ${isMgr && role !== 'financial_manager' ? `<td class="py-3.5 px-4 text-center"><button onclick="editAttendanceRecord('${r._docId}')" class="px-2 py-1 bg-cyan-600/20 text-cyan-400 hover:bg-cyan-600 hover:text-white rounded-lg text-[10px] font-bold cursor-pointer">${t('edit')}</button></td>` : ''}
-        `;
+        tr.innerHTML = `<td class="py-3.5 px-4 font-bold dark:text-white text-slate-900">${escapeHtml(r.userName)}</td><td class="py-3.5 px-4 font-mono text-slate-400">${r.date}</td><td class="py-3.5 px-4 font-bold text-emerald-500">${r.checkIn}${r.isLate ? ' <span class="text-rose-400 text-[9px]">(متأخر)</span>' : ''}</td><td class="py-3.5 px-4 dark:text-slate-300 text-slate-700">${r.checkOut || '<span class="text-amber-500 font-bold">'+t('on_duty')+'</span>'}</td><td class="py-3.5 px-4 text-center font-mono">${r.distance}m</td>${isMgr && role !== 'financial_manager' ? `<td class="py-3.5 px-4 text-center"><button onclick="editAttendanceRecord('${r._docId}')" class="px-2 py-1 bg-cyan-600/20 text-cyan-400 hover:bg-cyan-600 hover:text-white rounded-lg text-[10px] font-bold cursor-pointer">${t('edit')}</button></td>` : ''}`;
         tb.appendChild(tr);
       });
     }
@@ -1538,12 +1703,7 @@
 
     function calcLateMinutes(scheduledStart, actualStart) {
       if (!scheduledStart || !actualStart) return { minutes: 0, late: false };
-      try {
-        const [sH, sM] = scheduledStart.split(':').map(Number);
-        const [aH, aM] = actualStart.split(':').map(Number);
-        const diff = (aH * 60 + aM) - (sH * 60 + sM);
-        return { minutes: Math.max(0, diff), late: diff > 0 };
-      } catch(e) { return { minutes: 0, late: false }; }
+      try { const [sH, sM] = scheduledStart.split(':').map(Number); const [aH, aM] = actualStart.split(':').map(Number); const diff = (aH * 60 + aM) - (sH * 60 + sM); return { minutes: Math.max(0, diff), late: diff > 0 }; } catch(e) { return { minutes: 0, late: false }; }
     }
 
     async function handleCheckIn() {
@@ -1603,11 +1763,7 @@
     }
 
     function openNewRequestModal() { document.getElementById('newRequestModal').classList.remove('hidden-view'); }
-    function toggleRequestFormFields() {
-      const t2 = document.getElementById('reqTypeSelect').value;
-      document.getElementById('reqLeaveFields').classList.toggle('hidden-view', t2 !== 'leave');
-      document.getElementById('reqLoanFields').classList.toggle('hidden-view', t2 !== 'loan');
-    }
+    function toggleRequestFormFields() { const t2 = document.getElementById('reqTypeSelect').value; document.getElementById('reqLeaveFields').classList.toggle('hidden-view', t2 !== 'leave'); document.getElementById('reqLoanFields').classList.toggle('hidden-view', t2 !== 'loan'); }
 
     async function handleSaveRequest(e) {
       e.preventDefault();
@@ -1658,15 +1814,7 @@
         const roleLabel = uRole === 'general_manager' ? t('role_gen_mgr') : uRole === 'hr_manager' ? t('role_hr') : uRole === 'financial_manager' ? t('role_fin') : uRole === 'department_supervisor' ? t('role_sup') : t('role_emp');
         const tr = document.createElement('tr'); tr.className = 'dark:hover:bg-slate-700/30 hover:bg-slate-50 cursor-pointer';
         tr.onclick = (e) => { if (!e.target.closest('button')) openEmployeeProfile(u._docId); };
-        tr.innerHTML = `
-          <td class="py-3.5 px-4 font-bold dark:text-white text-slate-900 flex items-center gap-2"><div class="w-7 h-7 rounded-lg bg-cyan-600/20 text-cyan-400 flex items-center justify-center font-black text-xs">${(u.name||'م')[0]}</div><span>${escapeHtml(u.DisplayName || u.name)}</span></td>
-          <td class="py-3.5 px-4 font-mono text-xs text-slate-400">@${escapeHtml(u.username||'—')}</td>
-          <td class="py-3.5 px-4"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-cyan-900/50 text-cyan-300 border border-cyan-800">${roleLabel}</span></td>
-          <td class="py-3.5 px-4 dark:text-slate-300 text-slate-700">${escapeHtml(u.jobTitle||'—')}</td>
-          <td class="py-3.5 px-4 font-mono text-xs text-emerald-400 font-bold">${u.basicSalary || 5000} ج.م</td>
-          <td class="py-3.5 px-4 text-center font-mono font-bold text-purple-400">${u.leaveBalance !== undefined ? u.leaveBalance : 21} يوم</td>
-          <td class="py-3.5 px-4 text-center">${canManageEmp && u.appwriteUserId !== currentUser.id ? `<button onclick="event.stopPropagation(); deleteEmployee('${u._docId}')" class="px-2 py-1 bg-rose-600 hover:bg-rose-700 text-white rounded-lg text-xs font-bold flex items-center justify-center gap-1 mx-auto cursor-pointer"><i data-lucide="trash-2" class="w-3 h-3"></i> ${t('delete')}</button>` : '—'}</td>
-        `;
+        tr.innerHTML = `<td class="py-3.5 px-4 font-bold dark:text-white text-slate-900 flex items-center gap-2"><div class="w-7 h-7 rounded-lg bg-cyan-600/20 text-cyan-400 flex items-center justify-center font-black text-xs">${(u.name||'م')[0]}</div><span>${escapeHtml(u.DisplayName || u.name)}</span></td><td class="py-3.5 px-4 font-mono text-xs text-slate-400">@${escapeHtml(u.username||'—')}</td><td class="py-3.5 px-4"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-cyan-900/50 text-cyan-300 border border-cyan-800">${roleLabel}</span></td><td class="py-3.5 px-4 dark:text-slate-300 text-slate-700">${escapeHtml(u.jobTitle||'—')}</td><td class="py-3.5 px-4 font-mono text-xs text-emerald-400 font-bold">${u.basicSalary || 5000} ج.م</td><td class="py-3.5 px-4 text-center font-mono font-bold text-purple-400">${u.leaveBalance !== undefined ? u.leaveBalance : 21} يوم</td><td class="py-3.5 px-4 text-center">${canManageEmp && u.appwriteUserId !== currentUser.id ? `<button onclick="event.stopPropagation(); deleteEmployee('${u._docId}')" class="px-2 py-1 bg-rose-600 hover:bg-rose-700 text-white rounded-lg text-xs font-bold flex items-center justify-center gap-1 mx-auto cursor-pointer"><i data-lucide="trash-2" class="w-3 h-3"></i> ${t('delete')}</button>` : '—'}</td>`;
         tb.appendChild(tr);
       });
       lucide.createIcons();
@@ -1682,8 +1830,7 @@
       document.getElementById('profSalary').textContent = `${t('basic_salary')}: ${u.basicSalary || 5000} ج.م`;
       document.getElementById('profLeaveBal').textContent = `${t('leave_balance')}: ${u.leaveBalance !== undefined ? u.leaveBalance : 21} يوم`;
       document.getElementById('profAvatarBox').textContent = (u.name || 'م')[0];
-      renderEmployeeNotesList(u);
-      renderEmployeeProfileAttendance(u);
+      renderEmployeeNotesList(u); renderEmployeeProfileAttendance(u);
       const role = currentUser.role || 'employee';
       const canAddNotes = role === 'general_manager' || role === 'manager' || role === 'hr_manager' || role === 'department_supervisor';
       document.getElementById('noteInputContainer').style.display = canAddNotes ? 'flex' : 'none';
@@ -1691,44 +1838,16 @@
       lucide.createIcons();
     }
 
-    function renderEmployeeNotesList(u) {
-      const list = document.getElementById('profNotesList'); list.innerHTML = '';
-      const notes = u.notes || [];
-      if (!notes.length) { list.innerHTML = `<div class="text-[11px] text-slate-500">${t('msg_no_records')}</div>`; return; }
-      notes.forEach((n) => {
-        const d = document.createElement('div');
-        d.className = 'p-2 rounded-xl dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-200 text-xs flex items-center justify-between';
-        d.innerHTML = `<span>${escapeHtml(n.text)}</span><span class="text-[9px] text-slate-400">${n.date}</span>`;
-        list.appendChild(d);
-      });
-    }
+    function renderEmployeeNotesList(u) { const list = document.getElementById('profNotesList'); list.innerHTML = ''; const notes = u.notes || []; if (!notes.length) { list.innerHTML = `<div class="text-[11px] text-slate-500">${t('msg_no_records')}</div>`; return; } notes.forEach((n) => { const d = document.createElement('div'); d.className = 'p-2 rounded-xl dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-200 text-xs flex items-center justify-between'; d.innerHTML = `<span>${escapeHtml(n.text)}</span><span class="text-[9px] text-slate-400">${n.date}</span>`; list.appendChild(d); }); }
 
     async function handleAddEmployeeNote() {
-      const input = document.getElementById('newNoteInput');
-      const val = input.value.trim();
-      if (!val || !currentViewingEmployeeId) return;
+      const input = document.getElementById('newNoteInput'); const val = input.value.trim(); if (!val || !currentViewingEmployeeId) return;
       const u = localCache.users.find(x => x._docId === currentViewingEmployeeId); if (!u) return;
-      if (!u.notes) u.notes = [];
-      u.notes.push({ text: val, date: new Date().toLocaleDateString() });
-      try {
-        const updateData = { ...u }; delete updateData._docId; delete updateData._companyId;
-        await updateCloudDoc(u._docId, 'USER', updateData);
-        await logAuditAction("إضافة ملاحظة", `ملاحظة للموظف ${u.name}`);
-        input.value = ''; renderEmployeeNotesList(u); toast(t('msg_saved'));
-      } catch(e) { alert(t('msg_failed')); }
+      if (!u.notes) u.notes = []; u.notes.push({ text: val, date: new Date().toLocaleDateString() });
+      try { const updateData = { ...u }; delete updateData._docId; delete updateData._companyId; await updateCloudDoc(u._docId, 'USER', updateData); await logAuditAction("إضافة ملاحظة", `ملاحظة للموظف ${u.name}`); input.value = ''; renderEmployeeNotesList(u); toast(t('msg_saved')); } catch(e) { alert(t('msg_failed')); }
     }
 
-    function renderEmployeeProfileAttendance(u) {
-      const list = document.getElementById('profAttendanceList'); list.innerHTML = '';
-      const atts = localCache.attendance.filter(a => a.userId === u.appwriteUserId || a.userId === u._docId).slice(0, 5);
-      if (!atts.length) { list.innerHTML = `<div class="text-[11px] text-slate-500">${t('msg_no_records')}</div>`; return; }
-      atts.forEach(a => {
-        const d = document.createElement('div');
-        d.className = 'p-2 rounded-xl dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-200 text-xs flex items-center justify-between font-mono';
-        d.innerHTML = `<span class="text-slate-300">${a.date}</span><span class="text-emerald-400">حضور: ${a.checkIn}</span><span class="text-amber-400">انصراف: ${a.checkOut || '-'}</span>`;
-        list.appendChild(d);
-      });
-    }
+    function renderEmployeeProfileAttendance(u) { const list = document.getElementById('profAttendanceList'); list.innerHTML = ''; const atts = localCache.attendance.filter(a => a.userId === u.appwriteUserId || a.userId === u._docId).slice(0, 5); if (!atts.length) { list.innerHTML = `<div class="text-[11px] text-slate-500">${t('msg_no_records')}</div>`; return; } atts.forEach(a => { const d = document.createElement('div'); d.className = 'p-2 rounded-xl dark:bg-slate-900 bg-slate-50 border dark:border-slate-700 border-slate-200 text-xs flex items-center justify-between font-mono'; d.innerHTML = `<span class="text-slate-300">${a.date}</span><span class="text-emerald-400">حضور: ${a.checkIn}</span><span class="text-amber-400">انصراف: ${a.checkOut || '-'}</span>`; list.appendChild(d); }); }
 
     function openNewEmployeeModal() { document.getElementById('employeeModal').classList.remove('hidden-view'); }
 
@@ -1750,54 +1869,57 @@
       if (!name || !user || !pass) return alert(t('msg_required_fields'));
       if (pass.length < 8) return alert(t('msg_pass_short'));
       if (localCache.users.find(u => u.username === user)) return alert(t('msg_user_used'));
-      const btn = e.target.querySelector('button[type="submit"]');
-      const orig = btn.innerHTML;
+      const btn = e.target.querySelector('button[type="submit"]'); const orig = btn.innerHTML;
       btn.disabled = true; btn.innerHTML = '<i data-lucide="loader" class="w-4 h-4 animate-spin inline"></i> ' + t('msg_loading'); lucide.createIcons();
       try {
         const email = `${user}@${currentUser.companyCode}.vodfire`;
         const execution = await currentFunctions.createExecution('create-uesr', JSON.stringify({ email, password: pass, name }));
-        let result = {};
-        try { result = JSON.parse(execution.responseBody || execution.responseString || '{}'); } catch(err) { result = { success: true }; }
+        let result = {}; try { result = JSON.parse(execution.responseBody || execution.responseString || '{}'); } catch(err) { result = { success: true }; }
         if (result.success === false || result.error) throw new Error(result.error || t('msg_failed'));
         const userPayload = { name, username: user, email, role, jobTitle: jt, basicSalary, leaveBalance, workStartTime, workEndTime, companyId: currentUser.companyId, companyCode: currentUser.companyCode, companyName: currentUser.companyName, appwriteUserId: result.user ? result.user.$id : null, workplace: { name: locName, latitude: lat, longitude: lng, radiusMeters: radius }, notes: [], createdAt: new Date().toISOString() };
         const cfg = getServerConfig(currentServerId);
         await currentDatabases.createDocument(cfg.databaseId, cfg.collectionId, SDK.ID.unique(), { entitytype: 'USER', Payload: JSON.stringify(userPayload), Username: name, userEmail: email, companyId: currentUser.companyId, CompanyCode: currentUser.companyCode, createdAt: new Date().toISOString() });
-        await loadAllFromCloud();
-        await logAuditAction("إضافة موظف", `${name} بدور (${role})`);
+        await loadAllFromCloud(); await logAuditAction("إضافة موظف", `${name} بدور (${role})`);
         closeModal('employeeModal'); e.target.reset(); renderEmployees(); renderDashboardStats();
         alert(`${t('msg_account_credentials')}\n\n${t('msg_user_label')}: ${user}\n${t('msg_pass_label')}: ${pass}\n\n⏰ العمل: ${workStartTime} - ${workEndTime}`);
       } catch(err) { alert('❌ ' + (err.message || JSON.stringify(err))); } finally { btn.disabled = false; btn.innerHTML = orig; lucide.createIcons(); }
     }
 
-    function getCurrentLocationForEmployee() {
-      if (!navigator.geolocation) return alert('GPS غير مدعوم');
-      navigator.geolocation.getCurrentPosition((pos) => {
-        document.getElementById('newEmpLat').value = pos.coords.latitude.toFixed(6);
-        document.getElementById('newEmpLng').value = pos.coords.longitude.toFixed(6);
-        toast('✅ تم جلب إحداثياتك');
-      }, (err) => alert('فشل: ' + err.message), { enableHighAccuracy: true });
-    }
+    function getCurrentLocationForEmployee() { if (!navigator.geolocation) return alert('GPS غير مدعوم'); navigator.geolocation.getCurrentPosition((pos) => { document.getElementById('newEmpLat').value = pos.coords.latitude.toFixed(6); document.getElementById('newEmpLng').value = pos.coords.longitude.toFixed(6); toast('✅ تم جلب إحداثياتك'); }, (err) => alert('فشل: ' + err.message), { enableHighAccuracy: true }); }
 
     async function deleteEmployee(id) {
       if (!confirm(t('msg_delete_emp_confirm'))) return;
-      try {
-        const u = localCache.users.find(x => x._docId === id); if (!u) return;
-        await deleteCloudDoc(id);
-        await logAuditAction("حذف موظف", `تم حذف: ${u.name}`);
-        localCache.users = localCache.users.filter(x => x._docId !== id);
-        renderEmployees(); renderDashboardStats(); toast('✅ تم الحذف');
-      } catch(e){ alert('فشل: ' + e.message); }
+      try { const u = localCache.users.find(x => x._docId === id); if (!u) return; await deleteCloudDoc(id); await logAuditAction("حذف موظف", `تم حذف: ${u.name}`); localCache.users = localCache.users.filter(x => x._docId !== id); renderEmployees(); renderDashboardStats(); toast('✅ تم الحذف'); } catch(e){ alert('فشل: ' + e.message); }
     }
 
-    function openProfileModal() { document.getElementById('newDisplayName').value = currentUser.name; document.getElementById('profileModal').classList.remove('hidden-view'); lucide.createIcons(); }
-    function openCompanySettingsModal() {
-      const c = currentUser.companyData || {};
-      const col = c.brandColor || '#06b6d4';
-      document.getElementById('companyBrandColorInput').value = col;
-      document.getElementById('companyBrandColorHex').value = col;
-      document.getElementById('companySettingsModal').classList.remove('hidden-view');
+    // ⚙️ إعدادات الحساب (للمدير: تعديل اسم الشركة + حذف الشركة)
+    function openProfileModal() {
+      if (!currentUser) { alert('⚠️ يجب تسجيل الدخول أولاً'); return; }
+      document.getElementById('profileCurrentName').textContent = currentUser.name || '—';
+      document.getElementById('profileCurrentRole').textContent = 
+        currentUser.role === 'general_manager' ? 'مدير عام' :
+        currentUser.role === 'hr_manager' ? 'مدير HR' :
+        currentUser.role === 'financial_manager' ? 'مدير مالي' :
+        currentUser.role === 'department_supervisor' ? 'مشرف' : 'موظف';
+      
+      const isManager = (currentUser.role === 'general_manager' || currentUser.role === 'manager') && !currentUser._impersonating;
+      
+      // إظهار قسم تعديل اسم الشركة
+      const editNameSection = document.getElementById('editCompanyNameSection');
+      if (editNameSection) {
+        editNameSection.classList.toggle('hidden', !isManager);
+        if (isManager) document.getElementById('editCompanyNameInput').value = currentUser.companyName || '';
+      }
+      
+      // إظهار قسم حذف الشركة
+      const deleteSection = document.getElementById('deleteCompanySection');
+      if (deleteSection) deleteSection.classList.toggle('hidden', !isManager);
+      
+      document.getElementById('profileModal').classList.remove('hidden-view');
       lucide.createIcons();
     }
+
+    function openCompanySettingsModal() { const c = currentUser.companyData || {}; const col = c.brandColor || '#06b6d4'; document.getElementById('companyBrandColorInput').value = col; document.getElementById('companyBrandColorHex').value = col; document.getElementById('companySettingsModal').classList.remove('hidden-view'); lucide.createIcons(); }
 
     async function handleSaveCompanySettings(e) {
       e.preventDefault();
@@ -1808,8 +1930,7 @@
         const cdata = safeParse(compDoc.Payload);
         cdata.brandColor = brandColor; cdata.logoUrl = '';
         await currentDatabases.updateDocument(cfg.databaseId, cfg.collectionId, currentUser.companyId, { Payload: JSON.stringify(cdata) });
-        currentUser.companyData = cdata;
-        applyBrandSettings(cdata);
+        currentUser.companyData = cdata; applyBrandSettings(cdata);
         await logAuditAction("تعديل إعدادات الشركة", 'تم تعديل اللون');
         closeModal('companySettingsModal'); toast('تم الحفظ');
       } catch(e) { alert('فشل: ' + e.message); }
@@ -1817,51 +1938,13 @@
 
     document.getElementById('companyBrandColorInput')?.addEventListener('input', (e) => { document.getElementById('companyBrandColorHex').value = e.target.value; });
 
-    function applyBrandSettings(cdata) {
-      if (!cdata) return;
-      const color = cdata.brandColor || '#06b6d4';
-      document.documentElement.style.setProperty('--brand-color', color);
-      const metaC = document.getElementById('metaThemeColor'); if (metaC) metaC.setAttribute('content', color);
-      const hexInput = document.getElementById('companyBrandColorHex'); if (hexInput) hexInput.value = color;
-      const colInput = document.getElementById('companyBrandColorInput'); if (colInput) colInput.value = color;
-      if (currentUser?.companyId) localStorage.setItem('vodfire_brand_' + currentUser.companyId, JSON.stringify({ brandColor: color }));
-    }
+    function applyBrandSettings(cdata) { if (!cdata) return; const color = cdata.brandColor || '#06b6d4'; document.documentElement.style.setProperty('--brand-color', color); const metaC = document.getElementById('metaThemeColor'); if (metaC) metaC.setAttribute('content', color); const hexInput = document.getElementById('companyBrandColorHex'); if (hexInput) hexInput.value = color; const colInput = document.getElementById('companyBrandColorInput'); if (colInput) colInput.value = color; if (currentUser?.companyId) localStorage.setItem('vodfire_brand_' + currentUser.companyId, JSON.stringify({ brandColor: color })); }
 
-    function restoreBrandSettings() {
-      if (!currentUser?.companyId) return;
-      try { const saved = localStorage.getItem('vodfire_brand_' + currentUser.companyId); if (saved) { const data = JSON.parse(saved); applyBrandSettings(data); } } catch(e){}
-    }
+    function restoreBrandSettings() { if (!currentUser?.companyId) return; try { const saved = localStorage.getItem('vodfire_brand_' + currentUser.companyId); if (saved) { const data = JSON.parse(saved); applyBrandSettings(data); } } catch(e){} }
 
-    async function handleAvatarUpload(e) {
-      const f = e.target.files[0]; if (!f) return;
-      const r = new FileReader();
-      r.onload = async (ev) => {
-        if (!currentUser._docId) return;
-        try {
-          const cfg = getServerConfig(currentServerId);
-          const d = await currentDatabases.getDocument(cfg.databaseId, cfg.collectionId, currentUser._docId);
-          const p = safeParse(d.Payload); p.ProfileImage = ev.target.result;
-          await currentDatabases.updateDocument(cfg.databaseId, cfg.collectionId, currentUser._docId, { Payload: JSON.stringify(p) });
-          currentUser.profileImage = ev.target.result;
-          toast(t('msg_photo_updated'));
-        } catch(e){ alert(t('msg_photo_too_big')); }
-      };
-      r.readAsDataURL(f);
-    }
+    async function handleAvatarUpload(e) { /* لم يعد مستخدم */ }
 
-    async function handleChangeName() {
-      const nn = document.getElementById('newDisplayName').value.trim();
-      if (!nn || !currentUser._docId) return;
-      try {
-        const cfg = getServerConfig(currentServerId);
-        const d = await currentDatabases.getDocument(cfg.databaseId, cfg.collectionId, currentUser._docId);
-        const p = safeParse(d.Payload); p.DisplayName = nn;
-        await currentDatabases.updateDocument(cfg.databaseId, cfg.collectionId, currentUser._docId, { Payload: JSON.stringify(p), Username: nn });
-        currentUser.name = nn;
-        renderDashboardStats();
-        toast(t('msg_saved')); closeModal('profileModal');
-      } catch(e){ alert(t('msg_failed')); }
-    }
+    async function handleChangeName() { /* لم يعد مستخدم */ }
 
     let currentReportData = [];
     function isLastDayOfMonth() { const today = new Date(); const tomorrow = new Date(today); tomorrow.setDate(today.getDate() + 1); return tomorrow.getDate() === 1; }
@@ -1879,22 +1962,13 @@
       const monthAttendance = localCache.attendance.filter(a => a.date && a.date.startsWith(prefix));
       const stats = localCache.users.map(user => {
         const userAtt = monthAttendance.filter(a => a.userId === user.appwriteUserId || a.userId === user._docId);
-        const basicSalary = user.basicSalary || 5000;
-        const housing = user.housingAllowance || 0;
-        const transport = user.transportAllowance || 0;
-        const food = user.foodAllowance || 0;
-        const overtimeHours = user.overtimeHours || 0;
-        const overtimeRate = 50;
-        const presentDays = userAtt.length;
-        const earnedBasic = presentDays * (basicSalary / 22);
-        const overtimePay = overtimeHours * overtimeRate;
+        const basicSalary = user.basicSalary || 5000; const housing = user.housingAllowance || 0; const transport = user.transportAllowance || 0; const food = user.foodAllowance || 0;
+        const overtimeHours = user.overtimeHours || 0; const overtimeRate = 50;
+        const presentDays = userAtt.length; const earnedBasic = presentDays * (basicSalary / 22); const overtimePay = overtimeHours * overtimeRate;
         const grossSalary = earnedBasic + housing + transport + food + overtimePay;
-        const insurancePercent = user.insurancePercent !== undefined ? user.insurancePercent : 11;
-        const taxPercent = user.taxPercent !== undefined ? user.taxPercent : 0;
-        const insurance = Math.round(grossSalary * (insurancePercent / 100));
-        const tax = Math.round((grossSalary - insurance) * (taxPercent / 100));
-        const loanDeduction = user.loanDeduction || 0;
-        const manualDeductions = user.manualDeductions || 0;
+        const insurancePercent = user.insurancePercent !== undefined ? user.insurancePercent : 11; const taxPercent = user.taxPercent !== undefined ? user.taxPercent : 0;
+        const insurance = Math.round(grossSalary * (insurancePercent / 100)); const tax = Math.round((grossSalary - insurance) * (taxPercent / 100));
+        const loanDeduction = user.loanDeduction || 0; const manualDeductions = user.manualDeductions || 0;
         const netSalary = Math.max(0, grossSalary - insurance - tax - loanDeduction - manualDeductions);
         return { id: user._docId, name: user.DisplayName || user.name, username: user.username, jobTitle: user.jobTitle, presentDays, basicSalary, housing, transport, food, overtimeHours, overtimePay, earnedBasic, grossSalary: Math.round(grossSalary), insurance, tax, loanDeduction, manualDeductions, netSalary: Math.round(netSalary) };
       });
@@ -1904,15 +1978,7 @@
         tb.innerHTML = '';
         stats.forEach((s, idx) => {
           const tr = document.createElement('tr'); tr.className = 'dark:hover:bg-slate-700/30 hover:bg-slate-50';
-          tr.innerHTML = `
-            <td class="py-3 px-4 font-bold dark:text-white text-slate-900">${escapeHtml(s.name)}</td>
-            <td class="py-3 px-4 text-center font-bold text-emerald-500">${s.presentDays}</td>
-            <td class="py-3 px-4 text-center font-mono text-cyan-400">${s.grossSalary.toLocaleString()}</td>
-            <td class="py-3 px-4 text-center font-mono text-amber-400">${s.insurance.toLocaleString()}</td>
-            <td class="py-3 px-4 text-center font-mono text-rose-400">${s.tax.toLocaleString()}</td>
-            <td class="py-3 px-4 text-center font-mono text-emerald-400 font-bold text-sm">${s.netSalary.toLocaleString()}</td>
-            ${canEditPayroll ? `<td class="py-3 px-4 text-center"><div class="flex items-center justify-center gap-1"><button onclick="openSalarySettingsModal(${idx})" class="px-2 py-1 bg-cyan-600/20 text-cyan-400 hover:bg-cyan-600 hover:text-white rounded-lg text-[10px] font-bold cursor-pointer"><i data-lucide="settings" class="w-3 h-3"></i></button><button onclick="generatePayslip(${idx})" class="px-2 py-1 bg-emerald-600/20 text-emerald-400 hover:bg-emerald-600 hover:text-white rounded-lg text-[10px] font-bold cursor-pointer"><i data-lucide="file-text" class="w-3 h-3"></i></button></div></td>` : '<td class="py-3 px-4 text-center">—</td>'}
-          `;
+          tr.innerHTML = `<td class="py-3 px-4 font-bold dark:text-white text-slate-900">${escapeHtml(s.name)}</td><td class="py-3 px-4 text-center font-bold text-emerald-500">${s.presentDays}</td><td class="py-3 px-4 text-center font-mono text-cyan-400">${s.grossSalary.toLocaleString()}</td><td class="py-3 px-4 text-center font-mono text-amber-400">${s.insurance.toLocaleString()}</td><td class="py-3 px-4 text-center font-mono text-rose-400">${s.tax.toLocaleString()}</td><td class="py-3 px-4 text-center font-mono text-emerald-400 font-bold text-sm">${s.netSalary.toLocaleString()}</td>${canEditPayroll ? `<td class="py-3 px-4 text-center"><div class="flex items-center justify-center gap-1"><button onclick="openSalarySettingsModal(${idx})" class="px-2 py-1 bg-cyan-600/20 text-cyan-400 hover:bg-cyan-600 hover:text-white rounded-lg text-[10px] font-bold cursor-pointer"><i data-lucide="settings" class="w-3 h-3"></i></button><button onclick="generatePayslip(${idx})" class="px-2 py-1 bg-emerald-600/20 text-emerald-400 hover:bg-emerald-600 hover:text-white rounded-lg text-[10px] font-bold cursor-pointer"><i data-lucide="file-text" class="w-3 h-3"></i></button></div></td>` : '<td class="py-3 px-4 text-center">—</td>'}`;
           tb.appendChild(tr);
         });
         lucide.createIcons();
@@ -1922,26 +1988,17 @@
     function openSalarySettingsModal(idx) {
       const item = currentReportData[idx]; if (!item) return;
       const u = localCache.users.find(x => x._docId === item.id); if (!u) return;
-      document.getElementById('salarySettingsEmpId').value = item.id;
-      document.getElementById('salarySettingsEmpIndex').value = idx;
+      document.getElementById('salarySettingsEmpId').value = item.id; document.getElementById('salarySettingsEmpIndex').value = idx;
       document.getElementById('salarySettingsEmpName').textContent = item.name;
-      document.getElementById('salBasic').value = u.basicSalary || 5000;
-      document.getElementById('salHousing').value = u.housingAllowance || 0;
-      document.getElementById('salTransport').value = u.transportAllowance || 0;
-      document.getElementById('salFood').value = u.foodAllowance || 0;
-      document.getElementById('salInsurance').value = u.insurancePercent !== undefined ? u.insurancePercent : 11;
-      document.getElementById('salTax').value = u.taxPercent !== undefined ? u.taxPercent : 0;
-      document.getElementById('salLoan').value = u.loanDeduction || 0;
-      document.getElementById('salDeductions').value = u.manualDeductions || 0;
-      document.getElementById('salOvertime').value = u.overtimeHours || 0;
-      document.getElementById('salarySettingsModal').classList.remove('hidden-view');
-      lucide.createIcons();
+      document.getElementById('salBasic').value = u.basicSalary || 5000; document.getElementById('salHousing').value = u.housingAllowance || 0; document.getElementById('salTransport').value = u.transportAllowance || 0; document.getElementById('salFood').value = u.foodAllowance || 0;
+      document.getElementById('salInsurance').value = u.insurancePercent !== undefined ? u.insurancePercent : 11; document.getElementById('salTax').value = u.taxPercent !== undefined ? u.taxPercent : 0;
+      document.getElementById('salLoan').value = u.loanDeduction || 0; document.getElementById('salDeductions').value = u.manualDeductions || 0; document.getElementById('salOvertime').value = u.overtimeHours || 0;
+      document.getElementById('salarySettingsModal').classList.remove('hidden-view'); lucide.createIcons();
     }
 
     async function handleSaveSalarySettings(e) {
       e.preventDefault();
-      const id = document.getElementById('salarySettingsEmpId').value;
-      const u = localCache.users.find(x => x._docId === id); if (!u) return;
+      const id = document.getElementById('salarySettingsEmpId').value; const u = localCache.users.find(x => x._docId === id); if (!u) return;
       u.basicSalary = parseFloat(document.getElementById('salBasic').value) || 5000;
       u.housingAllowance = parseFloat(document.getElementById('salHousing').value) || 0;
       u.transportAllowance = parseFloat(document.getElementById('salTransport').value) || 0;
@@ -1951,122 +2008,37 @@
       u.loanDeduction = parseFloat(document.getElementById('salLoan').value) || 0;
       u.manualDeductions = parseFloat(document.getElementById('salDeductions').value) || 0;
       u.overtimeHours = parseFloat(document.getElementById('salOvertime').value) || 0;
-      try {
-        const uData = { ...u }; delete uData._docId; delete uData._companyId;
-        await updateCloudDoc(u._docId, 'USER', uData);
-        await logAuditAction("تعديل راتب", `تم تعديل راتب ${u.name}`);
-        closeModal('salarySettingsModal'); renderMonthlyReports(); toast('✅ تم الحفظ');
-      } catch(e) { alert('فشل: ' + e.message); }
+      try { const uData = { ...u }; delete uData._docId; delete uData._companyId; await updateCloudDoc(u._docId, 'USER', uData); await logAuditAction("تعديل راتب", `تم تعديل راتب ${u.name}`); closeModal('salarySettingsModal'); renderMonthlyReports(); toast('✅ تم الحفظ'); } catch(e) { alert('فشل: ' + e.message); }
     }
 
     function generatePayslip(idx) {
       const item = currentReportData[idx]; if (!item) return;
       const monthNames = ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'];
-      const monthName = monthNames[parseInt(document.getElementById('reportMonth').value) - 1];
-      const year = document.getElementById('reportYear').value;
-      const companyName = currentUser.companyName || 'الشركة';
-      const brandColor = currentUser.companyData?.brandColor || '#06b6d4';
+      const monthName = monthNames[parseInt(document.getElementById('reportMonth').value) - 1]; const year = document.getElementById('reportYear').value;
+      const companyName = currentUser.companyName || 'الشركة'; const brandColor = currentUser.companyData?.brandColor || '#06b6d4';
       const today = new Date().toLocaleDateString('ar-EG');
       const html = `<div style="direction: rtl; font-family: Cairo, Arial; padding: 30px; background: white; color: #1e293b; max-width: 800px; margin: 0 auto;"><div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid ${brandColor}; padding-bottom: 20px; margin-bottom: 25px;"><div><h1 style="margin: 0; font-size: 24px; color: ${brandColor};">${companyName}</h1><p style="margin: 5px 0 0 0; font-size: 12px; color: #64748b;">كشف راتب</p></div><div style="text-align: left;"><div style="background: ${brandColor}; color: white; padding: 8px 20px; border-radius: 8px; font-weight: 900;">${monthName} ${year}</div></div></div><div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 15px; margin-bottom: 20px;"><p><strong>الاسم:</strong> ${item.name} | <strong>المستخدم:</strong> @${item.username || '—'} | <strong>أيام الحضور:</strong> ${item.presentDays}</p></div><table style="width: 100%; border-collapse: collapse; font-size: 12px; border: 1px solid #e2e8f0;"><thead><tr style="background: ${brandColor}; color: white;"><th style="padding: 10px; text-align: right;">البند</th><th style="padding: 10px; text-align: left;">المبلغ (ج.م)</th></tr></thead><tbody><tr><td style="padding: 8px; border: 1px solid #e2e8f0;">الراتب الأساسي</td><td style="padding: 8px; border: 1px solid #e2e8f0; text-align: left; font-family: monospace;">${item.basicSalary}</td></tr><tr><td style="padding: 8px; border: 1px solid #e2e8f0;">المستحق (${item.presentDays}/22)</td><td style="padding: 8px; border: 1px solid #e2e8f0; text-align: left; font-family: monospace;">${Math.round(item.earnedBasic)}</td></tr><tr><td style="padding: 8px; border: 1px solid #e2e8f0;">بدلات</td><td style="padding: 8px; border: 1px solid #e2e8f0; text-align: left; font-family: monospace; color: #16a34a;">+ ${(item.housing + item.transport + item.food).toLocaleString()}</td></tr><tr style="background: #dbeafe;"><td style="padding: 10px; border: 1px solid #e2e8f0; font-weight: 900;">الإجمالي</td><td style="padding: 10px; border: 1px solid #e2e8f0; text-align: left; font-family: monospace; font-weight: 900;">${item.grossSalary}</td></tr><tr><td style="padding: 8px; border: 1px solid #e2e8f0; color: #dc2626;">تأمينات + ضريبة + سلفة + خصومات</td><td style="padding: 8px; border: 1px solid #e2e8f0; text-align: left; font-family: monospace; color: #dc2626;">- ${(item.insurance + item.tax + item.loanDeduction + item.manualDeductions).toLocaleString()}</td></tr><tr style="background: #dcfce7;"><td style="padding: 12px; border: 1px solid #e2e8f0; font-weight: 900; font-size: 14px; color: #166534;">الصافي</td><td style="padding: 12px; border: 1px solid #e2e8f0; text-align: left; font-family: monospace; font-weight: 900; font-size: 14px; color: #166534;">${item.netSalary} ج.م</td></tr></tbody></table><p style="margin-top: 30px; text-align: center; font-size: 10px; color: #64748b;">VodFire HRMS</p></div>`;
-      const container = document.createElement('div');
-      container.innerHTML = html;
+      const container = document.createElement('div'); container.innerHTML = html;
       const opt = { margin: 0, filename: `Payslip_${item.username || item.name}_${monthName}_${year}.pdf`, image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2, useCORS: true }, jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' } };
       html2pdf().from(container.firstElementChild).set(opt).save();
       toast(`جاري تحميل كشف راتب ${item.name}...`);
     }
 
-    function exportMonthlyReportToPDF() {
-      if (!isLastDayOfMonth()) { alert('⚠️ التقرير متاح فقط في آخر يوم من الشهر.\nالنهاردة: ' + new Date().toLocaleDateString('ar-EG')); return; }
-      const monthKey = 'report_' + new Date().getFullYear() + '_' + (new Date().getMonth() + 1) + '_' + currentUser.companyId;
-      if (localStorage.getItem(monthKey)) { alert('⚠️ تم تحميله مسبقاً.'); return; }
-      localStorage.setItem(monthKey, 'downloaded');
-      const element = document.getElementById('reportExportContainer');
-      const opt = { margin: 10, filename: `VodFire_Report_${currentUser.companyName || 'Company'}.pdf`, image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2, useCORS: true }, jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' } };
-      html2pdf().from(element).set(opt).save();
-      toast('✅ جاري التحميل');
-    }
+    function exportMonthlyReportToPDF() { if (!isLastDayOfMonth()) { alert('⚠️ متاح فقط في آخر يوم من الشهر.\nالنهاردة: ' + new Date().toLocaleDateString('ar-EG')); return; } const monthKey = 'report_' + new Date().getFullYear() + '_' + (new Date().getMonth() + 1) + '_' + currentUser.companyId; if (localStorage.getItem(monthKey)) { alert('⚠️ تم تحميله مسبقاً.'); return; } localStorage.setItem(monthKey, 'downloaded'); const element = document.getElementById('reportExportContainer'); const opt = { margin: 10, filename: `VodFire_Report_${currentUser.companyName || 'Company'}.pdf`, image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2, useCORS: true }, jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' } }; html2pdf().from(element).set(opt).save(); toast('✅ جاري التحميل'); }
 
-    function exportMonthlyReportToCSV() {
-      if (!isLastDayOfMonth()) { alert('⚠️ التقرير متاح فقط في آخر يوم من الشهر.\nالنهاردة: ' + new Date().toLocaleDateString('ar-EG')); return; }
-      const monthKey = 'report_' + new Date().getFullYear() + '_' + (new Date().getMonth() + 1) + '_csv_' + currentUser.companyId;
-      if (localStorage.getItem(monthKey)) { alert('⚠️ تم تحميله مسبقاً.'); return; }
-      localStorage.setItem(monthKey, 'downloaded');
-      if (!currentReportData.length) return alert(t('msg_no_data_period'));
-      const month = document.getElementById('reportMonth').options[document.getElementById('reportMonth').selectedIndex].text;
-      const year = document.getElementById('reportYear').value;
-      let csvContent = "\uFEFF" + `Company,${currentUser.companyName || ''}\nMonth,${month} ${year}\n\n` + `Name,Days,Gross,Insurance,Tax,Net\n`;
-      currentReportData.forEach(s => { csvContent += `"${s.name}",${s.presentDays},${s.grossSalary},${s.insurance},${s.tax},${s.netSalary}\n`; });
-      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.setAttribute("href", url);
-      link.setAttribute("download", `VodFire_Report_${month}_${year}.csv`);
-      document.body.appendChild(link); link.click(); document.body.removeChild(link);
-      toast('✅ جاري التحميل');
-    }
+    function exportMonthlyReportToCSV() { if (!isLastDayOfMonth()) { alert('⚠️ متاح فقط في آخر يوم من الشهر.\nالنهاردة: ' + new Date().toLocaleDateString('ar-EG')); return; } const monthKey = 'report_' + new Date().getFullYear() + '_' + (new Date().getMonth() + 1) + '_csv_' + currentUser.companyId; if (localStorage.getItem(monthKey)) { alert('⚠️ تم تحميله مسبقاً.'); return; } localStorage.setItem(monthKey, 'downloaded'); if (!currentReportData.length) return alert(t('msg_no_data_period')); const month = document.getElementById('reportMonth').options[document.getElementById('reportMonth').selectedIndex].text; const year = document.getElementById('reportYear').value; let csvContent = "\uFEFF" + `Company,${currentUser.companyName || ''}\nMonth,${month} ${year}\n\n` + `Name,Days,Gross,Insurance,Tax,Net\n`; currentReportData.forEach(s => { csvContent += `"${s.name}",${s.presentDays},${s.grossSalary},${s.insurance},${s.tax},${s.netSalary}\n`; }); const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' }); const url = URL.createObjectURL(blob); const link = document.createElement("a"); link.setAttribute("href", url); link.setAttribute("download", `VodFire_Report_${month}_${year}.csv`); document.body.appendChild(link); link.click(); document.body.removeChild(link); toast('✅ جاري التحميل'); }
 
-    function exportSystemBackup() {
-      const backupData = { company: currentUser.companyName, code: currentUser.companyCode, users: localCache.users, attendance: localCache.attendance, requests: localCache.requests, auditLogs: localCache.auditLogs, exportDate: new Date().toISOString() };
-      const blob = new Blob([JSON.stringify(backupData, null, 2)], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = `VodFire_Backup_${currentUser.companyCode}_${new Date().toISOString().slice(0,10)}.json`;
-      link.click();
-      toast("تم تصدير النسخة الاحتياطية");
-    }
+    function exportSystemBackup() { const backupData = { company: currentUser.companyName, code: currentUser.companyCode, users: localCache.users, attendance: localCache.attendance, requests: localCache.requests, auditLogs: localCache.auditLogs, exportDate: new Date().toISOString() }; const blob = new Blob([JSON.stringify(backupData, null, 2)], { type: 'application/json' }); const url = URL.createObjectURL(blob); const link = document.createElement('a'); link.href = url; link.download = `VodFire_Backup_${currentUser.companyCode}_${new Date().toISOString().slice(0,10)}.json`; link.click(); toast("تم تصدير النسخة الاحتياطية"); }
 
-    async function importSystemBackup(e) {
-      const file = e.target.files[0]; if (!file) return;
-      const reader = new FileReader();
-      reader.onload = async (event) => {
-        try {
-          const data = JSON.parse(event.target.result);
-          if (!data.users || !data.attendance) throw new Error("ملف غير صالح");
-          if (confirm(`استعادة النسخة الاحتياطية لشركة "${data.company}"؟`)) {
-            toast("جاري الاستعادة...");
-            setTimeout(() => { toast("تمت الاستعادة!"); window.location.reload(); }, 1500);
-          }
-        } catch(err) { alert("فشل قراءة الملف"); }
-      };
-      reader.readAsText(file);
-    }
+    async function importSystemBackup(e) { const file = e.target.files[0]; if (!file) return; const reader = new FileReader(); reader.onload = async (event) => { try { const data = JSON.parse(event.target.result); if (!data.users || !data.attendance) throw new Error("ملف غير صالح"); if (confirm(`استعادة النسخة الاحتياطية لشركة "${data.company}"؟`)) { toast("جاري الاستعادة..."); setTimeout(() => { toast("تمت الاستعادة!"); window.location.reload(); }, 1500); } } catch(err) { alert("فشل قراءة الملف"); } }; reader.readAsText(file); }
 
-    async function manualRefreshAll() {
-      const icon = document.getElementById('globalRefreshIcon');
-      if (icon) icon.classList.add('animate-spin');
-      try {
-        if (currentUser.isSuperAdmin && !currentUser._impersonating) {
-          await loadSuperAdminData(); await loadCompaniesMap(); renderSuperAdminCompanies(); renderServersList();
-        } else {
-          await loadAllFromCloud(); renderAll();
-        }
-        if (syncInterval) clearInterval(syncInterval);
-        startAutoSync();
-        toast('✅ تم تحديث البيانات بنجاح');
-      } catch(e) { alert('فشل التحديث: ' + e.message); } finally { if (icon) setTimeout(() => icon.classList.remove('animate-spin'), 1000); }
-    }
+    async function manualRefreshAll() { const icon = document.getElementById('globalRefreshIcon'); if (icon) icon.classList.add('animate-spin'); try { if (currentUser.isSuperAdmin && !currentUser._impersonating) { await loadSuperAdminData(); await loadCompaniesMap(); renderSuperAdminCompanies(); renderServersList(); } else { await loadAllFromCloud(); renderAll(); } if (syncInterval) clearInterval(syncInterval); startAutoSync(); toast('✅ تم تحديث البيانات بنجاح'); } catch(e) { alert('فشل التحديث: ' + e.message); } finally { if (icon) setTimeout(() => icon.classList.remove('animate-spin'), 1000); } }
 
-    function startAutoSync() {
-      if (syncInterval) clearInterval(syncInterval);
-      syncInterval = setInterval(async () => {
-        try {
-          if (currentUser.isSuperAdmin && !currentUser._impersonating) { await loadSuperAdminData(); renderSuperAdminCompanies(); renderServersList(); }
-          else { await loadAllFromCloud(); renderAll(); }
-        } catch(e){}
-      }, 3600000);
-    }
+    function startAutoSync() { if (syncInterval) clearInterval(syncInterval); syncInterval = setInterval(async () => { try { if (currentUser.isSuperAdmin && !currentUser._impersonating) { await loadSuperAdminData(); renderSuperAdminCompanies(); renderServersList(); } else { await loadAllFromCloud(); renderAll(); } } catch(e){} }, 3600000); }
 
     function closeModal(id) { document.getElementById(id).classList.add('hidden-view'); }
     function escapeHtml(s) { return String(s??'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
-    function toast(msg) {
-      const el = document.createElement('div');
-      el.className = 'fixed bottom-6 left-1/2 -translate-x-1/2 text-white px-5 py-3 rounded-xl text-sm font-bold shadow-2xl z-[999] border flex items-center gap-2 max-w-[90vw]';
-      el.style.backgroundColor = 'var(--brand-color, #06b6d4)';
-      el.innerHTML = `<i data-lucide="check-circle" class="w-4 h-4 shrink-0"></i><span>${msg}</span>`;
-      document.body.appendChild(el); lucide.createIcons();
-      setTimeout(() => el.remove(), 3500);
-    }
+    function toast(msg) { const el = document.createElement('div'); el.className = 'fixed bottom-6 left-1/2 -translate-x-1/2 text-white px-5 py-3 rounded-xl text-sm font-bold shadow-2xl z-[999] border flex items-center gap-2 max-w-[90vw]'; el.style.backgroundColor = 'var(--brand-color, #06b6d4)'; el.innerHTML = `<i data-lucide="check-circle" class="w-4 h-4 shrink-0"></i><span>${msg}</span>`; document.body.appendChild(el); lucide.createIcons(); setTimeout(() => el.remove(), 3500); }
 
     window.addEventListener('DOMContentLoaded', async () => {
       const savedLang = localStorage.getItem('vodfire_lang') || 'ar';
@@ -2089,8 +2061,7 @@
             }
             const profile = await findUserProfile(acc.$id, acc.email, currentServerId);
             if (profile) {
-              let finalRole = profile.role || 'employee';
-              let cdata = {};
+              let finalRole = profile.role || 'employee'; let cdata = {};
               if (profile.companyId) { try { const cfg = getServerConfig(currentServerId); const cd = await currentDatabases.getDocument(cfg.databaseId, cfg.collectionId, profile.companyId); cdata = safeParse(cd.Payload); } catch(e){} }
               currentUser = { id: acc.$id, email: acc.email, username: profile.username, name: profile.DisplayName || profile.name || acc.name || 'User', role: finalRole, isVerified: true, isSuperAdmin: false, profileImage: profile.ProfileImage || null, jobTitle: profile.jobTitle || 'Employee', basicSalary: profile.basicSalary || 5000, leaveBalance: profile.leaveBalance !== undefined ? profile.leaveBalance : 21, workStartTime: profile.workStartTime || '09:00', workEndTime: profile.workEndTime || '17:00', companyId: profile.companyId, companyCode: profile.companyCode, companyName: profile.companyName, companyData: cdata, workplace: profile.workplace || { name:'—', latitude: 0, longitude: 0, radiusMeters: 0 }, notes: profile.notes || [], _docId: profile._docId };
               restoreBrandSettings();
