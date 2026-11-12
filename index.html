@@ -114,6 +114,34 @@
     .vf-hero-svg { animation: vfFloatY 6s ease-in-out infinite; }
     #landingScreen .feature-card { background: rgba(255,255,255,.75); backdrop-filter: blur(6px); }
     html.dark #landingScreen .feature-card { background: rgba(15,23,42,.6); }
+    /* ===== تعزيز الوضع الفاتح داخل المنصة (خلفيات بيضاء نقية) ===== */
+    html:not(.dark) .bg-slate-800 { background-color: #ffffff !important; }
+    html:not(.dark) .bg-slate-800\/90 { background-color: rgba(255,255,255,.97) !important; }
+    html:not(.dark) .bg-slate-800\/60 { background-color: #f8fafc !important; }
+    html:not(.dark) .bg-slate-900 { background-color: #f1f5f9 !important; }
+    html:not(.dark) .bg-slate-900\/50 { background-color: #f8fafc !important; }
+    html:not(.dark) .bg-slate-900\/60 { background-color: #f1f5f9 !important; }
+    html:not(.dark) .bg-slate-900\/30 { background-color: #f8fafc !important; }
+    html:not(.dark) .bg-slate-700 { background-color: #f1f5f9 !important; }
+    html:not(.dark) .bg-slate-700\/60 { background-color: #f1f5f9 !important; }
+    html:not(.dark) .bg-slate-700\/40 { background-color: #f8fafc !important; }
+    html:not(.dark) .bg-slate-950\/80 { background-color: rgba(15,23,42,.35) !important; }
+    html:not(.dark) tr.hover\:bg-slate-700\/30:hover { background-color: #f1f5f9 !important; }
+    html:not(.dark) .bg-cyan-900\/50 { background-color: #cffafe !important; }
+    html:not(.dark) .bg-cyan-600\/20 { background-color: #e0f2fe !important; }
+    html:not(.dark) .bg-emerald-900\/50 { background-color: #d1fae5 !important; }
+    html:not(.dark) .bg-emerald-600\/20 { background-color: #d1fae5 !important; }
+    html:not(.dark) .bg-amber-900\/50 { background-color: #fef3c7 !important; }
+    html:not(.dark) .bg-amber-500\/20 { background-color: #fef3c7 !important; }
+    html:not(.dark) .bg-rose-900\/50 { background-color: #ffe4e6 !important; }
+    html:not(.dark) .bg-rose-600\/20 { background-color: #ffe4e6 !important; }
+    html:not(.dark) .bg-purple-500\/10 { background-color: #f3e8ff !important; }
+    html:not(.dark) .notif-unread { background: rgba(6,182,212,.10) !important; }
+    html:not(.dark) input, html:not(.dark) select, html:not(.dark) textarea { background-color: #ffffff !important; border-color: #e2e8f0 !important; }
+    html:not(.dark) .border-slate-700\/60, html:not(.dark) .border-slate-700\/40 { border-color: #e2e8f0 !important; }
+
+    /* ===== الأسئلة الشائعة ===== */
+    .faq-chev { transition: transform .25s ease; }
   </style>
 </head>
 <body class="antialiased min-h-screen flex flex-col overflow-x-hidden" style="--brand-color: #06b6d4;" data-role="guest">
@@ -145,6 +173,103 @@
     </header>
 
     <main class="flex-1 flex flex-col items-center px-6 py-12 text-center">
+      <div class="relative w-full max-w-4xl mx-auto mb-2">
+      <svg class="absolute inset-0 w-full h-full pointer-events-none" style="z-index:0" viewBox="0 0 800 420" preserveAspectRatio="xMidYMid slice" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <filter id="vfhBlur" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="32"/></filter>
+        </defs>
+        <circle cx="140" cy="120" r="85" fill="#06b6d4" opacity=".30" filter="url(#vfhBlur)"/>
+        <circle cx="655" cy="130" r="95" fill="#2563eb" opacity=".28" filter="url(#vfhBlur)"/>
+        <circle cx="420" cy="360" r="70" fill="#10b981" opacity=".22" filter="url(#vfhBlur)"/>
+
+        <g transform="translate(78 82)" opacity=".75">
+          <circle r="24" fill="#0f172a" stroke="#06b6d4" stroke-width="3"/>
+          <g stroke="#475569" stroke-width="2.5" stroke-linecap="round">
+            <line x1="0" y1="-19" x2="0" y2="-15"/><line x1="0" y1="19" x2="0" y2="15"/>
+            <line x1="-19" y1="0" x2="-15" y2="0"/><line x1="19" y1="0" x2="15" y2="0"/>
+          </g>
+          <line x1="0" y1="0" x2="0" y2="-14" stroke="#22d3ee" stroke-width="3.5" stroke-linecap="round">
+            <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="10s" repeatCount="indefinite"/>
+          </line>
+          <line x1="0" y1="0" x2="10" y2="0" stroke="#3b82f6" stroke-width="3" stroke-linecap="round">
+            <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="3.5s" repeatCount="indefinite"/>
+          </line>
+          <animateTransform attributeName="transform" type="translate" additive="sum" values="0 0; 0 -10; 0 0" dur="5s" repeatCount="indefinite"/>
+        </g>
+
+        <g transform="translate(716 76)" opacity=".75">
+          <circle r="16" fill="none" stroke="#06b6d4" stroke-width="2.5">
+            <animate attributeName="r" values="14;26" dur="2s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values=".8;0" dur="2s" repeatCount="indefinite"/>
+          </circle>
+          <path d="M-11 6 v-6 a11 11 0 0 1 22 0 v6 l3 4 h-28z" fill="#06b6d4"/>
+          <circle cx="0" cy="14" r="3.5" fill="#f59e0b"/>
+          <animateTransform attributeName="transform" type="translate" additive="sum" values="0 0; 0 -8; 0 0" dur="4.5s" repeatCount="indefinite"/>
+        </g>
+
+        <g transform="translate(75 330)" opacity=".7">
+          <rect x="-22" y="-30" width="13" height="30" rx="4" fill="#06b6d4">
+            <animate attributeName="height" values="30;52;30" dur="3s" repeatCount="indefinite"/>
+            <animate attributeName="y" values="-30;-52;-30" dur="3s" repeatCount="indefinite"/>
+          </rect>
+          <rect x="-4" y="-48" width="13" height="48" rx="4" fill="#2563eb">
+            <animate attributeName="height" values="48;30;48" dur="3.4s" repeatCount="indefinite"/>
+            <animate attributeName="y" values="-48;-30;-48" dur="3.4s" repeatCount="indefinite"/>
+          </rect>
+          <rect x="14" y="-20" width="13" height="20" rx="4" fill="#10b981">
+            <animate attributeName="height" values="20;44;20" dur="2.8s" repeatCount="indefinite"/>
+            <animate attributeName="y" values="-20;-44;-20" dur="2.8s" repeatCount="indefinite"/>
+          </rect>
+        </g>
+
+        <g transform="translate(727 322)" opacity=".75">
+          <circle r="16" fill="none" stroke="#06b6d4" stroke-width="2.5">
+            <animate attributeName="r" values="12;25" dur="2.2s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values=".8;0" dur="2.2s" repeatCount="indefinite"/>
+          </circle>
+          <path d="M0 -17 c-10 0 -16 7 -16 14 c0 10 16 24 16 24 s16 -14 16 -24 c0 -7 -6 -14 -16 -14z" fill="#06b6d4"/>
+          <circle cx="0" cy="-3" r="5" fill="#ffffff"/>
+        </g>
+
+        <g transform="translate(150 208)" opacity=".65">
+          <circle cx="0" cy="-14" r="11" fill="#fcd9b8"/>
+          <path d="M-11 -17 a11 11 0 0 1 22 0 v-3 h-22z" fill="#0f172a"/>
+          <rect x="-14" y="-2" width="28" height="30" rx="11" fill="#2563eb"/>
+          <animateTransform attributeName="transform" type="translate" additive="sum" values="0 0; 0 -12; 0 0" dur="5.5s" repeatCount="indefinite"/>
+        </g>
+
+        <g transform="translate(652 212)" opacity=".75">
+          <circle r="20" fill="#10b981"/>
+          <path d="M-8 0 l5.5 6 l11 -12" stroke="#ffffff" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="30" stroke-dashoffset="30">
+            <animate attributeName="stroke-dashoffset" values="30;0;0;30" keyTimes="0;.4;.8;1" dur="3.6s" repeatCount="indefinite"/>
+          </path>
+          <animateTransform attributeName="transform" type="translate" additive="sum" values="0 0; 0 -9; 0 0" dur="6s" repeatCount="indefinite"/>
+        </g>
+
+        <g transform="translate(400 50)" opacity=".6">
+          <circle r="15" fill="none" stroke="#06b6d4" stroke-width="4"/>
+          <g stroke="#06b6d4" stroke-width="4" stroke-linecap="round">
+            <line x1="0" y1="-15" x2="0" y2="-22"/><line x1="0" y1="15" x2="0" y2="22"/>
+            <line x1="-15" y1="0" x2="-22" y2="0"/><line x1="15" y1="0" x2="22" y2="0"/>
+          </g>
+          <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="8s" repeatCount="indefinite"/>
+        </g>
+
+        <g transform="translate(250 372)" opacity=".6">
+          <circle cx="0" cy="-12" r="9" fill="#fcd9b8"/>
+          <path d="M-9 -15 a9 9 0 0 1 18 0 v-2 h-18z" fill="#1e293b"/>
+          <rect x="-12" y="-2" width="24" height="26" rx="10" fill="#10b981"/>
+          <animateTransform attributeName="transform" type="translate" additive="sum" values="0 0; 0 -8; 0 0" dur="6.5s" repeatCount="indefinite"/>
+        </g>
+
+        <path d="M105 205 C 200 150, 300 140, 352 122" stroke="#64748b" stroke-width="2" stroke-dasharray="5 6" opacity=".55">
+          <animate attributeName="stroke-dashoffset" values="0;-22" dur="1.6s" repeatCount="indefinite"/>
+        </path>
+        <path d="M500 116 C 580 135, 615 170, 634 196" stroke="#64748b" stroke-width="2" stroke-dasharray="5 6" opacity=".55">
+          <animate attributeName="stroke-dashoffset" values="0;22" dur="1.6s" repeatCount="indefinite"/>
+        </path>
+      </svg>
+      <div class="relative z-10">
       <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold mb-6"><span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span><span data-i18n="multi_company_platform">منصة الموارد البشرية مع نظام الصلاحيات المتقدم (RBAC)</span></div>
       <h2 class="text-4xl sm:text-6xl font-black text-white leading-tight max-w-3xl mb-4" data-i18n-html="hero_title">إدارة شركتك <span class="brand-text-gradient">بأدوار وصلاحيات دقيقة</span></h2>
       <p class="text-slate-400 text-lg max-w-2xl mb-10" data-i18n="hero_subtitle">مدير عام، مدير HR، مدير مالي، مشرف قسم، وموظف مع سجل نشاطات حصري.</p>
@@ -152,6 +277,8 @@
       <div class="flex flex-wrap justify-center gap-3 mb-16">
         <button onclick="showLoginScreen('login')" class="px-8 py-4 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-2xl border border-slate-800 cursor-pointer flex items-center gap-2"><i data-lucide="log-in" class="w-5 h-5"></i><span data-i18n="login">تسجيل الدخول</span></button>
         <button onclick="showLoginScreen('register')" class="px-8 py-4 brand-gradient text-white font-black rounded-2xl cursor-pointer flex items-center gap-2 shadow-lg shadow-cyan-500/20"><span data-i18n="new_company">إنشاء شركتك</span><i data-lucide="arrow-left" class="w-5 h-5 rtl-icon"></i></button>
+      </div>
+      </div>
       </div>
 
 
@@ -275,7 +402,208 @@
         </svg>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl w-full mb-12 text-right">
+<section class="w-full max-w-5xl mb-12">
+        <h3 class="text-2xl sm:text-3xl font-black text-white text-center mb-2" data-i18n="feat_section_title">مميزات المنصة</h3>
+        <p class="text-sm text-slate-400 text-center mb-8" data-i18n="feat_section_sub">مشهد حي لفكرة المنصة: فريق بيشتغل، حضور بالبصمة، وإشعارات لحظية</p>
+        <div class="relative bg-slate-900/60 rounded-3xl border border-slate-800/80 p-2 sm:p-4 mb-10 overflow-hidden">
+        <svg class="w-full h-auto" viewBox="0 0 800 340" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="vfsBg" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#0b1220"/><stop offset="100%" stop-color="#16233d"/>
+            </linearGradient>
+          </defs>
+          <rect width="800" height="340" rx="20" fill="url(#vfsBg)"/>
+          <rect y="300" width="800" height="40" fill="#0b1220"/>
+          <line x1="0" y1="300" x2="800" y2="300" stroke="#334155" stroke-width="2"/>
+
+          <g transform="translate(70 70)" opacity=".85">
+            <rect x="-40" y="-40" width="80" height="80" rx="12" fill="#0ea5e9" opacity=".15" stroke="#0ea5e9" stroke-opacity=".4" stroke-width="2"/>
+            <circle r="15" fill="#fbbf24">
+              <animate attributeName="cy" values="0;-5;0" dur="4s" repeatCount="indefinite"/>
+            </circle>
+            <g stroke="#0ea5e9" stroke-opacity=".5" stroke-width="2">
+              <line x1="0" y1="-40" x2="0" y2="40"/><line x1="-40" y1="0" x2="40" y2="0"/>
+            </g>
+          </g>
+
+          <g transform="translate(255 62)" opacity=".85">
+            <circle r="24" fill="#0f172a" stroke="#334155" stroke-width="3"/>
+            <line x1="0" y1="0" x2="0" y2="-15" stroke="#22d3ee" stroke-width="3.5" stroke-linecap="round">
+              <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="12s" repeatCount="indefinite"/>
+            </line>
+            <line x1="0" y1="0" x2="11" y2="0" stroke="#3b82f6" stroke-width="3" stroke-linecap="round">
+              <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="4s" repeatCount="indefinite"/>
+            </line>
+            <circle r="3" fill="#f8fafc"/>
+          </g>
+
+          <g transform="translate(415 62)" opacity=".9">
+            <circle r="16" fill="none" stroke="#06b6d4" stroke-width="2.5">
+              <animate attributeName="r" values="13;25" dur="2s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values=".8;0" dur="2s" repeatCount="indefinite"/>
+            </circle>
+            <path d="M-11 6 v-6 a11 11 0 0 1 22 0 v6 l3 4 h-28z" fill="#06b6d4"/>
+            <circle cx="0" cy="14" r="3.5" fill="#f59e0b"/>
+          </g>
+
+          <g transform="translate(505 66)">
+            <rect x="0" y="-18" width="104" height="36" rx="9" fill="#0f172a" stroke="#06b6d4" stroke-width="2">
+              <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;.25;.4;.8;.95;1" dur="5s" repeatCount="indefinite"/>
+            </rect>
+            <g>
+              <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;.25;.4;.8;.95;1" dur="5s" repeatCount="indefinite"/>
+              <circle cx="18" cy="0" r="9" fill="#10b981"/>
+              <path d="M14 0 l3 3.5 l6 -7" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <rect x="34" y="-8" width="58" height="6" rx="3" fill="#334155"/>
+              <rect x="34" y="3" width="40" height="6" rx="3" fill="#1e293b"/>
+            </g>
+          </g>
+
+          <g transform="translate(735 62)" opacity=".8">
+            <circle r="16" fill="none" stroke="#06b6d4" stroke-width="4"/>
+            <g stroke="#06b6d4" stroke-width="4" stroke-linecap="round">
+              <line x1="0" y1="-16" x2="0" y2="-23"/><line x1="0" y1="16" x2="0" y2="23"/>
+              <line x1="-16" y1="0" x2="-23" y2="0"/><line x1="16" y1="0" x2="23" y2="0"/>
+            </g>
+            <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="9s" repeatCount="indefinite"/>
+          </g>
+
+          <g transform="translate(700 165)">
+            <rect x="-65" y="-52" width="130" height="104" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="3"/>
+            <rect x="-50" y="28" width="14" height="18" rx="3" fill="#06b6d4">
+              <animate attributeName="height" values="18;42;18" dur="3s" repeatCount="indefinite"/>
+              <animate attributeName="y" values="28;4;28" dur="3s" repeatCount="indefinite"/>
+            </rect>
+            <rect x="-28" y="14" width="14" height="32" rx="3" fill="#2563eb">
+              <animate attributeName="height" values="32;16;32" dur="3.4s" repeatCount="indefinite"/>
+              <animate attributeName="y" values="14;30;14" dur="3.4s" repeatCount="indefinite"/>
+            </rect>
+            <rect x="-6" y="22" width="14" height="24" rx="3" fill="#10b981">
+              <animate attributeName="height" values="24;44;24" dur="2.8s" repeatCount="indefinite"/>
+              <animate attributeName="y" values="22;2;22" dur="2.8s" repeatCount="indefinite"/>
+            </rect>
+            <polyline points="16,26 28,10 40,18 52,-6" stroke="#f43f5e" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 6">
+              <animate attributeName="stroke-dashoffset" values="0;-28" dur="1.8s" repeatCount="indefinite"/>
+            </polyline>
+          </g>
+
+          <g transform="translate(185 262)">
+            <rect x="-30" y="-50" width="12" height="50" rx="4" fill="#1e293b"/>
+            <g>
+              <animateTransform attributeName="transform" type="translate" values="0 0; 0 -2; 0 0" dur="3s" repeatCount="indefinite"/>
+              <circle cx="0" cy="-76" r="13" fill="#fcd9b8"/>
+              <path d="M-13 -80 a13 13 0 0 1 26 0 v-4 h-26z" fill="#0f172a"/>
+              <rect x="-17" y="-62" width="34" height="44" rx="13" fill="#2563eb"/>
+              <line x1="13" y1="-52" x2="30" y2="-34" stroke="#fcd9b8" stroke-width="6" stroke-linecap="round">
+                <animateTransform attributeName="transform" type="rotate" values="-12 13 -52; 14 13 -52; -12 13 -52" dur="0.8s" repeatCount="indefinite"/>
+              </line>
+            </g>
+            <rect x="-80" y="-14" width="160" height="10" rx="4" fill="#334155"/>
+            <rect x="-70" y="-4" width="9" height="42" fill="#1e293b"/>
+            <rect x="61" y="-4" width="9" height="42" fill="#1e293b"/>
+            <rect x="-16" y="-60" width="50" height="38" rx="5" fill="#0b1220" stroke="#06b6d4" stroke-width="2"/>
+            <polyline points="-10,-34 0,-44 8,-38 18,-48" stroke="#22d3ee" stroke-width="3" fill="none" stroke-linecap="round">
+              <animate attributeName="points" values="-10,-34 0,-44 8,-38 18,-48; -10,-40 0,-32 8,-46 18,-36; -10,-34 0,-44 8,-38 18,-48" dur="2.4s" repeatCount="indefinite"/>
+            </polyline>
+            <rect x="4" y="-22" width="7" height="9" fill="#334155"/>
+            <g transform="translate(55 -14)">
+              <rect x="-6" y="-12" width="12" height="12" rx="2" fill="#f59e0b"/>
+              <path d="M-2 -15 q2 -5 0 -9 M3 -14 q2 -5 0 -9" stroke="#94a3b8" stroke-width="1.6" fill="none" stroke-linecap="round">
+                <animate attributeName="opacity" values="0;1;0" dur="2s" repeatCount="indefinite"/>
+              </path>
+            </g>
+          </g>
+
+          <g transform="translate(410 262)">
+            <rect x="-30" y="-50" width="12" height="50" rx="4" fill="#1e293b"/>
+            <g>
+              <circle cx="0" cy="-76" r="13" fill="#fcd9b8"/>
+              <path d="M-13 -80 a13 13 0 0 1 26 0 v-4 h-26z" fill="#3b2f2f"/>
+              <rect x="-17" y="-62" width="34" height="44" rx="13" fill="#7c3aed"/>
+              <path d="M-13 -84 a13 13 0 0 1 26 0" stroke="#06b6d4" stroke-width="3.5" fill="none"/>
+              <rect x="10" y="-82" width="6" height="10" rx="3" fill="#06b6d4"/>
+              <line x1="-13" y1="-52" x2="-28" y2="-36" stroke="#fcd9b8" stroke-width="6" stroke-linecap="round">
+                <animateTransform attributeName="transform" type="rotate" values="0 -13 -52; -18 -13 -52; 0 -13 -52" dur="1.6s" repeatCount="indefinite"/>
+              </line>
+              <line x1="13" y1="-52" x2="26" y2="-34" stroke="#fcd9b8" stroke-width="6" stroke-linecap="round"/>
+            </g>
+            <rect x="-80" y="-14" width="160" height="10" rx="4" fill="#334155"/>
+            <rect x="-70" y="-4" width="9" height="42" fill="#1e293b"/>
+            <rect x="61" y="-4" width="9" height="42" fill="#1e293b"/>
+            <rect x="-16" y="-60" width="50" height="38" rx="5" fill="#0b1220" stroke="#7c3aed" stroke-width="2"/>
+            <rect x="-10" y="-54" width="38" height="5" rx="2.5" fill="#334155">
+              <animate attributeName="width" values="10;38;10" dur="2.6s" repeatCount="indefinite"/>
+            </rect>
+            <rect x="-10" y="-44" width="24" height="5" rx="2.5" fill="#1e293b">
+              <animate attributeName="width" values="24;12;24" dur="2.2s" repeatCount="indefinite"/>
+            </rect>
+            <circle cx="30" cy="-50" r="4" fill="#10b981">
+              <animate attributeName="opacity" values="1;.2;1" dur="1.4s" repeatCount="indefinite"/>
+            </circle>
+            <rect x="4" y="-22" width="7" height="9" fill="#334155"/>
+          </g>
+
+          <g transform="translate(620 262)">
+            <rect x="-30" y="-50" width="12" height="50" rx="4" fill="#1e293b"/>
+            <g>
+              <circle cx="0" cy="-76" r="13" fill="#fcd9b8"/>
+              <path d="M-13 -80 a13 13 0 0 1 26 0 v-4 h-26z" fill="#0f172a"/>
+              <rect x="-17" y="-62" width="34" height="44" rx="13" fill="#059669"/>
+              <g stroke="#06b6d4" stroke-width="2.5" stroke-linecap="round">
+                <path d="M-19 -88 h6 M-19 -88 v6 M19 -88 h-6 M19 -88 v6 M-19 -64 h6 M-19 -64 v-6 M19 -64 h-6 M19 -64 v-6"/>
+              </g>
+              <line x1="-18" y1="-76" x2="18" y2="-76" stroke="#f43f5e" stroke-width="2.5" stroke-linecap="round">
+                <animate attributeName="y1" values="-88;-64;-88" dur="2.4s" repeatCount="indefinite"/>
+                <animate attributeName="y2" values="-88;-64;-88" dur="2.4s" repeatCount="indefinite"/>
+              </line>
+            </g>
+            <rect x="-80" y="-14" width="160" height="10" rx="4" fill="#334155"/>
+            <rect x="-70" y="-4" width="9" height="42" fill="#1e293b"/>
+            <rect x="61" y="-4" width="9" height="42" fill="#1e293b"/>
+            <rect x="-16" y="-60" width="50" height="38" rx="5" fill="#0b1220" stroke="#059669" stroke-width="2"/>
+            <circle cx="9" cy="-41" r="9" fill="none" stroke="#10b981" stroke-width="2.5"/>
+            <path d="M3 -39 q6 5 12 0" stroke="#10b981" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <rect x="4" y="-22" width="7" height="9" fill="#334155"/>
+            <circle cx="9" cy="-66" r="3" fill="#f43f5e">
+              <animate attributeName="opacity" values="1;.3;1" dur="1.2s" repeatCount="indefinite"/>
+            </circle>
+          </g>
+
+          <g transform="translate(48 300)">
+            <path d="M-13 0 h26 l-4 -22 h-18z" fill="#b45309"/>
+            <g stroke="#10b981" stroke-width="4" stroke-linecap="round" fill="none">
+              <path d="M0 -22 q-14 -12 -18 -28">
+                <animateTransform attributeName="transform" type="rotate" values="-4 0 -22; 5 0 -22; -4 0 -22" dur="3s" repeatCount="indefinite"/>
+              </path>
+              <path d="M0 -22 q0 -18 2 -32">
+                <animateTransform attributeName="transform" type="rotate" values="3 0 -22; -4 0 -22; 3 0 -22" dur="3.6s" repeatCount="indefinite"/>
+              </path>
+              <path d="M0 -22 q12 -10 16 -26">
+                <animateTransform attributeName="transform" type="rotate" values="-3 0 -22; 6 0 -22; -3 0 -22" dur="2.8s" repeatCount="indefinite"/>
+              </path>
+            </g>
+          </g>
+
+          <g>
+            <animateMotion path="M -90 300 H 890" dur="16s" repeatCount="indefinite"/>
+            <g>
+              <animateTransform attributeName="transform" type="translate" values="0 0; 0 -3; 0 0" dur="0.7s" repeatCount="indefinite"/>
+              <line x1="0" y1="-34" x2="-9" y2="0" stroke="#1e293b" stroke-width="6" stroke-linecap="round">
+                <animateTransform attributeName="transform" type="rotate" values="22 0 -34; -22 0 -34; 22 0 -34" dur="0.7s" repeatCount="indefinite"/>
+              </line>
+              <line x1="0" y1="-34" x2="9" y2="0" stroke="#334155" stroke-width="6" stroke-linecap="round">
+                <animateTransform attributeName="transform" type="rotate" values="-22 0 -34; 22 0 -34; -22 0 -34" dur="0.7s" repeatCount="indefinite"/>
+              </line>
+              <rect x="-10" y="-68" width="20" height="36" rx="9" fill="#f59e0b"/>
+              <circle cx="0" cy="-78" r="10" fill="#fcd9b8"/>
+              <path d="M-10 -81 a10 10 0 0 1 20 0 v-3 h-20z" fill="#0f172a"/>
+              <rect x="8" y="-44" width="17" height="13" rx="3" fill="#7c2d12"/>
+              <path d="M11 -44 v-4 a5 5 0 0 1 11 0 v4" stroke="#7c2d12" stroke-width="2.5" fill="none"/>
+            </g>
+          </g>
+        </svg>
+        </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full mb-2 text-right">
         <div class="feature-card bg-slate-900/60 p-6 rounded-3xl border border-slate-800/80">
           <div class="w-12 h-12 rounded-2xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center mb-4 border border-cyan-500/20"><i data-lucide="shield-check" class="w-6 h-6"></i></div>
           <h3 class="font-bold text-white text-base mb-2" data-i18n="feat_rbac_title">نظام الصلاحيات المتقدم</h3>
@@ -307,6 +635,56 @@
           <p class="text-xs text-slate-400 leading-relaxed" data-i18n="feat_multi_server_desc">توزيع ذكي للشركات لضمان أقصى أداء.</p>
         </div>
       </div>
+      </section>
+
+      <section class="w-full max-w-3xl mb-12">
+        <h3 class="text-2xl sm:text-3xl font-black text-white text-center mb-2" data-i18n="faq_title">الأسئلة الشائعة</h3>
+        <p class="text-sm text-slate-400 text-center mb-6" data-i18n="faq_sub">إجابات لأكتر الأسئلة اللي بتتسأل عن المنصة</p>
+        <div class="space-y-3" id="faqList">
+          <div class="faq-item bg-slate-900/60 rounded-2xl border border-slate-800/80 overflow-hidden">
+            <button onclick="toggleFAQ(0)" class="w-full flex items-center justify-between gap-3 p-4 cursor-pointer text-right">
+              <span class="font-bold text-sm text-white" data-i18n="faq_q1">إزاي أسجل شركتي على المنصة؟</span>
+              <i data-lucide="chevron-down" class="w-4 h-4 shrink-0 text-slate-400 faq-chev"></i>
+            </button>
+            <div class="faq-answer hidden-view px-4 pb-4 text-xs text-slate-400 leading-relaxed" data-i18n="faq_a1">اضغط على زرار "إنشاء شركتك" في الواجهة الرئيسية وامشي مع الخطوات الأربعة: بيانات الشركة، كود الشركة، بياناتك كمدير، ثم مراجعة وتأكيد. شركتك هتتفورل فورًا وتقدر تضيف موظفيك على طول.</div>
+          </div>
+          <div class="faq-item bg-slate-900/60 rounded-2xl border border-slate-800/80 overflow-hidden">
+            <button onclick="toggleFAQ(1)" class="w-full flex items-center justify-between gap-3 p-4 cursor-pointer text-right">
+              <span class="font-bold text-sm text-white" data-i18n="faq_q2">إيه هو كود الشركة وإزاي الموظفين يستخدموه؟</span>
+              <i data-lucide="chevron-down" class="w-4 h-4 shrink-0 text-slate-400 faq-chev"></i>
+            </button>
+            <div class="faq-answer hidden-view px-4 pb-4 text-xs text-slate-400 leading-relaxed" data-i18n="faq_a2">كود الشركة هو معرف فريد لشركتك (3-20 حرف إنجليزي، زي: alnoor). كل الموظفين بيسجلوا الدخول باستخدامه مع اسم المستخدم وكلمة المرور، فاحفظه كويس.</div>
+          </div>
+          <div class="faq-item bg-slate-900/60 rounded-2xl border border-slate-800/80 overflow-hidden">
+            <button onclick="toggleFAQ(2)" class="w-full flex items-center justify-between gap-3 p-4 cursor-pointer text-right">
+              <span class="font-bold text-sm text-white" data-i18n="faq_q3">هل الحضور بالبصمة والموقع إجباري؟</span>
+              <i data-lucide="chevron-down" class="w-4 h-4 shrink-0 text-slate-400 faq-chev"></i>
+            </button>
+            <div class="faq-answer hidden-view px-4 pb-4 text-xs text-slate-400 leading-relaxed" data-i18n="faq_a3">المدير بيحدد لكل موظف هل الحضور إجباري ولا معفي. لو الحضور إجباري، الموظف بيسجل حضوره بالتعرف على الوجه (Face ID) والتحقق من موقعه GPS داخل نطاق الشركة.</div>
+          </div>
+          <div class="faq-item bg-slate-900/60 rounded-2xl border border-slate-800/80 overflow-hidden">
+            <button onclick="toggleFAQ(3)" class="w-full flex items-center justify-between gap-3 p-4 cursor-pointer text-right">
+              <span class="font-bold text-sm text-white" data-i18n="faq_q4">إزاي بيتم حساب الرواتب؟</span>
+              <i data-lucide="chevron-down" class="w-4 h-4 shrink-0 text-slate-400 faq-chev"></i>
+            </button>
+            <div class="faq-answer hidden-view px-4 pb-4 text-xs text-slate-400 leading-relaxed" data-i18n="faq_a4">الراتب بيتحسب تلقائيًا حسب أيام الحضور في الشهر، وبيتضاف البدلات (سكن، مواصلات، طعام) وأجر الساعات الإضافية، وبتتخصم التأمينات والضريبة والسلف، وتقدر تحمّل كشف راتب PDF لأي موظف.</div>
+          </div>
+          <div class="faq-item bg-slate-900/60 rounded-2xl border border-slate-800/80 overflow-hidden">
+            <button onclick="toggleFAQ(4)" class="w-full flex items-center justify-between gap-3 p-4 cursor-pointer text-right">
+              <span class="font-bold text-sm text-white" data-i18n="faq_q5">إيه الفرق بين أدوار الموظفين؟</span>
+              <i data-lucide="chevron-down" class="w-4 h-4 shrink-0 text-slate-400 faq-chev"></i>
+            </button>
+            <div class="faq-answer hidden-view px-4 pb-4 text-xs text-slate-400 leading-relaxed" data-i18n="faq_a5">المنصة فيها 5 أدوار: مدير عام (تحكم كامل)، مدير HR (الموظفون والطلبات)، مدير مالي (الرواتب)، مشرف قسم، وموظف. كل دور ليه صلاحيات وشاشات محددة.</div>
+          </div>
+          <div class="faq-item bg-slate-900/60 rounded-2xl border border-slate-800/80 overflow-hidden">
+            <button onclick="toggleFAQ(5)" class="w-full flex items-center justify-between gap-3 p-4 cursor-pointer text-right">
+              <span class="font-bold text-sm text-white" data-i18n="faq_q6">هل بياناتي آمنة؟</span>
+              <i data-lucide="chevron-down" class="w-4 h-4 shrink-0 text-slate-400 faq-chev"></i>
+            </button>
+            <div class="faq-answer hidden-view px-4 pb-4 text-xs text-slate-400 leading-relaxed" data-i18n="faq_a6">نعم، بياناتك مشفرة ومخزنة على سيرفرات Appwrite الآمنة، وصور الوجه بيتم تحويلها لبصمة رياضية (أرقام) مش صور ممكن تتسرب، ومفيش مشاركة لبياناتك مع أي طرف ثالث.</div>
+          </div>
+        </div>
+      </section>
 
       <div class="flex flex-wrap items-center justify-center gap-4 mb-3 text-xs">
         <button onclick="openPolicyModal('user_agreement')" class="text-slate-400 hover:text-cyan-400 underline transition cursor-pointer" data-i18n="user_agreement">اتفاقية المستخدم</button>
@@ -1232,7 +1610,23 @@
       msg_on_time: "✅ تم تسجيل الحضور",
       msg_checkout_success: "✅ تم تسجيل الانصراف",
       msg_logout_prompt: "تم تسجيل الخروج",
-      msg_clear_cache: "تم مسح الكاش"
+      msg_clear_cache: "تم مسح الكاش",
+      feat_section_title: "مميزات المنصة",
+      feat_section_sub: "مشهد حي لفكرة المنصة: فريق بيشتغل، حضور بالبصمة، وإشعارات لحظية",
+      faq_title: "الأسئلة الشائعة",
+      faq_sub: "إجابات لأكتر الأسئلة اللي بتتسأل عن المنصة",
+      faq_q1: "إزاي أسجل شركتي على المنصة؟",
+      faq_a1: "اضغط على زرار \"إنشاء شركتك\" في الواجهة الرئيسية وامشي مع الخطوات الأربعة: بيانات الشركة، كود الشركة، بياناتك كمدير، ثم مراجعة وتأكيد. شركتك هتتفورل فورًا وتقدر تضيف موظفيك على طول.",
+      faq_q2: "إيه هو كود الشركة وإزاي الموظفين يستخدموه؟",
+      faq_a2: "كود الشركة هو معرف فريد لشركتك (3-20 حرف إنجليزي، زي: alnoor). كل الموظفين بيسجلوا الدخول باستخدامه مع اسم المستخدم وكلمة المرور، فاحفظه كويس.",
+      faq_q3: "هل الحضور بالبصمة والموقع إجباري؟",
+      faq_a3: "المدير بيحدد لكل موظف هل الحضور إجباري ولا معفي. لو الحضور إجباري، الموظف بيسجل حضوره بالتعرف على الوجه (Face ID) والتحقق من موقعه GPS داخل نطاق الشركة.",
+      faq_q4: "إزاي بيتم حساب الرواتب؟",
+      faq_a4: "الراتب بيتحسب تلقائيًا حسب أيام الحضور في الشهر، وبيتضاف البدلات (سكن، مواصلات، طعام) وأجر الساعات الإضافية، وبتتخصم التأمينات والضريبة والسلف، وتقدر تحمّل كشف راتب PDF لأي موظف.",
+      faq_q5: "إيه الفرق بين أدوار الموظفين؟",
+      faq_a5: "المنصة فيها 5 أدوار: مدير عام (تحكم كامل)، مدير HR (الموظفون والطلبات)، مدير مالي (الرواتب)، مشرف قسم، وموظف. كل دور ليه صلاحيات وشاشات محددة.",
+      faq_q6: "هل بياناتي آمنة؟",
+      faq_a6: "نعم، بياناتك مشفرة ومخزنة على سيرفرات Appwrite الآمنة، وصور الوجه بيتم تحويلها لبصمة رياضية (أرقام) مش صور ممكن تتسرب، ومفيش مشاركة لبياناتك مع أي طرف ثالث."
     },
     en: {
       app_title: "VodFire - Enterprise HRMS", multi_company_platform: "Enterprise HRMS with RBAC",
@@ -1393,7 +1787,23 @@
       msg_on_time: "✅ Checked in on time",
       msg_checkout_success: "✅ Check-out recorded",
       msg_logout_prompt: "Logged out",
-      msg_clear_cache: "Cache cleared"
+      msg_clear_cache: "Cache cleared",
+      feat_section_title: "Platform Features",
+      feat_section_sub: "A live scene of the platform idea: a working team, face attendance, and instant notifications",
+      faq_title: "Frequently Asked Questions",
+      faq_sub: "Answers to the most common questions about the platform",
+      faq_q1: "How do I register my company?",
+      faq_a1: "Click \"Create your company\" on the landing page and follow the 4 steps: company info, company code, your manager data, then review and confirm. Your company is created instantly and you can add employees right away.",
+      faq_q2: "What is the company code and how do employees use it?",
+      faq_a2: "It is a unique identifier for your company (3-20 English characters, e.g. alnoor). All employees use it together with their username and password to log in, so keep it safe.",
+      faq_q3: "Is face + GPS attendance mandatory?",
+      faq_a3: "The manager decides per employee whether attendance is required or exempt. When required, the employee checks in with face recognition (Face ID) and GPS verification inside the company radius.",
+      faq_q4: "How are salaries calculated?",
+      faq_a4: "Salaries are calculated automatically based on attended days, plus allowances (housing, transport, food) and overtime pay, minus insurance, tax, loans and deductions. You can download a PDF payslip for any employee.",
+      faq_q5: "What is the difference between employee roles?",
+      faq_a5: "There are 5 roles: General Manager (full control), HR Manager (employees & requests), Financial Manager (payroll), Department Supervisor, and Employee. Each role has its own permissions and screens.",
+      faq_q6: "Is my data secure?",
+      faq_a6: "Yes. Your data is encrypted and stored on secure Appwrite servers. Face images are converted to mathematical descriptors, not storable pictures, and your data is never shared with third parties."
     },
     it: {
       app_title: "VodFire - Piattaforma HRMS", multi_company_platform: "HRMS Enterprise con RBAC",
@@ -1554,7 +1964,23 @@
       msg_on_time: "✅ Entrata in orario",
       msg_checkout_success: "✅ Uscita registrata",
       msg_logout_prompt: "Disconnesso",
-      msg_clear_cache: "Cache cancellata"
+      msg_clear_cache: "Cache cancellata",
+      feat_section_title: "Funzionalità della Piattaforma",
+      feat_section_sub: "Una scena vivace dell'idea: un team che lavora, presenza col volto e notifiche istantanee",
+      faq_title: "Domande Frequenti",
+      faq_sub: "Risposte alle domande più comuni sulla piattaforma",
+      faq_q1: "Come registro la mia azienda?",
+      faq_a1: "Clicca \"Crea la tua azienda\" nella home e segui i 4 passaggi: dati azienda, codice azienda, tuoi dati come manager, poi revisione e conferma. L'azienda viene creata subito e puoi aggiungere i dipendenti.",
+      faq_q2: "Cos'è il codice azienda e come lo usano i dipendenti?",
+      faq_a2: "È un identificatore univoco (3-20 caratteri inglesi, es. alnoor). Tutti i dipendenti lo usano con username e password per accedere, quindi conservalo bene.",
+      faq_q3: "La presenza con volto e GPS è obbligatoria?",
+      faq_a3: "Il manager decide per ogni dipendente se la presenza è obbligatoria o esente. Se obbligatoria, il dipendente timbra con riconoscimento facciale e verifica GPS nel raggio dell'azienda.",
+      faq_q4: "Come vengono calcolati gli stipendi?",
+      faq_a4: "Gli stipendi si calcolano automaticamente sui giorni di presenza, più indennità e straordinari, meno assicurazione, tasse e prestiti. Puoi scaricare la busta paga PDF di ogni dipendente.",
+      faq_q5: "Qual è la differenza tra i ruoli dei dipendenti?",
+      faq_a5: "Ci sono 5 ruoli: Direttore Generale (controllo completo), HR Manager (dipendenti e richieste), Manager Finanziario (stipendi), Supervisore e Dipendente, ognuno con i propri permessi.",
+      faq_q6: "I miei dati sono sicuri?",
+      faq_a6: "Sì. I dati sono crittografati su server Appwrite sicuri; i volti diventano descrittori matematici, non immagini, e non condividiamo i tuoi dati con terzi."
     }
   };
 
@@ -1735,6 +2161,21 @@
     document.getElementById('policyModal').classList.remove('hidden-view');
     lucide.createIcons();
   }
+  function toggleFAQ(idx) {
+    document.querySelectorAll('#faqList .faq-item').forEach((item, i) => {
+      const ans = item.querySelector('.faq-answer');
+      const chev = item.querySelector('.faq-chev');
+      if (i === idx) {
+        const willOpen = ans.classList.contains('hidden-view');
+        ans.classList.toggle('hidden-view');
+        if (chev) chev.style.transform = willOpen ? 'rotate(180deg)' : '';
+      } else {
+        ans.classList.add('hidden-view');
+        if (chev) chev.style.transform = '';
+      }
+    });
+  }
+
 
   // ═══════════════════════════════════════════════════════
   // 🪄 Wizard
