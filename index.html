@@ -530,7 +530,6 @@
       </div>
     </section>
 
-    <!-- 🖥️ قسم الخادم المركزي (للمالك فقط) -->
     <section id="view-servers" class="hidden-view space-y-6">
       <div class="bg-gradient-to-br from-cyan-900/30 via-slate-800 to-slate-800 p-6 rounded-3xl border-2 border-cyan-700/50 shadow-sm">
         <div class="flex items-center justify-between flex-wrap gap-3">
@@ -557,424 +556,231 @@
     </section>
   </main>
 </div>
-  
-<script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => { navigator.serviceWorker.register('./sw.js').catch(err => {}); });
-  }
 
-  const I18N = {
-    ar: {
-      app_title: "VodFire - منصة إدارة الموارد البشرية المؤسسية", login: "دخول", home: "الرئيسية", new_company: "شركة جديدة", start_now: "ابدأ الآن",
-      multi_company_platform: "منصة الموارد البشرية مع نظام الصلاحيات المتقدم (RBAC)",
-      hero_title: 'إدارة شركتك <span class="brand-text-gradient">بأدوار وصلاحيات دقيقة</span>',
-      hero_subtitle: "مدير عام، مدير HR، مدير مالي، مشرف قسم، وموظف مع سجل نشاطات حصري.",
-      feat_rbac_title: "نظام الصلاحيات المتقدم", feat_rbac_desc: "توزيع الأدوار بذكاء.",
-      feat_audit_title: "سجل النشاطات", feat_audit_desc: "متابعة حصريّة لكل العمليات الحساسة.",
-      feat_payroll_title: "الرواتب المتقدمة", feat_payroll_desc: "حساب تلقائي مع البدلات والتأمينات والضريبة، وكشف راتب PDF.",
-      copyright: "© 2026 VodFire. جميع الحقوق محفوظة.", connecting: "جاري الاتصال...", connected: "متصل", offline: "غير متصل", offline_mode: "غير متصل (وضع أوفلاين)",
-      company_code: "كود الشركة", username: "اسم المستخدم", password: "كلمة المرور", company_name: "اسم الشركة", company_name_placeholder: "شركة النور",
-      your_name: "اسمك", manager_data: "بيانات المدير العام", create_company: "إنشاء الشركة",
-      dashboard: "الرئيسية", attendance: "الحضور", requests: "الطلبات والإجازات", employees: "الموظفون", owner_panel: "لوحة المالك", owner: "المالك",
-      exit_company: "خروج من الشركة", platform_owner: "مالك المنصة", notifications: "الإشعارات", mark_all: "تحديد الكل",
-      check_attendance: "تسجيل الحضور", not_started: "لم تبدأ", started: "بدأت", your_workplace: "مقر عملك", your_location: "موقعك", check: "فحص", press_check: "اضغط فحص",
-      start_work: "بدء العمل", end_work: "نهاية العمل", exempt_from_attendance: "أنت معفي من الحضور", manager_no_checkin: "حسابك الإداري لا يتطلب تسجيل الحضور.",
-      employee: "الموظف", date: "التاريخ", checkin: "حضور", checkout: "انصراف", distance: "المسافة", new_request: "طلب جديد", manage_employees: "إدارة الموظفين", add: "إضافة",
-      name: "الاسم", role: "الدور", job_title: "المسمى", workplace: "المقر", actions: "إجراءات", logout: "تسجيل الخروج",
-      owner_dashboard: "لوحة تحكم المالك", full_control: "تحكم كامل", refresh: "تحديث",
-      all_companies: "كل الشركات", active: "نشطة", suspended: "موقوفة", all_users: "كل المستخدمين", search: "ابحث...",
-      search_employee: "ابحث عن موظف...", search_attendance: "ابحث باسم الموظف أو التاريخ...", company: "الشركة", status: "الحالة",
-      profile: "إعدادات الحساب", change_photo: "تغيير الصورة", display_name: "الاسم الظاهر", save: "حفظ",
-      add_employee_manager: "إضافة موظف", name_required: "الاسم *", username_required: "المستخدم *", password_required: "كلمة المرور *",
-      rbac_role_label: "الدور", role_gen_mgr: "مدير عام", role_hr: "مدير HR", role_fin: "مدير مالي", role_sup: "مشرف", role_emp: "موظف",
-      type: "النوع", leave: "إجازة", loan: "سلفة", leave_type: "نوع الإجازة", annual: "سنوية", sick: "مرضية", emergency: "طارئة", amount: "المبلغ", reason_required: "السبب *", send: "إرسال",
-      status_pending: "قيد المراجعة", status_approved: "موافق", status_rejected: "مرفوض", approve: "موافقة", reject: "رفض", delete: "حذف", edit: "تعديل", on_duty: "على رأس العمل",
-      msg_fill_fields: "املأ كل الحقول", msg_code_format: "الكود 3-20 حرف", msg_user_format: "المستخدم 3-30 حرف",
-      msg_pass_length: "كلمة المرور 8+ أحرف", msg_code_used: "الكود مستخدم", msg_user_used: "اسم المستخدم مستخدم",
-      msg_login_failed: "بيانات الدخول غير صحيحة", msg_company_suspended: "الشركة موقوفة.",
-      msg_no_profile: "لا يوجد ملف شخصي", msg_welcome_sa: "مرحباً بك كمالك المنصة", msg_welcome_reg: "مرحباً! الكود: ",
-      msg_attendance_recorded: "تم تسجيل الحضور", msg_checkout_recorded: "تم تسجيل الانصراف", msg_already_checked_in: "تم تسجيل الحضور اليوم",
-      msg_out_of_range: "أنت خارج النطاق المسموح", msg_request_sent: "تم إرسال الطلب", msg_photo_updated: "تم تحديث الصورة", msg_saved: "تم الحفظ", msg_code_copied: "تم نسخ الكود: ",
-      msg_account_created: "تم إنشاء الحساب!", msg_new_message_notif_title: "طلب جديد", msg_platform_owner_welcome: "مرحباً بك كمالك المنصة",
-      msg_enter_company: "أنت الآن داخل", msg_back_to_owner: "عدت للوحة المالك", msg_enter_company_confirm: "الدخول كمدير لشركة", msg_no_users_company: "لا يوجد مستخدمون",
-      msg_suspend_confirm: "تأكيد الإيقاف؟", msg_activate_confirm: "تأكيد التشغيل؟", msg_delete_company_confirm: "حذف نهائياً؟",
-      msg_delete_company_final: "تأكيد أخير!", msg_delete_emp_confirm: "حذف الموظف؟",
-      msg_company_deleted: "تم حذف", msg_company_suspended_toast: "تم الإيقاف", msg_company_activated_toast: "تم التشغيل",
-      msg_pass_short: "كلمة المرور 8+ أحرف", msg_required_fields: "املأ الحقول المطلوبة", msg_you_exempt: "أنت معفي من الحضور",
-      msg_updating: "جاري التحديث...", msg_updated: "تم التحديث", msg_failed: "فشل", msg_loading: "جاري...", msg_photo_too_big: "الصورة كبيرة جداً.",
-      msg_welcome_with_code: "مرحباً! الكود: ", msg_account_credentials: "✅ تم إنشاء الحساب!", msg_user_label: "المستخدم", msg_pass_label: "المرور",
-      msg_no_requests: "لا توجد طلبات", msg_no_records: "لا توجد سجلات", msg_no_employees: "لا يوجد موظفون", msg_no_notifications: "لا توجد إشعارات", msg_no_companies: "لا توجد شركات",
-      msg_loading_data: "جاري تحميل البيانات...", msg_super_admin_role: "مالك المنصة", msg_manager_role: "مدير", msg_employee_role: "موظف", msg_impersonate_role: "دخول إداري",
-      msg_company_employees_hint: "موظفو", request_new_notif: "طلب جديد", reports: "التقارير والرواتب", monthly_reports: "تقارير الموظفين ورواتبهم", reports_desc: "حساب الرواتب التلقائية.",
-      jan: "يناير", feb: "فبراير", mar: "مارس", apr: "أبريل", may: "مايو", jun: "يونيو", jul: "يوليو", aug: "أغسطس", sep: "سبتمبر", oct: "أكتوبر", nov: "نوفمبر", dec: "ديسمبر",
-      view: "عرض", days_present: "أيام الحضور", total_hours: "الساعات", late_days: "التأخير", absences: "الغياب",
-      download_csv: "تحميل (CSV)", download_pdf: "تحميل PDF", msg_no_data_period: "لا توجد بيانات", hours: "ساعة",
-      work_start_time: "وقت بدء العمل", work_location: "موقع العمل (GPS)", location_name: "اسم المقر",
-      dashboard_welcome_badge: "لوحة التحكم", dashboard_welcome_desc: "نظرة عامة على شركتك.",
-      total: "إجمالي", today: "اليوم", pending: "قيد الانتظار", stat_employees_label: "إجمالي الموظفين", stat_attendance_label: "الحاضرون اليوم",
-      stat_requests_label: "طلبات بانتظار الموافقة", leave_balance: "رصيد الإجازات", stat_leave_label: "أيام الإجازات المتبقية لك",
-      recent_attendance: "حضور اليوم السريع", view_all: "عرض الكل", recent_requests: "أحدث الطلبات", quick_actions: "اختصارات سريعة",
-      theme_mode: "الوضع", language: "اللغة", account_settings: "إعدادات الحساب",
-      basic_salary: "الراتب الأساسي", calculated_salary: "الصافي", chart_attendance_week: "الحضور خلال الأسبوع", chart_absence_ratio: "نسبة الحضور والغياب",
-      backup_json: "نسخة احتياطية", restore_json: "استعادة", employee_profile_title: "الملف الشخصي", manager_notes: "ملاحظات الإدارة",
-      note_placeholder: "أضف ملاحظة...", attendance_history: "سجل الحضور",
-      audit_log: "سجل النشاطات", audit_log_title: "سجل النشاطات", audit_log_desc: "متابعة العمليات الحساسة",
-      date_time: "التاريخ", action_type: "النوع", details: "التفاصيل", overtime_hours: "ساعات إضافي", manual_deductions: "خصومات",
-      company_settings: "إعدادات الشركة (اللون)", choose_image: "اختر صورة", brand_color: "اللون الرئيسي", edit_payroll: "تعديل الراتب"
-    },
-    en: {
-      app_title: "VodFire - Enterprise HRMS", login: "Login", home: "Home", new_company: "New Company", start_now: "Start Now",
-      multi_company_platform: "Enterprise HRMS with RBAC", hero_title: 'Manage Your Company <span class="brand-text-gradient">with Precise Roles</span>',
-      hero_subtitle: "General Manager, HR Manager, Financial Manager, Supervisor, and Employee.",
-      feat_rbac_title: "Advanced RBAC", feat_rbac_desc: "Smart role distribution.",
-      feat_audit_title: "Audit Log", feat_audit_desc: "Exclusive monitoring.",
-      feat_payroll_title: "Advanced Payroll", feat_payroll_desc: "Auto calc with allowances, tax, and PDF.",
-      copyright: "© 2026 VodFire.", connecting: "Connecting...", connected: "Connected", offline: "Offline", offline_mode: "Offline Mode",
-      company_code: "Company Code", username: "Username", password: "Password", company_name: "Company Name", company_name_placeholder: "Al-Noor Co.",
-      your_name: "Your Name", manager_data: "GM Data", create_company: "Create Company",
-      dashboard: "Dashboard", attendance: "Attendance", requests: "Requests", employees: "Employees", owner_panel: "Owner Panel", owner: "Owner",
-      exit_company: "Exit Company", platform_owner: "Platform Owner", notifications: "Notifications", mark_all: "Mark All",
-      check_attendance: "Check Attendance", not_started: "Not Started", started: "Started", your_workplace: "Your Workplace", your_location: "Your Location", check: "Check", press_check: "Press Check",
-      start_work: "Start Work", end_work: "End Work", exempt_from_attendance: "Exempt from attendance", manager_no_checkin: "Admin account doesn't require check-in.",
-      employee: "Employee", date: "Date", checkin: "Check-in", checkout: "Check-out", distance: "Distance", new_request: "New Request", manage_employees: "Manage Employees", add: "Add",
-      name: "Name", role: "Role", job_title: "Job Title", workplace: "Workplace", actions: "Actions", logout: "Logout",
-      owner_dashboard: "Owner Dashboard", full_control: "Full control", refresh: "Refresh",
-      all_companies: "All Companies", active: "Active", suspended: "Suspended", all_users: "All Users", search: "Search...",
-      search_employee: "Search employee...", search_attendance: "Search by name or date...", company: "Company", status: "Status",
-      profile: "Account Settings", change_photo: "Change Photo", display_name: "Display Name", save: "Save",
-      add_employee_manager: "Add Employee", name_required: "Name *", username_required: "Username *", password_required: "Password *",
-      rbac_role_label: "Role", role_gen_mgr: "General Manager", role_hr: "HR Manager", role_fin: "Financial Manager", role_sup: "Supervisor", role_emp: "Employee",
-      type: "Type", leave: "Leave", loan: "Loan", leave_type: "Leave Type", annual: "Annual", sick: "Sick", emergency: "Emergency", amount: "Amount", reason_required: "Reason *", send: "Send",
-      status_pending: "Pending", status_approved: "Approved", status_rejected: "Rejected", approve: "Approve", reject: "Reject", delete: "Delete", edit: "Edit", on_duty: "On duty",
-      msg_fill_fields: "Fill all fields", msg_code_format: "Code 3-20 chars", msg_user_format: "Username 3-30 chars",
-      msg_pass_length: "Password 8+ chars", msg_code_used: "Code used", msg_user_used: "Username used",
-      msg_login_failed: "Invalid credentials", msg_company_suspended: "Company suspended.",
-      msg_no_profile: "No profile", msg_welcome_sa: "Welcome, Owner", msg_welcome_reg: "Welcome! Code: ",
-      msg_attendance_recorded: "Attendance recorded", msg_checkout_recorded: "Check-out recorded", msg_already_checked_in: "Already checked in today",
-      msg_out_of_range: "Out of range", msg_request_sent: "Request sent", msg_photo_updated: "Photo updated", msg_saved: "Saved", msg_code_copied: "Code copied: ",
-      msg_account_created: "Account created!", msg_new_message_notif_title: "New Request", msg_platform_owner_welcome: "Welcome, Owner",
-      msg_enter_company: "You are inside", msg_back_to_owner: "Back to Owner", msg_enter_company_confirm: "Enter company", msg_no_users_company: "No users",
-      msg_suspend_confirm: "Confirm suspend?", msg_activate_confirm: "Confirm activate?", msg_delete_company_confirm: "Delete permanently?",
-      msg_delete_company_final: "Final confirmation!", msg_delete_emp_confirm: "Delete employee?",
-      msg_company_deleted: "Deleted", msg_company_suspended_toast: "Suspended", msg_company_activated_toast: "Activated",
-      msg_pass_short: "Password 8+ chars", msg_required_fields: "Fill required fields", msg_you_exempt: "You are exempt",
-      msg_updating: "Updating...", msg_updated: "Updated", msg_failed: "Failed", msg_loading: "Loading...", msg_photo_too_big: "Photo too large.",
-      msg_welcome_with_code: "Welcome! Code: ", msg_account_credentials: "✅ Account created!", msg_user_label: "User", msg_pass_label: "Pass",
-      msg_no_requests: "No requests", msg_no_records: "No records", msg_no_employees: "No employees", msg_no_notifications: "No notifications", msg_no_companies: "No companies",
-      msg_loading_data: "Loading...", msg_super_admin_role: "Owner", msg_manager_role: "Manager", msg_employee_role: "Employee", msg_impersonate_role: "Admin Access",
-      msg_company_employees_hint: "Employees of", request_new_notif: "New Request", reports: "Reports & Payroll", monthly_reports: "Monthly Reports", reports_desc: "Auto salary calculation.",
-      jan: "January", feb: "February", mar: "March", apr: "April", may: "May", jun: "June", jul: "July", aug: "August", sep: "September", oct: "October", nov: "November", dec: "December",
-      view: "View", days_present: "Days Present", total_hours: "Total Hours", late_days: "Late Days", absences: "Absences",
-      download_csv: "Download CSV", download_pdf: "Download PDF", msg_no_data_period: "No data", hours: "hrs",
-      work_start_time: "Work Start Time", work_location: "Work Location (GPS)", location_name: "Location Name",
-      dashboard_welcome_badge: "Dashboard", dashboard_welcome_desc: "Overview of your company.",
-      total: "Total", today: "Today", pending: "Pending", stat_employees_label: "Total Employees", stat_attendance_label: "Present Today",
-      stat_requests_label: "Pending Requests", leave_balance: "Leave Balance", stat_leave_label: "Your remaining leave days",
-      recent_attendance: "Recent Attendance", view_all: "View All", recent_requests: "Recent Requests", quick_actions: "Quick Actions",
-      theme_mode: "Theme", language: "Language", account_settings: "Account Settings",
-      basic_salary: "Basic Salary", calculated_salary: "Net Salary", chart_attendance_week: "Weekly Attendance", chart_absence_ratio: "Absence Ratio",
-      backup_json: "Backup", restore_json: "Restore", employee_profile_title: "Employee Profile", manager_notes: "Manager Notes",
-      note_placeholder: "Add note...", attendance_history: "Recent Attendance",
-      audit_log: "Audit Log", audit_log_title: "Audit Log", audit_log_desc: "Monitor sensitive operations",
-      date_time: "Date", action_type: "Type", details: "Details", overtime_hours: "Overtime", manual_deductions: "Deductions",
-      company_settings: "Company Settings (Color)", choose_image: "Choose Image", brand_color: "Brand Color", edit_payroll: "Edit Payroll"
-    },
-    it: {
-      app_title: "VodFire - Piattaforma HRMS", login: "Accedi", home: "Home", new_company: "Nuova Azienda", start_now: "Inizia",
-      multi_company_platform: "HRMS Enterprise con RBAC", hero_title: 'Gestisci la Tua Azienda <span class="brand-text-gradient">con Ruoli Precisi</span>',
-      hero_subtitle: "Direttore, HR Manager, Manager Finanziario, Supervisore e Dipendente.",
-      feat_rbac_title: "RBAC Avanzato", feat_rbac_desc: "Ruoli intelligenti.",
-      feat_audit_title: "Registro Audit", feat_audit_desc: "Monitoraggio esclusivo.",
-      feat_payroll_title: "Stipendi Avanzati", feat_payroll_desc: "Calcolo automatico.",
-      copyright: "© 2026 VodFire.", connecting: "Connessione...", connected: "Connesso", offline: "Offline", offline_mode: "Offline",
-      company_code: "Codice Azienda", username: "Nome Utente", password: "Password", company_name: "Nome Azienda", company_name_placeholder: "Al-Noor",
-      your_name: "Il Tuo Nome", manager_data: "Dati GM", create_company: "Crea Azienda",
-      dashboard: "Dashboard", attendance: "Presenze", requests: "Richieste", employees: "Dipendenti", owner_panel: "Pannello Proprietario", owner: "Proprietario",
-      exit_company: "Esci", platform_owner: "Proprietario", notifications: "Notifiche", mark_all: "Segna Tutte",
-      check_attendance: "Presenza", not_started: "Non Iniziata", started: "Iniziata", your_workplace: "Sede", your_location: "Posizione", check: "Verifica", press_check: "Premi Verifica",
-      start_work: "Inizia", end_work: "Fine", exempt_from_attendance: "Esente", manager_no_checkin: "Non richiede check-in.",
-      employee: "Dipendente", date: "Data", checkin: "Entrata", checkout: "Uscita", distance: "Distanza", new_request: "Nuova Richiesta", manage_employees: "Gestisci Dipendenti", add: "Aggiungi",
-      name: "Nome", role: "Ruolo", job_title: "Qualifica", workplace: "Sede", actions: "Azioni", logout: "Esci",
-      owner_dashboard: "Pannello Proprietario", full_control: "Controllo completo", refresh: "Aggiorna",
-      all_companies: "Tutte le Aziende", active: "Attive", suspended: "Sospese", all_users: "Tutti gli Utenti", search: "Cerca...",
-      search_employee: "Cerca dipendente...", search_attendance: "Cerca...", company: "Azienda", status: "Stato",
-      profile: "Impostazioni Account", change_photo: "Cambia Foto", display_name: "Nome Visualizzato", save: "Salva",
-      add_employee_manager: "Aggiungi Dipendente", name_required: "Nome *", username_required: "Utente *", password_required: "Password *",
-      rbac_role_label: "Ruolo", role_gen_mgr: "Direttore", role_hr: "HR Manager", role_fin: "Manager Finanziario", role_sup: "Supervisore", role_emp: "Dipendente",
-      type: "Tipo", leave: "Ferie", loan: "Prestito", leave_type: "Tipo Ferie", annual: "Annuale", sick: "Malattia", emergency: "Emergenza", amount: "Importo", reason_required: "Motivo *", send: "Invia",
-      status_pending: "In Attesa", status_approved: "Approvata", status_rejected: "Rifiutata", approve: "Approva", reject: "Rifiuta", delete: "Elimina", edit: "Modifica", on_duty: "In servizio",
-      msg_fill_fields: "Compila i campi", msg_code_format: "Codice 3-20", msg_user_format: "Utente 3-30",
-      msg_pass_length: "Password 8+ caratteri", msg_code_used: "Codice in uso", msg_user_used: "Utente in uso",
-      msg_login_failed: "Credenziali non valide", msg_company_suspended: "Azienda sospesa.",
-      msg_no_profile: "Nessun profilo", msg_welcome_sa: "Benvenuto", msg_welcome_reg: "Benvenuto! Codice: ",
-      msg_attendance_recorded: "Presenza registrata", msg_checkout_recorded: "Uscita registrata", msg_already_checked_in: "Già registrata oggi",
-      msg_out_of_range: "Fuori raggio", msg_request_sent: "Richiesta inviata", msg_photo_updated: "Foto aggiornata", msg_saved: "Salvato", msg_code_copied: "Codice copiato: ",
-      msg_account_created: "Account creato!", msg_new_message_notif_title: "Nuova Richiesta", msg_platform_owner_welcome: "Benvenuto",
-      msg_enter_company: "Sei dentro", msg_back_to_owner: "Tornato", msg_enter_company_confirm: "Accedi", msg_no_users_company: "Nessun utente",
-      msg_suspend_confirm: "Sospendere?", msg_activate_confirm: "Attivare?", msg_delete_company_confirm: "Eliminare?",
-      msg_delete_company_final: "Conferma finale!", msg_delete_emp_confirm: "Eliminare dipendente?",
-      msg_company_deleted: "Eliminata", msg_company_suspended_toast: "Sospesa", msg_company_activated_toast: "Attivata",
-      msg_pass_short: "Password 8+ caratteri", msg_required_fields: "Compila i campi", msg_you_exempt: "Sei esente",
-      msg_updating: "Aggiornamento...", msg_updated: "Aggiornato", msg_failed: "Fallito", msg_loading: "Caricamento...", msg_photo_too_big: "Foto troppo grande.",
-      msg_welcome_with_code: "Benvenuto! Codice: ", msg_account_credentials: "✅ Account creato!", msg_user_label: "Utente", msg_pass_label: "Password",
-      msg_no_requests: "Nessuna richiesta", msg_no_records: "Nessun record", msg_no_employees: "Nessun dipendente", msg_no_notifications: "Nessuna notifica", msg_no_companies: "Nessuna azienda",
-      msg_loading_data: "Caricamento...", msg_super_admin_role: "Proprietario", msg_manager_role: "Manager", msg_employee_role: "Dipendente", msg_impersonate_role: "Accesso Admin",
-      msg_company_employees_hint: "Dipendenti di", request_new_notif: "Nuova Richiesta", reports: "Rapporti e Stipendi", monthly_reports: "Rapporti", reports_desc: "Calcolo automatico.",
-      jan: "Gennaio", feb: "Febbraio", mar: "Marzo", apr: "Aprile", may: "Maggio", jun: "Giugno", jul: "Luglio", aug: "Agosto", sep: "Settembre", oct: "Ottobre", nov: "Novembre", dec: "Dicembre",
-      view: "Visualizza", days_present: "Giorni Presenti", total_hours: "Ore", late_days: "Ritardi", absences: "Assenze",
-      download_csv: "Scarica CSV", download_pdf: "Scarica PDF", msg_no_data_period: "Nessun dato", hours: "ore",
-      work_start_time: "Inizio Lavoro", work_location: "Sede (GPS)", location_name: "Nome Sede",
-      dashboard_welcome_badge: "Dashboard", dashboard_welcome_desc: "Panoramica.",
-      total: "Totale", today: "Oggi", pending: "In Attesa", stat_employees_label: "Totale Dipendenti", stat_attendance_label: "Presenti Oggi",
-      stat_requests_label: "Richieste in Attesa", leave_balance: "Saldo Ferie", stat_leave_label: "Giorni di ferie rimanenti",
-      recent_attendance: "Presenze Recenti", view_all: "Vedi Tutti", recent_requests: "Richieste Recenti", quick_actions: "Azioni Rapide",
-      theme_mode: "Tema", language: "Lingua", account_settings: "Impostazioni Account",
-      basic_salary: "Stipendio Base", calculated_salary: "Netto", chart_attendance_week: "Presenze Settimanali", chart_absence_ratio: "Rapporto Assenze",
-      backup_json: "Backup", restore_json: "Ripristina", employee_profile_title: "Profilo Dipendente", manager_notes: "Note Manager",
-      note_placeholder: "Aggiungi nota...", attendance_history: "Cronologia Presenze",
-      audit_log: "Registro Audit", audit_log_title: "Registro Audit", audit_log_desc: "Monitora operazioni",
-      date_time: "Data", action_type: "Tipo", details: "Dettagli", overtime_hours: "Straordinari", manual_deductions: "Detrazioni",
-      company_settings: "Impostazioni Azienda (Colore)", choose_image: "Scegli Immagine", brand_color: "Colore", edit_payroll: "Modifica Stipendio"
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => { navigator.serviceWorker.register('./sw.js').catch(err => {}); });
     }
-  };
 
-  let currentLang = 'ar';
-  function t(key) { return (I18N[currentLang] && I18N[currentLang][key]) || (I18N.ar[key]) || key; }
+    const I18N = {
+      ar: {
+        app_title: "VodFire - منصة إدارة الموارد البشرية المؤسسية", login: "دخول", home: "الرئيسية", new_company: "شركة جديدة", start_now: "ابدأ الآن",
+        multi_company_platform: "منصة الموارد البشرية مع نظام الصلاحيات المتقدم (RBAC)",
+        hero_title: 'إدارة شركتك <span class="brand-text-gradient">بأدوار وصلاحيات دقيقة</span>',
+        hero_subtitle: "مدير عام، مدير HR، مدير مالي، مشرف قسم، وموظف مع سجل نشاطات حصري.",
+        feat_rbac_title: "نظام الصلاحيات المتقدم", feat_rbac_desc: "توزيع الأدوار بذكاء.",
+        feat_audit_title: "سجل النشاطات", feat_audit_desc: "متابعة حصريّة لكل العمليات الحساسة.",
+        feat_payroll_title: "الرواتب المتقدمة", feat_payroll_desc: "حساب تلقائي مع البدلات والتأمينات والضريبة، وكشف راتب PDF.",
+        copyright: "© 2026 VodFire. جميع الحقوق محفوظة.", connecting: "جاري الاتصال...", connected: "متصل", offline: "غير متصل", offline_mode: "غير متصل (وضع أوفلاين)",
+        company_code: "كود الشركة", username: "اسم المستخدم", password: "كلمة المرور", company_name: "اسم الشركة", company_name_placeholder: "شركة النور",
+        your_name: "اسمك", manager_data: "بيانات المدير العام", create_company: "إنشاء الشركة",
+        dashboard: "الرئيسية", attendance: "الحضور", requests: "الطلبات والإجازات", employees: "الموظفون", owner_panel: "لوحة المالك", owner: "المالك",
+        exit_company: "خروج من الشركة", platform_owner: "مالك المنصة", notifications: "الإشعارات", mark_all: "تحديد الكل",
+        check_attendance: "تسجيل الحضور", not_started: "لم تبدأ", started: "بدأت", your_workplace: "مقر عملك", your_location: "موقعك", check: "فحص", press_check: "اضغط فحص",
+        start_work: "بدء العمل", end_work: "نهاية العمل", exempt_from_attendance: "أنت معفي من الحضور", manager_no_checkin: "حسابك الإداري لا يتطلب تسجيل الحضور.",
+        employee: "الموظف", date: "التاريخ", checkin: "حضور", checkout: "انصراف", distance: "المسافة", new_request: "طلب جديد", manage_employees: "إدارة الموظفين وأرصدة الإجازات والصلاحيات", add: "إضافة",
+        name: "الاسم", role: "الدور التنظيمي", job_title: "المسمى", workplace: "المقر", actions: "إجراءات", logout: "تسجيل الخروج",
+        owner_dashboard: "لوحة تحكم المالك", full_control: "تحكم كامل في جميع الشركات والنسخ الاحتياطي", refresh: "تحديث",
+        all_companies: "كل الشركات", active: "نشطة", suspended: "موقوفة", all_users: "كل المستخدمين", search: "ابحث...",
+        search_employee: "ابحث عن موظف...", search_attendance: "ابحث باسم الموظف أو التاريخ...", company: "الشركة", status: "الحالة",
+        profile: "إعدادات الحساب", change_photo: "تغيير الصورة الشخصية", display_name: "الاسم الظاهر", save: "حفظ التعديلات",
+        add_employee_manager: "إضافة موظف أو مسؤول", name_required: "الاسم *",
+        rbac_role_label: "الدور التنظيمي (RBAC)", role_gen_mgr: "مدير عام (General Manager)", role_hr: "مدير موارد بشرية (HR Manager)", role_fin: "مدير مالي (Financial Manager)", role_sup: "مشرف قسم (Department Supervisor)", role_emp: "موظف (Employee)",
+        type: "النوع", leave: "إجازة", loan: "سلفة", leave_type: "نوع الإجازة", annual: "سنوية", sick: "مرضية", emergency: "طارئة", amount: "المبلغ", reason_required: "السبب *",
+        status_pending: "قيد المراجعة", status_approved: "موافق", status_rejected: "مرفوض", approve: "موافقة", reject: "رفض", delete: "حذف", edit: "تعديل", on_duty: "على رأس العمل",
+        msg_fill_fields: "املأ كل الحقول", msg_code_format: "الكود 3-20 حرف", msg_user_format: "المستخدم 3-30 حرف",
+        msg_pass_length: "كلمة المرور 8+ أحرف", msg_code_used: "الكود مستخدم", msg_user_used: "اسم المستخدم مستخدم",
+        msg_login_failed: "كود الشركة أو اسم المستخدم أو كلمة المرور غير صحيحة", msg_company_suspended: "هذه الشركة موقوفة من قِبل الإدارة. رجاء التواصل مع الإدارة.",
+        msg_no_profile: "لا يوجد ملف شخصي", msg_welcome_sa: "مرحباً بك كمالك المنصة", msg_welcome_reg: "مرحباً! الكود: ",
+        msg_attendance_recorded: "تم تسجيل الحضور", msg_checkout_recorded: "تم تسجيل الانصراف", msg_already_checked_in: "تم تسجيل الحضور بالفعل اليوم",
+        msg_out_of_range: "أنت خارج النطاق المسموح", msg_request_sent: "تم إرسال الطلب", msg_photo_updated: "تم تحديث الصورة", msg_saved: "تم الحفظ", msg_code_copied: "تم نسخ الكود: ",
+        msg_account_created: "تم إنشاء الحساب!", msg_new_message_notif_title: "طلب جديد", msg_platform_owner_welcome: "مرحباً بك كمالك المنصة",
+        msg_enter_company: "أنت الآن داخل", msg_back_to_owner: "عدت للوحة المالك", msg_enter_company_confirm: "الدخول كمدير لشركة", msg_no_users_company: "لا يوجد مستخدمون في هذه الشركة",
+        msg_suspend_confirm: "تأكيد إيقاف هذه الشركة؟", msg_activate_confirm: "تأكيد تشغيل هذه الشركة؟", msg_delete_company_confirm: "حذف نهائياً مع جميع بياناتها؟",
+        msg_delete_company_final: "تأكيد أخير: لا يمكن التراجع!", msg_delete_emp_confirm: "هل أنت متأكد من حذف هذا الموظف؟",
+        msg_company_deleted: "تم حذف", msg_company_suspended_toast: "تم إيقاف الشركة", msg_company_activated_toast: "تم تشغيل الشركة",
+        msg_pass_short: "كلمة المرور يجب أن تكون 8 أحرف على الأقل", msg_required_fields: "يرجى ملء الحقول المطلوبة", msg_you_exempt: "أنت معفي من الحضور",
+        msg_updating: "جاري التحديث...", msg_updated: "تم التحديث", msg_failed: "فشل", msg_loading: "جاري...", msg_photo_too_big: "الصورة كبيرة جداً أو حدث خطأ.",
+        msg_welcome_with_code: "مرحباً! الكود: ", msg_account_credentials: "✅ تم إنشاء الحساب!", msg_user_label: "المستخدم", msg_pass_label: "المرور",
+        msg_no_requests: "لا توجد طلبات", msg_no_records: "لا توجد سجلات", msg_no_employees: "لا يوجد موظفون", msg_no_notifications: "لا توجد إشعارات", msg_no_companies: "لا توجد شركات",
+        msg_loading_data: "جاري تحميل البيانات...", msg_super_admin_role: "مالك المنصة", msg_manager_role: "مدير", msg_employee_role: "موظف", msg_impersonate_role: "دخول إداري",
+        msg_company_employees_hint: "موظفو", request_new_notif: "طلب جديد", reports: "التقارير والرواتب", monthly_reports: "تقارير الموظفين ورواتبهم المتقدمة", reports_desc: "حساب الرواتب التلقائية مع البدلات والتأمينات والضرائب.",
+        jan: "يناير", feb: "فبراير", mar: "مارس", apr: "أبريل", may: "مايو", jun: "يونيو", jul: "يوليو", aug: "أغسطس", sep: "سبتمبر", oct: "أكتوبر", nov: "نوفمبر", dec: "ديسمبر",
+        view: "عرض", days_present: "أيام الحضور", total_hours: "إجمالي الساعات", late_days: "أيام التأخير", absences: "الغياب",
+        download_csv: "تحميل التقرير (CSV)", download_pdf: "تحميل التقرير PDF", msg_no_data_period: "لا توجد بيانات في هذه الفترة", hours: "ساعة",
+        work_start_time: "وقت بدء العمل الرسمي", work_location: "موقع العمل (GPS)", location_name: "اسم المقر",
+        dashboard_welcome_badge: "لوحة التحكم المؤسسية", dashboard_welcome_desc: "إليك نظرة عامة على إحصائيات شركتك ورصيد إجازاتك.",
+        total: "إجمالي", today: "اليوم", pending: "قيد الانتظار", stat_employees_label: "إجمالي الموظفين المسجلين", stat_attendance_label: "الموظفون الحاضرون اليوم",
+        stat_requests_label: "طلبات بانتظار الموافقة", leave_balance: "رصيد الإجازات", stat_leave_label: "أيام الإجازات المتبقية لك",
+        recent_attendance: "حضور اليوم السريع", view_all: "عرض الكل", recent_requests: "أحدث الطلبات", quick_actions: "اختصارات سريعة",
+        theme_mode: "الوضع (داكن / فاتح)", language: "اللغة", account_settings: "إعدادات الحساب",
+        basic_salary: "الراتب الأساسي", calculated_salary: "الصافي المستحق", chart_attendance_week: "الحضور خلال الأسبوع", chart_absence_ratio: "نسبة الحضور والغياب الشهرية",
+        backup_json: "نسخة احتياطية (JSON)", restore_json: "استعادة البيانات", employee_profile_title: "الملف الشخصي للموظف", manager_notes: "ملاحظات وتنبيهات الإدارة",
+        note_placeholder: "أضف ملاحظة أو تقييماً أداءً...", attendance_history: "سجل الحضور الأخير",
+        audit_log: "سجل النشاطات", audit_log_title: "سجل النشاطات والعمليات الحساسة (للمدير العام فقط)", audit_log_desc: "متابعة كافة حركات الحذف، التعديل، والموافقات بالتواريخ بدقة تامة.",
+        date_time: "التاريخ والوقت", action_type: "نوع الحدث", details: "التفاصيل", overtime_hours: "ساعات إضافي", manual_deductions: "خصومات (ج.م)",
+        company_settings: "إعدادات الشركة (اللون)", choose_image: "اختر صورة", brand_color: "اللون الرئيسي", edit_payroll: "تعديل الراتب"
+      },
+      en: { app_title: "VodFire - Enterprise HRMS", login: "Login", home: "Home", new_company: "New Company", start_now: "Start Now", multi_company_platform: "Enterprise HRMS", hero_title: 'Manage Your Company', hero_subtitle: "Team management.", feat_rbac_title: "RBAC", feat_rbac_desc: "Roles.", feat_audit_title: "Audit Log", feat_audit_desc: "Monitor.", feat_payroll_title: "Payroll", feat_payroll_desc: "Auto calc.", copyright: "© 2026 VodFire.", connecting: "Connecting...", connected: "Connected", offline: "Offline", offline_mode: "Offline", company_code: "Code", username: "Username", password: "Password", company_name: "Company Name", company_name_placeholder: "Al-Noor", your_name: "Your Name", manager_data: "GM Data", create_company: "Create", dashboard: "Dashboard", attendance: "Attendance", requests: "Requests", employees: "Employees", owner_panel: "Owner", owner: "Owner", exit_company: "Exit", platform_owner: "Owner", notifications: "Notifications", mark_all: "Mark All", check_attendance: "Check", not_started: "Not Started", started: "Started", your_workplace: "Workplace", your_location: "Location", check: "Check", press_check: "Press", start_work: "Start", end_work: "End", exempt_from_attendance: "Exempt", manager_no_checkin: "No check-in.", employee: "Employee", date: "Date", checkin: "In", checkout: "Out", distance: "Dist", new_request: "New Request", manage_employees: "Manage Employees", add: "Add", name: "Name", role: "Role", job_title: "Title", workplace: "Place", actions: "Actions", logout: "Logout", owner_dashboard: "Owner Dashboard", full_control: "Full control", refresh: "Refresh", all_companies: "Companies", active: "Active", suspended: "Suspended", all_users: "Users", search: "Search...", search_employee: "Search...", search_attendance: "Search...", company: "Company", status: "Status", profile: "Settings", change_photo: "Change Photo", display_name: "Name", save: "Save", add_employee_manager: "Add Employee", name_required: "Name *", rbac_role_label: "Role", role_gen_mgr: "GM", role_hr: "HR", role_fin: "Finance", role_sup: "Supervisor", role_emp: "Employee", type: "Type", leave: "Leave", loan: "Loan", leave_type: "Type", annual: "Annual", sick: "Sick", emergency: "Emergency", amount: "Amount", reason_required: "Reason *", status_pending: "Pending", status_approved: "Approved", status_rejected: "Rejected", approve: "Approve", reject: "Reject", delete: "Delete", edit: "Edit", on_duty: "On duty", msg_fill_fields: "Fill fields", msg_code_format: "Code 3-20", msg_user_format: "User 3-30", msg_pass_length: "Pass 8+", msg_code_used: "Code used", msg_user_used: "User used", msg_login_failed: "Invalid credentials", msg_company_suspended: "Company suspended. Contact admin.", msg_no_profile: "No profile", msg_welcome_sa: "Welcome", msg_welcome_reg: "Welcome! Code: ", msg_attendance_recorded: "Recorded", msg_checkout_recorded: "Check-out", msg_already_checked_in: "Already", msg_out_of_range: "Out of range", msg_request_sent: "Sent", msg_photo_updated: "Updated", msg_saved: "Saved", msg_code_copied: "Copied: ", msg_account_created: "Created!", msg_new_message_notif_title: "New", msg_platform_owner_welcome: "Welcome", msg_enter_company: "Inside", msg_back_to_owner: "Back", msg_enter_company_confirm: "Enter", msg_no_users_company: "No users", msg_suspend_confirm: "Suspend?", msg_activate_confirm: "Activate?", msg_delete_company_confirm: "Delete?", msg_delete_company_final: "Confirm!", msg_delete_emp_confirm: "Delete?", msg_company_deleted: "Deleted", msg_company_suspended_toast: "Suspended", msg_company_activated_toast: "Activated", msg_pass_short: "Pass 8+", msg_required_fields: "Fill fields", msg_you_exempt: "Exempt", msg_updating: "Updating...", msg_updated: "Updated", msg_failed: "Failed", msg_loading: "Loading...", msg_photo_too_big: "Too large", msg_welcome_with_code: "Code: ", msg_account_credentials: "✅ Created!", msg_user_label: "User", msg_pass_label: "Pass", msg_no_requests: "None", msg_no_records: "None", msg_no_employees: "None", msg_no_notifications: "None", msg_no_companies: "None", msg_loading_data: "Loading...", msg_super_admin_role: "Owner", msg_manager_role: "Manager", msg_employee_role: "Employee", msg_impersonate_role: "Admin", msg_company_employees_hint: "Employees:", request_new_notif: "New", reports: "Reports", monthly_reports: "Reports", reports_desc: "Auto.", jan: "Jan", feb: "Feb", mar: "Mar", apr: "Apr", may: "May", jun: "Jun", jul: "Jul", aug: "Aug", sep: "Sep", oct: "Oct", nov: "Nov", dec: "Dec", view: "View", days_present: "Days", total_hours: "Hours", late_days: "Late", absences: "Absent", download_csv: "CSV", download_pdf: "PDF", msg_no_data_period: "No data", hours: "hrs", work_start_time: "Start", work_location: "Location", location_name: "Name", dashboard_welcome_badge: "Dashboard", dashboard_welcome_desc: "Overview.", total: "Total", today: "Today", pending: "Pending", stat_employees_label: "Employees", stat_attendance_label: "Present", stat_requests_label: "Requests", leave_balance: "Leave", stat_leave_label: "Days", recent_attendance: "Recent", view_all: "View All", recent_requests: "Recent", quick_actions: "Quick", theme_mode: "Theme", language: "Language", account_settings: "Settings", basic_salary: "Basic", calculated_salary: "Net", chart_attendance_week: "Attendance", chart_absence_ratio: "Absence", backup_json: "Backup", restore_json: "Restore", employee_profile_title: "Profile", manager_notes: "Notes", note_placeholder: "Add note...", attendance_history: "History", audit_log: "Audit", audit_log_title: "Audit Log", audit_log_desc: "Monitor", date_time: "Date", action_type: "Type", details: "Details", overtime_hours: "Overtime", manual_deductions: "Deductions", company_settings: "Settings", choose_image: "Choose", brand_color: "Color", edit_payroll: "Edit" },
+      it: { app_title: "VodFire - Piattaforma HRMS", login: "Accedi", home: "Home", new_company: "Nuova Azienda", start_now: "Inizia", multi_company_platform: "HRMS", hero_title: 'Gestisci la Tua Azienda', hero_subtitle: "Team.", feat_rbac_title: "RBAC", feat_rbac_desc: "Ruoli.", feat_audit_title: "Audit", feat_audit_desc: "Monitor.", feat_payroll_title: "Stipendi", feat_payroll_desc: "Calcolo.", copyright: "© 2026 VodFire.", connecting: "Connessione...", connected: "Connesso", offline: "Offline", offline_mode: "Offline", company_code: "Codice", username: "Utente", password: "Password", company_name: "Azienda", company_name_placeholder: "Al-Noor", your_name: "Nome", manager_data: "Dati GM", create_company: "Crea", dashboard: "Dashboard", attendance: "Presenze", requests: "Richieste", employees: "Dipendenti", owner_panel: "Proprietario", owner: "Proprietario", exit_company: "Esci", platform_owner: "Proprietario", notifications: "Notifiche", mark_all: "Segna", check_attendance: "Verifica", not_started: "Non Iniziata", started: "Iniziata", your_workplace: "Sede", your_location: "Posizione", check: "Verifica", press_check: "Premi", start_work: "Inizia", end_work: "Fine", exempt_from_attendance: "Esente", manager_no_checkin: "No check-in.", employee: "Dipendente", date: "Data", checkin: "Entrata", checkout: "Uscita", distance: "Distanza", new_request: "Nuova", manage_employees: "Gestisci", add: "Aggiungi", name: "Nome", role: "Ruolo", job_title: "Qualifica", workplace: "Sede", actions: "Azioni", logout: "Esci", owner_dashboard: "Proprietario", full_control: "Controllo", refresh: "Aggiorna", all_companies: "Aziende", active: "Attive", suspended: "Sospese", all_users: "Utenti", search: "Cerca...", search_employee: "Cerca...", search_attendance: "Cerca...", company: "Azienda", status: "Stato", profile: "Impostazioni", change_photo: "Cambia Foto", display_name: "Nome", save: "Salva", add_employee_manager: "Aggiungi", name_required: "Nome *", rbac_role_label: "Ruolo", role_gen_mgr: "Direttore", role_hr: "HR", role_fin: "Manager", role_sup: "Supervisore", role_emp: "Dipendente", type: "Tipo", leave: "Ferie", loan: "Prestito", leave_type: "Tipo", annual: "Annuale", sick: "Malattia", emergency: "Emergenza", amount: "Importo", reason_required: "Motivo *", status_pending: "Attesa", status_approved: "Approvata", status_rejected: "Rifiutata", approve: "Approva", reject: "Rifiuta", delete: "Elimina", edit: "Modifica", on_duty: "Servizio", msg_fill_fields: "Compila", msg_code_format: "Codice 3-20", msg_user_format: "Utente 3-30", msg_pass_length: "Pass 8+", msg_code_used: "Codice in uso", msg_user_used: "Utente in uso", msg_login_failed: "Credenziali non valide", msg_company_suspended: "Azienda sospesa.", msg_no_profile: "Nessun profilo", msg_welcome_sa: "Benvenuto", msg_welcome_reg: "Benvenuto! Codice: ", msg_attendance_recorded: "Registrata", msg_checkout_recorded: "Uscita", msg_already_checked_in: "Già", msg_out_of_range: "Fuori raggio", msg_request_sent: "Inviata", msg_photo_updated: "Aggiornata", msg_saved: "Salvato", msg_code_copied: "Copiato: ", msg_account_created: "Creato!", msg_new_message_notif_title: "Nuova", msg_platform_owner_welcome: "Benvenuto", msg_enter_company: "Dentro", msg_back_to_owner: "Tornato", msg_enter_company_confirm: "Accedi", msg_no_users_company: "Nessun utente", msg_suspend_confirm: "Sospendere?", msg_activate_confirm: "Attivare?", msg_delete_company_confirm: "Eliminare?", msg_delete_company_final: "Conferma!", msg_delete_emp_confirm: "Eliminare?", msg_company_deleted: "Eliminata", msg_company_suspended_toast: "Sospesa", msg_company_activated_toast: "Attivata", msg_pass_short: "Pass 8+", msg_required_fields: "Compila", msg_you_exempt: "Esente", msg_updating: "Aggiornamento...", msg_updated: "Aggiornato", msg_failed: "Fallito", msg_loading: "Caricamento...", msg_photo_too_big: "Troppo grande", msg_welcome_with_code: "Codice: ", msg_account_credentials: "✅ Creato!", msg_user_label: "Utente", msg_pass_label: "Password", msg_no_requests: "Nessuna", msg_no_records: "Nessuno", msg_no_employees: "Nessuno", msg_no_notifications: "Nessuna", msg_no_companies: "Nessuna", msg_loading_data: "Caricamento...", msg_super_admin_role: "Proprietario", msg_manager_role: "Manager", msg_employee_role: "Dipendente", msg_impersonate_role: "Admin", msg_company_employees_hint: "Dipendenti:", request_new_notif: "Nuova", reports: "Rapporti", monthly_reports: "Rapporti", reports_desc: "Auto.", jan: "Gen", feb: "Feb", mar: "Mar", apr: "Apr", may: "Mag", jun: "Giu", jul: "Lug", aug: "Ago", sep: "Set", oct: "Ott", nov: "Nov", dec: "Dic", view: "Vedi", days_present: "Giorni", total_hours: "Ore", late_days: "Ritardi", absences: "Assenze", download_csv: "CSV", download_pdf: "PDF", msg_no_data_period: "Nessun dato", hours: "ore", work_start_time: "Inizio", work_location: "Sede", location_name: "Nome", dashboard_welcome_badge: "Dashboard", dashboard_welcome_desc: "Panoramica.", total: "Totale", today: "Oggi", pending: "Attesa", stat_employees_label: "Dipendenti", stat_attendance_label: "Presenti", stat_requests_label: "Richieste", leave_balance: "Ferie", stat_leave_label: "Giorni", recent_attendance: "Recenti", view_all: "Tutti", recent_requests: "Richieste", quick_actions: "Azioni", theme_mode: "Tema", language: "Lingua", account_settings: "Impostazioni", basic_salary: "Base", calculated_salary: "Netto", chart_attendance_week: "Presenze", chart_absence_ratio: "Assenze", backup_json: "Backup", restore_json: "Ripristina", employee_profile_title: "Profilo", manager_notes: "Note", note_placeholder: "Aggiungi...", attendance_history: "Storico", audit_log: "Audit", audit_log_title: "Audit", audit_log_desc: "Monitora", date_time: "Data", action_type: "Tipo", details: "Dettagli", overtime_hours: "Straordinari", manual_deductions: "Detrazioni", company_settings: "Impostazioni", choose_image: "Scegli", brand_color: "Colore", edit_payroll: "Modifica" }
+    };
 
-  function setLanguage(lang) {
-    if (!I18N[lang]) return;
-    currentLang = lang;
-    localStorage.setItem('vodfire_lang', lang);
-    document.documentElement.lang = lang;
-    document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
-    applyTranslations();
-    const langNames = { ar: 'العربية', en: 'English', it: 'Italiano' };
-    document.getElementById('currentLangLabel').textContent = langNames[lang];
-    const l2 = document.querySelector('.currentLangLabel2');
-    if (l2) l2.textContent = langNames[lang];
-    document.getElementById('langMenu').classList.add('hidden-view');
-    document.getElementById('langMenu2').classList.add('hidden-view');
-    if (currentUser) {
-      try {
-        if (currentUser.isSuperAdmin && !currentUser._impersonating) { renderSuperAdminCompanies(); renderServersList(); }
-        else { renderDashboardStats(); renderAttendance(); renderRequests(); renderEmployees(); renderMonthlyReports(true); renderAuditLogs(); }
-        renderNotificationsBadge();
-      } catch(e){}
+    let currentLang = 'ar';
+    function t(key) { return (I18N[currentLang] && I18N[currentLang][key]) || (I18N.ar[key]) || key; }
+
+    function setLanguage(lang) {
+      if (!I18N[lang]) return;
+      currentLang = lang;
+      localStorage.setItem('vodfire_lang', lang);
+      document.documentElement.lang = lang;
+      document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+      applyTranslations();
+      const langNames = { ar: 'العربية', en: 'English', it: 'Italiano' };
+      document.getElementById('currentLangLabel').textContent = langNames[lang];
+      const l2 = document.querySelector('.currentLangLabel2');
+      if (l2) l2.textContent = langNames[lang];
+      document.getElementById('langMenu').classList.add('hidden-view');
+      document.getElementById('langMenu2').classList.add('hidden-view');
+      if (currentUser) {
+        try {
+          if (currentUser.isSuperAdmin && !currentUser._impersonating) { renderSuperAdminCompanies(); renderServersList(); }
+          else { renderDashboardStats(); renderAttendance(); renderRequests(); renderEmployees(); renderMonthlyReports(true); renderAuditLogs(); }
+          renderNotificationsBadge();
+        } catch(e){}
+      }
+      lucide.createIcons();
     }
-    lucide.createIcons();
-  }
 
-  function toggleDarkMode() {
-    const html = document.documentElement;
-    if (html.classList.contains('dark')) { html.classList.remove('dark'); localStorage.setItem('vodfire_theme', 'light'); }
-    else { html.classList.add('dark'); localStorage.setItem('vodfire_theme', 'dark'); }
-  }
-
-  function applyTranslations() {
-    document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.getAttribute('data-i18n')); });
-    document.querySelectorAll('[data-i18n-html]').forEach(el => { el.innerHTML = t(el.getAttribute('data-i18n-html')); });
-    document.querySelectorAll('[data-i18n-ph]').forEach(el => { el.setAttribute('placeholder', t(el.getAttribute('data-i18n-ph'))); });
-    document.title = t('app_title');
-  }
-
-  function toggleLangMenu(e) { e.stopPropagation(); document.getElementById('langMenu').classList.toggle('hidden-view'); document.getElementById('langMenu2')?.classList.toggle('hidden-view'); }
-  function toggleHamburgerMenu(e) {
-    e.stopPropagation();
-    const menu = document.getElementById('hamburgerMenu');
-    menu.classList.toggle('hidden-view');
-    if (!menu.classList.contains('hidden-view') && currentUser) {
-      document.getElementById('menuUserName').textContent = currentUser.name;
-      document.getElementById('menuUserEmail').textContent = currentUser.email || '';
+    function toggleDarkMode() {
+      const html = document.documentElement;
+      if (html.classList.contains('dark')) { html.classList.remove('dark'); localStorage.setItem('vodfire_theme', 'light'); }
+      else { html.classList.add('dark'); localStorage.setItem('vodfire_theme', 'dark'); }
     }
-  }
 
-  document.addEventListener('click', (e) => {
-    if (!e.target.closest('#langMenu') && !e.target.closest('#langMenu2') && !e.target.closest('button[onclick*="toggleLangMenu"]')) {
-      document.getElementById('langMenu')?.classList.add('hidden-view');
-      document.getElementById('langMenu2')?.classList.add('hidden-view');
+    function applyTranslations() {
+      document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.getAttribute('data-i18n')); });
+      document.querySelectorAll('[data-i18n-html]').forEach(el => { el.innerHTML = t(el.getAttribute('data-i18n-html')); });
+      document.querySelectorAll('[data-i18n-ph]').forEach(el => { el.setAttribute('placeholder', t(el.getAttribute('data-i18n-ph'))); });
+      document.title = t('app_title');
     }
-    if (!e.target.closest('#hamburgerMenu') && !e.target.closest('button[onclick*="toggleHamburgerMenu"]')) {
-      document.getElementById('hamburgerMenu')?.classList.add('hidden-view');
+
+    function toggleLangMenu(e) { e.stopPropagation(); document.getElementById('langMenu').classList.toggle('hidden-view'); document.getElementById('langMenu2')?.classList.toggle('hidden-view'); }
+    function toggleHamburgerMenu(e) {
+      e.stopPropagation();
+      const menu = document.getElementById('hamburgerMenu');
+      menu.classList.toggle('hidden-view');
+      if (!menu.classList.contains('hidden-view') && currentUser) {
+        document.getElementById('menuUserName').textContent = currentUser.name;
+        document.getElementById('menuUserEmail').textContent = currentUser.email || '';
+      }
     }
-  });
 
-  // ═══════════════════════════════════════════════════════
-  // 🔧 الإعدادات الأساسية (مع دعم السيرفرين)
-  // ═══════════════════════════════════════════════════════
-  
-  // السيرفر الرئيسي (السيرفر 1 - Master)
-  const MASTER_CFG = {
-    endpoint: 'https://nyc.cloud.appwrite.io/v1',
-    projectId: '6ad40d52002bcd55432a',
-    databaseId: '6ad40da8003a326ffc71',
-    collectionId: '6ad40ea8001585a45794',
-    companiesMapId: '6af5162f002edfcda279',
-    dashboardUrl: 'https://cloud.appwrite.io/console/project-6ad40d52002bcd55432a'
-  };
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('#langMenu') && !e.target.closest('#langMenu2') && !e.target.closest('button[onclick*="toggleLangMenu"]')) {
+        document.getElementById('langMenu')?.classList.add('hidden-view');
+        document.getElementById('langMenu2')?.classList.add('hidden-view');
+      }
+      if (!e.target.closest('#hamburgerMenu') && !e.target.closest('button[onclick*="toggleHamburgerMenu"]')) {
+        document.getElementById('hamburgerMenu')?.classList.add('hidden-view');
+      }
+    });
 
-  // السيرفر 2
-  const SERVER2_CFG = {
-    endpoint: 'https://fra.cloud.appwrite.io/v1',
-    projectId: '6ad74b980028327fd0dd',
-    databaseId: '6af510db003a091d8408',
-    collectionId: '6af5143300297fef0c76',
-    dashboardUrl: 'https://cloud.appwrite.io/console/project-6ad74b980028327fd0dd'
-  };
+    const MASTER_CFG = { endpoint: 'https://nyc.cloud.appwrite.io/v1', projectId: '6ad40d52002bcd55432a', databaseId: '6ad40da8003a326ffc71', collectionId: '6ad40ea8001585a45794', companiesMapId: '6af5162f002edfcda279', dashboardUrl: 'https://cloud.appwrite.io/console/project-6ad40d52002bcd55432a' };
+    const SERVER2_CFG = { endpoint: 'https://fra.cloud.appwrite.io/v1', projectId: '6ad74b980028327fd0dd', databaseId: '6af510db003a091d8408', collectionId: '6af5143300297fef0c76', dashboardUrl: 'https://cloud.appwrite.io/console/project-6ad74b980028327fd0dd' };
+    const SERVERS_LIST = [
+      { id: 'server1', name: 'السيرفر الرئيسي (Master)', endpoint: MASTER_CFG.endpoint, projectId: MASTER_CFG.projectId, databaseId: MASTER_CFG.databaseId, collectionId: MASTER_CFG.collectionId, dashboardUrl: MASTER_CFG.dashboardUrl, isCurrent: true },
+      { id: 'server2', name: 'السيرفر الثاني', endpoint: SERVER2_CFG.endpoint, projectId: SERVER2_CFG.projectId, databaseId: SERVER2_CFG.databaseId, collectionId: SERVER2_CFG.collectionId, dashboardUrl: SERVER2_CFG.dashboardUrl, isCurrent: false }
+    ];
 
-  // قائمة السيرفرات (للعرض في لوحة الخادم المركزي)
-  const SERVERS_LIST = [
-    { id: 'server1', name: 'السيرفر الرئيسي (Master)', endpoint: MASTER_CFG.endpoint, projectId: MASTER_CFG.projectId, databaseId: MASTER_CFG.databaseId, collectionId: MASTER_CFG.collectionId, dashboardUrl: MASTER_CFG.dashboardUrl, isCurrent: true },
-    { id: 'server2', name: 'السيرفر الثاني', endpoint: SERVER2_CFG.endpoint, projectId: SERVER2_CFG.projectId, databaseId: SERVER2_CFG.databaseId, collectionId: SERVER2_CFG.collectionId, dashboardUrl: SERVER2_CFG.dashboardUrl, isCurrent: false }
-  ];
+    const SUPER_ADMIN_EMAIL = 'mohsen0tamer@admin.vodfire';
 
-  const SUPER_ADMIN_EMAIL = 'mohsen0tamer@admin.vodfire';
+    let SDK, masterClient, masterDatabases, masterAccount, masterFunctions;
+    let server2Client, server2Databases, server2Account, server2Functions;
+    let currentDatabases, currentAccount, currentFunctions;
+    let currentServerId = 'server1';
+    let currentUser = null, cloudReady = false;
+    let localCache = { attendance: [], requests: [], users: [], notifications: [], auditLogs: [] };
+    let superAdminCache = { companies: [], users: [] };
+    let companiesMapCache = [];
+    let notificationsPanelOpen = false, syncInterval = null, isLoadingCloud = false;
+    let impersonatedCompany = null;
+    let weeklyChartInstance = null, absenceChartInstance = null;
+    let currentViewingEmployeeId = null;
+    let isOnline = navigator.onLine;
 
-  // المتغيرات العامة (نفس اللي كانت)
-  let SDK, masterClient, masterDatabases, masterAccount, masterFunctions;
-  let server2Client, server2Databases, server2Account, server2Functions;
-  let currentDatabases, currentAccount, currentFunctions; // للـ SDK الحالي (حسب الشركة)
-  let currentServerId = 'server1'; // السيرفر الحالي
-  let currentUser = null, cloudReady = false;
-  let localCache = { attendance: [], requests: [], users: [], notifications: [], auditLogs: [] };
-  let superAdminCache = { companies: [], users: [] };
-  let companiesMapCache = []; // دفتر العناوين
-  let notificationsPanelOpen = false, syncInterval = null, isLoadingCloud = false;
-  let impersonatedCompany = null;
-  let weeklyChartInstance = null, absenceChartInstance = null;
-  let currentViewingEmployeeId = null;
-  let isOnline = navigator.onLine;
+    let faceStream = null;
+    let isFaceModelLoaded = false;
+    let faceDescriptor = null;
 
-  // Face ID Variables
-  let faceStream = null;
-  let isFaceModelLoaded = false;
-  let faceDescriptor = null;
+    window.addEventListener('online', () => { isOnline = true; document.getElementById('offlineIndicator')?.classList.add('hidden'); syncOfflineData(); });
+    window.addEventListener('offline', () => { isOnline = false; document.getElementById('offlineIndicator')?.classList.remove('hidden'); });
 
-  window.addEventListener('online', () => { isOnline = true; document.getElementById('offlineIndicator')?.classList.add('hidden'); syncOfflineData(); });
-  window.addEventListener('offline', () => { isOnline = false; document.getElementById('offlineIndicator')?.classList.remove('hidden'); });
-
-  // ═══════════════════════════════════════════════════════
-  // 🔌 تهيئة الـ SDK للسيرفرين
-  // ═══════════════════════════════════════════════════════
-  async function bootSDK() {
-    if (!window.AppwriteSDK) await new Promise(r => window.addEventListener('appwrite-ready', r, { once: true }));
-    SDK = window.AppwriteSDK;
-    
-    // تهيئة السيرفر الرئيسي
-    masterClient = new SDK.Client().setEndpoint(MASTER_CFG.endpoint).setProject(MASTER_CFG.projectId);
-    masterDatabases = new SDK.Databases(masterClient);
-    masterAccount = new SDK.Account(masterClient);
-    masterFunctions = new SDK.Functions(masterClient);
-    
-    // تهيئة السيرفر 2
-    server2Client = new SDK.Client().setEndpoint(SERVER2_CFG.endpoint).setProject(SERVER2_CFG.projectId);
-    server2Databases = new SDK.Databases(server2Client);
-    server2Account = new SDK.Account(server2Client);
-    server2Functions = new SDK.Functions(server2Client);
-    
-    // افتراضياً نبدأ بالسيرفر الرئيسي
-    currentDatabases = masterDatabases;
-    currentAccount = masterAccount;
-    currentFunctions = masterFunctions;
-    
-    cloudReady = true;
-    updateCloudBadge('connected');
-  }
-
-  // تحديد الـ SDK حسب السيرفر
-  function setActiveServer(serverId) {
-    currentServerId = serverId;
-    if (serverId === 'server2') {
-      currentDatabases = server2Databases;
-      currentAccount = server2Account;
-      currentFunctions = server2Functions;
-    } else {
+    async function bootSDK() {
+      if (!window.AppwriteSDK) await new Promise(r => window.addEventListener('appwrite-ready', r, { once: true }));
+      SDK = window.AppwriteSDK;
+      masterClient = new SDK.Client().setEndpoint(MASTER_CFG.endpoint).setProject(MASTER_CFG.projectId);
+      masterDatabases = new SDK.Databases(masterClient);
+      masterAccount = new SDK.Account(masterClient);
+      masterFunctions = new SDK.Functions(masterClient);
+      server2Client = new SDK.Client().setEndpoint(SERVER2_CFG.endpoint).setProject(SERVER2_CFG.projectId);
+      server2Databases = new SDK.Databases(server2Client);
+      server2Account = new SDK.Account(server2Client);
+      server2Functions = new SDK.Functions(server2Client);
       currentDatabases = masterDatabases;
       currentAccount = masterAccount;
       currentFunctions = masterFunctions;
+      cloudReady = true;
+      updateCloudBadge('connected');
     }
-  }
 
-  function getServerConfig(serverId) {
-    return serverId === 'server2' ? SERVER2_CFG : MASTER_CFG;
-  }
-
-  function updateCloudBadge(state) {
-    const b = document.getElementById('cloudStatusBadge');
-    if (b) b.innerHTML = state === 'connected' ? '<i data-lucide="check-circle" class="w-3 h-3"></i><span>'+t('connected')+'</span>' : '<i data-lucide="alert-circle" class="w-3 h-3"></i><span>'+t('offline')+'</span>';
-    lucide.createIcons();
-  }
-
-  // ═══════════════════════════════════════════════════════
-  // 📒 دفتر العناوين (COMPANIES_MAP)
-  // ═══════════════════════════════════════════════════════
-  async function loadCompaniesMap() {
-    try {
-      const r = await masterDatabases.listDocuments(MASTER_CFG.databaseId, MASTER_CFG.companiesMapId, [SDK.Query.orderDesc('$createdAt'), SDK.Query.limit(500)]);
-      companiesMapCache = r.documents.map(d => ({ ...safeParse(d.Payload || {}), ...d, _docId: d.$id }));
-    } catch(e) {
-      console.warn('فشل تحميل دفتر العناوين:', e);
-      companiesMapCache = [];
+    function setActiveServer(serverId) {
+      currentServerId = serverId;
+      if (serverId === 'server2') { currentDatabases = server2Databases; currentAccount = server2Account; currentFunctions = server2Functions; }
+      else { currentDatabases = masterDatabases; currentAccount = masterAccount; currentFunctions = masterFunctions; }
     }
-  }
 
-  async function getCompanyServer(companyCode) {
-    // بنشوف الكاش الأول
-    const found = companiesMapCache.find(c => c.code === companyCode);
-    if (found) return found.serverId || 'server1';
-    
-    // لو مش موجود في الكاش، بنسأل السيرفر الرئيسي
-    try {
-      const r = await masterDatabases.listDocuments(MASTER_CFG.databaseId, MASTER_CFG.companiesMapId, [SDK.Query.equal('code', companyCode), SDK.Query.limit(1)]);
-      if (r.documents.length > 0) {
-        const p = safeParse(r.documents[0].Payload || {}) || r.documents[0];
-        return p.serverId || 'server1';
-      }
-    } catch(e) {}
-    return 'server1'; // افتراضي
-  }
+    function getServerConfig(serverId) { return serverId === 'server2' ? SERVER2_CFG : MASTER_CFG; }
 
-  async function addToCompaniesMap(code, name, serverId) {
-    try {
-      await masterDatabases.createDocument(MASTER_CFG.databaseId, MASTER_CFG.companiesMapId, SDK.ID.unique(), {
-        code, name, serverId, createdAt: new Date().toISOString()
-      });
-      // تحديث الكاش
-      companiesMapCache.push({ code, name, serverId });
-    } catch(e) { console.warn('فشل إضافة لدفتر العناوين:', e); }
-  }
-
-  // ═══════════════════════════════════════════════════════
-  // 🎯 التوزيع التلقائي (بالتبادل)
-  // ═══════════════════════════════════════════════════════
-  async function getNextServerForCompany() {
-    try {
-      const r = await masterDatabases.listDocuments(MASTER_CFG.databaseId, MASTER_CFG.companiesMapId, [SDK.Query.limit(1)]);
-      const total = r.total;
-      // لو العدد زوجي، السيرفر 1. لو فردي، السيرفر 2
-      return (total % 2 === 0) ? 'server1' : 'server2';
-    } catch(e) {
-      return 'server1';
-    }
-  }
-  
-
-    // ═══════════════════════════════════════════════════════
-    // 🔑 تسجيل الدخول والتسجيل
-    // ═══════════════════════════════════════════════════════
-    function usernameToEmail(u, c) { return `${u.trim().toLowerCase()}@${c.trim().toLowerCase()}.vodfire`; }
-    
-    function showLoginScreen(tab = 'login') {
-      document.getElementById('landingScreen').classList.add('hidden-view');
-      document.getElementById('loginScreen').classList.remove('hidden-view');
-      document.getElementById('mainApp').classList.add('hidden-view');
-      switchAuthTab(tab); lucide.createIcons();
-    }
-    function showLandingScreen() {
-      document.getElementById('landingScreen').classList.remove('hidden-view');
-      document.getElementById('loginScreen').classList.add('hidden-view');
-      document.getElementById('mainApp').classList.add('hidden-view');
+    function updateCloudBadge(state) {
+      const b = document.getElementById('cloudStatusBadge');
+      if (b) b.innerHTML = state === 'connected' ? '<i data-lucide="check-circle" class="w-3 h-3"></i><span>'+t('connected')+'</span>' : '<i data-lucide="alert-circle" class="w-3 h-3"></i><span>'+t('offline')+'</span>';
       lucide.createIcons();
     }
+
+    async function loadCompaniesMap() {
+      try {
+        const r = await masterDatabases.listDocuments(MASTER_CFG.databaseId, MASTER_CFG.companiesMapId, [SDK.Query.orderDesc('$createdAt'), SDK.Query.limit(500)]);
+        companiesMapCache = r.documents.map(d => ({ code: d.code || '', name: d.name || '', serverId: d.serverId || 'server1', _docId: d.$id }));
+      } catch(e) { companiesMapCache = []; }
+    }
+
+    async function getCompanyServer(companyCode) {
+      const found = companiesMapCache.find(c => c.code === companyCode);
+      if (found) return found.serverId || 'server1';
+      try {
+        const r = await masterDatabases.listDocuments(MASTER_CFG.databaseId, MASTER_CFG.companiesMapId, [SDK.Query.equal('code', companyCode), SDK.Query.limit(1)]);
+        if (r.documents.length > 0) return r.documents[0].serverId || 'server1';
+      } catch(e) {}
+      return 'server1';
+    }
+
+    async function addToCompaniesMap(code, name, serverId) {
+      try {
+        await masterDatabases.createDocument(MASTER_CFG.databaseId, MASTER_CFG.companiesMapId, SDK.ID.unique(), { code, name, serverId, createdAt: new Date().toISOString() });
+        companiesMapCache.push({ code, name, serverId });
+      } catch(e) { console.warn('فشل إضافة لدفتر العناوين:', e); }
+    }
+
+    async function getNextServerForCompany() {
+      try {
+        const r = await masterDatabases.listDocuments(MASTER_CFG.databaseId, MASTER_CFG.companiesMapId, [SDK.Query.limit(1)]);
+        return (r.total % 2 === 0) ? 'server1' : 'server2';
+      } catch(e) { return 'server1'; }
+    }
+
+    function usernameToEmail(u, c) { return `${u.trim().toLowerCase()}@${c.trim().toLowerCase()}.vodfire`; }
+    function showLoginScreen(tab = 'login') { document.getElementById('landingScreen').classList.add('hidden-view'); document.getElementById('loginScreen').classList.remove('hidden-view'); document.getElementById('mainApp').classList.add('hidden-view'); switchAuthTab(tab); lucide.createIcons(); }
+    function showLandingScreen() { document.getElementById('landingScreen').classList.remove('hidden-view'); document.getElementById('loginScreen').classList.add('hidden-view'); document.getElementById('mainApp').classList.add('hidden-view'); lucide.createIcons(); }
     function switchAuthTab(tab) {
       const lf = document.getElementById('loginForm'), rf = document.getElementById('registerForm'), lb = document.getElementById('tabLoginBtn'), rb = document.getElementById('tabRegisterBtn');
       document.getElementById('authError').classList.add('hidden-view');
@@ -997,47 +803,24 @@
       if (!/^[a-z0-9]{3,30}$/.test(u)) return showAuthError(t('msg_user_format'));
       if (p.length < 8) return showAuthError(t('msg_pass_length'));
       btn.disabled = true; bt.textContent = t('msg_loading');
-      
       try {
         if (!cloudReady) await bootSDK();
-        
-        // 1. التأكد من إن الكود مش مستخدم
         await loadCompaniesMap();
         if (companiesMapCache.some(x => x.code === c)) throw new Error(t('msg_code_used'));
-        
-        // 2. اختيار السيرفر (بالتبادل)
         const targetServerId = await getNextServerForCompany();
         setActiveServer(targetServerId);
         const targetCfg = getServerConfig(targetServerId);
-        
-        // 3. إنشاء حساب المدير على السيرفر المختار
         const email = usernameToEmail(u, c);
         try { await currentAccount.deleteSession('current'); } catch(err){}
         await currentAccount.create(SDK.ID.unique(), email, p, m);
         await currentAccount.createEmailPasswordSession(email, p);
         const acc = await currentAccount.get();
-        
-        // 4. حفظ بيانات الشركة على السيرفر المختار
         const cp = { name: n, code: c, ownerId: acc.$id, status: 'active', brandColor: '#06b6d4', createdAt: new Date().toISOString() };
-        const cd = await currentDatabases.createDocument(targetCfg.databaseId, targetCfg.collectionId, SDK.ID.unique(), {
-          entitytype: 'COMPANY', Payload: JSON.stringify(cp), Username: m, userEmail: email,
-          companyId: 'COMPANY_' + c, CompanyCode: c, Status: 'active', createdAt: new Date().toISOString()
-        });
-        
-        // 5. حفظ بيانات المدير على السيرفر المختار
+        const cd = await currentDatabases.createDocument(targetCfg.databaseId, targetCfg.collectionId, SDK.ID.unique(), { entitytype: 'COMPANY', Payload: JSON.stringify(cp), Username: m, userEmail: email, companyId: 'COMPANY_' + c, CompanyCode: c, Status: 'active', createdAt: new Date().toISOString() });
         const up = { name: m, username: u, email, role: 'general_manager', jobTitle: 'General Manager', basicSalary: 12000, leaveBalance: 21, workStartTime: '09:00', workEndTime: '17:00', companyId: cd.$id, companyCode: c, companyName: n, appwriteUserId: acc.$id, workplace: { name:'Main Office', latitude: 30.0444, longitude: 31.2357, radiusMeters: 250 }, notes: [], createdAt: new Date().toISOString() };
-        const ud = await currentDatabases.createDocument(targetCfg.databaseId, targetCfg.collectionId, SDK.ID.unique(), {
-          entitytype: 'USER', Payload: JSON.stringify(up), Username: m, userEmail: email,
-          companyId: cd.$id, CompanyCode: c, createdAt: new Date().toISOString()
-        });
-        
-        // 6. إضافة الشركة لدفتر العناوين على السيرفر الرئيسي
+        const ud = await currentDatabases.createDocument(targetCfg.databaseId, targetCfg.collectionId, SDK.ID.unique(), { entitytype: 'USER', Payload: JSON.stringify(up), Username: m, userEmail: email, companyId: cd.$id, CompanyCode: c, createdAt: new Date().toISOString() });
         await addToCompaniesMap(c, n, targetServerId);
-        
-        // 7. حفظ بيانات الشركة في الكاش المحلي
         localStorage.setItem('vodfire_server_' + c, targetServerId);
-        
-        // 8. بدء الجلسة
         currentUser = { id: acc.$id, email, username: u, name: m, role: 'general_manager', isVerified: true, isSuperAdmin: false, profileImage: null, jobTitle: 'General Manager', basicSalary: 12000, leaveBalance: 21, workStartTime: '09:00', workEndTime: '17:00', companyId: cd.$id, companyCode: c, companyName: n, companyData: cp, workplace: up.workplace, notes: [], _docId: ud.$id };
         await logAuditAction("إنشاء شركة", `تم إنشاء شركة ${n} وكود ${c} على ${targetServerId}`);
         await loadAllFromCloud(); showApp();
@@ -1057,41 +840,25 @@
       const btn = document.getElementById('loginBtn'), bt = document.getElementById('loginBtnText');
       if (!code || !user) return showAuthError(t('msg_fill_fields'));
       btn.disabled = true; bt.textContent = t('msg_loading');
-      
       try {
         if (!cloudReady) await bootSDK();
-        
-        // 1. تحديد السيرفر (من الكاش المحلي أو دفتر العناوين)
         let targetServerId = localStorage.getItem('vodfire_server_' + code);
         if (!targetServerId) {
           targetServerId = await getCompanyServer(code);
           localStorage.setItem('vodfire_server_' + code, targetServerId);
         }
-        
-        // 2. الاتصال بالسيرفر الصح
         setActiveServer(targetServerId);
         const targetCfg = getServerConfig(targetServerId);
-        
-        // 3. التحقق من بيانات الدخول
         try { await currentAccount.deleteSession('current'); } catch(err){}
         const email = usernameToEmail(user, code);
         await currentAccount.createEmailPasswordSession(email, pass);
         const acc = await currentAccount.get();
-        
-        // 4. لو المالك (Super Admin)
         if (acc.email === SUPER_ADMIN_EMAIL) {
           currentUser = { id: acc.$id, email: acc.email, username: 'mohsen0tamer', name: acc.name || 'Mohsen0Tamer', role: 'super_admin', isVerified: true, isSuperAdmin: true, profileImage: null, jobTitle: t('msg_super_admin_role'), companyId: null, companyCode: null, companyName: 'All Companies', workplace: { name:'—', latitude: 0, longitude: 0, radiusMeters: 0 }, notes: [], _docId: null };
-          // المالك: نسحب الشركات من الاتنين
-          await loadSuperAdminData(); 
-          showApp(); 
-          toast(t('msg_platform_owner_welcome')); 
-          return;
+          await loadSuperAdminData(); showApp(); toast(t('msg_platform_owner_welcome')); return;
         }
-        
-        // 5. البحث عن ملف المستخدم على السيرفر المختار
         const profile = await findUserProfile(acc.$id, acc.email, targetServerId);
         if (!profile) throw new Error(t('msg_no_profile'));
-        
         let cdata = {};
         if (profile.companyId) {
           try {
@@ -1100,7 +867,6 @@
             if (cdata.status === 'suspended') { await currentAccount.deleteSession('current'); throw new Error(t('msg_company_suspended')); }
           } catch(err) { if (err.message.includes(t('msg_company_suspended'))) throw err; }
         }
-        
         let finalRole = profile.role || 'employee';
         if (profile.companyId) {
           try {
@@ -1109,7 +875,6 @@
             if (cdata2.ownerId === acc.$id && (!profile.role || profile.role === 'manager')) finalRole = 'general_manager';
           } catch(err){}
         }
-        
         currentUser = { id: acc.$id, email: acc.email, username: profile.username || user, name: profile.DisplayName || profile.name || acc.name || user, role: finalRole, isVerified: true, isSuperAdmin: false, profileImage: profile.ProfileImage || null, jobTitle: profile.jobTitle || 'Employee', basicSalary: profile.basicSalary || 5000, leaveBalance: profile.leaveBalance !== undefined ? profile.leaveBalance : 21, workStartTime: profile.workStartTime || '09:00', workEndTime: profile.workEndTime || '17:00', companyId: profile.companyId, companyCode: profile.companyCode || code, companyName: profile.companyName || code, companyData: cdata, workplace: profile.workplace || { name:'Main Office', latitude: 30.0444, longitude: 31.2357, radiusMeters: 250 }, notes: profile.notes || [], _docId: profile._docId || null };
         restoreBrandSettings();
         await loadAllFromCloud(); showApp();
@@ -1152,15 +917,9 @@
       } catch(err) { return null; }
     }
 
-    // ═══════════════════════════════════════════════════════
-    // 👑 بيانات المالك (Super Admin)
-    // ═══════════════════════════════════════════════════════
     async function loadSuperAdminData() {
       try {
-        // نسحب كل الشركات من السيرفرين
         superAdminCache.companies = []; superAdminCache.users = [];
-        
-        // السيرفر الرئيسي
         try {
           const r = await masterDatabases.listDocuments(MASTER_CFG.databaseId, MASTER_CFG.collectionId, [SDK.Query.orderDesc('$createdAt'), SDK.Query.limit(500)]);
           r.documents.forEach(d => {
@@ -1169,8 +928,6 @@
             if (d.entitytype === 'USER' || p.entitytype === 'USER') superAdminCache.users.push({ ...p, _docId: d.$id, _companyId: d.companyId, _server: 'server1' });
           });
         } catch(e) {}
-        
-        // السيرفر 2
         try {
           const r = await server2Databases.listDocuments(SERVER2_CFG.databaseId, SERVER2_CFG.collectionId, [SDK.Query.orderDesc('$createdAt'), SDK.Query.limit(500)]);
           r.documents.forEach(d => {
@@ -1182,43 +939,94 @@
       } catch(e) {}
     }
 
+    // 🎯 تم تعديل الدالة دي عشان تاخد السيرفر الصح وتضيف زرار الإيقاف
     function renderSuperAdminCompanies() {
       const tbody = document.getElementById('saCompaniesTableBody');
       if (!tbody) return;
       tbody.innerHTML = '';
+      
       const search = (document.getElementById('saSearchInput')?.value || '').toLowerCase();
+      
       document.getElementById('saTotalCompanies').textContent = superAdminCache.companies.length;
       document.getElementById('saActiveCompanies').textContent = superAdminCache.companies.filter(c => c.status !== 'suspended').length;
       document.getElementById('saSuspendedCompanies').textContent = superAdminCache.companies.filter(c => c.status === 'suspended').length;
       document.getElementById('saTotalUsers').textContent = superAdminCache.users.length;
+
       const filtered = superAdminCache.companies.filter(c => !search || (c.name||'').toLowerCase().includes(search) || (c.code||'').toLowerCase().includes(search));
-      if (!filtered.length) { tbody.innerHTML = `<tr><td colspan="5" class="py-8 text-center text-slate-500">${t('msg_no_companies')}</td></tr>`; return; }
+      
+      if (!filtered.length) { 
+        tbody.innerHTML = `<tr><td colspan="5" class="py-8 text-center text-slate-500">${t('msg_no_companies')}</td></tr>`; 
+        return; 
+      }
+
       filtered.forEach(c => {
         const isSusp = c.status === 'suspended';
         const userCount = superAdminCache.users.filter(u => u.companyId === c._docId).length;
-        const serverLabel = c._server === 'server2' ? '🟣 S2' : '🔵 S1';
+        const serverLabel = c._server === 'server2' ? 'S2' : 'S1';
+        
         const tr = document.createElement('tr');
         tr.className = 'dark:hover:bg-slate-700/30 hover:bg-slate-50';
+        
         tr.innerHTML = `
-          <td class="py-3 px-4"><div class="font-bold dark:text-white text-slate-900">${escapeHtml(c.name || '—')}</div><div class="text-[9px] text-slate-500">${c._docId.slice(-8)}</div></td>
-          <td class="py-3 px-4 font-mono text-xs" style="color: var(--brand-color, #06b6d4);">${escapeHtml(c.code || '—')} <span class="text-[9px] opacity-70">${serverLabel}</span></td>
-          <td class="py-3 px-4"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${isSusp ? 'bg-rose-900/50 text-rose-400 border border-rose-800' : 'bg-emerald-900/50 text-emerald-400 border border-emerald-800'}">${isSusp ? t('suspended') : t('active')}</span></td>
+          <td class="py-3 px-4">
+            <div class="font-bold dark:text-white text-slate-900">${escapeHtml(c.name || '—')}</div>
+            <div class="text-[9px] text-slate-500">${c._docId.slice(-8)}</div>
+          </td>
+          <td class="py-3 px-4 font-mono text-xs" style="color: var(--brand-color, #06b6d4);">
+            ${escapeHtml(c.code || '—')} <span class="text-[9px] opacity-70">${serverLabel}</span>
+          </td>
+          <td class="py-3 px-4">
+            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${isSusp ? 'bg-rose-900/50 text-rose-400 border border-rose-800' : 'bg-emerald-900/50 text-emerald-400 border border-emerald-800'}">
+              ${isSusp ? t('suspended') : t('active')}
+            </span>
+          </td>
           <td class="py-3 px-4 font-bold dark:text-slate-300 text-slate-700">${userCount}</td>
-          <td class="py-3 px-4"><div class="flex items-center gap-1.5 flex-wrap">
-            <button onclick="enterCompany('${c._docId}', '${escapeHtml(c.name||'')}', '${escapeHtml(c.code||'')}', '${c._server}')" class="px-2 py-1 bg-cyan-900/50 text-cyan-400 hover:bg-cyan-800 rounded-lg text-[10px] font-bold cursor-pointer flex items-center gap-1">
-              <i data-lucide="search" class="w-3 h-3"></i> ${t('login')}
-            </button>
-            <button onclick="deleteCompanyPermanently('${c._docId}', '${escapeHtml(c.name||'')}', '${c._server}')" class="px-2 py-1 bg-rose-900/50 text-rose-400 hover:bg-rose-800 rounded-lg text-[10px] font-bold cursor-pointer flex items-center gap-1">
-              <i data-lucide="trash-2" class="w-3 h-3"></i>
-            </button>
-          </div></td>
+          <td class="py-3 px-4">
+            <div class="flex items-center gap-1.5 flex-wrap">
+              <button onclick="toggleCompanyStatus('${c._docId}', '${c.status || 'active'}', '${c._server}')" class="px-2 py-1 ${isSusp ? 'bg-emerald-900/50 text-emerald-400 hover:bg-emerald-800' : 'bg-rose-900/50 text-rose-400 hover:bg-rose-800'} rounded-lg text-[10px] font-bold cursor-pointer flex items-center gap-1">
+                <i data-lucide="${isSusp ? 'play' : 'pause'}" class="w-3 h-3"></i> ${isSusp ? t('active') : t('suspended')}
+              </button>
+              <button onclick="enterCompany('${c._docId}', '${escapeHtml(c.name||'')}', '${escapeHtml(c.code||'')}', '${c._server}')" class="px-2 py-1 bg-cyan-900/50 text-cyan-400 hover:bg-cyan-800 rounded-lg text-[10px] font-bold cursor-pointer flex items-center gap-1">
+                <i data-lucide="search" class="w-3 h-3"></i> ${t('login')}
+              </button>
+              <button onclick="deleteCompanyPermanently('${c._docId}', '${escapeHtml(c.name||'')}', '${c._server}')" class="px-2 py-1 bg-rose-900/50 text-rose-400 hover:bg-rose-800 rounded-lg text-[10px] font-bold cursor-pointer flex items-center gap-1">
+                <i data-lucide="trash-2" class="w-3 h-3"></i>
+              </button>
+            </div>
+          </td>
         `;
         tbody.appendChild(tr);
       });
       lucide.createIcons();
     }
 
-    // 🖥️ لوحة الخادم المركزي
+    // 🎯 تم تعديل الدالة دي عشان تاخد السيرفر الصح
+    async function toggleCompanyStatus(docId, currentStatus, serverId) {
+      const newStatus = currentStatus === 'suspended' ? 'active' : 'suspended';
+      const action = newStatus === 'suspended' ? t('msg_suspend_confirm') : t('msg_activate_confirm');
+      if (!confirm(action)) return;
+      
+      try {
+        const cfg = getServerConfig(serverId || 'server1');
+        const dbs = (serverId === 'server2') ? server2Databases : masterDatabases;
+        
+        const d = await dbs.getDocument(cfg.databaseId, cfg.collectionId, docId);
+        const p = safeParse(d.Payload); 
+        p.status = newStatus;
+        
+        await dbs.updateDocument(cfg.databaseId, cfg.collectionId, docId, { 
+          Payload: JSON.stringify(p), 
+          Status: newStatus 
+        });
+        
+        toast(newStatus === 'suspended' ? t('msg_company_suspended_toast') : t('msg_company_activated_toast'));
+        await loadSuperAdminData(); 
+        renderSuperAdminCompanies();
+      } catch(e) { 
+        alert(t('msg_failed') + ': ' + e.message); 
+      }
+    }
+
     function renderServersList() {
       const container = document.getElementById('serversList');
       const globalStats = document.getElementById('serversGlobalStats');
@@ -1261,7 +1069,7 @@
                 <i data-lucide="server" class="w-6 h-6 text-cyan-400"></i>
               </div>
               <div>
-                <h4 class="font-bold text-sm dark:text-white text-slate-900">${server.name}</h4>
+                <h4 class="font-bold text-sm dark:text-white text-slate-900">${escapeHtml(server.name)}</h4>
                 <p class="text-[10px] font-mono text-slate-500">${server.projectId.slice(0, 12)}...</p>
               </div>
             </div>
@@ -1323,9 +1131,6 @@
       } catch(e) { alert(t('msg_failed') + ': ' + e.message); }
     }
 
-    // ═══════════════════════════════════════════════════════
-    // ☁️ تحميل البيانات من السيرفر الحالي
-    // ═══════════════════════════════════════════════════════
     async function loadAllFromCloud() {
       if (isLoadingCloud) return;
       isLoadingCloud = true;
@@ -1409,9 +1214,6 @@
       return currentDatabases.deleteDocument(cfg.databaseId, cfg.collectionId, id);
     }
 
-    // ═══════════════════════════════════════════════════════
-    // 📝 سجل النشاطات
-    // ═══════════════════════════════════════════════════════
     async function logAuditAction(action, details) {
       if (!currentUser || currentUser.isSuperAdmin) return;
       try {
@@ -1442,9 +1244,6 @@
       lucide.createIcons();
     }
 
-    // ═══════════════════════════════════════════════════════
-    // 🔔 الإشعارات
-    // ═══════════════════════════════════════════════════════
     async function sendNotification(title, message, type) {
       if (!currentUser?.isSuperAdmin && !currentUser?.companyId) return;
       try {
@@ -1495,9 +1294,6 @@
       renderNotificationsBadge(); renderNotificationsList();
     }
 
-    // ═══════════════════════════════════════════════════════
-    // 🖥️ عرض التطبيق
-    // ═══════════════════════════════════════════════════════
     function showApp() {
       document.getElementById('loginScreen').classList.add('hidden-view');
       document.getElementById('landingScreen').classList.add('hidden-view');
@@ -1534,11 +1330,8 @@
       else if (isFinance) { tabEmp.style.display = 'none'; tabRep.style.display = 'flex'; tabAudit.classList.add('hidden'); notifBell.classList.remove('hidden'); }
       else if (isSupervisor) { tabEmp.style.display = 'none'; tabRep.style.display = 'none'; tabAudit.classList.add('hidden'); notifBell.classList.remove('hidden'); }
       else { tabEmp.style.display = 'none'; tabRep.style.display = 'none'; tabAudit.classList.add('hidden'); notifBell.classList.add('hidden'); }
-      if (isSA && !currentUser._impersonating) {
-        ['dashboard','attendance','requests','employees','reports','audit'].forEach(tabId => { const btn = document.getElementById('tabBtn-' + tabId); if (btn) btn.style.display = 'none'; });
-      } else {
-        ['dashboard','attendance','requests'].forEach(tabId => { const btn = document.getElementById('tabBtn-' + tabId); if (btn) btn.style.display = 'flex'; });
-      }
+      if (isSA && !currentUser._impersonating) { ['dashboard','attendance','requests','employees','reports','audit'].forEach(tabId => { const btn = document.getElementById('tabBtn-' + tabId); if (btn) btn.style.display = 'none'; }); }
+      else { ['dashboard','attendance','requests'].forEach(tabId => { const btn = document.getElementById('tabBtn-' + tabId); if (btn) btn.style.display = 'flex'; }); }
       document.getElementById('employeesCompanyHint').textContent = `${t('msg_company_employees_hint')} ${currentUser.companyName || ''}`;
       document.getElementById('headerCompanyName').textContent = currentUser.companyName || '—';
       document.getElementById('statLeaveBalance').textContent = currentUser.leaveBalance !== undefined ? currentUser.leaveBalance : 21;
@@ -1578,9 +1371,6 @@
       lucide.createIcons();
     }
 
-    // ═══════════════════════════════════════════════════════
-    // 📊 الداشبورد والرسوم البيانية
-    // ═══════════════════════════════════════════════════════
     function renderDashboardStats() {
       const today = new Date().toISOString().slice(0, 10);
       document.getElementById('dashWelcomeTitle').textContent = `${currentLang === 'ar' ? 'مرحباً' : 'Welcome'}، ${currentUser.name}`;
@@ -1631,9 +1421,6 @@
       if (ctx2) { if (absenceChartInstance) absenceChartInstance.destroy(); absenceChartInstance = new Chart(ctx2, { type: 'doughnut', data: { labels: ['الحاضرون', 'الغائبون'], datasets: [{ data: [presentToday, absentToday], backgroundColor: ['#10b981', '#f43f5e'], borderWidth: 0 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } } }); }
     }
 
-    // ═══════════════════════════════════════════════════════
-    // 🕐 الحضور والانصراف
-    // ═══════════════════════════════════════════════════════
     function renderAttendance() {
       const tb = document.getElementById('attendanceTableBody'); tb.innerHTML = '';
       const role = currentUser.role || 'employee';
@@ -1686,7 +1473,6 @@
       });
     }
 
-    // 🧬 بصمة الوجه
     async function loadFaceModels() {
       if (isFaceModelLoaded) return;
       try {
@@ -1801,9 +1587,6 @@
       try { await updateCloudDoc(rec._docId, 'ATTENDANCE', rec); document.getElementById('btnCheckOut').disabled = true; renderAttendance(); renderDashboardStats(); toast(t('msg_checkout_recorded')); } catch(e) { alert('فشل: ' + e.message); }
     }
 
-    // ═══════════════════════════════════════════════════════
-    // 📄 الطلبات
-    // ═══════════════════════════════════════════════════════
     function renderRequests() {
       const b = document.getElementById('requestsList'); b.innerHTML = '';
       const role = currentUser.role || 'employee';
@@ -1861,9 +1644,6 @@
       } catch(e){}
     }
 
-    // ═══════════════════════════════════════════════════════
-    // 👥 الموظفون
-    // ═══════════════════════════════════════════════════════
     function renderEmployees() {
       const tb = document.getElementById('employeesTableBody'); tb.innerHTML = '';
       const role = currentUser.role || 'employee';
@@ -1975,16 +1755,13 @@
       btn.disabled = true; btn.innerHTML = '<i data-lucide="loader" class="w-4 h-4 animate-spin inline"></i> ' + t('msg_loading'); lucide.createIcons();
       try {
         const email = `${user}@${currentUser.companyCode}.vodfire`;
-        // استدعاء الدالة على السيرفر الحالي
         const execution = await currentFunctions.createExecution('create-uesr', JSON.stringify({ email, password: pass, name }));
         let result = {};
         try { result = JSON.parse(execution.responseBody || execution.responseString || '{}'); } catch(err) { result = { success: true }; }
         if (result.success === false || result.error) throw new Error(result.error || t('msg_failed'));
         const userPayload = { name, username: user, email, role, jobTitle: jt, basicSalary, leaveBalance, workStartTime, workEndTime, companyId: currentUser.companyId, companyCode: currentUser.companyCode, companyName: currentUser.companyName, appwriteUserId: result.user ? result.user.$id : null, workplace: { name: locName, latitude: lat, longitude: lng, radiusMeters: radius }, notes: [], createdAt: new Date().toISOString() };
         const cfg = getServerConfig(currentServerId);
-        await currentDatabases.createDocument(cfg.databaseId, cfg.collectionId, SDK.ID.unique(), {
-          entitytype: 'USER', Payload: JSON.stringify(userPayload), Username: name, userEmail: email, companyId: currentUser.companyId, CompanyCode: currentUser.companyCode, createdAt: new Date().toISOString()
-        });
+        await currentDatabases.createDocument(cfg.databaseId, cfg.collectionId, SDK.ID.unique(), { entitytype: 'USER', Payload: JSON.stringify(userPayload), Username: name, userEmail: email, companyId: currentUser.companyId, CompanyCode: currentUser.companyCode, createdAt: new Date().toISOString() });
         await loadAllFromCloud();
         await logAuditAction("إضافة موظف", `${name} بدور (${role})`);
         closeModal('employeeModal'); e.target.reset(); renderEmployees(); renderDashboardStats();
@@ -2012,9 +1789,6 @@
       } catch(e){ alert('فشل: ' + e.message); }
     }
 
-    // ═══════════════════════════════════════════════════════
-    // ⚙️ الإعدادات والملف الشخصي
-    // ═══════════════════════════════════════════════════════
     function openProfileModal() { document.getElementById('newDisplayName').value = currentUser.name; document.getElementById('profileModal').classList.remove('hidden-view'); lucide.createIcons(); }
     function openCompanySettingsModal() {
       const c = currentUser.companyData || {};
@@ -2089,9 +1863,6 @@
       } catch(e){ alert(t('msg_failed')); }
     }
 
-    // ═══════════════════════════════════════════════════════
-    // 📊 التقارير والرواتب
-    // ═══════════════════════════════════════════════════════
     let currentReportData = [];
     function isLastDayOfMonth() { const today = new Date(); const tomorrow = new Date(today); tomorrow.setDate(today.getDate() + 1); return tomorrow.getDate() === 1; }
 
@@ -2261,21 +2032,14 @@
       reader.readAsText(file);
     }
 
-    // ═══════════════════════════════════════════════════════
-    // 🔄 التحديث الموحد والتلقائي
-    // ═══════════════════════════════════════════════════════
     async function manualRefreshAll() {
       const icon = document.getElementById('globalRefreshIcon');
       if (icon) icon.classList.add('animate-spin');
       try {
         if (currentUser.isSuperAdmin && !currentUser._impersonating) {
-          await loadSuperAdminData();
-          await loadCompaniesMap();
-          renderSuperAdminCompanies();
-          renderServersList();
+          await loadSuperAdminData(); await loadCompaniesMap(); renderSuperAdminCompanies(); renderServersList();
         } else {
-          await loadAllFromCloud();
-          renderAll();
+          await loadAllFromCloud(); renderAll();
         }
         if (syncInterval) clearInterval(syncInterval);
         startAutoSync();
@@ -2293,9 +2057,6 @@
       }, 3600000);
     }
 
-    // ═══════════════════════════════════════════════════════
-    // 🛠️ أدوات مساعدة
-    // ═══════════════════════════════════════════════════════
     function closeModal(id) { document.getElementById(id).classList.add('hidden-view'); }
     function escapeHtml(s) { return String(s??'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
     function toast(msg) {
@@ -2307,9 +2068,6 @@
       setTimeout(() => el.remove(), 3500);
     }
 
-    // ═══════════════════════════════════════════════════════
-    // 🚀 التهيئة عند تحميل الصفحة
-    // ═══════════════════════════════════════════════════════
     window.addEventListener('DOMContentLoaded', async () => {
       const savedLang = localStorage.getItem('vodfire_lang') || 'ar';
       setLanguage(savedLang);
@@ -2320,10 +2078,8 @@
       document.getElementById('mainApp').classList.add('hidden-view');
       try {
         await bootSDK();
-        // تحميل دفتر العناوين
         await loadCompaniesMap();
         try {
-          // محاولة استئناف الجلسة (من السيرفر الرئيسي أولاً)
           let acc = null;
           try { acc = await masterAccount.get(); } catch(e) { try { acc = await server2Account.get(); } catch(e2) {} }
           if (acc) {
