@@ -104,13 +104,6 @@
     html:not(.dark) .payslip-container { background: #ffffff; }
 
     /* ===== رسوم SVG المتحركة (الواجهة التعريفية) ===== */
-    @keyframes vfFloatY { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-16px); } }
-    @keyframes vfFloatY2 { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-    @keyframes vfBlob { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(20px,-18px) scale(1.12); } }
-    @keyframes vfBlob2 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-16px,14px) scale(.9); } }
-    .vf-blob { position: absolute; border-radius: 9999px; filter: blur(70px); opacity: .18; pointer-events: none; }
-    .vf-blob-1 { animation: vfBlob 8s ease-in-out infinite; }
-    .vf-blob-2 { animation: vfBlob2 10s ease-in-out infinite; }
     .vf-hero-svg { animation: vfFloatY 6s ease-in-out infinite; }
     #landingScreen .feature-card { background: rgba(255,255,255,.75); backdrop-filter: blur(6px); }
     html.dark #landingScreen .feature-card { background: rgba(15,23,42,.6); }
@@ -150,6 +143,14 @@
     html:not(.dark) .bg-cyan-900\/30,
     html:not(.dark) .bg-cyan-900\/40 { background-color: #ecfeff !important; }
     html:not(.dark) .bg-gradient-to-br { background-image: none !important; }
+
+    /* ===== مفتاح التحكم في إجبارية السيرفر ===== */
+    .sa-switch { position: relative; width: 44px; height: 24px; background: #475569; border-radius: 9999px; cursor: pointer; transition: background .25s; border: none; flex-shrink: 0; }
+    .sa-switch::after { content: ''; position: absolute; top: 3px; right: 3px; width: 18px; height: 18px; background: #fff; border-radius: 50%; transition: transform .25s; }
+    .sa-switch.on { background: #059669; }
+    .sa-switch.on::after { transform: translateX(-20px); }
+    html[dir="ltr"] .sa-switch::after { right: auto; left: 3px; }
+    html[dir="ltr"] .sa-switch.on::after { transform: translateX(20px); }
 
     /* ===== الأسئلة الشائعة ===== */
     .faq-chev { transition: transform .25s ease; }
@@ -280,121 +281,8 @@
           <animate attributeName="stroke-dashoffset" values="0;22" dur="1.6s" repeatCount="indefinite"/>
         </path>
       </svg>
-<svg class="absolute inset-0 w-full h-full pointer-events-none" style="z-index:0; opacity:.85" viewBox="0 0 800 340" preserveAspectRatio="xMidYMid slice" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="vfGradHead" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stop-color="#06b6d4"/><stop offset="100%" stop-color="#2563eb"/>
-            </linearGradient>
-            <linearGradient id="vfBar" x1="0" y1="1" x2="0" y2="0">
-              <stop offset="0%" stop-color="#0891b2"/><stop offset="100%" stop-color="#22d3ee"/>
-            </linearGradient>
-            <linearGradient id="vfLine" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stop-color="#f59e0b"/><stop offset="100%" stop-color="#f43f5e"/>
-            </linearGradient>
-          </defs>
 
-          <!-- عناصر عائمة -->
-          <circle cx="88" cy="58" r="8" fill="#06b6d4" opacity=".55">
-            <animate attributeName="cy" values="58;40;58" dur="4s" repeatCount="indefinite"/>
-          </circle>
-          <circle cx="726" cy="46" r="11" fill="none" stroke="#2563eb" stroke-width="3" opacity=".6">
-            <animate attributeName="cy" values="46;64;46" dur="5s" repeatCount="indefinite"/>
-          </circle>
-          <rect x="46" y="208" width="20" height="20" rx="6" fill="#f59e0b" opacity=".65">
-            <animateTransform attributeName="transform" type="rotate" values="14 56 218; 45 56 218; 14 56 218" dur="6s" repeatCount="indefinite"/>
-          </rect>
-          <circle cx="400" cy="26" r="5" fill="#10b981" opacity=".7">
-            <animate attributeName="opacity" values=".7;.2;.7" dur="2.4s" repeatCount="indefinite"/>
-          </circle>
-
-          <!-- بطاقة الداشبورد -->
-          <g>
-            <rect x="240" y="52" width="320" height="236" rx="26" fill="#ffffff" stroke="#e2e8f0" stroke-width="2"/>
-            <path d="M240 78 a26 26 0 0 1 26 -26 h268 a26 26 0 0 1 26 26 v28 h-320 z" fill="url(#vfGradHead)"/>
-            <circle cx="272" cy="82" r="12" fill="#ffffff" opacity=".95"/>
-            <rect x="292" y="72" width="96" height="9" rx="4.5" fill="#ffffff" opacity=".9"/>
-            <rect x="292" y="87" width="56" height="7" rx="3.5" fill="#ffffff" opacity=".55"/>
-            <circle cx="536" cy="82" r="5" fill="#ffffff">
-              <animate attributeName="opacity" values="1;.35;1" dur="1.6s" repeatCount="indefinite"/>
-            </circle>
-            <!-- أعمدة بيانية متحركة -->
-            <rect x="272" y="196" width="26" height="64" rx="8" fill="url(#vfBar)">
-              <animate attributeName="height" values="64;100;64" dur="3s" repeatCount="indefinite"/>
-              <animate attributeName="y" values="196;160;196" dur="3s" repeatCount="indefinite"/>
-            </rect>
-            <rect x="310" y="172" width="26" height="88" rx="8" fill="url(#vfBar)" opacity=".85">
-              <animate attributeName="height" values="88;56;88" dur="3.4s" repeatCount="indefinite"/>
-              <animate attributeName="y" values="172;204;172" dur="3.4s" repeatCount="indefinite"/>
-            </rect>
-            <rect x="348" y="210" width="26" height="50" rx="8" fill="url(#vfBar)">
-              <animate attributeName="height" values="50;92;50" dur="2.8s" repeatCount="indefinite"/>
-              <animate attributeName="y" values="210;168;210" dur="2.8s" repeatCount="indefinite"/>
-            </rect>
-            <!-- خط بياني متحرك -->
-            <polyline points="420,236 452,206 484,222 516,176 548,190" stroke="url(#vfLine)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="12 9">
-              <animate attributeName="stroke-dashoffset" values="0;-42" dur="1.8s" repeatCount="indefinite"/>
-            </polyline>
-            <circle cx="516" cy="176" r="6" fill="#f43f5e">
-              <animate attributeName="r" values="6;9;6" dur="1.6s" repeatCount="indefinite"/>
-            </circle>
-            <rect x="272" y="126" width="76" height="8" rx="4" fill="#e2e8f0"/>
-            <rect x="420" y="126" width="128" height="8" rx="4" fill="#e2e8f0" opacity=".7"/>
-          </g>
-
-          <!-- ساعة الحضور مع علامة صح -->
-          <g transform="translate(122 252)">
-            <circle r="42" fill="#ffffff" stroke="#e2e8f0" stroke-width="3"/>
-            <g stroke="#cbd5e1" stroke-width="3" stroke-linecap="round">
-              <line x1="0" y1="-34" x2="0" y2="-28"/><line x1="0" y1="34" x2="0" y2="28"/>
-              <line x1="-34" y1="0" x2="-28" y2="0"/><line x1="34" y1="0" x2="28" y2="0"/>
-            </g>
-            <line x1="0" y1="0" x2="0" y2="-24" stroke="#06b6d4" stroke-width="5" stroke-linecap="round">
-              <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="12s" repeatCount="indefinite"/>
-            </line>
-            <line x1="0" y1="0" x2="16" y2="0" stroke="#2563eb" stroke-width="4" stroke-linecap="round">
-              <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="4s" repeatCount="indefinite"/>
-            </line>
-            <circle r="4.5" fill="#0f172a"/>
-            <g transform="translate(31 -31)">
-              <circle r="14" fill="#10b981"/>
-              <path d="M-6 0 l4 4.5 l8.5 -9" stroke="#ffffff" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-            </g>
-          </g>
-
-          <!-- بصمة الوجه مع خط مسح -->
-          <g transform="translate(660 250)">
-            <rect x="-52" y="-58" width="104" height="116" rx="22" fill="#ffffff" stroke="#e2e8f0" stroke-width="3"/>
-            <circle cx="0" cy="-10" r="21" fill="none" stroke="#06b6d4" stroke-width="4"/>
-            <path d="M-13 20 q13 10 26 0" stroke="#06b6d4" stroke-width="4" fill="none" stroke-linecap="round"/>
-            <circle cx="-7" cy="-14" r="2.6" fill="#06b6d4"/><circle cx="7" cy="-14" r="2.6" fill="#06b6d4"/>
-            <line x1="-40" y1="0" x2="40" y2="0" stroke="#f43f5e" stroke-width="3" opacity=".75" stroke-linecap="round">
-              <animate attributeName="y1" values="-42;38;-42" dur="2.6s" repeatCount="indefinite"/>
-              <animate attributeName="y2" values="-42;38;-42" dur="2.6s" repeatCount="indefinite"/>
-            </line>
-          </g>
-
-          <!-- دبوس الموقع النابض -->
-          <g transform="translate(660 88)">
-            <circle r="24" fill="none" stroke="#06b6d4" stroke-width="3">
-              <animate attributeName="r" values="16;30" dur="2s" repeatCount="indefinite"/>
-              <animate attributeName="opacity" values=".8;0" dur="2s" repeatCount="indefinite"/>
-            </circle>
-            <path d="M0 -20 c-11 0 -18 8 -18 17 c0 12 18 28 18 28 s18 -16 18 -28 c0 -9 -7 -17 -18 -17z" fill="#06b6d4"/>
-            <circle cx="0" cy="-3" r="6" fill="#ffffff"/>
-          </g>
-
-          <!-- مسار توصيل متحرك -->
-          <path d="M164 240 C 210 200, 215 175, 240 168" stroke="#94a3b8" stroke-width="2.5" stroke-dasharray="6 7" fill="none" opacity=".7">
-            <animate attributeName="stroke-dashoffset" values="0;-26" dur="1.6s" repeatCount="indefinite"/>
-          </path>
-          <path d="M560 170 C 610 185, 620 215, 636 232" stroke="#94a3b8" stroke-width="2.5" stroke-dasharray="6 7" fill="none" opacity=".7">
-            <animate attributeName="stroke-dashoffset" values="0;26" dur="1.6s" repeatCount="indefinite"/>
-          </path>
-          <path d="M560 96 C 600 90, 620 88, 640 88" stroke="#94a3b8" stroke-width="2.5" stroke-dasharray="6 7" fill="none" opacity=".7">
-            <animate attributeName="stroke-dashoffset" values="0;-26" dur="1.4s" repeatCount="indefinite"/>
-          </path>
-        </svg>
-            <div class="relative z-10 pt-4 pb-6">
+            <div class="relative z-10">
       <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold mb-6"><span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span><span data-i18n="multi_company_platform">منصة الموارد البشرية مع نظام الصلاحيات المتقدم (RBAC)</span></div>
       <h2 class="text-4xl sm:text-6xl font-black text-white leading-tight max-w-3xl mb-4" data-i18n-html="hero_title">إدارة شركتك <span class="brand-text-gradient">بأدوار وصلاحيات دقيقة</span></h2>
       <p class="text-slate-400 text-lg max-w-2xl mb-10" data-i18n="hero_subtitle">مدير عام، مدير HR، مدير مالي، مشرف قسم، وموظف مع سجل نشاطات حصري.</p>
@@ -1278,6 +1166,24 @@
         <div class="bg-slate-800 p-5 rounded-3xl border border-slate-700 shadow-sm"><div class="flex items-center gap-2 mb-2"><i data-lucide="pause-circle" class="w-4 h-4 text-rose-400"></i><span class="text-[10px] text-slate-400" data-i18n="suspended">موقوفة</span></div><div id="saSuspendedCompanies" class="text-2xl font-black text-rose-500">0</div></div>
         <div class="bg-slate-800 p-5 rounded-3xl border border-slate-700 shadow-sm"><div class="flex items-center gap-2 mb-2"><i data-lucide="users" class="w-4 h-4 text-amber-400"></i><span class="text-[10px] text-slate-400" data-i18n="all_users">كل المستخدمين</span></div><div id="saTotalUsers" class="text-2xl font-black text-amber-500">0</div></div>
       </div>
+      <div class="bg-slate-800 p-5 rounded-3xl border border-slate-700 shadow-sm">
+        <div class="flex items-center justify-between gap-4 flex-wrap">
+          <div class="flex items-center gap-3">
+            <div class="w-11 h-11 rounded-2xl bg-cyan-500/15 border border-cyan-600/50 flex items-center justify-center shrink-0">
+              <i data-lucide="server-cog" class="w-5 h-5 text-cyan-400"></i>
+            </div>
+            <div>
+              <h4 class="font-bold text-sm text-white" data-i18n="server_force_title">التحكم في تسجيل الشركات الجديدة</h4>
+              <p class="text-[10px] text-slate-400 mt-0.5 max-w-md" data-i18n="server_force_sub">لو سيرفر USA ممتلئ، خلّي اختيار Vodfire EG إجباري عند إنشاء شركة جديدة.</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="text-xs font-bold text-slate-300" data-i18n="server_force_label">إجبارية اختيار السيرفر الثاني</span>
+            <button id="serverForceToggle" class="sa-switch" onclick="toggleServerForce()" title="تفعيل / إيقاف"></button>
+          </div>
+        </div>
+        <p id="serverForceHint" class="text-[10px] mt-3 text-slate-500" data-i18n="server_force_hint_off">متوقف: صاحب الشركة يختار أي سيرفر بحرية.</p>
+      </div>
       <div class="bg-slate-800 rounded-3xl border border-slate-700 overflow-hidden shadow-sm">
         <div class="p-4 border-b border-slate-700 flex items-center justify-between flex-wrap gap-2">
           <h4 class="font-bold text-sm text-white" data-i18n="all_companies">كل الشركات</h4>
@@ -1616,6 +1522,13 @@
       msg_checkout_success: "✅ تم تسجيل الانصراف",
       msg_logout_prompt: "تم تسجيل الخروج",
       msg_clear_cache: "تم مسح الكاش",
+      server_force_title: "التحكم في تسجيل الشركات الجديدة",
+      server_force_sub: "لو سيرفر USA ممتلئ، خلّي اختيار Vodfire EG إجباري عند إنشاء شركة جديدة (شاشة التسجيل فقط، الدخول العادي لا يتأثر).",
+      server_force_label: "إجبارية اختيار السيرفر الثاني",
+      server_force_hint_on: "مفعّل: عند إنشاء شركة جديدة لازم يختار Vodfire EG.",
+      server_force_hint_off: "متوقف: صاحب الشركة يختار أي سيرفر بحرية.",
+      msg_server_forced: "⚠️ إدارة المنصة أجبرت التسجيل على السيرفر: ",
+      msg_server_forced_pick: "من فضلك اختار الخادم المحدد من الإدارة.",
       feat_section_title: "مميزات المنصة",
       feat_section_sub: "مشهد حي لفكرة المنصة: فريق بيشتغل، حضور بالبصمة، وإشعارات لحظية",
       faq_title: "الأسئلة الشائعة",
@@ -1793,6 +1706,13 @@
       msg_checkout_success: "✅ Check-out recorded",
       msg_logout_prompt: "Logged out",
       msg_clear_cache: "Cache cleared",
+      server_force_title: "New Company Registration Control",
+      server_force_sub: "If the USA server is full, force choosing Vodfire EG when creating a new company (registration screen only, normal login is unaffected).",
+      server_force_label: "Force second server choice",
+      server_force_hint_on: "Enabled: new companies must choose Vodfire EG.",
+      server_force_hint_off: "Disabled: company owners pick any server freely.",
+      msg_server_forced: "⚠️ Platform management forced registration on server: ",
+      msg_server_forced_pick: "Please pick the server specified by administration.",
       feat_section_title: "Platform Features",
       feat_section_sub: "A live scene of the platform idea: a working team, face attendance, and instant notifications",
       faq_title: "Frequently Asked Questions",
@@ -1970,6 +1890,13 @@
       msg_checkout_success: "✅ Uscita registrata",
       msg_logout_prompt: "Disconnesso",
       msg_clear_cache: "Cache cancellata",
+      server_force_title: "Controllo Registrazione Nuove Aziende",
+      server_force_sub: "Se il server USA è pieno, rendi obbligatoria la scelta di Vodfire EG durante la creazione di una nuova azienda (solo schermata di registrazione, il login normale non cambia).",
+      server_force_label: "Obbligo scelta secondo server",
+      server_force_hint_on: "Attivo: le nuove aziende devono scegliere Vodfire EG.",
+      server_force_hint_off: "Disattivato: i proprietari scelgono liberamente.",
+      msg_server_forced: "⚠️ L'amministrazione ha imposto il server: ",
+      msg_server_forced_pick: "Scegli il server indicato dall'amministrazione.",
       feat_section_title: "Funzionalità della Piattaforma",
       feat_section_sub: "Una scena vivace dell'idea: un team che lavora, presenza col volto e notifiche istantanee",
       faq_title: "Domande Frequenti",
@@ -2020,6 +1947,46 @@
   let isOnline = navigator.onLine;
   let faceStream = null, isFaceModelLoaded = false, faceDescriptor = null;
   let currentWizardStep = 1;
+  let serverForceEnabled = false;
+  const SERVER_FORCE_KEY = 'vodfire_server_force';
+
+  function loadServerForcePref() {
+    try { serverForceEnabled = localStorage.getItem(SERVER_FORCE_KEY) === '1'; } catch(e) { serverForceEnabled = false; }
+    updateServerForceUI();
+  }
+  function updateServerForceUI() {
+    const btn = document.getElementById('serverForceToggle');
+    const hint = document.getElementById('serverForceHint');
+    if (!btn) return;
+    btn.classList.toggle('on', serverForceEnabled);
+    if (hint) hint.textContent = serverForceEnabled ? t('server_force_hint_on') : t('server_force_hint_off');
+  }
+  function toggleServerForce() {
+    serverForceEnabled = !serverForceEnabled;
+    try { localStorage.setItem(SERVER_FORCE_KEY, serverForceEnabled ? '1' : '0'); } catch(e){}
+    updateServerForceUI();
+  }
+  function applyServerForceToWizard() {
+    const s2 = document.querySelector('input[name="regServer"][value="server2"]');
+    const s1 = document.querySelector('input[name="regServer"][value="server1"]');
+    const warn = document.getElementById('regServerForceNote');
+    if (serverForceEnabled) {
+      if (s2) s2.checked = true;
+      if (s1) s1.disabled = true;
+      if (!warn) {
+        const note = document.createElement('p');
+        note.id = 'regServerForceNote';
+        note.className = 'text-[10px] text-rose-400 mt-2 flex items-center gap-1';
+        note.innerHTML = '<i data-lucide="lock" class="w-3 h-3 shrink-0"></i><span>' + t('msg_server_forced') + 'Vodfire EG</span>';
+        const box = document.querySelector('#registerForm .server-option')?.closest('.p-3');
+        if (box) box.appendChild(note);
+      }
+    } else {
+      if (s1) s1.disabled = false;
+      if (warn) warn.remove();
+    }
+    lucide.createIcons();
+  }
 
   window.addEventListener('online', () => { isOnline = true; document.getElementById('offlineIndicator')?.classList.add('hidden'); syncOfflineData(); });
   window.addEventListener('offline', () => { isOnline = false; document.getElementById('offlineIndicator')?.classList.remove('hidden'); });
@@ -2205,6 +2172,7 @@
       const industry = document.getElementById('wizCompanyIndustry').value;
       const serverChoice = document.querySelector('input[name="regServer"]:checked');
       if (!serverChoice) return alert(t('msg_choose_server'));
+      if (serverForceEnabled && serverChoice.value !== 'server2') return alert(t('msg_server_forced_pick'));
       if (!name) return alert(t('msg_required_fields'));
       if (industry === 'other') {
         const other = document.getElementById('wizCompanyIndustryOther').value.trim();
@@ -2309,6 +2277,7 @@
       rb.className='flex-1 py-3.5 text-sm font-bold bg-slate-800 text-white border-b-2 border-cyan-500 cursor-pointer'; 
       lb.className='flex-1 py-3.5 text-sm font-bold text-slate-400 border-b-2 border-transparent cursor-pointer'; 
       showWizardStep(1);
+      applyServerForceToWizard();
     }
     lucide.createIcons();
   }
@@ -2355,8 +2324,9 @@
       return alert(t('msg_read_policy_required'));
     }
     
-    const targetServerId = getSelectedServer('register');
+    let targetServerId = getSelectedServer('register');
     if (!targetServerId) return showAuthError(t('msg_choose_server'));
+    if (serverForceEnabled) targetServerId = 'server2';
     
     if (!/^[a-z0-9]{3,20}$/.test(c)) return showAuthError(t('msg_code_format'));
     if (!/^[a-z0-9]{3,30}$/.test(u)) return showAuthError(t('msg_user_format'));
@@ -3113,7 +3083,7 @@
     renderNotificationsBadge();
     
     if (isSA && !currentUser._impersonating) { 
-      switchTab('superadmin'); renderSuperAdminCompanies(); renderServersList(); 
+      switchTab('superadmin'); renderSuperAdminCompanies(); renderServersList(); loadServerForcePref();
     } else { 
       switchTab('dashboard'); 
     }
@@ -4308,6 +4278,7 @@
     document.getElementById('mainApp').classList.add('hidden-view');
     
     restoreLastServerChoice();
+    loadServerForcePref();
     
     try {
       await bootSDK();
