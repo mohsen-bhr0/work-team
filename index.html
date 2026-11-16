@@ -1166,7 +1166,7 @@
         <div class="bg-slate-800 p-5 rounded-3xl border border-slate-700 shadow-sm"><div class="flex items-center gap-2 mb-2"><i data-lucide="pause-circle" class="w-4 h-4 text-rose-400"></i><span class="text-[10px] text-slate-400" data-i18n="suspended">موقوفة</span></div><div id="saSuspendedCompanies" class="text-2xl font-black text-rose-500">0</div></div>
         <div class="bg-slate-800 p-5 rounded-3xl border border-slate-700 shadow-sm"><div class="flex items-center gap-2 mb-2"><i data-lucide="users" class="w-4 h-4 text-amber-400"></i><span class="text-[10px] text-slate-400" data-i18n="all_users">كل المستخدمين</span></div><div id="saTotalUsers" class="text-2xl font-black text-amber-500">0</div></div>
       </div>
-      <div class="bg-slate-800 p-5 rounded-3xl border border-slate-700 shadow-sm">
+      <div class="bg-slate-800 p-5 rounded-3xl border border-slate-700 shadow-sm space-y-4">
         <div class="flex items-center justify-between gap-4 flex-wrap">
           <div class="flex items-center gap-3">
             <div class="w-11 h-11 rounded-2xl bg-cyan-500/15 border border-cyan-600/50 flex items-center justify-center shrink-0">
@@ -1174,15 +1174,42 @@
             </div>
             <div>
               <h4 class="font-bold text-sm text-white" data-i18n="server_force_title">التحكم في تسجيل الشركات الجديدة</h4>
-              <p class="text-[10px] text-slate-400 mt-0.5 max-w-md" data-i18n="server_force_sub">لو سيرفر USA ممتلئ، خلّي اختيار Vodfire EG إجباري عند إنشاء شركة جديدة.</p>
+              <p class="text-[10px] text-slate-400 mt-0.5 max-w-md" data-i18n="server_force_sub">تحكم في السيرفر الإجباري عند إنشاء شركة جديدة مع ترك رسالة مخصصة توضح سبب عدم توفر السيرفر الآخر.</p>
             </div>
           </div>
-          <div class="flex items-center gap-3">
-            <span class="text-xs font-bold text-slate-300" data-i18n="server_force_label">إجبارية اختيار السيرفر الثاني</span>
-            <button id="serverForceToggle" class="sa-switch" onclick="toggleServerForce()" title="تفعيل / إيقاف"></button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2 border-t border-slate-700/70">
+          <!-- خيار إجبار السيرفر الأول (USA) -->
+          <div class="p-3.5 bg-slate-900 rounded-2xl border border-slate-700 flex items-center justify-between gap-3">
+            <div>
+              <div class="text-xs font-bold text-cyan-400 flex items-center gap-1.5"><i data-lucide="server" class="w-3.5 h-3.5"></i> <span data-i18n="server_force_1_label">إجبارية اختيار السيرفر الأول (Vodfire USA)</span></div>
+              <div class="text-[10px] text-slate-400 mt-0.5" data-i18n="server_force_1_desc">يُغلق السيرفر الثاني ويُجبر التسجيل على USA</div>
+            </div>
+            <button id="serverForce1Toggle" class="sa-switch" onclick="toggleServerForceMode('server1')" title="تفعيل / إيقاف"></button>
+          </div>
+
+          <!-- خيار إجبار السيرفر الثاني (EG) -->
+          <div class="p-3.5 bg-slate-900 rounded-2xl border border-slate-700 flex items-center justify-between gap-3">
+            <div>
+              <div class="text-xs font-bold text-amber-400 flex items-center gap-1.5"><i data-lucide="server" class="w-3.5 h-3.5"></i> <span data-i18n="server_force_2_label">إجبارية اختيار السيرفر الثاني (Vodfire EG)</span></div>
+              <div class="text-[10px] text-slate-400 mt-0.5" data-i18n="server_force_2_desc">يُغلق السيرفر الأول ويُجبر التسجيل على EG</div>
+            </div>
+            <button id="serverForce2Toggle" class="sa-switch" onclick="toggleServerForceMode('server2')" title="تفعيل / إيقاف"></button>
           </div>
         </div>
-        <p id="serverForceHint" class="text-[10px] mt-3 text-slate-500" data-i18n="server_force_hint_off">متوقف: صاحب الشركة يختار أي سيرفر بحرية.</p>
+
+        <!-- خانة كتابة الرسالة وحفظها -->
+        <div class="pt-2 border-t border-slate-700/70 space-y-2">
+          <label class="block text-xs font-bold text-slate-300" data-i18n="server_force_msg_label">رسالة توضيحية للعميل (لماذا السيرفر الآخر غير متاح):</label>
+          <div class="flex flex-col sm:flex-row gap-2">
+            <input type="text" id="serverForceCustomMsgInput" placeholder="مثال: السيرفر ممتلئ حالياً، يرجى التسجيل على السيرفر المتاح..." class="flex-1 px-3.5 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-xs text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+            <button type="button" onclick="saveServerForceConfigToCloud()" class="px-5 py-2.5 brand-gradient text-white font-bold rounded-xl text-xs cursor-pointer flex items-center justify-center gap-1.5 shrink-0 shadow-md">
+              <i data-lucide="save" class="w-3.5 h-3.5"></i> <span data-i18n="save_server_policy">حفظ وربط بالسيرفر</span>
+            </button>
+          </div>
+          <p id="serverForceHint" class="text-[10px] text-slate-400" data-i18n="server_force_hint_off">متوقف: صاحب الشركة يختار أي سيرفر بحرية.</p>
+        </div>
       </div>
       <div class="bg-slate-800 rounded-3xl border border-slate-700 overflow-hidden shadow-sm">
         <div class="p-4 border-b border-slate-700 flex items-center justify-between flex-wrap gap-2">
@@ -1523,12 +1550,18 @@
       msg_logout_prompt: "تم تسجيل الخروج",
       msg_clear_cache: "تم مسح الكاش",
       server_force_title: "التحكم في تسجيل الشركات الجديدة",
-      server_force_sub: "لو سيرفر USA ممتلئ، خلّي اختيار Vodfire EG إجباري عند إنشاء شركة جديدة (شاشة التسجيل فقط، الدخول العادي لا يتأثر).",
-      server_force_label: "إجبارية اختيار السيرفر الثاني",
-      server_force_hint_on: "مفعّل: عند إنشاء شركة جديدة لازم يختار Vodfire EG.",
+      server_force_sub: "تحكم في السيرفر الإجباري عند إنشاء شركة جديدة مع ترك رسالة مخصصة توضح سبب عدم توفر السيرفر الآخر.",
+      server_force_1_label: "إجبارية اختيار السيرفر الأول (Vodfire USA)",
+      server_force_1_desc: "يُغلق السيرفر الثاني ويُجبر التسجيل على USA",
+      server_force_2_label: "إجبارية اختيار السيرفر الثاني (Vodfire EG)",
+      server_force_2_desc: "يُغلق السيرفر الأول ويُجبر التسجيل على EG",
+      server_force_msg_label: "رسالة توضيحية للعميل (لماذا السيرفر الآخر غير متاح):",
+      save_server_policy: "حفظ وربط بالسيرفر",
+      server_force_hint_on_1: "مفعّل (إجباري USA): الشركات الجديدة تُسجل على Vodfire USA فقط.",
+      server_force_hint_on_2: "مفعّل (إجباري EG): الشركات الجديدة تُسجل على Vodfire EG فقط.",
       server_force_hint_off: "متوقف: صاحب الشركة يختار أي سيرفر بحرية.",
-      msg_server_forced: "⚠️ إدارة المنصة أجبرت التسجيل على السيرفر: ",
-      msg_server_forced_pick: "من فضلك اختار الخادم المحدد من الإدارة.",
+      msg_server_forced: "⚠️ التسجيل متاح حالياً فقط على: ",
+      msg_server_forced_pick: "من فضلك اختار الخادم المتاح المحدد من الإدارة.",
       feat_section_title: "مميزات المنصة",
       feat_section_sub: "مشهد حي لفكرة المنصة: فريق بيشتغل، حضور بالبصمة، وإشعارات لحظية",
       faq_title: "الأسئلة الشائعة",
@@ -1707,12 +1740,18 @@
       msg_logout_prompt: "Logged out",
       msg_clear_cache: "Cache cleared",
       server_force_title: "New Company Registration Control",
-      server_force_sub: "If the USA server is full, force choosing Vodfire EG when creating a new company (registration screen only, normal login is unaffected).",
-      server_force_label: "Force second server choice",
-      server_force_hint_on: "Enabled: new companies must choose Vodfire EG.",
+      server_force_sub: "Force a specific server for new company registrations and display a custom reason message.",
+      server_force_1_label: "Force First Server (Vodfire USA)",
+      server_force_1_desc: "Locks EG server and forces USA registration",
+      server_force_2_label: "Force Second Server (Vodfire EG)",
+      server_force_2_desc: "Locks USA server and forces EG registration",
+      server_force_msg_label: "Custom message to client (why the other server is unavailable):",
+      save_server_policy: "Save & Sync to Server",
+      server_force_hint_on_1: "Enabled (USA Forced): New companies register on Vodfire USA only.",
+      server_force_hint_on_2: "Enabled (EG Forced): New companies register on Vodfire EG only.",
       server_force_hint_off: "Disabled: company owners pick any server freely.",
-      msg_server_forced: "⚠️ Platform management forced registration on server: ",
-      msg_server_forced_pick: "Please pick the server specified by administration.",
+      msg_server_forced: "⚠️ Registration is currently restricted to: ",
+      msg_server_forced_pick: "Please pick the available server specified by administration.",
       feat_section_title: "Platform Features",
       feat_section_sub: "A live scene of the platform idea: a working team, face attendance, and instant notifications",
       faq_title: "Frequently Asked Questions",
@@ -1891,12 +1930,18 @@
       msg_logout_prompt: "Disconnesso",
       msg_clear_cache: "Cache cancellata",
       server_force_title: "Controllo Registrazione Nuove Aziende",
-      server_force_sub: "Se il server USA è pieno, rendi obbligatoria la scelta di Vodfire EG durante la creazione di una nuova azienda (solo schermata di registrazione, il login normale non cambia).",
-      server_force_label: "Obbligo scelta secondo server",
-      server_force_hint_on: "Attivo: le nuove aziende devono scegliere Vodfire EG.",
+      server_force_sub: "Imponi un server specifico per le nuove registrazioni con un messaggio personalizzato.",
+      server_force_1_label: "Obbligo Primo Server (Vodfire USA)",
+      server_force_1_desc: "Blocca EG e impone registrazione su USA",
+      server_force_2_label: "Obbligo Secondo Server (Vodfire EG)",
+      server_force_2_desc: "Blocca USA e impone registrazione su EG",
+      server_force_msg_label: "Messaggio personalizzato (perché l'altro server non è disponibile):",
+      save_server_policy: "Salva e Sincronizza",
+      server_force_hint_on_1: "Attivo (USA Obbligatorio): Nuove aziende solo su Vodfire USA.",
+      server_force_hint_on_2: "Attivo (EG Obbligatorio): Nuove aziende solo su Vodfire EG.",
       server_force_hint_off: "Disattivato: i proprietari scelgono liberamente.",
-      msg_server_forced: "⚠️ L'amministrazione ha imposto il server: ",
-      msg_server_forced_pick: "Scegli il server indicato dall'amministrazione.",
+      msg_server_forced: "⚠️ Registrazione limitata attualmente a: ",
+      msg_server_forced_pick: "Scegli il server disponibile indicato dall'amministrazione.",
       feat_section_title: "Funzionalità della Piattaforma",
       feat_section_sub: "Una scena vivace dell'idea: un team che lavora, presenza col volto e notifiche istantanee",
       faq_title: "Domande Frequenti",
@@ -1947,43 +1992,192 @@
   let isOnline = navigator.onLine;
   let faceStream = null, isFaceModelLoaded = false, faceDescriptor = null;
   let currentWizardStep = 1;
-  let serverForceEnabled = false;
-  const SERVER_FORCE_KEY = 'vodfire_server_force';
+  // 🎯 حالة التحكم في إجبارية السيرفر (مربوطة بالسيرفر فعلياً)
+  let serverForceState = {
+    forcedServer: 'none', // 'none' | 'server1' | 'server2'
+    customMessage: ''
+  };
+  const SERVER_POLICY_DOC_ID = 'vf_global_server_policy';
+  const SERVER_FORCE_KEY = 'vodfire_server_force_cfg';
 
-  function loadServerForcePref() {
-    try { serverForceEnabled = localStorage.getItem(SERVER_FORCE_KEY) === '1'; } catch(e) { serverForceEnabled = false; }
+  function loadLocalServerForcePref() {
+    try {
+      const raw = localStorage.getItem(SERVER_FORCE_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed && typeof parsed === 'object') {
+          serverForceState.forcedServer = parsed.forcedServer || 'none';
+          serverForceState.customMessage = parsed.customMessage || '';
+        }
+      }
+    } catch(e) {}
     updateServerForceUI();
   }
+
+  async function fetchServerForceConfigFromCloud() {
+    loadLocalServerForcePref();
+    if (!cloudReady) return;
+    const targets = [
+      { dbs: masterDatabases, cfg: MASTER_CFG },
+      { dbs: server2Databases, cfg: SERVER2_CFG }
+    ];
+    for (const target of targets) {
+      try {
+        const doc = await target.dbs.getDocument(target.cfg.databaseId, target.cfg.collectionId, SERVER_POLICY_DOC_ID);
+        const p = safeParse(doc.Payload);
+        if (p && (p.forcedServer === 'none' || p.forcedServer === 'server1' || p.forcedServer === 'server2')) {
+          serverForceState.forcedServer = p.forcedServer;
+          serverForceState.customMessage = p.customMessage || '';
+          try { localStorage.setItem(SERVER_FORCE_KEY, JSON.stringify(serverForceState)); } catch(e) {}
+          updateServerForceUI();
+          applyServerForceToWizard();
+          return;
+        }
+      } catch(e) {
+        try {
+          const res = await target.dbs.listDocuments(target.cfg.databaseId, target.cfg.collectionId, [
+            SDK.Query.equal('entitytype', 'SERVER_POLICY'),
+            SDK.Query.limit(1)
+          ]);
+          if (res.documents && res.documents.length > 0) {
+            const p = safeParse(res.documents[0].Payload);
+            serverForceState.forcedServer = p.forcedServer || 'none';
+            serverForceState.customMessage = p.customMessage || '';
+            try { localStorage.setItem(SERVER_FORCE_KEY, JSON.stringify(serverForceState)); } catch(e) {}
+            updateServerForceUI();
+            applyServerForceToWizard();
+            return;
+          }
+        } catch(e2) {}
+      }
+    }
+  }
+
   function updateServerForceUI() {
-    const btn = document.getElementById('serverForceToggle');
+    const btn1 = document.getElementById('serverForce1Toggle');
+    const btn2 = document.getElementById('serverForce2Toggle');
+    const msgInput = document.getElementById('serverForceCustomMsgInput');
     const hint = document.getElementById('serverForceHint');
-    if (!btn) return;
-    btn.classList.toggle('on', serverForceEnabled);
-    if (hint) hint.textContent = serverForceEnabled ? t('server_force_hint_on') : t('server_force_hint_off');
+    if (btn1) btn1.classList.toggle('on', serverForceState.forcedServer === 'server1');
+    if (btn2) btn2.classList.toggle('on', serverForceState.forcedServer === 'server2');
+    if (msgInput && document.activeElement !== msgInput) {
+      msgInput.value = serverForceState.customMessage || '';
+    }
+    if (hint) {
+      if (serverForceState.forcedServer === 'server1') hint.textContent = t('server_force_hint_on_1');
+      else if (serverForceState.forcedServer === 'server2') hint.textContent = t('server_force_hint_on_2');
+      else hint.textContent = t('server_force_hint_off');
+    }
   }
-  function toggleServerForce() {
-    serverForceEnabled = !serverForceEnabled;
-    try { localStorage.setItem(SERVER_FORCE_KEY, serverForceEnabled ? '1' : '0'); } catch(e){}
+
+  async function toggleServerForceMode(targetServer) {
+    if (serverForceState.forcedServer === targetServer) {
+      serverForceState.forcedServer = 'none';
+    } else {
+      serverForceState.forcedServer = targetServer;
+    }
     updateServerForceUI();
+    await saveServerForceConfigToCloud(true);
   }
+
+  async function saveServerForceConfigToCloud(silent = false) {
+    const msgInput = document.getElementById('serverForceCustomMsgInput');
+    if (msgInput) {
+      serverForceState.customMessage = msgInput.value.trim();
+    }
+    try { localStorage.setItem(SERVER_FORCE_KEY, JSON.stringify(serverForceState)); } catch(e) {}
+    updateServerForceUI();
+
+    if (!cloudReady) await bootSDK();
+    const payloadObj = {
+      entitytype: 'SERVER_POLICY',
+      forcedServer: serverForceState.forcedServer,
+      customMessage: serverForceState.customMessage,
+      updatedAt: new Date().toISOString()
+    };
+    const docBody = {
+      entitytype: 'SERVER_POLICY',
+      Payload: JSON.stringify(payloadObj),
+      Username: currentUser?.name || 'SuperAdmin',
+      userEmail: currentUser?.email || SUPER_ADMIN_EMAIL,
+      companyId: 'GLOBAL_POLICY',
+      CompanyCode: 'global',
+      Status: 'active',
+      createdAt: new Date().toISOString()
+    };
+
+    const targets = [
+      { dbs: masterDatabases, cfg: MASTER_CFG },
+      { dbs: server2Databases, cfg: SERVER2_CFG }
+    ];
+    let savedCount = 0;
+    for (const target of targets) {
+      try {
+        await target.dbs.updateDocument(target.cfg.databaseId, target.cfg.collectionId, SERVER_POLICY_DOC_ID, {
+          Payload: JSON.stringify(payloadObj),
+          createdAt: new Date().toISOString()
+        });
+        savedCount++;
+      } catch(e) {
+        try {
+          await target.dbs.createDocument(target.cfg.databaseId, target.cfg.collectionId, SERVER_POLICY_DOC_ID, docBody);
+          savedCount++;
+        } catch(e2) {
+          console.warn('Sync policy error on server:', e2);
+        }
+      }
+    }
+
+    if (savedCount > 0) {
+      toast('✅ ' + t('msg_saved'));
+    } else if (!silent) {
+      alert('⚠️ تعذر الحفظ على السيرفر، تأكد من صلاحيات Collection في Appwrite.');
+    }
+  }
+
   function applyServerForceToWizard() {
-    const s2 = document.querySelector('input[name="regServer"][value="server2"]');
     const s1 = document.querySelector('input[name="regServer"][value="server1"]');
+    const s2 = document.querySelector('input[name="regServer"][value="server2"]');
+    const s1Card = s1?.nextElementSibling;
+    const s2Card = s2?.nextElementSibling;
     const warn = document.getElementById('regServerForceNote');
-    if (serverForceEnabled) {
-      if (s2) s2.checked = true;
-      if (s1) s1.disabled = true;
-      if (!warn) {
-        const note = document.createElement('p');
+    if (warn) warn.remove();
+
+    const mode = serverForceState.forcedServer;
+    if (mode === 'server1' || mode === 'server2') {
+      const forcedRadio = mode === 'server1' ? s1 : s2;
+      const disabledRadio = mode === 'server1' ? s2 : s1;
+      const disabledCard = mode === 'server1' ? s2Card : s1Card;
+      const enabledCard = mode === 'server1' ? s1Card : s2Card;
+      const forcedName = mode === 'server1' ? 'Vodfire USA' : 'Vodfire EG';
+
+      if (forcedRadio) { forcedRadio.disabled = false; forcedRadio.checked = true; }
+      if (disabledRadio) { disabledRadio.checked = false; disabledRadio.disabled = true; }
+      if (disabledCard) { disabledCard.classList.add('opacity-40', 'cursor-not-allowed'); }
+      if (enabledCard) { enabledCard.classList.remove('opacity-40', 'cursor-not-allowed'); }
+
+      const box = document.querySelector('#registerForm .server-option')?.closest('.p-3');
+      if (box) {
+        const note = document.createElement('div');
         note.id = 'regServerForceNote';
-        note.className = 'text-[10px] text-rose-400 mt-2 flex items-center gap-1';
-        note.innerHTML = '<i data-lucide="lock" class="w-3 h-3 shrink-0"></i><span>' + t('msg_server_forced') + 'Vodfire EG</span>';
-        const box = document.querySelector('#registerForm .server-option')?.closest('.p-3');
-        if (box) box.appendChild(note);
+        note.className = 'mt-2.5 p-2.5 rounded-xl bg-rose-950/60 border border-rose-700/70 text-[11px] text-rose-300 space-y-1';
+        const customText = serverForceState.customMessage
+          ? `<div class="text-amber-300 font-bold leading-relaxed">💬 ${escapeHtml(serverForceState.customMessage)}</div>`
+          : '';
+        note.innerHTML = `
+          <div class="flex items-center gap-1.5 font-bold text-rose-400">
+            <i data-lucide="lock" class="w-3.5 h-3.5 shrink-0"></i>
+            <span>${t('msg_server_forced')}${forcedName}</span>
+          </div>
+          ${customText}
+        `;
+        box.appendChild(note);
       }
     } else {
       if (s1) s1.disabled = false;
-      if (warn) warn.remove();
+      if (s2) s2.disabled = false;
+      if (s1Card) s1Card.classList.remove('opacity-40', 'cursor-not-allowed');
+      if (s2Card) s2Card.classList.remove('opacity-40', 'cursor-not-allowed');
     }
     lucide.createIcons();
   }
@@ -2172,7 +2366,9 @@
       const industry = document.getElementById('wizCompanyIndustry').value;
       const serverChoice = document.querySelector('input[name="regServer"]:checked');
       if (!serverChoice) return alert(t('msg_choose_server'));
-      if (serverForceEnabled && serverChoice.value !== 'server2') return alert(t('msg_server_forced_pick'));
+      if (serverForceState.forcedServer !== 'none' && serverChoice.value !== serverForceState.forcedServer) {
+        return alert((serverForceState.customMessage ? serverForceState.customMessage + '\n\n' : '') + t('msg_server_forced_pick'));
+      }
       if (!name) return alert(t('msg_required_fields'));
       if (industry === 'other') {
         const other = document.getElementById('wizCompanyIndustryOther').value.trim();
@@ -2278,6 +2474,7 @@
       lb.className='flex-1 py-3.5 text-sm font-bold text-slate-400 border-b-2 border-transparent cursor-pointer'; 
       showWizardStep(1);
       applyServerForceToWizard();
+      fetchServerForceConfigFromCloud();
     }
     lucide.createIcons();
   }
@@ -2326,7 +2523,7 @@
     
     let targetServerId = getSelectedServer('register');
     if (!targetServerId) return showAuthError(t('msg_choose_server'));
-    if (serverForceEnabled) targetServerId = 'server2';
+    if (serverForceState.forcedServer !== 'none') targetServerId = serverForceState.forcedServer;
     
     if (!/^[a-z0-9]{3,20}$/.test(c)) return showAuthError(t('msg_code_format'));
     if (!/^[a-z0-9]{3,30}$/.test(u)) return showAuthError(t('msg_user_format'));
@@ -3083,7 +3280,7 @@
     renderNotificationsBadge();
     
     if (isSA && !currentUser._impersonating) { 
-      switchTab('superadmin'); renderSuperAdminCompanies(); renderServersList(); loadServerForcePref();
+      switchTab('superadmin'); renderSuperAdminCompanies(); renderServersList(); fetchServerForceConfigFromCloud();
     } else { 
       switchTab('dashboard'); 
     }
@@ -4278,7 +4475,7 @@
     document.getElementById('mainApp').classList.add('hidden-view');
     
     restoreLastServerChoice();
-    loadServerForcePref();
+    fetchServerForceConfigFromCloud();
     
     try {
       await bootSDK();
